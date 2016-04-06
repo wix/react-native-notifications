@@ -1,0 +1,32 @@
+{
+  "name": "react-native-notifications",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wix-private/react-native-notifications.git"
+  },
+  "version": "0.0.1",
+  "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
+  "keywords": [
+    "react-component",
+    "react-native",
+    "ios",
+    "push-notifications"
+  ],
+  "nativePackage": true,
+  "peerDependencies": {
+    "react-native": ">=0.19.0"
+  },
+  "homepage": "https://github.com/wix-private/react-native-notifications",
+  "bugs": {
+    "url": "https://github.com/wix-private/react-native-notifications/issues"
+  },
+  "dependencies": {
+    "core-js": "^1.0.0"
+  },
+  "author": "Lidan Hifi <lidanh@wix.com>",
+  "main": "index.js",
+  "license": "MIT"
+}
