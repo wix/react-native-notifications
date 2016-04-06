@@ -2,18 +2,18 @@
 #import <UIKit/UIKit.h>
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
-#import "SmartNotifications.h"
+#import "RNNotifications.h"
 
 #import "RCTUtils.h"
 
-NSString *const SmartNotificationCreateAction = @"CREATE";
-NSString *const SmartNotificationClearAction = @"CLEAR";
+NSString *const RNNotificationCreateAction = @"CREATE";
+NSString *const RNNotificationClearAction = @"CLEAR";
 
-NSString *const SmartNotificationReceivedForeground = @"SmartNotificationReceivedForeground";
-NSString *const SmartNotificationReceivedBackground = @"SmartNotificationReceivedBackground";
-NSString *const SmartNotificationOpened = @"SmartNotificationOpened";
+NSString *const RNNotificationReceivedForeground = @"RNNotificationReceivedForeground";
+NSString *const RNNotificationReceivedBackground = @"RNNotificationReceivedBackground";
+NSString *const RNNotificationOpened = @"RNNotificationOpened";
 
-@implementation SmartNotifications
+@implementation RNNotifications
 
 RCT_EXPORT_MODULE()
 
@@ -29,20 +29,20 @@ static NSString* username;
 - (void)setBridge:(RCTBridge *)bridge
 {
     _bridge = bridge;
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleNotificationReceivedForeground:)
-                                                 name:SmartNotificationReceivedForeground
+                                                 name:RNNotificationReceivedForeground
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleNotificationReceivedBackground:)
-                                                 name:SmartNotificationReceivedBackground
+                                                 name:RNNotificationReceivedBackground
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleNotificationOpened:)
-                                                 name:SmartNotificationOpened
+                                                 name:RNNotificationOpened
                                                object:nil];
 }
 
@@ -52,7 +52,7 @@ static NSString* username;
 + (void)didReceiveRemoteNotification:(NSDictionary *)notification
 {
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
-    
+
     if (state == UIApplicationStateActive) {
         [self didReceiveNotificationOnForegroundState:notification];
     } else if (state == UIApplicationStateInactive) {
@@ -65,7 +65,7 @@ static NSString* username;
 + (void)didReceiveLocalNotification:(UILocalNotification *)notification
 {
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
-    
+
     if (state == UIApplicationStateInactive) {
         NSString* notificationId = [notification.userInfo objectForKey:@"notificationId"];
         if (notificationId) {
@@ -80,7 +80,7 @@ static NSString* username;
  */
 + (void)didReceiveNotificationOnForegroundState:(NSDictionary *)notification
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:SmartNotificationReceivedForeground
+    [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationReceivedForeground
                                                         object:self
                                                       userInfo:notification];
 }
@@ -94,24 +94,24 @@ static NSString* username;
 
     if (action) {
         // create or delete notification
-        if ([action isEqualToString: SmartNotificationCreateAction]
+        if ([action isEqualToString: RNNotificationCreateAction]
             && notificationId
             && alert) {
             [self dispatchLocalNotificationFromNotification:notification];
-            
-        } else if ([action isEqualToString: SmartNotificationClearAction] && notificationId) {
+
+        } else if ([action isEqualToString: RNNotificationClearAction] && notificationId) {
             [self clearNotificationFromNotificationsCenter:notificationId];
         }
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:SmartNotificationReceivedBackground
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationReceivedBackground
                                                         object:self
                                                       userInfo:notification];
 }
 
 + (void)didNotificationOpen:(NSDictionary *)notification
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:SmartNotificationOpened
+    [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationOpened
                                                         object:self
                                                       userInfo:notification];
 }
@@ -126,27 +126,27 @@ static NSString* username;
     NSDictionary* alert = [customData objectForKey:@"alert"];
     NSString* action = [customData objectForKey:@"action"];
     NSString* notificationId = [customData objectForKey:@"notificationId"];
-    
-    if ([action isEqualToString: SmartNotificationCreateAction]
+
+    if ([action isEqualToString: RNNotificationCreateAction]
         && notificationId
         && alert) {
-    
+
         // trigger new client push notification
         UILocalNotification* note = [[UILocalNotification alloc] init];
         note.alertTitle = [alert objectForKey:@"title"];
         note.alertBody = [alert objectForKey:@"body"];
         note.userInfo = customData;
         note.soundName = [customData objectForKey:@"sound"];
-    
+
         NSLog(@"Presenting local notification...");
         [[UIApplication sharedApplication] presentLocalNotificationNow:note];
-    
+
         // Serialize it and store so we can delete it later
         NSData* data = [NSKeyedArchiver archivedDataWithRootObject:note];
         NSString* notificationKey = [self buildNotificationKeyfromNotification:notificationId];
         [[NSUserDefaults standardUserDefaults] setObject:data forKey:notificationKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
-    
+
         NSLog(@"Local notification was triggered: %@", notificationKey);
     }
 }
@@ -158,11 +158,11 @@ static NSString* username;
     if (data) {
         UILocalNotification* notification = [NSKeyedUnarchiver unarchiveObjectWithData: data];
         NSLog(@"Remove local notification: %@", notificationKey);
-        
+
         // delete the notification
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:notificationKey];
-        
+
         return;
     }
 }
@@ -193,12 +193,12 @@ static NSString* username;
 
 RCT_EXPORT_METHOD(dispatchLocalNotificationFromNotification:(NSDictionary *)notification)
 {
-    [SmartNotifications dispatchLocalNotificationFromNotification:notification];
+    [RNNotifications dispatchLocalNotificationFromNotification:notification];
 }
 
 RCT_EXPORT_METHOD(clearNotificationFromNotificationsCenter:(NSString *)notificationId)
 {
-    [SmartNotifications clearNotificationFromNotificationsCenter:notificationId];
+    [RNNotifications clearNotificationFromNotificationsCenter:notificationId];
 }
 
 @end

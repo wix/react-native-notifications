@@ -12,17 +12,17 @@ import React, {
   PushNotificationIOS
 } from 'react-native';
 
-import SmartNotificationsIOS from 'react-native-smart-notifications';
+import NotificationsIOS from 'react-native-notifications';
 
-class SmartNotificationsApp extends Component {
+class NotificationsExampleApp extends Component {
 
   constructor() {
     super();
     PushNotificationIOS.addEventListener('register', this.onPushRegistered.bind(this));
     // PushNotificationIOS.addEventListener('notification', this.onPushNotification.bind(this));
-    SmartNotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
-    SmartNotificationsIOS.addEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
-    SmartNotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
+    NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
+    NotificationsIOS.addEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
+    NotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
   }
 
   onPushRegistered(deviceToken) {
@@ -51,7 +51,7 @@ class SmartNotificationsApp extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to Smart Notifications Demo App!
+          Welcome to React Native Notifications Demo App!
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.ios.js
@@ -65,9 +65,9 @@ class SmartNotificationsApp extends Component {
   }
 
   componentWillUnmount() {
-    SmartNotificationsIOS.removeEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
-    SmartNotificationsIOS.removeEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
-    SmartNotificationsIOS.removeEventListener('notificationOpened', this.onNotificationOpened.bind(this));
+    NotificationsIOS.removeEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
+    NotificationsIOS.removeEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
+    NotificationsIOS.removeEventListener('notificationOpened', this.onNotificationOpened.bind(this));
   }
 
   _onNotification(notification) {
@@ -101,4 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('SmartNotificationsApp', () => SmartNotificationsApp);
+AppRegistry.registerComponent('NotificationsExampleApp', () => NotificationsExampleApp);

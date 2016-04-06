@@ -1,11 +1,11 @@
 /**
- * @providesModule SmartNotifications
+ * @providesModule RNNotifications
  * @flow
  */
 'use strict';
 import { NativeModules, DeviceEventEmitter } from 'react-native';
 import Map from 'core-js/library/es6/map';
-var NativeSmartNotifications = NativeModules.SmartNotifications;
+var NativeRNNotifications = NativeModules.RNNotifications;
 
 var DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT = 'notificationReceivedForeground';
 var DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT = 'notificationReceivedBackground';
@@ -13,7 +13,7 @@ var DEVICE_NOTIFICATION_OPENED_EVENT = 'notificationOpened';
 
 var _notificationHandlers = new Map();
 
-class SmartNotificationsIOS {
+class NotificationsIOS {
   /**
    * Attaches a listener to remote notification events while the app is running
    * in the foreground or the background.
@@ -58,4 +58,4 @@ class SmartNotificationsIOS {
   }
 }
 
-module.exports = SmartNotificationsIOS;
+module.exports = NotificationsIOS;

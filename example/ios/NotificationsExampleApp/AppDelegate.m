@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "RCTPushNotificationManager.h"
 #import "RCTRootView.h"
-#import "SmartNotifications.h"
+#import "RNNotifications.h"
 
 @implementation AppDelegate
 
@@ -45,7 +45,7 @@
 //   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"SmartNotificationsApp"
+                                                      moduleName:@"NotificationsExampleApp"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
 
@@ -72,13 +72,13 @@
 // Required for the notification event.
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification
 {
-  [SmartNotifications didReceiveRemoteNotification:notification];
+  [RNNotifications didReceiveRemoteNotification:notification];
 }
 
 // Required for the localNotification event.
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-  [SmartNotifications didReceiveLocalNotification:notification];
+  [RNNotifications didReceiveLocalNotification:notification];
 }
 
 

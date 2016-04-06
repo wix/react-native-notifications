@@ -11,12 +11,12 @@ import React, {
   View
 } from 'react-native';
 
-class SmartNotificationsApp extends Component {
+class NotificationsExampleApp extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Welcome to React Native Notifications Demo App!
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.android.js
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('SmartNotificationsApp', () => SmartNotificationsApp);
+AppRegistry.registerComponent('NotificationsExampleApp', () => NotificationsExampleApp);
