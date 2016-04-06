@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/wix-private/react-native-notifications.git"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
   "keywords": [
     "react-component",
@@ -26,7 +26,7 @@
   "dependencies": {
     "core-js": "^1.0.0"
   },
-  "author": "Lidan Hifi <lidanh@wix.com>",
-  "main": "index.js",
+  "author": "Lidan Hifi <lidan.hifi@gmail.com>",
+  "main": "index.ios.js",
   "license": "MIT"
 }

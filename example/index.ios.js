@@ -19,7 +19,7 @@ class NotificationsExampleApp extends Component {
   constructor() {
     super();
     PushNotificationIOS.addEventListener('register', this.onPushRegistered.bind(this));
-    // PushNotificationIOS.addEventListener('notification', this.onPushNotification.bind(this));
+
     NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
     NotificationsIOS.addEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
     NotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
@@ -39,10 +39,6 @@ class NotificationsExampleApp extends Component {
 
   onNotificationOpened(notification) {
     console.log("Notification Opened: " + JSON.stringify(notification));
-  }
-
-  onPushNotification(notification) {
-    console.log("Notification Received: " + JSON.stringify(notification));
   }
 
   render() {
