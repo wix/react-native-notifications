@@ -5,9 +5,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wix-private/react-native-notifications.git"
+    "url": "https://github.com/wix/react-native-notifications.git"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
   "keywords": [
     "react-component",
@@ -19,9 +19,9 @@
   "peerDependencies": {
     "react-native": ">=0.19.0"
   },
-  "homepage": "https://github.com/wix-private/react-native-notifications",
+  "homepage": "https://github.com/wix/react-native-notifications",
   "bugs": {
-    "url": "https://github.com/wix-private/react-native-notifications/issues"
+    "url": "https://github.com/wix/react-native-notifications/issues"
   },
   "dependencies": {
     "core-js": "^1.0.0"
