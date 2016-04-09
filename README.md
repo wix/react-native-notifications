@@ -5,7 +5,7 @@ Handle push notifications for your app, including remote and local notifications
 
 ## TODO
 - Add tests + CI support.
-- Return unified notification object for regular & manager notifications.
+- Return unified notification object for regular & managed notifications.
 - Add permissions management.
 - Add interactive notifications support.
 - Better support of local notifications.
