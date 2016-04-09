@@ -1,5 +1,38 @@
 {
   "name": "react-native-notifications",
+  "version": "0.0.5",
+  "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
+  "author": "Lidan Hifi <lidan.hifi@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "react-component",
+    "react-native",
+    "react native",
+    "ios",
+    "push-notifications",
+    "notifications",
+    "notification",
+    "react native notifications"
+  ],
+  "nativePackage": true,
+  "dependencies": {
+    "core-js": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react-native": ">=0.19.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.0.2",
+    "chai": "^3.5.0",
+    "chokidar-cli": "^1.2.0",
+    "eslint": "^2.7.0",
+    "mocha": "^2.4.5"
+  },
+  "scripts": {
+    "pretest": "./node_modules/.bin/eslint *.js test",
+    "test": "./node_modules/.bin/mocha --reporter spec \"test/*.spec.js\"",
+    "start": "npm run test --silent; ./node_modules/.bin/chokidar \"test/*.js\" \"*.js\" -c 'npm run test --silent' --silent"
+  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -7,26 +40,9 @@
     "type": "git",
     "url": "https://github.com/wix/react-native-notifications.git"
   },
-  "version": "0.0.5",
-  "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
-  "keywords": [
-    "react-component",
-    "react-native",
-    "ios",
-    "push-notifications"
-  ],
-  "nativePackage": true,
-  "peerDependencies": {
-    "react-native": ">=0.19.0"
-  },
   "homepage": "https://github.com/wix/react-native-notifications",
   "bugs": {
     "url": "https://github.com/wix/react-native-notifications/issues"
   },
-  "dependencies": {
-    "core-js": "^1.0.0"
-  },
-  "author": "Lidan Hifi <lidan.hifi@gmail.com>",
-  "main": "index.ios.js",
-  "license": "MIT"
+  "main": "index.ios.js"
 }

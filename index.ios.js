@@ -2,14 +2,14 @@
  * @providesModule RNNotifications
  * @flow
  */
-'use strict';
-import { NativeModules, DeviceEventEmitter } from 'react-native';
-import Map from 'core-js/library/es6/map';
-var NativeRNNotifications = NativeModules.RNNotifications;
+"use strict";
+import { NativeModules, DeviceEventEmitter } from "react-native";
+import Map from "core-js/library/es6/map";
+var NativeRNNotifications = NativeModules.RNNotifications; // eslint-disable-line no-unused-vars
 
-var DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT = 'notificationReceivedForeground';
-var DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT = 'notificationReceivedBackground';
-var DEVICE_NOTIFICATION_OPENED_EVENT = 'notificationOpened';
+var DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT = "notificationReceivedForeground";
+var DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT = "notificationReceivedBackground";
+var DEVICE_NOTIFICATION_OPENED_EVENT = "notificationOpened";
 
 var _notificationHandlers = new Map();
 
@@ -28,14 +28,14 @@ class NotificationsIOS {
     if (type === DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT ||
         type === DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT ||
         type === DEVICE_NOTIFICATION_OPENED_EVENT) {
-          var listener = DeviceEventEmitter.addListener(
-            type,
-            (notification) => {
-              handler(notification);
-            }
-          );
+      var listener = DeviceEventEmitter.addListener(
+        type,
+        (notification) => {
+          handler(notification);
+        }
+      );
 
-          _notificationHandlers.set(handler, listener);
+      _notificationHandlers.set(handler, listener);
     }
   }
 
@@ -47,13 +47,13 @@ class NotificationsIOS {
     if (type === DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT ||
         type === DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT ||
         type === DEVICE_NOTIFICATION_OPENED_EVENT) {
-          var listener = _notificationHandlers.get(handler);
-          if (!listener) {
-            return;
-          }
+      var listener = _notificationHandlers.get(handler);
+      if (!listener) {
+        return;
+      }
 
-          listener.remove();
-          _notificationHandlers.delete(handler);
+      listener.remove();
+      _notificationHandlers.delete(handler);
     }
   }
 }
