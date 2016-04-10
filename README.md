@@ -9,3 +9,4 @@ Handle push notifications for your app, including remote and local notifications
 - Add permissions management.
 - Add interactive notifications support.
 - Better support of local notifications.
+
