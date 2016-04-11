@@ -87,10 +87,10 @@ static NSString* username;
 
 + (void)didReceiveNotificationOnBackgroundState:(NSDictionary *)notification
 {
-    NSDictionary* customData  = [notification objectForKey:@"customData"];
-    NSDictionary* alert = [customData objectForKey:@"alert"];
-    NSString* action = [customData objectForKey:@"action"];
-    NSString* notificationId = [customData objectForKey:@"notificationId"];
+    NSDictionary* managedAps  = [notification objectForKey:@"managedAps"];
+    NSDictionary* alert = [managedAps objectForKey:@"alert"];
+    NSString* action = [managedAps objectForKey:@"action"];
+    NSString* notificationId = [managedAps objectForKey:@"notificationId"];
 
     if (action) {
         // create or delete notification
@@ -122,10 +122,10 @@ static NSString* username;
 
 + (void)dispatchLocalNotificationFromNotification:(NSDictionary *)notification
 {
-    NSDictionary* customData  = [notification objectForKey:@"customData"];
-    NSDictionary* alert = [customData objectForKey:@"alert"];
-    NSString* action = [customData objectForKey:@"action"];
-    NSString* notificationId = [customData objectForKey:@"notificationId"];
+    NSDictionary* managedAps  = [notification objectForKey:@"managedAps"];
+    NSDictionary* alert = [managedAps objectForKey:@"alert"];
+    NSString* action = [managedAps objectForKey:@"action"];
+    NSString* notificationId = [managedAps objectForKey:@"notificationId"];
 
     if ([action isEqualToString: RNNotificationCreateAction]
         && notificationId
@@ -135,8 +135,8 @@ static NSString* username;
         UILocalNotification* note = [[UILocalNotification alloc] init];
         note.alertTitle = [alert objectForKey:@"title"];
         note.alertBody = [alert objectForKey:@"body"];
-        note.userInfo = customData;
-        note.soundName = [customData objectForKey:@"sound"];
+        note.userInfo = managedAps;
+        note.soundName = [managedAps objectForKey:@"sound"];
 
         NSLog(@"Presenting local notification...");
         [[UIApplication sharedApplication] presentLocalNotificationNow:note];

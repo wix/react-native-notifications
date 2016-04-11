@@ -9,5 +9,15 @@
     "react": "^0.14.7",
     "react-native": "^0.22.2",
     "react-native-notifications": "../"
+  },
+  "devDependencies": {
+    "babel-preset-react-native": "^1.5.6",
+    "babel-preset-stage-1": "^6.5.0"
+  },
+  "babel": {
+    "presets": [
+      "react-native",
+      "stage-1"
+    ]
   }
 }

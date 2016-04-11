@@ -6,6 +6,7 @@
 import { NativeModules, DeviceEventEmitter } from "react-native";
 import Map from "core-js/library/es6/map";
 let NativeRNNotifications = NativeModules.RNNotifications; // eslint-disable-line no-unused-vars
+import IOSNotification from "./notification.ios";
 
 export const DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT = "notificationReceivedForeground";
 export const DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT = "notificationReceivedBackground";
@@ -30,7 +31,7 @@ export default class NotificationsIOS {
         type === DEVICE_NOTIFICATION_OPENED_EVENT) {
       let listener = DeviceEventEmitter.addListener(
         type,
-        notification => handler(notification)
+        notification => handler(new IOSNotification(notification))
       );
 
       _notificationHandlers.set(handler, listener);

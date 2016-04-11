@@ -1,6 +1,6 @@
 let expect = require("chai").use(require("sinon-chai")).expect;
-let proxyquire = require("proxyquire");
-let sinon = require("sinon");
+import proxyquire from "proxyquire";
+import sinon from "sinon";
 
 describe("NotificationsIOS", () => {
   let deviceEvents = [
@@ -78,4 +78,6 @@ describe("NotificationsIOS", () => {
       expect(removeEventListenerSpy).to.not.have.been.called;
     });
   });
+
+  // TODO: Test handle notification with IOSNotification object
 });
