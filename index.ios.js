@@ -5,15 +5,15 @@
 "use strict";
 import { NativeModules, DeviceEventEmitter } from "react-native";
 import Map from "core-js/library/es6/map";
-var NativeRNNotifications = NativeModules.RNNotifications; // eslint-disable-line no-unused-vars
+let NativeRNNotifications = NativeModules.RNNotifications; // eslint-disable-line no-unused-vars
 
-var DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT = "notificationReceivedForeground";
-var DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT = "notificationReceivedBackground";
-var DEVICE_NOTIFICATION_OPENED_EVENT = "notificationOpened";
+export const DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT = "notificationReceivedForeground";
+export const DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT = "notificationReceivedBackground";
+export const DEVICE_NOTIFICATION_OPENED_EVENT = "notificationOpened";
 
-var _notificationHandlers = new Map();
+let _notificationHandlers = new Map();
 
-class NotificationsIOS {
+export default class NotificationsIOS {
   /**
    * Attaches a listener to remote notification events while the app is running
    * in the foreground or the background.
@@ -28,11 +28,9 @@ class NotificationsIOS {
     if (type === DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT ||
         type === DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT ||
         type === DEVICE_NOTIFICATION_OPENED_EVENT) {
-      var listener = DeviceEventEmitter.addListener(
+      let listener = DeviceEventEmitter.addListener(
         type,
-        (notification) => {
-          handler(notification);
-        }
+        notification => handler(notification)
       );
 
       _notificationHandlers.set(handler, listener);
@@ -47,7 +45,7 @@ class NotificationsIOS {
     if (type === DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT ||
         type === DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT ||
         type === DEVICE_NOTIFICATION_OPENED_EVENT) {
-      var listener = _notificationHandlers.get(handler);
+      let listener = _notificationHandlers.get(handler);
       if (!listener) {
         return;
       }
@@ -57,5 +55,3 @@ class NotificationsIOS {
     }
   }
 }
-
-module.exports = NotificationsIOS;
