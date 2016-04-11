@@ -2,7 +2,7 @@ let expect = require("chai").use(require("sinon-chai")).expect;
 let proxyquire = require("proxyquire");
 let sinon = require("sinon");
 
-describe("NotificationsIOS", function () {
+describe("NotificationsIOS", () => {
   let deviceEvents = [
     "notificationReceivedForeground",
     "notificationReceivedBackground",
@@ -44,25 +44,25 @@ describe("NotificationsIOS", function () {
     notificationIOS = null;
   });
 
-  describe("Add Event Listener", function () {
-    deviceEvents.forEach(function(event) {
-      it(`should subscribe the given handler to device event: ${event}`, function () {
+  describe("Add Event Listener", () => {
+    deviceEvents.forEach(event => {
+      it(`should subscribe the given handler to device event: ${event}`, () => {
         notificationIOS.addEventListener(event, someHandler);
 
         expect(addEventListenerSpy).to.have.been.calledWith(event, sinon.match.func);
       });
     });
 
-    it("should not subscribe to unknown device events", function () {
+    it("should not subscribe to unknown device events", () => {
       notificationIOS.addEventListener("someUnsupportedEvent", someHandler);
 
       expect(addEventListenerSpy).to.not.have.been.called;
     });
   });
 
-  describe("Remove Event Listener", function () {
-    deviceEvents.forEach(function(event) {
-      it(`should unsubscribe the given handler from device event: ${event}`, function () {
+  describe("Remove Event Listener", () => {
+    deviceEvents.forEach(event => {
+      it(`should unsubscribe the given handler from device event: ${event}`, () => {
         notificationIOS.addEventListener(event, someHandler);
         notificationIOS.removeEventListener(event, someHandler);
 
@@ -70,7 +70,7 @@ describe("NotificationsIOS", function () {
       });
     });
 
-    it("should not unsubscribe to unknown device events", function () {
+    it("should not unsubscribe to unknown device events", () => {
       let someUnsupportedEvent = "someUnsupportedEvent";
       notificationIOS.addEventListener(someUnsupportedEvent, someHandler);
       notificationIOS.removeEventListener(someUnsupportedEvent, someHandler);
