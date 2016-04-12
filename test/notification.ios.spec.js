@@ -1,3 +1,4 @@
+"use strict";
 import { expect } from "chai";
 import IOSNotification from "../notification.ios";
 

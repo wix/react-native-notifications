@@ -1,3 +1,4 @@
+"use strict";
 let expect = require("chai").use(require("sinon-chai")).expect;
 import proxyquire from "proxyquire";
 import sinon from "sinon";

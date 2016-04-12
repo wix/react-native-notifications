@@ -24,9 +24,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^6.0.2",
-    "babel-plugin-transform-class-properties": "^6.6.0",
-    "babel-preset-es2015": "^6.6.0",
-    "babel-preset-react": "^6.5.0",
+    "babel-preset-react-native": "^1.5.6",
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
     "chokidar-cli": "^1.2.0",
@@ -54,12 +52,6 @@
   },
   "main": "index.ios.js",
   "babel": {
-    "presets": [
-      "es2015",
-      "react"
-    ],
-    "plugins": [
-      "transform-class-properties"
-    ]
+    "presets": ["react-native"]
   }
 }
