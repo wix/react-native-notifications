@@ -74,7 +74,8 @@ describe("iOS Notification Object", () => {
   describe("for a managed iOS push notification (silent notification, with managedAps key and content-available = 1)", () => {
     let managedNativeNotification = {
       aps: {
-        "content-available": 1
+        "content-available": 1,
+        badge: someBadgeCount
       },
       managedAps: {
         action: "CREATE",
@@ -83,7 +84,6 @@ describe("iOS Notification Object", () => {
           title: "some title",
           body: "some body"
         },
-        badge: someBadgeCount,
         sound: someSound,
         category: someCategory
       },

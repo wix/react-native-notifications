@@ -54,10 +54,13 @@ static NSString* username;
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
 
     if (state == UIApplicationStateActive) {
+        // Notification received foreground
         [self didReceiveNotificationOnForegroundState:notification];
     } else if (state == UIApplicationStateInactive) {
+        // Notification opened
         [self didNotificationOpen:notification];
     } else {
+        // Notification received background
         [self didReceiveNotificationOnBackgroundState:notification];
     }
 }
@@ -135,10 +138,10 @@ static NSString* username;
         UILocalNotification* note = [[UILocalNotification alloc] init];
         note.alertTitle = [alert objectForKey:@"title"];
         note.alertBody = [alert objectForKey:@"body"];
-        note.userInfo = managedAps;
+        note.userInfo = notification;
         note.soundName = [managedAps objectForKey:@"sound"];
+        note.category = [managedAps objectForKey:@"category"];
 
-        NSLog(@"Presenting local notification...");
         [[UIApplication sharedApplication] presentLocalNotificationNow:note];
 
         // Serialize it and store so we can delete it later
@@ -157,11 +160,12 @@ static NSString* username;
     NSData* data = [[NSUserDefaults standardUserDefaults] objectForKey:notificationKey];
     if (data) {
         UILocalNotification* notification = [NSKeyedUnarchiver unarchiveObjectWithData: data];
-        NSLog(@"Remove local notification: %@", notificationKey);
 
         // delete the notification
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:notificationKey];
+
+        NSLog(@"Local notification removed: %@", notificationKey);
 
         return;
     }

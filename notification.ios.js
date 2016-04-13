@@ -14,12 +14,11 @@ export default class IOSNotification {
       notification.aps["content-available"] === 1 &&
       !notification.aps.alert &&
       !notification.aps.sound &&
-      !notification.aps.badge &&
       notification.managedAps) {
       // managed notification
       this._alert = notification.managedAps.alert;
       this._sound = notification.managedAps.sound;
-      this._badge = notification.managedAps.badge;
+      this._badge = notification.aps.badge;
       this._category = notification.managedAps.category;
       this._type = "managed";
     } else if (
