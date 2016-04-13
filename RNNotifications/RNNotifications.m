@@ -3,7 +3,7 @@
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
 #import "RNNotifications.h"
-
+#import "RCTConvert.h"
 #import "RCTUtils.h"
 
 NSString *const RNNotificationCreateAction = @"CREATE";
@@ -13,13 +13,48 @@ NSString *const RNNotificationReceivedForeground = @"RNNotificationReceivedForeg
 NSString *const RNNotificationReceivedBackground = @"RNNotificationReceivedBackground";
 NSString *const RNNotificationOpened = @"RNNotificationOpened";
 
+/*
+ * Enum Converters for Interactive Notifications
+ */
+@implementation RCTConvert (UIUserNotificationActivationMode)
+RCT_ENUM_CONVERTER(UIUserNotificationActivationMode, (@{
+                                                        @"foreground": @(UIUserNotificationActivationModeForeground),
+                                                        @"background": @(UIUserNotificationActivationModeBackground)
+                                                        }), UIUserNotificationActivationModeForeground, integerValue)
+@end
+
+@implementation RCTConvert (UIUserNotificationActionContext)
+RCT_ENUM_CONVERTER(UIUserNotificationActionContext, (@{
+                                                       @"default": @(UIUserNotificationActionContextDefault),
+                                                       @"minimal": @(UIUserNotificationActionContextMinimal)
+                                                       }), UIUserNotificationActionContextDefault, integerValue)
+@end
+
+@implementation RCTConvert (UIUserNotificationActionBehavior)
+/* iOS 9 only */
+RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
+                                                        @"default": @(UIUserNotificationActionBehaviorDefault),
+                                                        @"textInput": @(UIUserNotificationActionBehaviorTextInput)
+                                                        }), UIUserNotificationActionBehaviorDefault, integerValue)
+@end
+
 @implementation RNNotifications
 
 RCT_EXPORT_MODULE()
 
 @synthesize bridge = _bridge;
 
-static NSString* username;
+NSMutableDictionary *actionCallbacks;
+
+- (id)init
+{
+    if (self = [super init]) {
+        actionCallbacks = [[NSMutableDictionary alloc] init];
+        return self;
+    } else {
+        return nil;
+    }
+}
 
 - (void)dealloc
 {
@@ -47,7 +82,7 @@ static NSString* username;
 }
 
 /*
- * API Methods
+ * Public Methods
  */
 + (void)didReceiveRemoteNotification:(NSDictionary *)notification
 {
@@ -176,6 +211,48 @@ static NSString* username;
     return [NSString stringWithFormat:@"%@.%@", [[NSBundle mainBundle] bundleIdentifier], notificationId];
 }
 
++ (UIMutableUserNotificationAction *)parseAction:(NSDictionary *)json
+{
+    UIMutableUserNotificationAction* action =[[UIMutableUserNotificationAction alloc] init];
+    action.activationMode = [RCTConvert UIUserNotificationActivationMode:json[@"activationMode"]];
+    action.behavior = [RCTConvert UIUserNotificationActionBehavior:json[@"behavior"]];
+    action.authenticationRequired = [RCTConvert BOOL:json[@"authenticationRequired"]];
+    action.destructive = [RCTConvert BOOL:json[@"destructive"]];
+    action.title = json[@"title"];
+    action.identifier = json[@"identifier"];
+
+    return action;
+}
+
++ (UIMutableUserNotificationCategory *)parseCategory:(NSDictionary *)json
+{
+    UIMutableUserNotificationCategory* category = [[UIMutableUserNotificationCategory alloc] init];
+    category.identifier = json[@"identifier"];
+
+    // category actions
+    NSMutableArray* actions = [[NSMutableArray alloc] init];
+    for (NSDictionary* actionJson in [RCTConvert NSArray:json[@"actions"]]) {
+        [actions addObject:[self parseAction:actionJson]];
+    }
+
+    [category setActions:actions forContext:[RCTConvert UIUserNotificationActionContext:json[@"context"]]];
+
+    return category;
+}
+
++ (void)updateNotificationCategories:(NSArray *)json
+{
+    NSMutableSet* categories = [[NSMutableSet alloc] init];
+    for (NSDictionary* categoryJson in json) {
+        [categories addObject:[self parseCategory:categoryJson]];
+    }
+
+    UIUserNotificationType types = (UIUserNotificationType) (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert);
+    UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:types categories:categories];
+
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+}
+
 - (void)handleNotificationReceivedForeground:(NSNotification *)notification
 {
     [_bridge.eventDispatcher sendDeviceEventWithName:@"notificationReceivedForeground" body:notification.userInfo];
@@ -194,15 +271,9 @@ static NSString* username;
 /*
  * React Native exported methods
  */
-
-RCT_EXPORT_METHOD(dispatchLocalNotificationFromNotification:(NSDictionary *)notification)
+RCT_EXPORT_METHOD(updateNotificationCategories:(NSArray *)json)
 {
-    [RNNotifications dispatchLocalNotificationFromNotification:notification];
-}
-
-RCT_EXPORT_METHOD(clearNotificationFromNotificationsCenter:(NSString *)notificationId)
-{
-    [RNNotifications clearNotificationFromNotificationsCenter:notificationId];
+    [RNNotifications updateNotificationCategories:json];
 }
 
 @end

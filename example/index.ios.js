@@ -12,7 +12,7 @@ import React, {
   PushNotificationIOS
 } from 'react-native';
 
-import NotificationsIOS from 'react-native-notifications';
+import NotificationsIOS, { NotificationAction, NotificationCategory } from 'react-native-notifications';
 
 class NotificationsExampleApp extends Component {
 
@@ -23,6 +23,38 @@ class NotificationsExampleApp extends Component {
     NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
     NotificationsIOS.addEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
     NotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
+  }
+
+  componentDidMount() {
+    PushNotificationIOS.requestPermissions();
+
+    let upvoteAction = new NotificationAction({
+      activationMode: "background",
+      title: String.fromCodePoint(0x1F44D),
+      identifier: "UPVOTE_ACTION"
+    }, (action) => {
+      console.log("ACTION RECEIVED");
+      console.log(action);
+    });
+
+    let replyAction = new NotificationAction({
+      activationMode: "background",
+      title: "Reply",
+      behavior: "textInput",
+      authenticationRequired: true,
+      identifier: "REPLY_ACTION"
+    }, (action) => {
+      console.log("ACTION RECEIVED");
+      console.log(action);
+    });
+
+    let cat = new NotificationCategory({
+      identifier: "SOME_CATEGORY",
+      actions: [upvoteAction, replyAction],
+      context: "default"
+    });
+
+    NotificationsIOS.setCategories([cat]);
   }
 
   onPushRegistered(deviceToken) {
@@ -42,8 +74,6 @@ class NotificationsExampleApp extends Component {
   }
 
   render() {
-    PushNotificationIOS.requestPermissions();
-
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
