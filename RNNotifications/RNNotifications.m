@@ -6,15 +6,16 @@
 #import "RCTConvert.h"
 #import "RCTUtils.h"
 
-NSString *const RNNotificationCreateAction = @"CREATE";
-NSString *const RNNotificationClearAction = @"CLEAR";
+NSString* const RNNotificationCreateAction = @"CREATE";
+NSString* const RNNotificationClearAction = @"CLEAR";
 
-NSString *const RNNotificationReceivedForeground = @"RNNotificationReceivedForeground";
-NSString *const RNNotificationReceivedBackground = @"RNNotificationReceivedBackground";
-NSString *const RNNotificationOpened = @"RNNotificationOpened";
+NSString* const RNNotificationReceivedForeground = @"RNNotificationReceivedForeground";
+NSString* const RNNotificationReceivedBackground = @"RNNotificationReceivedBackground";
+NSString* const RNNotificationOpened = @"RNNotificationOpened";
+NSString* const RNNotificationActionTriggered = @"RNNotificationActionTriggered";
 
 /*
- * Enum Converters for Interactive Notifications
+ * Converters for Interactive Notifications
  */
 @implementation RCTConvert (UIUserNotificationActivationMode)
 RCT_ENUM_CONVERTER(UIUserNotificationActivationMode, (@{
@@ -38,23 +39,48 @@ RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
                                                         }), UIUserNotificationActionBehaviorDefault, integerValue)
 @end
 
+@implementation RCTConvert (UIMutableUserNotificationAction)
++ (UIMutableUserNotificationAction *)UIMutableUserNotificationAction:(id)json
+{
+    NSDictionary<NSString *, id> *details = [self NSDictionary:json];
+
+    UIMutableUserNotificationAction* action =[[UIMutableUserNotificationAction alloc] init];
+    action.activationMode = [RCTConvert UIUserNotificationActivationMode:details[@"activationMode"]];
+    action.behavior = [RCTConvert UIUserNotificationActionBehavior:details[@"behavior"]];
+    action.authenticationRequired = [RCTConvert BOOL:details[@"authenticationRequired"]];
+    action.destructive = [RCTConvert BOOL:details[@"destructive"]];
+    action.title = [RCTConvert NSString:details[@"title"]];
+    action.identifier = [RCTConvert NSString:details[@"identifier"]];
+
+    return action;
+}
+@end
+
+@implementation RCTConvert (UIMutableUserNotificationCategory)
++ (UIMutableUserNotificationCategory *)UIMutableUserNotificationCategory:(id)json
+{
+    NSDictionary<NSString *, id> *details = [self NSDictionary:json];
+
+    UIMutableUserNotificationCategory* category = [[UIMutableUserNotificationCategory alloc] init];
+    category.identifier = details[@"identifier"];
+
+    // category actions
+    NSMutableArray* actions = [[NSMutableArray alloc] init];
+    for (NSDictionary* actionJson in [RCTConvert NSArray:details[@"actions"]]) {
+        [actions addObject:[RCTConvert UIMutableUserNotificationAction:actionJson]];
+    }
+
+    [category setActions:actions forContext:[RCTConvert UIUserNotificationActionContext:details[@"context"]]];
+
+    return category;
+}
+@end
+
 @implementation RNNotifications
 
 RCT_EXPORT_MODULE()
 
 @synthesize bridge = _bridge;
-
-NSMutableDictionary *actionCallbacks;
-
-- (id)init
-{
-    if (self = [super init]) {
-        actionCallbacks = [[NSMutableDictionary alloc] init];
-        return self;
-    } else {
-        return nil;
-    }
-}
 
 - (void)dealloc
 {
@@ -78,6 +104,11 @@ NSMutableDictionary *actionCallbacks;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleNotificationOpened:)
                                                  name:RNNotificationOpened
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleNotificationActionTriggered:)
+                                                 name:RNNotificationActionTriggered
                                                object:nil];
 }
 
@@ -111,6 +142,18 @@ NSMutableDictionary *actionCallbacks;
         }
         [self didNotificationOpen:notification.userInfo];
     }
+}
+
++ (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
+{
+    [self emitNotificationActionForIdentifier:identifier responseInfo:responseInfo userInfo:notification.userInfo];
+    completionHandler();
+}
+
++ (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
+{
+    [self emitNotificationActionForIdentifier:identifier responseInfo:responseInfo userInfo:userInfo];
+    completionHandler();
 }
 
 /*
@@ -157,7 +200,6 @@ NSMutableDictionary *actionCallbacks;
 /*
  * Helper methods
  */
-
 + (void)dispatchLocalNotificationFromNotification:(NSDictionary *)notification
 {
     NSDictionary* managedAps  = [notification objectForKey:@"managedAps"];
@@ -211,40 +253,15 @@ NSMutableDictionary *actionCallbacks;
     return [NSString stringWithFormat:@"%@.%@", [[NSBundle mainBundle] bundleIdentifier], notificationId];
 }
 
-+ (UIMutableUserNotificationAction *)parseAction:(NSDictionary *)json
-{
-    UIMutableUserNotificationAction* action =[[UIMutableUserNotificationAction alloc] init];
-    action.activationMode = [RCTConvert UIUserNotificationActivationMode:json[@"activationMode"]];
-    action.behavior = [RCTConvert UIUserNotificationActionBehavior:json[@"behavior"]];
-    action.authenticationRequired = [RCTConvert BOOL:json[@"authenticationRequired"]];
-    action.destructive = [RCTConvert BOOL:json[@"destructive"]];
-    action.title = json[@"title"];
-    action.identifier = json[@"identifier"];
-
-    return action;
-}
-
-+ (UIMutableUserNotificationCategory *)parseCategory:(NSDictionary *)json
-{
-    UIMutableUserNotificationCategory* category = [[UIMutableUserNotificationCategory alloc] init];
-    category.identifier = json[@"identifier"];
-
-    // category actions
-    NSMutableArray* actions = [[NSMutableArray alloc] init];
-    for (NSDictionary* actionJson in [RCTConvert NSArray:json[@"actions"]]) {
-        [actions addObject:[self parseAction:actionJson]];
-    }
-
-    [category setActions:actions forContext:[RCTConvert UIUserNotificationActionContext:json[@"context"]]];
-
-    return category;
-}
-
 + (void)updateNotificationCategories:(NSArray *)json
 {
-    NSMutableSet* categories = [[NSMutableSet alloc] init];
-    for (NSDictionary* categoryJson in json) {
-        [categories addObject:[self parseCategory:categoryJson]];
+    NSMutableSet* categories = nil;
+
+    if ([json count] > 0) {
+        categories = [[NSMutableSet alloc] init];
+        for (NSDictionary* categoryJson in json) {
+            [categories addObject:[RCTConvert UIMutableUserNotificationCategory:categoryJson]];
+        }
     }
 
     UIUserNotificationType types = (UIUserNotificationType) (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert);
@@ -253,6 +270,30 @@ NSMutableDictionary *actionCallbacks;
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
 }
 
++ (void)emitNotificationActionForIdentifier:(NSString *)identifier responseInfo:(NSDictionary *)responseInfo userInfo:(NSDictionary *)userInfo
+{
+    NSMutableDictionary* info = [[NSMutableDictionary alloc] initWithDictionary:@{ @"identifier": identifier }];
+
+    // add text
+    NSString* text = [responseInfo objectForKey:UIUserNotificationActionResponseTypedTextKey];
+    if (text != NULL) {
+        info[@"text"] = text;
+    }
+
+    // add notification custom data
+    if (userInfo != NULL) {
+        info[@"data"] = userInfo;
+    }
+
+    // Emit event
+    [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationActionTriggered
+                                                        object:self
+                                                      userInfo:info];
+}
+
+/*
+ * Javascript events
+ */
 - (void)handleNotificationReceivedForeground:(NSNotification *)notification
 {
     [_bridge.eventDispatcher sendDeviceEventWithName:@"notificationReceivedForeground" body:notification.userInfo];
@@ -266,6 +307,11 @@ NSMutableDictionary *actionCallbacks;
 - (void)handleNotificationOpened:(NSNotification *)notification
 {
     [_bridge.eventDispatcher sendDeviceEventWithName:@"notificationOpened" body:notification.userInfo];
+}
+
+- (void)handleNotificationActionTriggered:(NSNotification *)notification
+{
+    [_bridge.eventDispatcher sendAppEventWithName:@"notificationActionReceived" body:notification.userInfo];
 }
 
 /*
