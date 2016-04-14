@@ -5,6 +5,7 @@
 #import "RNNotifications.h"
 #import "RCTConvert.h"
 #import "RCTUtils.h"
+#import "RNNotificationsBridgeQueue.h"
 
 NSString* const RNNotificationCreateAction = @"CREATE";
 NSString* const RNNotificationClearAction = @"CLEAR";
@@ -110,6 +111,15 @@ RCT_EXPORT_MODULE()
                                              selector:@selector(handleNotificationActionTriggered:)
                                                  name:RNNotificationActionTriggered
                                                object:nil];
+    
+    NSDictionary* lastActionInfo = [RNNotificationsBridgeQueue sharedInstance].lastAction;
+    if (lastActionInfo) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationActionTriggered
+                                                            object:self
+                                                          userInfo:lastActionInfo];
+        [RNNotificationsBridgeQueue sharedInstance].lastAction = nil;
+    }
+    
 }
 
 /*
@@ -146,14 +156,12 @@ RCT_EXPORT_MODULE()
 
 + (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
 {
-    [self emitNotificationActionForIdentifier:identifier responseInfo:responseInfo userInfo:notification.userInfo];
-    completionHandler();
+    [self emitNotificationActionForIdentifier:identifier responseInfo:responseInfo userInfo:notification.userInfo completionHandler:completionHandler];
 }
 
 + (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
 {
-    [self emitNotificationActionForIdentifier:identifier responseInfo:responseInfo userInfo:userInfo];
-    completionHandler();
+    [self emitNotificationActionForIdentifier:identifier responseInfo:responseInfo userInfo:userInfo completionHandler:completionHandler];
 }
 
 /*
@@ -270,7 +278,7 @@ RCT_EXPORT_MODULE()
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
 }
 
-+ (void)emitNotificationActionForIdentifier:(NSString *)identifier responseInfo:(NSDictionary *)responseInfo userInfo:(NSDictionary *)userInfo
++ (void)emitNotificationActionForIdentifier:(NSString *)identifier responseInfo:(NSDictionary *)responseInfo userInfo:(NSDictionary *)userInfo  completionHandler:(void (^)())completionHandler
 {
     NSMutableDictionary* info = [[NSMutableDictionary alloc] initWithDictionary:@{ @"identifier": identifier }];
 
@@ -289,6 +297,9 @@ RCT_EXPORT_MODULE()
     [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationActionTriggered
                                                         object:self
                                                       userInfo:info];
+    
+    [RNNotificationsBridgeQueue sharedInstance].lastAction = info;
+    [RNNotificationsBridgeQueue sharedInstance].lastCompletionHandler = completionHandler;
 }
 
 /*
@@ -320,6 +331,20 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(updateNotificationCategories:(NSArray *)json)
 {
     [RNNotifications updateNotificationCategories:json];
+}
+
+RCT_EXPORT_METHOD(log:(NSString *)message)
+{
+    NSLog(message);
+}
+
+RCT_EXPORT_METHOD(completionHandler)
+{
+    void (^completionHandler)() = [RNNotificationsBridgeQueue sharedInstance].lastCompletionHandler;
+    if (completionHandler) {
+        completionHandler();
+        [RNNotificationsBridgeQueue sharedInstance].lastCompletionHandler = nil;
+    }
 }
 
 @end

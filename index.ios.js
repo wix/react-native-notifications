@@ -76,7 +76,9 @@ export default class NotificationsIOS {
     let actionHandler = _actionHandlers.get(action.identifier);
 
     if (actionHandler) {
-      actionHandler(action);
+      action.notification = new IOSNotification(action.notification);
+
+      actionHandler(action, () => { NativeRNNotifications.completionHandler(); });
     }
   }
 
@@ -89,7 +91,7 @@ export default class NotificationsIOS {
 
     if (categories) {
       // subscribe once for all actions
-      _actionListener = NativeAppEventEmitter.addListener(DEVICE_NOTIFICATION_ACTION_RECEIVED, this._actionHandlerDispatcher);
+      _actionListener = NativeAppEventEmitter.addListener(DEVICE_NOTIFICATION_ACTION_RECEIVED, this._actionHandlerDispatcher.bind(this));
 
       notificationCategories = categories.map(category => {
         return Object.assign({}, category.options, {
@@ -116,5 +118,9 @@ export default class NotificationsIOS {
     }
 
     _actionHandlers.clear();
+  }
+
+  static log(message) {
+    NativeRNNotifications.log(message);
   }
 }

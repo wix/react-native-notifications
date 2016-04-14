@@ -149,7 +149,7 @@ describe("NotificationsIOS", () => {
         NotificationsIOS.setCategories([someCategory]);
 
         expect(nativeAppAddEventListener).to.have.been.calledOnce;
-        expect(nativeAppAddEventListener).to.have.been.calledWith("notificationActionReceived", NotificationsIOS._actionHandlerDispatcher);
+        expect(nativeAppAddEventListener).to.have.been.calledWith("notificationActionReceived", sinon.match.func);
       });
     });
 

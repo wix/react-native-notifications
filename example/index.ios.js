@@ -14,6 +14,38 @@ import React, {
 
 import NotificationsIOS, { NotificationAction, NotificationCategory } from 'react-native-notifications';
 
+let upvoteAction = new NotificationAction({
+  activationMode: "background",
+  title: String.fromCodePoint(0x1F44D),
+  identifier: "UPVOTE_ACTION"
+}, (action, completed) => {
+  NotificationsIOS.log("ACTION RECEIVED");
+  NotificationsIOS.log(JSON.stringify(action));
+
+  completed();
+});
+
+let replyAction = new NotificationAction({
+  activationMode: "background",
+  title: "Reply",
+  behavior: "textInput",
+  authenticationRequired: true,
+  identifier: "REPLY_ACTION"
+}, (action, completed) => {
+  console.log("ACTION RECEIVED");
+  console.log(action);
+
+  completed();
+});
+
+let cat = new NotificationCategory({
+  identifier: "SOME_CATEGORY",
+  actions: [upvoteAction, replyAction],
+  context: "default"
+});
+
+NotificationsIOS.setCategories([cat]);
+
 class NotificationsExampleApp extends Component {
 
   constructor() {
@@ -26,35 +58,7 @@ class NotificationsExampleApp extends Component {
   }
 
   componentDidMount() {
-    PushNotificationIOS.requestPermissions();
-
-    let upvoteAction = new NotificationAction({
-      activationMode: "background",
-      title: String.fromCodePoint(0x1F44D),
-      identifier: "UPVOTE_ACTION"
-    }, (action) => {
-      console.log("ACTION RECEIVED");
-      console.log(action);
-    });
-
-    let replyAction = new NotificationAction({
-      activationMode: "background",
-      title: "Reply",
-      behavior: "textInput",
-      authenticationRequired: true,
-      identifier: "REPLY_ACTION"
-    }, (action) => {
-      console.log("ACTION RECEIVED");
-      console.log(action);
-    });
-
-    let cat = new NotificationCategory({
-      identifier: "SOME_CATEGORY",
-      actions: [upvoteAction, replyAction],
-      context: "default"
-    });
-
-    NotificationsIOS.setCategories([cat]);
+    // PushNotificationIOS.requestPermissions();
   }
 
   onPushRegistered(deviceToken) {
@@ -94,7 +98,7 @@ class NotificationsExampleApp extends Component {
     NotificationsIOS.removeEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
     NotificationsIOS.removeEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
     NotificationsIOS.removeEventListener('notificationOpened', this.onNotificationOpened.bind(this));
-    NotificationsIOS.resetCategories();
+    // NotificationsIOS.resetCategories();
   }
 
   _onNotification(notification) {
