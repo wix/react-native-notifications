@@ -6,8 +6,12 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "babel-preset-react-native-stage-0": "^1.0.1",
     "react": "^0.14.7",
     "react-native": "^0.22.2",
     "react-native-notifications": "../"
+  },
+  "babel": {
+    "presets": ["react-native-stage-0"]
   }
 }

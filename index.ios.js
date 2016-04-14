@@ -3,7 +3,7 @@
  * @flow
  */
 "use strict";
-import { NativeModules, DeviceEventEmitter } from "react-native";
+import { NativeModules, DeviceEventEmitter, NativeAppEventEmitter } from "react-native";
 import Map from "core-js/library/es6/map";
 const NativeRNNotifications = NativeModules.RNNotifications; // eslint-disable-line no-unused-vars
 import IOSNotification from "./notification.ios";
@@ -14,6 +14,8 @@ export const DEVICE_NOTIFICATION_OPENED_EVENT = "notificationOpened";
 export const DEVICE_NOTIFICATION_ACTION_RECEIVED = "notificationActionReceived";
 
 let _notificationHandlers = new Map();
+let _actionHandlers = new Map();
+let _actionListener;
 
 export class NotificationAction {
   constructor(options: Object, handler: Function) {
@@ -70,12 +72,12 @@ export default class NotificationsIOS {
     }
   }
 
-  static _actionHandlerGenerator(identifier: string, handler: Function) {
-    return (action) => {
-      if (action.identifier === identifier) {
-        handler(action);
-      }
-    };
+  static _actionHandlerDispatcher(action: Object) {
+    let actionHandler = _actionHandlers.get(action.identifier);
+
+    if (actionHandler) {
+      actionHandler(action);
+    }
   }
 
   /**
@@ -86,11 +88,14 @@ export default class NotificationsIOS {
     let notificationCategories = [];
 
     if (categories) {
+      // subscribe once for all actions
+      _actionListener = NativeAppEventEmitter.addListener(DEVICE_NOTIFICATION_ACTION_RECEIVED, this._actionHandlerDispatcher);
+
       notificationCategories = categories.map(category => {
         return Object.assign({}, category.options, {
           actions: category.options.actions.map(action => {
             // subscribe to action event
-            DeviceEventEmitter.addListener(DEVICE_NOTIFICATION_ACTION_RECEIVED, this._actionHandlerGenerator(action.options.identifier, action.handler));
+            _actionHandlers.set(action.options.identifier, action.handler);
 
             return action.options;
           })
@@ -99,5 +104,17 @@ export default class NotificationsIOS {
     }
 
     NativeRNNotifications.updateNotificationCategories(notificationCategories);
+  }
+
+  /**
+   * Removes the event listener. Do this in `componentWillUnmount` to prevent
+   * memory leaks
+   */
+  static resetCategories() {
+    if (_actionListener) {
+      _actionListener.remove();
+    }
+
+    _actionHandlers.clear();
   }
 }

@@ -282,7 +282,7 @@ RCT_EXPORT_MODULE()
 
     // add notification custom data
     if (userInfo != NULL) {
-        info[@"data"] = userInfo;
+        info[@"notification"] = userInfo;
     }
 
     // Emit event

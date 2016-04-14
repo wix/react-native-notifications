@@ -12,13 +12,15 @@ describe("NotificationsIOS", () => {
     "notificationOpened"
   ];
 
-  let nativeAddEventListener, nativeRemoveEventListener, nativeUpdateNotificationCategories;
-  let NotificationIOS, NotificationAction, NotificationCategory;
+  let deviceAddEventListener, deviceRemoveEventListener, nativeAppAddEventListener, nativeAppRemoveEventListener, nativeUpdateNotificationCategories;
+  let NotificationsIOS, NotificationAction, NotificationCategory;
   let someHandler = () => {};
 
   before(() => {
-    nativeAddEventListener = sinon.spy();
-    nativeRemoveEventListener = sinon.spy();
+    deviceAddEventListener = sinon.spy();
+    deviceRemoveEventListener = sinon.spy();
+    nativeAppAddEventListener = sinon.spy();
+    nativeAppRemoveEventListener = sinon.spy();
     nativeUpdateNotificationCategories = sinon.spy();
 
     let libUnderTest = proxyquire("../index.ios", {
@@ -28,33 +30,45 @@ describe("NotificationsIOS", () => {
             updateNotificationCategories: nativeUpdateNotificationCategories
           }
         },
+        NativeAppEventEmitter: {
+          addListener: (...args) => {
+            nativeAppAddEventListener(...args);
+
+            return { remove: nativeAppRemoveEventListener };
+          }
+        },
         DeviceEventEmitter: {
           addListener: (...args) => {
-            nativeAddEventListener(...args);
+            deviceAddEventListener(...args);
 
-            return { remove: nativeRemoveEventListener };
+            return { remove: deviceRemoveEventListener };
           }
         },
         "@noCallThru": true
       }
     });
 
-    NotificationIOS = libUnderTest.default;
+    NotificationsIOS = libUnderTest.default;
     NotificationAction = libUnderTest.NotificationAction;
     NotificationCategory = libUnderTest.NotificationCategory;
   });
 
   afterEach(() => {
-    nativeAddEventListener.reset();
-    nativeRemoveEventListener.reset();
+    deviceAddEventListener.reset();
+    deviceRemoveEventListener.reset();
+    nativeAppAddEventListener.reset();
+    nativeAppRemoveEventListener.reset();
     nativeUpdateNotificationCategories.reset();
   });
 
   after(() => {
-    nativeAddEventListener = null;
-    nativeRemoveEventListener = null;
+    deviceAddEventListener = null;
+    deviceRemoveEventListener = null;
+    nativeAppAddEventListener = null;
+    nativeAppRemoveEventListener = null;
     nativeUpdateNotificationCategories = null;
-    NotificationIOS = null;
+
+    NotificationsIOS = null;
     NotificationAction = null;
     NotificationCategory = null;
   });
@@ -62,39 +76,39 @@ describe("NotificationsIOS", () => {
   describe("Add Event Listener", () => {
     deviceEvents.forEach(event => {
       it(`should subscribe the given handler to device event: ${event}`, () => {
-        NotificationIOS.addEventListener(event, someHandler);
+        NotificationsIOS.addEventListener(event, someHandler);
 
-        expect(nativeAddEventListener).to.have.been.calledWith(event, sinon.match.func);
+        expect(deviceAddEventListener).to.have.been.calledWith(event, sinon.match.func);
       });
     });
 
     it("should not subscribe to unknown device events", () => {
-      NotificationIOS.addEventListener("someUnsupportedEvent", someHandler);
+      NotificationsIOS.addEventListener("someUnsupportedEvent", someHandler);
 
-      expect(nativeAddEventListener).to.not.have.been.called;
+      expect(deviceAddEventListener).to.not.have.been.called;
     });
   });
 
   describe("Remove Event Listener", () => {
     deviceEvents.forEach(event => {
       it(`should unsubscribe the given handler from device event: ${event}`, () => {
-        NotificationIOS.addEventListener(event, someHandler);
-        NotificationIOS.removeEventListener(event, someHandler);
+        NotificationsIOS.addEventListener(event, someHandler);
+        NotificationsIOS.removeEventListener(event, someHandler);
 
-        expect(nativeRemoveEventListener).to.have.been.calledOnce;
+        expect(deviceRemoveEventListener).to.have.been.calledOnce;
       });
     });
 
     it("should not unsubscribe to unknown device events", () => {
       let someUnsupportedEvent = "someUnsupportedEvent";
-      NotificationIOS.addEventListener(someUnsupportedEvent, someHandler);
-      NotificationIOS.removeEventListener(someUnsupportedEvent, someHandler);
+      NotificationsIOS.addEventListener(someUnsupportedEvent, someHandler);
+      NotificationsIOS.removeEventListener(someUnsupportedEvent, someHandler);
 
-      expect(nativeRemoveEventListener).to.not.have.been.called;
+      expect(deviceRemoveEventListener).to.not.have.been.called;
     });
   });
 
-  describe("Update notification categories", () => {
+  describe("Notification actions handling", () => {
     let someAction, someCategory;
 
     let actionOpts = {
@@ -114,27 +128,37 @@ describe("NotificationsIOS", () => {
       });
     });
 
-    it("should call native update categories with array of categories", () => {
-      NotificationIOS.setCategories([someCategory]);
+    describe("register categories", () => {
+      it("should call native update categories with array of categories", () => {
+        NotificationsIOS.setCategories([someCategory]);
 
-      expect(nativeUpdateNotificationCategories).to.have.been.calledWith([{
-        identifier: "SOME_CATEGORY",
-        actions: [actionOpts],
-        context: "default"
-      }]);
+        expect(nativeUpdateNotificationCategories).to.have.been.calledWith([{
+          identifier: "SOME_CATEGORY",
+          actions: [actionOpts],
+          context: "default"
+        }]);
+      });
+
+      it("should call native update categories with empty array if no categories specified", () => {
+        NotificationsIOS.setCategories();
+
+        expect(nativeUpdateNotificationCategories).to.have.been.calledWith([]);
+      });
+
+      it("should subscribe to 'notificationActionReceived' event once, with a single event handler", () => {
+        NotificationsIOS.setCategories([someCategory]);
+
+        expect(nativeAppAddEventListener).to.have.been.calledOnce;
+        expect(nativeAppAddEventListener).to.have.been.calledWith("notificationActionReceived", NotificationsIOS._actionHandlerDispatcher);
+      });
     });
 
-    it("should call native update categories with empty array if no categories specified", () => {
-      NotificationIOS.setCategories();
+    describe("reset categories", () => {
+      it("should remove 'notificationActionReceived' event handler", function () {
+        NotificationsIOS.resetCategories();
 
-      expect(nativeUpdateNotificationCategories).to.have.been.calledWith([]);
-    });
-
-    it("should subscribe to 'notificationActionReceived' event for each action identifier", () => {
-      NotificationIOS.setCategories([someCategory]);
-
-      expect(nativeAddEventListener).to.have.been.calledOnce;
-      expect(nativeAddEventListener).to.have.been.calledWith("notificationActionReceived", sinon.match.func);
+        expect(nativeAppRemoveEventListener).to.have.been.calledOnce;
+      });
     });
   });
 });

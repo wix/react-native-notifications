@@ -94,6 +94,7 @@ class NotificationsExampleApp extends Component {
     NotificationsIOS.removeEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
     NotificationsIOS.removeEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
     NotificationsIOS.removeEventListener('notificationOpened', this.onNotificationOpened.bind(this));
+    NotificationsIOS.resetCategories();
   }
 
   _onNotification(notification) {
