@@ -1,5 +1,6 @@
 
 #import <UIKit/UIKit.h>
+#import <PushKit/PushKit.h>
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
 #import "RNNotifications.h"
@@ -10,6 +11,8 @@
 NSString* const RNNotificationCreateAction = @"CREATE";
 NSString* const RNNotificationClearAction = @"CLEAR";
 
+NSString* const RNNotificationsRegistered = @"RNNotificationsRegistered";
+NSString* const RNPushKitRegistered = @"RNPushKitRegistered";
 NSString* const RNNotificationReceivedForeground = @"RNNotificationReceivedForeground";
 NSString* const RNNotificationReceivedBackground = @"RNNotificationReceivedBackground";
 NSString* const RNNotificationOpened = @"RNNotificationOpened";
@@ -93,6 +96,16 @@ RCT_EXPORT_MODULE()
     _bridge = bridge;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleNotificationsRegistered:)
+                                                 name:RNNotificationsRegistered
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handlePushKitRegistered:)
+                                                 name:RNPushKitRegistered
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleNotificationReceivedForeground:)
                                                  name:RNNotificationReceivedForeground
                                                object:nil];
@@ -111,7 +124,7 @@ RCT_EXPORT_MODULE()
                                              selector:@selector(handleNotificationActionTriggered:)
                                                  name:RNNotificationActionTriggered
                                                object:nil];
-    
+
     NSDictionary* lastActionInfo = [RNNotificationsBridgeQueue sharedInstance].lastAction;
     if (lastActionInfo) {
         [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationActionTriggered
@@ -119,12 +132,26 @@ RCT_EXPORT_MODULE()
                                                           userInfo:lastActionInfo];
         [RNNotificationsBridgeQueue sharedInstance].lastAction = nil;
     }
-    
+
 }
 
 /*
  * Public Methods
  */
++ (void)didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    if ([UIApplication instancesRespondToSelector:@selector(registerForRemoteNotifications)]) {
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+}
+
++ (void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationsRegistered
+                                                        object:self
+                                                      userInfo:@{@"deviceToken": [self deviceTokenToString:deviceToken]}];
+}
+
 + (void)didReceiveRemoteNotification:(NSDictionary *)notification
 {
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
@@ -154,12 +181,12 @@ RCT_EXPORT_MODULE()
     }
 }
 
-+ (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
++ (void)handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
 {
     [self emitNotificationActionForIdentifier:identifier responseInfo:responseInfo userInfo:notification.userInfo completionHandler:completionHandler];
 }
 
-+ (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
++ (void)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
 {
     [self emitNotificationActionForIdentifier:identifier responseInfo:responseInfo userInfo:userInfo completionHandler:completionHandler];
 }
@@ -261,7 +288,19 @@ RCT_EXPORT_MODULE()
     return [NSString stringWithFormat:@"%@.%@", [[NSBundle mainBundle] bundleIdentifier], notificationId];
 }
 
-+ (void)updateNotificationCategories:(NSArray *)json
++ (NSString *)deviceTokenToString:(NSData *)deviceToken
+{
+    NSMutableString *result = [NSMutableString string];
+    NSUInteger deviceTokenLength = deviceToken.length;
+    const unsigned char *bytes = deviceToken.bytes;
+    for (NSUInteger i = 0; i < deviceTokenLength; i++) {
+        [result appendFormat:@"%02x", bytes[i]];
+    }
+
+    return [result copy];
+}
+
++ (void)requestPermissionsWithCategories:(NSArray *)json
 {
     NSMutableSet* categories = nil;
 
@@ -297,14 +336,46 @@ RCT_EXPORT_MODULE()
     [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationActionTriggered
                                                         object:self
                                                       userInfo:info];
-    
+
     [RNNotificationsBridgeQueue sharedInstance].lastAction = info;
     [RNNotificationsBridgeQueue sharedInstance].lastCompletionHandler = completionHandler;
+}
+
++ (void)registerPushKit
+{
+    // Create a push registry object
+    PKPushRegistry* pushKitRegistry = [[PKPushRegistry alloc] initWithQueue:dispatch_get_main_queue()];
+
+    // Set the registry delegate to app delegate
+    pushKitRegistry.delegate = [[UIApplication sharedApplication] delegate];
+    pushKitRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
+}
+
++ (void)didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(NSString *)type
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:RNPushKitRegistered
+                                                        object:self
+                                                      userInfo:@{@"pushKitToken": [self deviceTokenToString:credentials.token]}];
+}
+
+- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(NSString *)type
+{
+    [RNNotifications didReceiveRemoteNotification:payload.dictionaryPayload];
 }
 
 /*
  * Javascript events
  */
+- (void)handleNotificationsRegistered:(NSNotification *)notification
+{
+    [_bridge.eventDispatcher sendDeviceEventWithName:@"remoteNotificationsRegistered" body:notification.userInfo];
+}
+
+- (void)handlePushKitRegistered:(NSNotification *)notification
+{
+    [_bridge.eventDispatcher sendDeviceEventWithName:@"pushKitRegistered" body:notification.userInfo];
+}
+
 - (void)handleNotificationReceivedForeground:(NSNotification *)notification
 {
     [_bridge.eventDispatcher sendDeviceEventWithName:@"notificationReceivedForeground" body:notification.userInfo];
@@ -328,9 +399,9 @@ RCT_EXPORT_MODULE()
 /*
  * React Native exported methods
  */
-RCT_EXPORT_METHOD(updateNotificationCategories:(NSArray *)json)
+RCT_EXPORT_METHOD(requestPermissionsWithCategories:(NSArray *)json)
 {
-    [RNNotifications updateNotificationCategories:json];
+    [RNNotifications requestPermissionsWithCategories:json];
 }
 
 RCT_EXPORT_METHOD(log:(NSString *)message)
@@ -345,6 +416,22 @@ RCT_EXPORT_METHOD(completionHandler)
         completionHandler();
         [RNNotificationsBridgeQueue sharedInstance].lastCompletionHandler = nil;
     }
+}
+
+RCT_EXPORT_METHOD(abandonPermissions)
+{
+    [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+}
+
+RCT_EXPORT_METHOD(registerPushKit)
+{
+    [RNNotifications registerPushKit];
+}
+
+RCT_EXPORT_METHOD(backgroundTimeRemaining:(RCTResponseSenderBlock)callback)
+{
+    NSTimeInterval remainingTime = [UIApplication sharedApplication].backgroundTimeRemaining;
+    callback(@[ [NSNumber numberWithDouble:remainingTime] ]);
 }
 
 @end

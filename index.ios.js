@@ -8,11 +8,21 @@ import Map from "core-js/library/es6/map";
 const NativeRNNotifications = NativeModules.RNNotifications; // eslint-disable-line no-unused-vars
 import IOSNotification from "./notification.ios";
 
+export const DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT = "remoteNotificationsRegistered";
+export const DEVICE_PUSH_KIT_REGISTERED_EVENT = "pushKitRegistered";
 export const DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT = "notificationReceivedForeground";
 export const DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT = "notificationReceivedBackground";
 export const DEVICE_NOTIFICATION_OPENED_EVENT = "notificationOpened";
-export const DEVICE_NOTIFICATION_ACTION_RECEIVED = "notificationActionReceived";
 
+const DEVICE_NOTIFICATION_ACTION_RECEIVED = "notificationActionReceived";
+
+const _exportedEvents = [
+  DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT,
+  DEVICE_PUSH_KIT_REGISTERED_EVENT,
+  DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT,
+  DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT,
+  DEVICE_NOTIFICATION_OPENED_EVENT
+];
 let _notificationHandlers = new Map();
 let _actionHandlers = new Map();
 let _actionListener;
@@ -37,18 +47,31 @@ export default class NotificationsIOS {
    *
    * Valid events are:
    *
+   * - `remoteNotificationsRegistered` : Fired when the user registers for remote notifications. The handler will be invoked with a hex string representing the deviceToken.
    * - `notificationReceivedForeground` : Fired when a notification (local / remote) is received when app is on foreground state.
    * - `notificationReceivedBackground`: Fired when a background notification is received.
    * - `notificationOpened`: Fired when a notification (local / remote) is opened.
    */
   static addEventListener(type: string, handler: Function) {
-    if (type === DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT ||
-        type === DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT ||
-        type === DEVICE_NOTIFICATION_OPENED_EVENT) {
-      let listener = DeviceEventEmitter.addListener(
-        type,
-        notification => handler(new IOSNotification(notification))
-      );
+    if (_exportedEvents.indexOf(type) !== -1) {
+      let listener;
+
+      if (type === DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT) {
+        listener = DeviceEventEmitter.addListener(
+          DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT,
+          registration => handler(registration.deviceToken)
+        );
+      } else if (type === DEVICE_PUSH_KIT_REGISTERED_EVENT) {
+        listener = DeviceEventEmitter.addListener(
+          DEVICE_PUSH_KIT_REGISTERED_EVENT,
+          registration => handler(registration.pushKitToken)
+        );
+      } else {
+        listener = DeviceEventEmitter.addListener(
+          type,
+          notification => handler(new IOSNotification(notification))
+        );
+      }
 
       _notificationHandlers.set(handler, listener);
     }
@@ -59,9 +82,7 @@ export default class NotificationsIOS {
    * memory leaks
    */
   static removeEventListener(type: string, handler: Function) {
-    if (type === DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT ||
-        type === DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT ||
-        type === DEVICE_NOTIFICATION_OPENED_EVENT) {
+    if (_exportedEvents.indexOf(type) !== -1) {
       let listener = _notificationHandlers.get(handler);
       if (!listener) {
         return;
@@ -85,8 +106,7 @@ export default class NotificationsIOS {
   /**
    * Sets the notification categories
    */
-   /* eslint-disable no-unused-vars */
-  static setCategories(categories: Array<NotificationCategory>) {
+  static requestPermissions(categories: Array<NotificationCategory>) {
     let notificationCategories = [];
 
     if (categories) {
@@ -105,7 +125,14 @@ export default class NotificationsIOS {
       });
     }
 
-    NativeRNNotifications.updateNotificationCategories(notificationCategories);
+    NativeRNNotifications.requestPermissionsWithCategories(notificationCategories);
+  }
+
+  /**
+   * Unregister for all remote notifications received via Apple Push Notification service.
+   */
+  static abandonPermissions() {
+    NativeRNNotifications.abandonPermissions();
   }
 
   /**
@@ -118,6 +145,14 @@ export default class NotificationsIOS {
     }
 
     _actionHandlers.clear();
+  }
+
+  static registerPushKit() {
+    NativeRNNotifications.registerPushKit();
+  }
+
+  static backgroundTimeRemaining(callback: Function) {
+    NativeRNNotifications.backgroundTimeRemaining(callback);
   }
 
   static log(message) {

@@ -8,9 +8,10 @@
  */
 
 #import "AppDelegate.h"
-#import "RCTPushNotificationManager.h"
 #import "RCTRootView.h"
 #import "RNNotifications.h"
+
+#import <PushKit/PushKit.h>
 
 @implementation AppDelegate
 
@@ -32,7 +33,7 @@
    * on the same Wi-Fi network.
    */
 
-  jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.15:8081/index.ios.bundle?platform=ios&dev=true"];
+  jsCodeLocation = [NSURL URLWithString:@"http://172.31.8.67:8081/index.ios.bundle?platform=ios&dev=true"];
 
   /**
    * OPTION 2
@@ -54,26 +55,37 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
   return YES;
 }
+
+
+// PushKit API Example
+- (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(NSString *)type
+{
+  [RNNotifications didUpdatePushCredentials:credentials forType:type];
+}
+
+- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(NSString *)type
+{
+  [RNNotifications didReceiveRemoteNotification:payload.dictionaryPayload];
+}
+
 
 // Required to register for notifications
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
-  [RCTPushNotificationManager didRegisterUserNotificationSettings:notificationSettings];
+  [RNNotifications didRegisterUserNotificationSettings:notificationSettings];
 }
-// Required for the register event.
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-  [RCTPushNotificationManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+  [RNNotifications didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
-
-
 
 
 // Required for the notification event.
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification
-{
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification {
   [RNNotifications didReceiveRemoteNotification:notification];
 }
 
@@ -87,12 +99,12 @@
 // Required for the notification actions.
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
 {
-  [RNNotifications application:application handleActionWithIdentifier:identifier forLocalNotification:notification withResponseInfo:responseInfo completionHandler:completionHandler];
+  [RNNotifications handleActionWithIdentifier:identifier forLocalNotification:notification withResponseInfo:responseInfo completionHandler:completionHandler];
 }
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
 {
-  [RNNotifications application:application handleActionWithIdentifier:identifier forRemoteNotification:userInfo withResponseInfo:responseInfo completionHandler:completionHandler];
+  [RNNotifications handleActionWithIdentifier:identifier forRemoteNotification:userInfo withResponseInfo:responseInfo completionHandler:completionHandler];
 }
 
 

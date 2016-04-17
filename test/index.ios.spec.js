@@ -7,27 +7,44 @@ import sinon from "sinon";
 
 describe("NotificationsIOS", () => {
   let deviceEvents = [
+    "pushKitRegistered",
+    "remoteNotificationsRegistered",
     "notificationReceivedForeground",
     "notificationReceivedBackground",
     "notificationOpened"
   ];
 
-  let deviceAddEventListener, deviceRemoveEventListener, nativeAppAddEventListener, nativeAppRemoveEventListener, nativeUpdateNotificationCategories;
+  /*eslint-disable indent*/
+  let deviceAddEventListener,
+      deviceRemoveEventListener,
+      nativeAppAddEventListener,
+      nativeAppRemoveEventListener,
+      nativeRequestPermissionsWithCategories,
+      nativeAbandonPermissions,
+      nativeRegisterPushKit,
+      nativeBackgroundTimeRemaining;
   let NotificationsIOS, NotificationAction, NotificationCategory;
   let someHandler = () => {};
+  /*eslint-enable indent*/
 
   before(() => {
     deviceAddEventListener = sinon.spy();
     deviceRemoveEventListener = sinon.spy();
     nativeAppAddEventListener = sinon.spy();
     nativeAppRemoveEventListener = sinon.spy();
-    nativeUpdateNotificationCategories = sinon.spy();
+    nativeRequestPermissionsWithCategories = sinon.spy();
+    nativeAbandonPermissions = sinon.spy();
+    nativeRegisterPushKit = sinon.spy();
+    nativeBackgroundTimeRemaining = sinon.spy();
 
     let libUnderTest = proxyquire("../index.ios", {
       "react-native": {
         NativeModules: {
           RNNotifications: {
-            updateNotificationCategories: nativeUpdateNotificationCategories
+            requestPermissionsWithCategories: nativeRequestPermissionsWithCategories,
+            abandonPermissions: nativeAbandonPermissions,
+            registerPushKit: nativeRegisterPushKit,
+            backgroundTimeRemaining: nativeBackgroundTimeRemaining
           }
         },
         NativeAppEventEmitter: {
@@ -58,7 +75,10 @@ describe("NotificationsIOS", () => {
     deviceRemoveEventListener.reset();
     nativeAppAddEventListener.reset();
     nativeAppRemoveEventListener.reset();
-    nativeUpdateNotificationCategories.reset();
+    nativeRequestPermissionsWithCategories.reset();
+    nativeAbandonPermissions.reset();
+    nativeRegisterPushKit.reset();
+    nativeBackgroundTimeRemaining.reset();
   });
 
   after(() => {
@@ -66,7 +86,10 @@ describe("NotificationsIOS", () => {
     deviceRemoveEventListener = null;
     nativeAppAddEventListener = null;
     nativeAppRemoveEventListener = null;
-    nativeUpdateNotificationCategories = null;
+    nativeRequestPermissionsWithCategories = null;
+    nativeAbandonPermissions = null;
+    nativeRegisterPushKit = null;
+    nativeBackgroundTimeRemaining = null;
 
     NotificationsIOS = null;
     NotificationAction = null;
@@ -128,25 +151,25 @@ describe("NotificationsIOS", () => {
       });
     });
 
-    describe("register categories", () => {
-      it("should call native update categories with array of categories", () => {
-        NotificationsIOS.setCategories([someCategory]);
+    describe("register push notifications", () => {
+      it("should call native request permissions with array of categories", () => {
+        NotificationsIOS.requestPermissions([someCategory]);
 
-        expect(nativeUpdateNotificationCategories).to.have.been.calledWith([{
+        expect(nativeRequestPermissionsWithCategories).to.have.been.calledWith([{
           identifier: "SOME_CATEGORY",
           actions: [actionOpts],
           context: "default"
         }]);
       });
 
-      it("should call native update categories with empty array if no categories specified", () => {
-        NotificationsIOS.setCategories();
+      it("should call native request permissions with empty array if no categories specified", () => {
+        NotificationsIOS.requestPermissions();
 
-        expect(nativeUpdateNotificationCategories).to.have.been.calledWith([]);
+        expect(nativeRequestPermissionsWithCategories).to.have.been.calledWith([]);
       });
 
       it("should subscribe to 'notificationActionReceived' event once, with a single event handler", () => {
-        NotificationsIOS.setCategories([someCategory]);
+        NotificationsIOS.requestPermissions([someCategory]);
 
         expect(nativeAppAddEventListener).to.have.been.calledOnce;
         expect(nativeAppAddEventListener).to.have.been.calledWith("notificationActionReceived", sinon.match.func);
@@ -154,11 +177,35 @@ describe("NotificationsIOS", () => {
     });
 
     describe("reset categories", () => {
-      it("should remove 'notificationActionReceived' event handler", function () {
+      it("should remove 'notificationActionReceived' event handler", () => {
         NotificationsIOS.resetCategories();
 
         expect(nativeAppRemoveEventListener).to.have.been.calledOnce;
       });
+    });
+  });
+
+  describe("register push kit for background notifications", function () {
+    it("should call native register push kit method", function () {
+      NotificationsIOS.registerPushKit();
+
+      expect(nativeRegisterPushKit).to.have.been.called;
+    });
+  });
+
+  describe("Abandon push notifications permissions", () => {
+    it("should call native abandon permissions method", () => {
+      NotificationsIOS.abandonPermissions();
+
+      expect(nativeAbandonPermissions).to.have.been.called;
+    });
+  });
+
+  describe("Get background remaining time", () => {
+    it("should call native background remaining time method", () => {
+      NotificationsIOS.backgroundTimeRemaining(time => { });
+
+      expect(nativeBackgroundTimeRemaining).to.have.been.called;
     });
   });
 });

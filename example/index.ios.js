@@ -8,8 +8,7 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View,
-  PushNotificationIOS
+  View
 } from 'react-native';
 
 import NotificationsIOS, { NotificationAction, NotificationCategory } from 'react-native-notifications';
@@ -44,25 +43,27 @@ let cat = new NotificationCategory({
   context: "default"
 });
 
-NotificationsIOS.setCategories([cat]);
-
 class NotificationsExampleApp extends Component {
 
   constructor() {
     super();
-    PushNotificationIOS.addEventListener('register', this.onPushRegistered.bind(this));
+    NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
+    NotificationsIOS.requestPermissions([cat]);
+
+    NotificationsIOS.addEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
+    NotificationsIOS.registerPushKit([cat]);
 
     NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
     NotificationsIOS.addEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
     NotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
   }
 
-  componentDidMount() {
-    // PushNotificationIOS.requestPermissions();
-  }
-
   onPushRegistered(deviceToken) {
     console.log("Device Token Received: " + deviceToken);
+  }
+
+  onPushKitRegistered(deviceToken) {
+    console.log("PushKit Token Received: " + deviceToken);
   }
 
   onNotificationReceivedForeground(notification) {
@@ -70,7 +71,10 @@ class NotificationsExampleApp extends Component {
   }
 
   onNotificationReceivedBackground(notification) {
-    console.log("Notification Received Background: " + JSON.stringify(notification));
+    NotificationsIOS.log("Notification Received Background: " + JSON.stringify(notification));
+
+    NotificationsIOS.backgroundTimeRemaining(time => NotificationsIOS.log("remaining background time: " + time));
+
   }
 
   onNotificationOpened(notification) {
@@ -98,6 +102,8 @@ class NotificationsExampleApp extends Component {
     NotificationsIOS.removeEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
     NotificationsIOS.removeEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
     NotificationsIOS.removeEventListener('notificationOpened', this.onNotificationOpened.bind(this));
+    NotificationsIOS.removeEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
+    NotificationsIOS.removeEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
     // NotificationsIOS.resetCategories();
   }
 
