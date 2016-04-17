@@ -203,9 +203,11 @@ describe("NotificationsIOS", () => {
 
   describe("Get background remaining time", () => {
     it("should call native background remaining time method", () => {
-      NotificationsIOS.backgroundTimeRemaining(time => { });
+      let someCallback = (time) => { };
 
-      expect(nativeBackgroundTimeRemaining).to.have.been.called;
+      NotificationsIOS.backgroundTimeRemaining(someCallback);
+
+      expect(nativeBackgroundTimeRemaining).to.have.been.calledWith(someCallback);
     });
   });
 });
