@@ -51,7 +51,7 @@ class NotificationsExampleApp extends Component {
     NotificationsIOS.requestPermissions([cat]);
 
     NotificationsIOS.addEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
-    NotificationsIOS.registerPushKit([cat]);
+    NotificationsIOS.registerPushKit();
 
     NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
     NotificationsIOS.addEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
