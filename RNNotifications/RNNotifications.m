@@ -124,15 +124,6 @@ RCT_EXPORT_MODULE()
                                              selector:@selector(handleNotificationActionTriggered:)
                                                  name:RNNotificationActionTriggered
                                                object:nil];
-
-    NSDictionary* lastActionInfo = [RNNotificationsBridgeQueue sharedInstance].lastAction;
-    if (lastActionInfo) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationActionTriggered
-                                                            object:self
-                                                          userInfo:lastActionInfo];
-        [RNNotificationsBridgeQueue sharedInstance].lastAction = nil;
-    }
-
 }
 
 /*
@@ -220,9 +211,14 @@ RCT_EXPORT_MODULE()
         }
     }
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationReceivedBackground
-                                                        object:self
-                                                      userInfo:notification];
+    // if Js thread is ready- post notification to bridge. otherwise- post it to the bridge queue
+    if ([RNNotificationsBridgeQueue sharedInstance].jsIsReady == YES) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationReceivedBackground
+                                                            object:self
+                                                          userInfo:notification];
+    } else {
+        [[RNNotificationsBridgeQueue sharedInstance] postNotification:notification];
+    }
 }
 
 + (void)didNotificationOpen:(NSDictionary *)notification
@@ -300,17 +296,8 @@ RCT_EXPORT_MODULE()
     return [result copy];
 }
 
-+ (void)requestPermissionsWithCategories:(NSArray *)json
++ (void)requestPermissionsWithCategories:(NSMutableSet *)categories
 {
-    NSMutableSet* categories = nil;
-
-    if ([json count] > 0) {
-        categories = [[NSMutableSet alloc] init];
-        for (NSDictionary* categoryJson in json) {
-            [categories addObject:[RCTConvert UIMutableUserNotificationCategory:categoryJson]];
-        }
-    }
-
     UIUserNotificationType types = (UIUserNotificationType) (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert);
     UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:types categories:categories];
 
@@ -319,7 +306,8 @@ RCT_EXPORT_MODULE()
 
 + (void)emitNotificationActionForIdentifier:(NSString *)identifier responseInfo:(NSDictionary *)responseInfo userInfo:(NSDictionary *)userInfo  completionHandler:(void (^)())completionHandler
 {
-    NSMutableDictionary* info = [[NSMutableDictionary alloc] initWithDictionary:@{ @"identifier": identifier }];
+    NSString* completionKey = [NSString stringWithFormat:@"%@.%@", identifier, [NSString stringWithFormat:@"%d", (long)[[NSDate date] timeIntervalSince1970]]];
+    NSMutableDictionary* info = [[NSMutableDictionary alloc] initWithDictionary:@{ @"identifier": identifier, @"completionKey": completionKey }];
 
     // add text
     NSString* text = [responseInfo objectForKey:UIUserNotificationActionResponseTypedTextKey];
@@ -332,13 +320,14 @@ RCT_EXPORT_MODULE()
         info[@"notification"] = userInfo;
     }
 
-    // Emit event
-    [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationActionTriggered
-                                                        object:self
-                                                      userInfo:info];
+    // Emit event to the queue (in order to store the completion handler). if JS thread is ready, post it also to the notification center (to the bridge).
+    [[RNNotificationsBridgeQueue sharedInstance] postAction:info withCompletionKey:completionKey andCompletionHandler:completionHandler];
 
-    [RNNotificationsBridgeQueue sharedInstance].lastAction = info;
-    [RNNotificationsBridgeQueue sharedInstance].lastCompletionHandler = completionHandler;
+    if ([RNNotificationsBridgeQueue sharedInstance].jsIsReady == YES) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationActionTriggered
+                                                            object:self
+                                                          userInfo:info];
+    }
 }
 
 + (void)registerPushKit
@@ -401,7 +390,16 @@ RCT_EXPORT_MODULE()
  */
 RCT_EXPORT_METHOD(requestPermissionsWithCategories:(NSArray *)json)
 {
-    [RNNotifications requestPermissionsWithCategories:json];
+    NSMutableSet* categories = nil;
+
+    if ([json count] > 0) {
+        categories = [[NSMutableSet alloc] init];
+        for (NSDictionary* categoryJson in json) {
+            [categories addObject:[RCTConvert UIMutableUserNotificationCategory:categoryJson]];
+        }
+    }
+
+    [RNNotifications requestPermissionsWithCategories:categories];
 }
 
 RCT_EXPORT_METHOD(log:(NSString *)message)
@@ -409,13 +407,9 @@ RCT_EXPORT_METHOD(log:(NSString *)message)
     NSLog(message);
 }
 
-RCT_EXPORT_METHOD(completionHandler)
+RCT_EXPORT_METHOD(completionHandler:(NSString *)completionKey)
 {
-    void (^completionHandler)() = [RNNotificationsBridgeQueue sharedInstance].lastCompletionHandler;
-    if (completionHandler) {
-        completionHandler();
-        [RNNotificationsBridgeQueue sharedInstance].lastCompletionHandler = nil;
-    }
+    [[RNNotificationsBridgeQueue sharedInstance] completeAction:completionKey];
 }
 
 RCT_EXPORT_METHOD(abandonPermissions)
@@ -432,6 +426,23 @@ RCT_EXPORT_METHOD(backgroundTimeRemaining:(RCTResponseSenderBlock)callback)
 {
     NSTimeInterval remainingTime = [UIApplication sharedApplication].backgroundTimeRemaining;
     callback(@[ [NSNumber numberWithDouble:remainingTime] ]);
+}
+
+RCT_EXPORT_METHOD(consumeBackgroundQueue)
+{
+    [[RNNotificationsBridgeQueue sharedInstance] consumeActionsQueue:^(NSDictionary* action) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationActionTriggered
+                                                            object:self
+                                                          userInfo:action];
+    }];
+
+    [[RNNotificationsBridgeQueue sharedInstance] consumeNotificationsQueue:^(NSDictionary* notification) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationReceivedBackground
+                                                            object:self
+                                                          userInfo:notification];
+    }];
+
+    [RNNotificationsBridgeQueue sharedInstance].jsIsReady = YES;
 }
 
 @end

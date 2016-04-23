@@ -99,7 +99,9 @@ export default class NotificationsIOS {
     if (actionHandler) {
       action.notification = new IOSNotification(action.notification);
 
-      actionHandler(action, () => { NativeRNNotifications.completionHandler(); });
+      actionHandler(action, () => {
+        NativeRNNotifications.completionHandler(action.completionKey);
+      });
     }
   }
 
@@ -153,6 +155,10 @@ export default class NotificationsIOS {
 
   static backgroundTimeRemaining(callback: Function) {
     NativeRNNotifications.backgroundTimeRemaining(callback);
+  }
+
+  static consumeBackgroundQueue() {
+    NativeRNNotifications.consumeBackgroundQueue();
   }
 
   static log(message) {

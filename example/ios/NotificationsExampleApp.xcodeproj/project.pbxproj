@@ -17,14 +17,13 @@
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		D86588561CA2F4EF0076A9C8 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D86588551CA2F49C0076A9C8 /* libRCTPushNotification.a */; };
+		D85193341CCB6C8F008B3C99 /* libRNNotifications.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D85193331CCB6C82008B3C99 /* libRNNotifications.a */; };
 		D892FB7C1CB5AD7600B2CCF9 /* SmartNotificationsAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D892FB7B1CB5AD7600B2CCF9 /* SmartNotificationsAppTests.m */; };
 		D89EF3AC1CB586FE0029DCD6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D89EF3A71CB586FE0029DCD6 /* AppDelegate.m */; };
 		D89EF3AD1CB586FE0029DCD6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D89EF3A91CB586FE0029DCD6 /* Images.xcassets */; };
 		D89EF3AE1CB586FE0029DCD6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D89EF3AA1CB586FE0029DCD6 /* Info.plist */; };
 		D89EF3AF1CB586FE0029DCD6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D89EF3AB1CB586FE0029DCD6 /* main.m */; };
 		D89EF3BE1CB5871B0029DCD6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D89EF3BC1CB5871B0029DCD6 /* LaunchScreen.xib */; };
-		D8CDE9D11CB588F000DC8E35 /* libRNNotifications.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CDE9D01CB588CF00DC8E35 /* libRNNotifications.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,19 +104,19 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		D85193321CCB6C82008B3C99 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D851932E1CCB6C82008B3C99 /* RNNotifications.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNNotifications;
+		};
 		D86588541CA2F49C0076A9C8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D86588501CA2F49C0076A9C8 /* RCTPushNotification.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTPushNotification;
-		};
-		D8CDE9CF1CB588CF00DC8E35 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D8CDE9CB1CB588CF00DC8E35 /* RNNotifications.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNNotifications;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -135,6 +134,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		D851932E1CCB6C82008B3C99 /* RNNotifications.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNNotifications.xcodeproj; path = ../../RNNotifications/RNNotifications.xcodeproj; sourceTree = "<group>"; };
 		D86588501CA2F49C0076A9C8 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		D892FB7B1CB5AD7600B2CCF9 /* SmartNotificationsAppTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmartNotificationsAppTests.m; sourceTree = "<group>"; };
 		D89EF3A71CB586FE0029DCD6 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = NotificationsExampleApp/AppDelegate.m; sourceTree = "<group>"; };
@@ -143,7 +143,6 @@
 		D89EF3AA1CB586FE0029DCD6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = NotificationsExampleApp/Info.plist; sourceTree = "<group>"; };
 		D89EF3AB1CB586FE0029DCD6 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = NotificationsExampleApp/main.m; sourceTree = "<group>"; };
 		D89EF3BD1CB5871B0029DCD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = NotificationsExampleApp/Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		D8CDE9CB1CB588CF00DC8E35 /* RNNotifications.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNNotifications.xcodeproj; path = "../node_modules/react-native-notifications/RNNotifications/RNNotifications.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,8 +157,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8CDE9D11CB588F000DC8E35 /* libRNNotifications.a in Frameworks */,
-				D86588561CA2F4EF0076A9C8 /* libRCTPushNotification.a in Frameworks */,
+				D85193341CCB6C8F008B3C99 /* libRNNotifications.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -281,7 +279,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				D8CDE9CB1CB588CF00DC8E35 /* RNNotifications.xcodeproj */,
+				D851932E1CCB6C82008B3C99 /* RNNotifications.xcodeproj */,
 				D86588501CA2F49C0076A9C8 /* RCTPushNotification.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -326,18 +324,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D86588511CA2F49C0076A9C8 /* Products */ = {
+		D851932F1CCB6C82008B3C99 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D86588551CA2F49C0076A9C8 /* libRCTPushNotification.a */,
+				D85193331CCB6C82008B3C99 /* libRNNotifications.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D8CDE9CC1CB588CF00DC8E35 /* Products */ = {
+		D86588511CA2F49C0076A9C8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D8CDE9D01CB588CF00DC8E35 /* libRNNotifications.a */,
+				D86588551CA2F49C0076A9C8 /* libRCTPushNotification.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -461,8 +459,8 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
-					ProductGroup = D8CDE9CC1CB588CF00DC8E35 /* Products */;
-					ProjectRef = D8CDE9CB1CB588CF00DC8E35 /* RNNotifications.xcodeproj */;
+					ProductGroup = D851932F1CCB6C82008B3C99 /* Products */;
+					ProjectRef = D851932E1CCB6C82008B3C99 /* RNNotifications.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -544,18 +542,18 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D85193331CCB6C82008B3C99 /* libRNNotifications.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNNotifications.a;
+			remoteRef = D85193321CCB6C82008B3C99 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D86588551CA2F49C0076A9C8 /* libRCTPushNotification.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRCTPushNotification.a;
 			remoteRef = D86588541CA2F49C0076A9C8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D8CDE9D01CB588CF00DC8E35 /* libRNNotifications.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNNotifications.a;
-			remoteRef = D8CDE9CF1CB588CF00DC8E35 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -686,8 +684,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
-					"$(SRCROOT)/../node_modules/react-native-notifications/RNNotifications/**",
+					"$(SRCROOT)/../../RNNotifications/**",
 				);
 				INFOPLIST_FILE = NotificationsExampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -706,8 +703,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
-					"$(SRCROOT)/../node_modules/react-native-notifications/RNNotifications/**",
+					"$(SRCROOT)/../../RNNotifications/**",
 				);
 				INFOPLIST_FILE = NotificationsExampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

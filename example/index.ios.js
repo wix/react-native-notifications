@@ -50,6 +50,8 @@ class NotificationsExampleApp extends Component {
     NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
     NotificationsIOS.requestPermissions([cat]);
 
+    NotificationsIOS.consumeBackgroundQueue();
+
     NotificationsIOS.addEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
     NotificationsIOS.registerPushKit();
 
@@ -73,8 +75,7 @@ class NotificationsExampleApp extends Component {
   onNotificationReceivedBackground(notification) {
     NotificationsIOS.log("Notification Received Background: " + JSON.stringify(notification));
 
-    NotificationsIOS.backgroundTimeRemaining(time => NotificationsIOS.log("remaining background time: " + time));
-
+    // NotificationsIOS.backgroundTimeRemaining(time => NotificationsIOS.log("remaining background time: " + time));
   }
 
   onNotificationOpened(notification) {

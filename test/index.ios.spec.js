@@ -22,7 +22,8 @@ describe("NotificationsIOS", () => {
       nativeRequestPermissionsWithCategories,
       nativeAbandonPermissions,
       nativeRegisterPushKit,
-      nativeBackgroundTimeRemaining;
+      nativeBackgroundTimeRemaining,
+      nativeConsumeBackgroundQueue;
   let NotificationsIOS, NotificationAction, NotificationCategory;
   let someHandler = () => {};
   /*eslint-enable indent*/
@@ -36,6 +37,7 @@ describe("NotificationsIOS", () => {
     nativeAbandonPermissions = sinon.spy();
     nativeRegisterPushKit = sinon.spy();
     nativeBackgroundTimeRemaining = sinon.spy();
+    nativeConsumeBackgroundQueue = sinon.spy();
 
     let libUnderTest = proxyquire("../index.ios", {
       "react-native": {
@@ -44,7 +46,8 @@ describe("NotificationsIOS", () => {
             requestPermissionsWithCategories: nativeRequestPermissionsWithCategories,
             abandonPermissions: nativeAbandonPermissions,
             registerPushKit: nativeRegisterPushKit,
-            backgroundTimeRemaining: nativeBackgroundTimeRemaining
+            backgroundTimeRemaining: nativeBackgroundTimeRemaining,
+            consumeBackgroundQueue: nativeConsumeBackgroundQueue
           }
         },
         NativeAppEventEmitter: {
@@ -79,6 +82,7 @@ describe("NotificationsIOS", () => {
     nativeAbandonPermissions.reset();
     nativeRegisterPushKit.reset();
     nativeBackgroundTimeRemaining.reset();
+    nativeConsumeBackgroundQueue.reset();
   });
 
   after(() => {
@@ -90,6 +94,7 @@ describe("NotificationsIOS", () => {
     nativeAbandonPermissions = null;
     nativeRegisterPushKit = null;
     nativeBackgroundTimeRemaining = null;
+    nativeConsumeBackgroundQueue = null;
 
     NotificationsIOS = null;
     NotificationAction = null;
@@ -208,6 +213,14 @@ describe("NotificationsIOS", () => {
       NotificationsIOS.backgroundTimeRemaining(someCallback);
 
       expect(nativeBackgroundTimeRemaining).to.have.been.calledWith(someCallback);
+    });
+  });
+
+  describe("Get background remaining time", () => {
+    it("should call native consume background queue method", () => {
+      NotificationsIOS.consumeBackgroundQueue();
+
+      expect(nativeConsumeBackgroundQueue).to.have.been.called;
     });
   });
 });
