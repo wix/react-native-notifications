@@ -58,6 +58,8 @@ class NotificationsExampleApp extends Component {
     NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
     NotificationsIOS.addEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
     NotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
+
+
   }
 
   onPushRegistered(deviceToken) {
@@ -74,6 +76,15 @@ class NotificationsExampleApp extends Component {
 
   onNotificationReceivedBackground(notification) {
     NotificationsIOS.log("Notification Received Background: " + JSON.stringify(notification));
+
+    NotificationsIOS.localNotification({
+      alertBody: "Received background notificiation!",
+      alertTitle: "Local Notification Title",
+      alertAction: "Click here to open",
+      soundName: "chime.aiff",
+      category: "SOME_CATEGORY",
+      userInfo: notification.getData()
+    });
 
     // NotificationsIOS.backgroundTimeRemaining(time => NotificationsIOS.log("remaining background time: " + time));
   }

@@ -161,7 +161,24 @@ export default class NotificationsIOS {
     NativeRNNotifications.consumeBackgroundQueue();
   }
 
-  static log(message) {
+  static log(message: string) {
     NativeRNNotifications.log(message);
+  }
+
+  /**
+   * Presenting local notification
+   *
+   * notification is an object containing:
+   *
+   * - `alertBody` : The message displayed in the notification alert.
+   * - `alertTitle` : The message title displayed in the notification.
+   * - `alertAction` : The "action" displayed beneath an actionable notification. Defaults to "view";
+   * - `soundName` : The sound played when the notification is fired (optional).
+   * - `category`  : The category of this notification, required for actionable notifications (optional).
+   * - `userInfo`  : An optional object containing additional notification data.
+   * - `fireDate` : The date and time when the system should deliver the notification. if not specified, the notification will be dispatched immediately.
+   */
+  static localNotification(notification: Object) {
+    NativeRNNotifications.localNotification(notification);
   }
 }

@@ -23,7 +23,8 @@ describe("NotificationsIOS", () => {
       nativeAbandonPermissions,
       nativeRegisterPushKit,
       nativeBackgroundTimeRemaining,
-      nativeConsumeBackgroundQueue;
+      nativeConsumeBackgroundQueue,
+      nativeLocalNotification;
   let NotificationsIOS, NotificationAction, NotificationCategory;
   let someHandler = () => {};
   /*eslint-enable indent*/
@@ -38,6 +39,7 @@ describe("NotificationsIOS", () => {
     nativeRegisterPushKit = sinon.spy();
     nativeBackgroundTimeRemaining = sinon.spy();
     nativeConsumeBackgroundQueue = sinon.spy();
+    nativeLocalNotification = sinon.spy();
 
     let libUnderTest = proxyquire("../index.ios", {
       "react-native": {
@@ -47,7 +49,8 @@ describe("NotificationsIOS", () => {
             abandonPermissions: nativeAbandonPermissions,
             registerPushKit: nativeRegisterPushKit,
             backgroundTimeRemaining: nativeBackgroundTimeRemaining,
-            consumeBackgroundQueue: nativeConsumeBackgroundQueue
+            consumeBackgroundQueue: nativeConsumeBackgroundQueue,
+            localNotification: nativeLocalNotification
           }
         },
         NativeAppEventEmitter: {
@@ -83,6 +86,7 @@ describe("NotificationsIOS", () => {
     nativeRegisterPushKit.reset();
     nativeBackgroundTimeRemaining.reset();
     nativeConsumeBackgroundQueue.reset();
+    nativeLocalNotification.reset();
   });
 
   after(() => {
@@ -95,6 +99,7 @@ describe("NotificationsIOS", () => {
     nativeRegisterPushKit = null;
     nativeBackgroundTimeRemaining = null;
     nativeConsumeBackgroundQueue = null;
+    nativeLocalNotification = null;
 
     NotificationsIOS = null;
     NotificationAction = null;
@@ -216,11 +221,30 @@ describe("NotificationsIOS", () => {
     });
   });
 
-  describe("Get background remaining time", () => {
+  describe("Consume background queue which holds background notificiations and actions until js thread is ready", () => {
     it("should call native consume background queue method", () => {
       NotificationsIOS.consumeBackgroundQueue();
 
       expect(nativeConsumeBackgroundQueue).to.have.been.called;
+    });
+  });
+
+  describe("Get background remaining time", () => {
+    it("should call native consume background queue method", () => {
+      let someLocalNotification = {
+        alertBody: "some body",
+        alertTitle: "some title",
+        alertAction: "some action",
+        soundName: "sound",
+        category: "SOME_CATEGORY",
+        userInfo: {
+          "key": "value"
+        }
+      };
+
+      NotificationsIOS.localNotification(someLocalNotification);
+
+      expect(nativeLocalNotification).to.have.been.calledWith(someLocalNotification);
     });
   });
 });

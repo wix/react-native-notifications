@@ -48,7 +48,7 @@ RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
 {
     NSDictionary<NSString *, id> *details = [self NSDictionary:json];
 
-    UIMutableUserNotificationAction* action =[[UIMutableUserNotificationAction alloc] init];
+    UIMutableUserNotificationAction* action =[UIMutableUserNotificationAction new];
     action.activationMode = [RCTConvert UIUserNotificationActivationMode:details[@"activationMode"]];
     action.behavior = [RCTConvert UIUserNotificationActionBehavior:details[@"behavior"]];
     action.authenticationRequired = [RCTConvert BOOL:details[@"authenticationRequired"]];
@@ -65,11 +65,11 @@ RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
 {
     NSDictionary<NSString *, id> *details = [self NSDictionary:json];
 
-    UIMutableUserNotificationCategory* category = [[UIMutableUserNotificationCategory alloc] init];
+    UIMutableUserNotificationCategory* category = [UIMutableUserNotificationCategory new];
     category.identifier = details[@"identifier"];
 
     // category actions
-    NSMutableArray* actions = [[NSMutableArray alloc] init];
+    NSMutableArray* actions = [NSMutableArray new];
     for (NSDictionary* actionJson in [RCTConvert NSArray:details[@"actions"]]) {
         [actions addObject:[RCTConvert UIMutableUserNotificationAction:actionJson]];
     }
@@ -77,6 +77,24 @@ RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
     [category setActions:actions forContext:[RCTConvert UIUserNotificationActionContext:details[@"context"]]];
 
     return category;
+}
+@end
+
+@implementation RCTConvert (UILocalNotification)
++ (UILocalNotification *)UILocalNotification:(id)json
+{
+    NSDictionary<NSString *, id> *details = [self NSDictionary:json];
+
+    UILocalNotification* notification = [UILocalNotification new];
+    notification.fireDate = [RCTConvert NSDate:details[@"fireDate"]];
+    notification.alertBody = [RCTConvert NSString:details[@"alertBody"]];
+    notification.alertTitle = [RCTConvert NSString:details[@"alertTitle"]];
+    notification.alertAction = [RCTConvert NSString:details[@"alertAction"]];
+    notification.soundName = [RCTConvert NSString:details[@"soundName"]] ?: UILocalNotificationDefaultSoundName;
+    notification.userInfo = [RCTConvert NSDictionary:details[@"userInfo"]] ?: @{};
+    notification.category = [RCTConvert NSString:details[@"category"]];
+
+    return notification;
 }
 @end
 
@@ -163,7 +181,9 @@ RCT_EXPORT_MODULE()
 {
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
 
-    if (state == UIApplicationStateInactive) {
+    if (state == UIApplicationStateActive) {
+        [self didReceiveNotificationOnForegroundState:notification.userInfo];
+    } else if (state == UIApplicationStateInactive) {
         NSString* notificationId = [notification.userInfo objectForKey:@"notificationId"];
         if (notificationId) {
             [self clearNotificationFromNotificationsCenter:notificationId];
@@ -243,7 +263,7 @@ RCT_EXPORT_MODULE()
         && alert) {
 
         // trigger new client push notification
-        UILocalNotification* note = [[UILocalNotification alloc] init];
+        UILocalNotification* note = [UILocalNotification new];
         note.alertTitle = [alert objectForKey:@"title"];
         note.alertBody = [alert objectForKey:@"body"];
         note.userInfo = notification;
@@ -393,7 +413,7 @@ RCT_EXPORT_METHOD(requestPermissionsWithCategories:(NSArray *)json)
     NSMutableSet* categories = nil;
 
     if ([json count] > 0) {
-        categories = [[NSMutableSet alloc] init];
+        categories = [NSMutableSet new];
         for (NSDictionary* categoryJson in json) {
             [categories addObject:[RCTConvert UIMutableUserNotificationCategory:categoryJson]];
         }
@@ -443,6 +463,15 @@ RCT_EXPORT_METHOD(consumeBackgroundQueue)
     }];
 
     [RNNotificationsBridgeQueue sharedInstance].jsIsReady = YES;
+}
+
+RCT_EXPORT_METHOD(localNotification:(NSDictionary *)notification)
+{
+    if ([notification objectForKey:@"fireDate"] != nil) {
+        [RCTSharedApplication() scheduleLocalNotification:[RCTConvert UILocalNotification:notification]];
+    } else {
+        [RCTSharedApplication() presentLocalNotificationNow:[RCTConvert UILocalNotification:notification]];
+    }
 }
 
 @end
