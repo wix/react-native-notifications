@@ -3,7 +3,7 @@
 @implementation RNNotificationsBridgeQueue
 
 NSMutableArray<NSDictionary *>* actionsQueue;
-NSMutableArray<NSDictionary *>* backgroundNotificationsQueue;
+NSMutableArray<NSDictionary *>* notificationsQueue;
 NSMutableDictionary* actionCompletionHandlers;
 
 + (nonnull instancetype)sharedInstance {
@@ -19,7 +19,7 @@ NSMutableDictionary* actionCompletionHandlers;
 - (instancetype)init
 {
     actionsQueue = [NSMutableArray new];
-    backgroundNotificationsQueue = [NSMutableArray new];
+    notificationsQueue = [NSMutableArray new];
     actionCompletionHandlers = [NSMutableDictionary new];
     self.jsIsReady = NO;
 
@@ -28,16 +28,16 @@ NSMutableDictionary* actionCompletionHandlers;
 
 - (void)postNotification:(NSDictionary *)notification
 {
-    if (!backgroundNotificationsQueue) return;
-    [backgroundNotificationsQueue insertObject:notification atIndex:0];
+    if (!notificationsQueue) return;
+    [notificationsQueue insertObject:notification atIndex:0];
 }
 
 - (NSDictionary *)dequeueSingleNotification
 {
-    if (!backgroundNotificationsQueue || backgroundNotificationsQueue.count == 0) return nil;
+    if (!notificationsQueue || notificationsQueue.count == 0) return nil;
 
-    NSDictionary* notification = [backgroundNotificationsQueue lastObject];
-    [backgroundNotificationsQueue removeLastObject];
+    NSDictionary* notification = [notificationsQueue lastObject];
+    [notificationsQueue removeLastObject];
 
     return notification;
 }
@@ -50,7 +50,7 @@ NSMutableDictionary* actionCompletionHandlers;
         block(notification);
     }
 
-    backgroundNotificationsQueue = nil;
+    notificationsQueue = nil;
 }
 
 - (void)postAction:(NSDictionary *)action withCompletionKey:(NSString *)completionKey andCompletionHandler:(void (^)())completionHandler

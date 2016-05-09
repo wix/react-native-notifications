@@ -142,6 +142,9 @@ RCT_EXPORT_MODULE()
                                              selector:@selector(handleNotificationActionTriggered:)
                                                  name:RNNotificationActionTriggered
                                                object:nil];
+
+    [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification = [_bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = [_bridge.launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
 }
 
 /*
@@ -165,15 +168,22 @@ RCT_EXPORT_MODULE()
 {
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
 
-    if (state == UIApplicationStateActive) {
-        // Notification received foreground
-        [self didReceiveNotificationOnForegroundState:notification];
-    } else if (state == UIApplicationStateInactive) {
-        // Notification opened
-        [self didNotificationOpen:notification];
+    if ([RNNotificationsBridgeQueue sharedInstance].jsIsReady == YES) {
+        // JS thread is ready, push the notification to the bridge
+
+        if (state == UIApplicationStateActive) {
+            // Notification received foreground
+            [self didReceiveNotificationOnForegroundState:notification];
+        } else if (state == UIApplicationStateInactive) {
+            // Notification opened
+            [self didNotificationOpen:notification];
+        } else {
+            // Notification received background
+            [self didReceiveNotificationOnBackgroundState:notification];
+        }
     } else {
-        // Notification received background
-        [self didReceiveNotificationOnBackgroundState:notification];
+        // JS thread is not ready - store it in the native notifications queue
+        [[RNNotificationsBridgeQueue sharedInstance] postNotification:notification];
     }
 }
 
@@ -231,14 +241,9 @@ RCT_EXPORT_MODULE()
         }
     }
 
-    // if Js thread is ready- post notification to bridge. otherwise- post it to the bridge queue
-    if ([RNNotificationsBridgeQueue sharedInstance].jsIsReady == YES) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationReceivedBackground
-                                                            object:self
-                                                          userInfo:notification];
-    } else {
-        [[RNNotificationsBridgeQueue sharedInstance] postNotification:notification];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationReceivedBackground
+                                                        object:self
+                                                      userInfo:notification];
 }
 
 + (void)didNotificationOpen:(NSDictionary *)notification
@@ -450,19 +455,32 @@ RCT_EXPORT_METHOD(backgroundTimeRemaining:(RCTResponseSenderBlock)callback)
 
 RCT_EXPORT_METHOD(consumeBackgroundQueue)
 {
+    // Mark JS Thread as ready
+    [RNNotificationsBridgeQueue sharedInstance].jsIsReady = YES;
+
+    // Push actions to JS
     [[RNNotificationsBridgeQueue sharedInstance] consumeActionsQueue:^(NSDictionary* action) {
         [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationActionTriggered
                                                             object:self
                                                           userInfo:action];
     }];
 
+    // Push background notifications to JS
     [[RNNotificationsBridgeQueue sharedInstance] consumeNotificationsQueue:^(NSDictionary* notification) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationReceivedBackground
-                                                            object:self
-                                                          userInfo:notification];
+        [RNNotifications didReceiveRemoteNotification:notification];
     }];
 
-    [RNNotificationsBridgeQueue sharedInstance].jsIsReady = YES;
+    // Push opened local notifications
+    NSDictionary* openedLocalNotification = [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification;
+    if (openedLocalNotification) {
+        [RNNotifications didNotificationOpen:openedLocalNotification];
+    }
+
+    // Push opened remote notifications
+    NSDictionary* openedRemoteNotification = [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification;
+    if (openedRemoteNotification) {
+        [RNNotifications didNotificationOpen:openedRemoteNotification];
+    }
 }
 
 RCT_EXPORT_METHOD(localNotification:(NSDictionary *)notification)
