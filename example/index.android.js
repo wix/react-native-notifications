@@ -3,13 +3,13 @@
  * https://github.com/facebook/react-native
  */
 
-import React, {
+import {
   AppRegistry,
-  Component,
   StyleSheet,
   Text,
   View
 } from 'react-native';
+import React, {Component} from 'react';
 
 class NotificationsExampleApp extends Component {
   render() {

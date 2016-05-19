@@ -688,7 +688,10 @@
 				);
 				INFOPLIST_FILE = NotificationsExampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wix.smart-notifications-test-app";
 				PRODUCT_NAME = NotificationsExampleApp;
 				PROVISIONING_PROFILE = "";
@@ -708,7 +711,10 @@
 				);
 				INFOPLIST_FILE = NotificationsExampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wix.smart-notifications-test-app";
 				PRODUCT_NAME = NotificationsExampleApp;
 				PROVISIONING_PROFILE = "";
