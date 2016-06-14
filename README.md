@@ -9,19 +9,21 @@ Handle all the aspects of push notifications for your app, including remote and 
 - [Remote notifications](#handling-received-notifications)
 - [Local notifications](#triggering-local-notifications)
 - [Background notifications](#managed-notifications-ios-only)
-- [Managed notifications]((#managed-notifications-ios-only)) (notifications that can be cleared from the server, like Facebook messenger and Whatsapp web)
+- [Managed notifications](#managed-notifications-ios-only) (notifications that can be cleared from the server, like Facebook messenger and Whatsapp web)
 - [PushKit API](#pushkit-api-ios-only) for VoIP and other background messages.
-- [Interactive notifications](#interactive-actionable-notifications-ios-only) that allows you to provide additional functionality to your users outside of your application.
+- [Interactive notifications](#interactive--actionable-notifications-ios-only) that allows you to provide additional functionality to your users outside of your application.
 
 ![Interactive notifications example](https://s3.amazonaws.com/nrjio/interactive.gif)
 
 
 ## Installation
+
 ```
 $ npm install react-native-notifications --save
 ```
 
 ### iOS
+
 First, [Manully link](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking) the library to your Xcode project.
 
 Then, to enable notifications support add the following line at the top of your `AppDelegate.m`
@@ -62,6 +64,7 @@ WIP.
 ---
 
 ## Register to Push Notifications
+
 In order to handle notifications, you must register before- handle `remoteNotificationsRegistered` event.
 
 In your React Native app:
@@ -92,6 +95,7 @@ When you have the device token, POST it to your server and register the device i
 ---
 
 ## Handling Received Notifications
+
 When you receive a notification, the application can be in one of the following states:
 
 1. **Forground**- When the app in running and is used by the user right now. in this case, `notificationReceivedForeground` event will be fired.
@@ -147,6 +151,7 @@ When your app is ready (most of the time it's after the call to `requestPermissi
 ---
 
 ## Triggering Local Notifications
+
 You can schedule a local notification for future presentation.
 Triggering local notifications is fully compatible with React Native `PushNotificationsIOS` library.
 
@@ -170,12 +175,13 @@ Notification object contains:
 - `alertTitle`- The title of the notification, displayed in the notifications center.
 - `alertAction`- The "action" displayed beneath an actionable notification.
 - `soundName`- The sound played when the notification is fired (optional).
-- `category`- The category of this notification, required for interactive notifications (optional).
+- `category`- The category of this notification, required for [interactive notifications](#interactive--actionable-notifications-ios-only) (optional).
 - `userInfo`- An optional object containing additional notification data.
 
 ---
 
 ## Managed Notifications (iOS only)
+
 Managed notifications are notifications that can be cleared by a server request.
 You can find this feature in facebook messenger, when you receive a message in your mobile, but open it in facebook web. More examples are Whatsapp web and gmail app.
 
@@ -284,8 +290,6 @@ componentWillUnmount() {
 
 ## Interactive / Actionable Notifications (iOS only)
 
----
-
 Interactive notifications allow you to reply to a message right from the notification banner or take action right from the lock screen. 
 
 On the Lock screen and within Notification Center, you swipe from right to left 
@@ -322,7 +326,7 @@ Then, follow the basic workflow of adding interactive notifications to your app:
 1. Config the actions.
 2. Group actions together into categories.
 3. Register to push notifications with the configured categories.
-4. Push a notification (or trigger a local one) with the configured category name.
+4. Push a notification (or trigger a [local](#triggering-local-notifications) one) with the configured category name.
 
 ### Example
 #### Config the Actions
@@ -388,7 +392,7 @@ Notification payload should look like this:
 }
 ```
 
-The example app contains this interactive notification example, you can follow there.
+The [example app](https://github.com/wix/react-native-notifications/tree/master/example) contains this interactive notification example, you can follow there.
 
 ### `NotificationAction` Payload
 
