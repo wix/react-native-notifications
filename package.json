@@ -1,6 +1,6 @@
 {
   "name": "react-native-notifications",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
   "author": "Lidan Hifi <lidan.hifi@gmail.com>",
   "license": "MIT",
@@ -13,7 +13,11 @@
     "push notifications",
     "notifications",
     "notification",
-    "react native notifications"
+    "react native notifications",
+    "pushkit",
+    "push-kit",
+    "actionable-notifications",
+    "interactive-notifications"
   ],
   "nativePackage": true,
   "dependencies": {
@@ -25,12 +29,12 @@
   },
   "devDependencies": {
     "babel-eslint": "^6.0.2",
-    "babel-preset-react-native": "^1.5.6",
+    "babel-preset-react-native": "^1.9.0",
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
     "chokidar-cli": "^1.2.0",
-    "eslint": "^2.7.0",
-    "mocha": "^2.4.5",
+    "eslint": "^2.12.0",
+    "mocha": "^2.5.3",
     "proxyquire": "^1.7.4",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0"

@@ -1,15 +1,15 @@
 # React Native Notifications [![Build Status](https://travis-ci.org/wix/react-native-notifications.svg)](https://travis-ci.org/wix/react-native-notifications)
 
-Handle all the aspects of push notifications for your app, including remote and local notifications, interactive notifications, and more.
+Handle all the aspects of push notifications for your app, including remote and local notifications, interactive notifications, silent notifications, and more.
 
 **All the native iOS notifications features are supported!** Android push support is in progress.
 
 ### Supported Features (iOS)
 
-- [Remote notifications](#handling-received-notifications)
-- [Local notifications](#triggering-local-notifications)
-- [Background notifications](#managed-notifications-ios-only)
-- [Managed notifications](#managed-notifications-ios-only) (notifications that can be cleared from the server, like Facebook messenger and Whatsapp web)
+- [Remote notifications](#handling-received-notifications).
+- [Local notifications](#triggering-local-notifications).
+- [Background notifications](#managed-notifications-ios-only).
+- [Managed notifications](#managed-notifications-ios-only) (notifications that can be cleared from the server, like Facebook messenger and Whatsapp web).
 - [PushKit API](#pushkit-api-ios-only) for VoIP and other background messages.
 - [Interactive notifications](#interactive--actionable-notifications-ios-only) that allows you to provide additional functionality to your users outside of your application.
 
@@ -282,8 +282,8 @@ componentWillUnmount() {
 }
 ```
 
-1. Notice that PushKit device token and regular notifications device token are different, so you must handle two different tokens in the server side in order to support this feature.
-2. PushKit will not request permissions from the user for push notifications.
+> 1. Notice that PushKit device token and regular notifications device token are different, so you must handle two different tokens in the server side in order to support this feature.
+> 2. PushKit will not request permissions from the user for push notifications.
 
 
 ---
@@ -414,3 +414,9 @@ The [example app](https://github.com/wix/react-native-notifications/tree/master/
 - `context` - Indicating the amount of space available for displaying actions in a notification.
 	- `default` (default) - Displayes up to 4 actions (full UI).
 	- `minimal` - Displays up tp 2 actions (minimal UI).
+
+	
+## License
+The MIT License.
+
+See [LICENSE](LICENSE)
