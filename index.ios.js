@@ -5,6 +5,7 @@
 "use strict";
 import { NativeModules, DeviceEventEmitter, NativeAppEventEmitter } from "react-native";
 import Map from "core-js/library/es6/map";
+import uuid from "uuid";
 const NativeRNNotifications = NativeModules.RNNotifications; // eslint-disable-line no-unused-vars
 import IOSNotification from "./notification.ios";
 
@@ -179,6 +180,17 @@ export default class NotificationsIOS {
    * - `fireDate` : The date and time when the system should deliver the notification. if not specified, the notification will be dispatched immediately.
    */
   static localNotification(notification: Object) {
-    NativeRNNotifications.localNotification(notification);
+    let notificationId = uuid.v4();
+    NativeRNNotifications.localNotification(notification, notificationId);
+
+    return notificationId;
+  }
+
+  static cancelLocalNotification(notificationId: String) {
+    NativeRNNotifications.cancelLocalNotification(notificationId);
+  }
+
+  static cancelAllLocalNotifications() {
+    NativeRNNotifications.cancelAllLocalNotifications();
   }
 }

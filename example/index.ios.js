@@ -77,7 +77,7 @@ class NotificationsExampleApp extends Component {
   onNotificationReceivedBackground(notification) {
     NotificationsIOS.log("Notification Received Background: " + JSON.stringify(notification));
 
-    NotificationsIOS.localNotification({
+    let localNotification = NotificationsIOS.localNotification({
       alertBody: "Received background notificiation!",
       alertTitle: "Local Notification Title",
       alertAction: "Click here to open",
@@ -87,6 +87,8 @@ class NotificationsExampleApp extends Component {
     });
 
     // NotificationsIOS.backgroundTimeRemaining(time => NotificationsIOS.log("remaining background time: " + time));
+
+    // NotificationsIOS.cancelLocalNotification(localNotification);
   }
 
   onNotificationOpened(notification) {

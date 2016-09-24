@@ -21,7 +21,8 @@
   ],
   "nativePackage": true,
   "dependencies": {
-    "core-js": "^1.0.0"
+    "core-js": "^1.0.0",
+    "uuid": "^2.0.3"
   },
   "peerDependencies": {
     "react-native": ">=0.25.1"

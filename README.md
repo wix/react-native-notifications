@@ -158,7 +158,7 @@ Triggering local notifications is fully compatible with React Native `PushNotifi
 Example:
 
 ```javascript
-NotificationsIOS.localNotification({
+let localNotification = NotificationsIOS.localNotification({
 	alertBody: "Local notificiation!",
 	alertTitle: "Local Notification Title",
 	alertAction: "Click here to open",
@@ -177,6 +177,30 @@ Notification object contains:
 - `soundName`- The sound played when the notification is fired (optional).
 - `category`- The category of this notification, required for [interactive notifications](#interactive--actionable-notifications-ios-only) (optional).
 - `userInfo`- An optional object containing additional notification data.
+
+### Cancel Local Notification
+```NotificationsIOS.localNotification``` method returns `notificationId`, which is used in order to cancel created local notification.  You can cancel local notification by calling `NotificationsIOS.cancelLocalNotification(notificationId)` method.
+
+Example:
+
+```javascript
+let someLocalNotification = NotificationsIOS.localNotification({
+	alertBody: "Local notificiation!",
+	alertTitle: "Local Notification Title",
+	alertAction: "Click here to open",
+	soundName: "chime.aiff",
+	category: "SOME_CATEGORY",
+	userInfo: { }
+});
+
+NotificationsIOS.cancelLocalNotification(someLocalNotification);
+```
+
+### Cancel All Local Notifications
+
+```javascript
+NotificationsIOS.cancelAllLocalNotifications();
+```
 
 ---
 

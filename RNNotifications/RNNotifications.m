@@ -191,6 +191,10 @@ RCT_EXPORT_MODULE()
 {
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
 
+    NSMutableDictionary* newUserInfo = notification.userInfo.mutableCopy;
+    [newUserInfo removeObjectForKey:@"__id"];
+    notification.userInfo = newUserInfo;
+
     if (state == UIApplicationStateActive) {
         [self didReceiveNotificationOnForegroundState:notification.userInfo];
     } else if (state == UIApplicationStateInactive) {
@@ -483,13 +487,34 @@ RCT_EXPORT_METHOD(consumeBackgroundQueue)
     }
 }
 
-RCT_EXPORT_METHOD(localNotification:(NSDictionary *)notification)
+RCT_EXPORT_METHOD(localNotification:(NSDictionary *)notification withId:(NSString *)notificationId)
 {
+    UILocalNotification* localNotification = [RCTConvert UILocalNotification:notification];
+    NSMutableArray* userInfo = localNotification.userInfo.mutableCopy;
+    [userInfo setValue:notificationId forKey:@"__id"];
+    localNotification.userInfo = userInfo;
+
     if ([notification objectForKey:@"fireDate"] != nil) {
-        [RCTSharedApplication() scheduleLocalNotification:[RCTConvert UILocalNotification:notification]];
+        [RCTSharedApplication() scheduleLocalNotification:localNotification];
     } else {
-        [RCTSharedApplication() presentLocalNotificationNow:[RCTConvert UILocalNotification:notification]];
+        [RCTSharedApplication() presentLocalNotificationNow:localNotification];
     }
+}
+
+RCT_EXPORT_METHOD(cancelLocalNotification:(NSString *)notificationId)
+{
+    for (UILocalNotification* notification in [UIApplication sharedApplication].scheduledLocalNotifications) {
+        NSDictionary* notificationInfo = notification.userInfo;
+
+        if ([[notificationInfo objectForKey:@"__id"] isEqualToString:notificationId]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:notification];
+        }
+    }
+}
+
+RCT_EXPORT_METHOD(cancelAllLocalNotifications)
+{
+    [RCTSharedApplication() cancelAllLocalNotifications];
 }
 
 @end

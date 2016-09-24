@@ -24,9 +24,12 @@ describe("NotificationsIOS", () => {
       nativeRegisterPushKit,
       nativeBackgroundTimeRemaining,
       nativeConsumeBackgroundQueue,
-      nativeLocalNotification;
+      nativeLocalNotification,
+      nativeCancelLocalNotification,
+      nativeCancelAllLocalNotifications;
   let NotificationsIOS, NotificationAction, NotificationCategory;
   let someHandler = () => {};
+  let constantGuid = "some-random-uuid";
   /*eslint-enable indent*/
 
   before(() => {
@@ -40,8 +43,13 @@ describe("NotificationsIOS", () => {
     nativeBackgroundTimeRemaining = sinon.spy();
     nativeConsumeBackgroundQueue = sinon.spy();
     nativeLocalNotification = sinon.spy();
+    nativeCancelLocalNotification = sinon.spy();
+    nativeCancelAllLocalNotifications = sinon.spy();
 
     let libUnderTest = proxyquire("../index.ios", {
+      "uuid": {
+        v4: () => constantGuid
+      },
       "react-native": {
         NativeModules: {
           RNNotifications: {
@@ -50,7 +58,9 @@ describe("NotificationsIOS", () => {
             registerPushKit: nativeRegisterPushKit,
             backgroundTimeRemaining: nativeBackgroundTimeRemaining,
             consumeBackgroundQueue: nativeConsumeBackgroundQueue,
-            localNotification: nativeLocalNotification
+            localNotification: nativeLocalNotification,
+            cancelLocalNotification: nativeCancelLocalNotification,
+            cancelAllLocalNotifications: nativeCancelAllLocalNotifications
           }
         },
         NativeAppEventEmitter: {
@@ -87,6 +97,8 @@ describe("NotificationsIOS", () => {
     nativeBackgroundTimeRemaining.reset();
     nativeConsumeBackgroundQueue.reset();
     nativeLocalNotification.reset();
+    nativeCancelLocalNotification.reset();
+    nativeCancelAllLocalNotifications.reset();
   });
 
   after(() => {
@@ -100,6 +112,8 @@ describe("NotificationsIOS", () => {
     nativeBackgroundTimeRemaining = null;
     nativeConsumeBackgroundQueue = null;
     nativeLocalNotification = null;
+    nativeCancelLocalNotification = null;
+    nativeCancelAllLocalNotifications = null;
 
     NotificationsIOS = null;
     NotificationAction = null;
@@ -229,8 +243,12 @@ describe("NotificationsIOS", () => {
     });
   });
 
-  describe("Get background remaining time", () => {
-    it("should call native consume background queue method", () => {
+  describe("Dispatch local notification", () => {
+    it("should return generated notification guid", () => {
+      expect(NotificationsIOS.localNotification({})).to.equal(constantGuid);
+    });
+
+    it("should call native local notification method with generated notification guid and notification object", () => {
       let someLocalNotification = {
         alertBody: "some body",
         alertTitle: "some title",
@@ -244,7 +262,23 @@ describe("NotificationsIOS", () => {
 
       NotificationsIOS.localNotification(someLocalNotification);
 
-      expect(nativeLocalNotification).to.have.been.calledWith(someLocalNotification);
+      expect(nativeLocalNotification).to.have.been.calledWith(someLocalNotification, constantGuid);
+    });
+  });
+
+  describe("Cancel local notification", () => {
+    it("should call native cancel local notification method", () => {
+      NotificationsIOS.cancelLocalNotification(constantGuid);
+
+      expect(nativeCancelLocalNotification).to.have.been.calledWith(constantGuid);
+    });
+  });
+
+  describe("Cancel all local notifications", () => {
+    it("should call native cancel all local notifications method", () => {
+      NotificationsIOS.cancelAllLocalNotifications();
+
+      expect(nativeCancelAllLocalNotifications).to.have.been.calledWith();
     });
   });
 });
