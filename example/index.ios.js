@@ -58,8 +58,6 @@ class NotificationsExampleApp extends Component {
     NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
     NotificationsIOS.addEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
     NotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
-
-
   }
 
   onPushRegistered(deviceToken) {
@@ -85,6 +83,10 @@ class NotificationsExampleApp extends Component {
       category: "SOME_CATEGORY",
       userInfo: notification.getData()
     });
+
+    // if you want to fire the local notification 10 seconds later,
+    // add the following line to the notification payload:
+    //      fireDate: new Date(Date.now() + (10 * 1000)).toISOString()
 
     // NotificationsIOS.backgroundTimeRemaining(time => NotificationsIOS.log("remaining background time: " + time));
 

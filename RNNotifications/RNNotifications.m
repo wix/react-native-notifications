@@ -495,9 +495,9 @@ RCT_EXPORT_METHOD(localNotification:(NSDictionary *)notification withId:(NSStrin
     localNotification.userInfo = userInfo;
 
     if ([notification objectForKey:@"fireDate"] != nil) {
-        [RCTSharedApplication() scheduleLocalNotification:localNotification];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     } else {
-        [RCTSharedApplication() presentLocalNotificationNow:localNotification];
+        [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
     }
 }
 
