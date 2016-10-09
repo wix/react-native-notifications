@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wix.reactnativenotifications">
+
+    <!--
+     Permissions required for enabling GCM.
+     -->
+    <permission
+        android:name="${applicationId}.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <application>
+
+        <!--
+         Google's ready-to-use GcmReceiver.
+         1. Awaits actual GCM messages (e.g. push notifications) and invokes the GCM service with the concrete content.
+         2. Awaits instance-ID/token refresh requests from the GCM and invokes the Instance-ID listener service.
+         -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </receiver>
+        <!-- Dispatched by the GcmReceiver when messages are received. -->
+        <service
+            android:name="com.wix.reactnativenotifications.GcmMessageHandlerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <!-- Dispatched by the GcmReceiver. Starts the designated refresh-handling service. -->
+        <service
+            android:name="com.wix.reactnativenotifications.GcmInstanceIdListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.wix.reactnativenotifications.GcmInstanceIdRefreshHandlerService"
+            android:exported="false" />
+    </application>
+
+</manifest>

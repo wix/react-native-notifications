@@ -2,9 +2,11 @@
 
 Handle all the aspects of push notifications for your app, including remote and local notifications, interactive notifications, silent notifications, and more.
 
-**All the native iOS notifications features are supported!** Android push support is in progress.
+**All the native iOS notifications features are supported!** 
 
-### Supported Features (iOS)
+
+## Supported Features
+### iOS
 
 - [Remote notifications](#handling-received-notifications).
 - [Local notifications](#triggering-local-notifications).
@@ -15,6 +17,9 @@ Handle all the aspects of push notifications for your app, including remote and 
 
 ![Interactive notifications example](https://s3.amazonaws.com/nrjio/interactive.gif)
 
+###  <img src="https://cdn1.iconfinder.com/data/icons/ios-7-style-metro-ui-icons/512/MetroUI_OS_Android.png" width=25 height=25/> Android
+
+TODO
 
 ## Installation
 
@@ -58,12 +63,39 @@ And the following methods to support registration and receiving notifications:
 }
 ```
 
-### Android
-WIP.
+### <img src="https://cdn1.iconfinder.com/data/icons/ios-7-style-metro-ui-icons/512/MetroUI_OS_Android.png" width=25 height=25/> Android
+
+> Note: Explicit installation on Android is only required if you're planning on **receiving push notifications**. It is **not** needed if you're only going to use 'local' notifications.
+
+Push notifications on Android are managed and dispatched using [Google's GCM service](https://developers.google.com/cloud-messaging/gcm) (now integrated into Firebase). The following installation steps are a TL;DR of [Google's GCM setup guide](https://developers.google.com/cloud-messaging/android/client). You can follow them to get GCM integrated quickly, but we recommend you in the very least have a peek at the guide's overview.
+
+#### Step #1: Subscribe to Google's GCM
+
+To set GCM in your app, you must first create a Google Firebase API-project and obtain a **Sender ID** and a **Server API Key**. If you have no existing API projects yet, the easiest way to go about is to create a project and get these attributes using [this step-by-step installation process](https://developers.google.com/mobile/add); Use [this tutorial](https://code.tutsplus.com/tutorials/how-to-get-started-with-push-notifications-on-android--cms-25870) for insturctions.
+
+Alternatively, follow [Google's complete guide](https://developers.google.com/cloud-messaging/android/client#create-an-api-project).
+
+#### Step #2: Add Sender ID to Manifest File
+
+```
+<manifest>
+...
+	<application>
+	...
+		// Replace '1234567890' with your sender ID.
+		// Important: Leave the trailing \0 intact!
+	    <meta-data android:name="com.wix.reactnativenotifications.gcmSenderId" android:value="1234567890\0"/>
+	</application>
+</manifest>
+
+```
+
 
 ---
 
 ## Register to Push Notifications
+
+### iOS
 
 In order to handle notifications, you must register before- handle `remoteNotificationsRegistered` event.
 
