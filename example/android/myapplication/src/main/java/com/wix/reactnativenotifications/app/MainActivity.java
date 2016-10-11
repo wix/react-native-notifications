@@ -1,46 +1,39 @@
 package com.wix.reactnativenotifications.app;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.Toolbar;
 
-import com.facebook.react.LifecycleState;
-import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactRootView;
-import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
-import com.facebook.react.shell.MainReactPackage;
-import com.wix.reactnativenotifications.RNNotificationsPackage;
 
 import static android.os.Build.VERSION.SDK_INT;
 
-public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
+public class MainActivity extends ReactActivity {
 
     private static final int OVERLAY_PERMISSION_REQ_CODE = 1234;
 
     private ReactRootView mReactRootView;
-    private ReactInstanceManager mReactInstanceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ViewGroup layout = (ViewGroup) getLayoutInflater().inflate(R.layout.activity_main, null);
+        Toolbar toolbar = (Toolbar) layout.findViewById(R.id.toolbar);
+        setActionBar(toolbar);
+
         mReactRootView = new ReactRootView(this);
-        mReactInstanceManager = ReactInstanceManager.builder()
-            .setApplication(getApplication())
-            .setBundleAssetName("index.android.bundle")
-            .setJSMainModuleName("index.android")
-            .addPackage(new MainReactPackage())
-            .addPackage(new RNNotificationsPackage())
-            .setUseDeveloperSupport(BuildConfig.DEBUG)
-            .setInitialLifecycleState(LifecycleState.RESUMED)
-            .build();
+        layout.addView(mReactRootView);
+
+        setContentView(layout);
 
         if (SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
@@ -50,9 +43,22 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("Child Activity").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent(MainActivity.this, ChildActivity.class);
+                MainActivity.this.startActivity(intent);
+                return true;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
     @TargetApi(Build.VERSION_CODES.M)
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
             if (Settings.canDrawOverlays(this)) {
                 startReactApplication();
@@ -62,40 +68,7 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (mReactInstanceManager != null) {
-            mReactInstanceManager.onHostResume(this, this);
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        if (mReactInstanceManager != null) {
-            mReactInstanceManager.onHostPause(this);
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        if (mReactInstanceManager != null) {
-            mReactInstanceManager.onHostDestroy(this);
-        }
-    }
-
-    @Override
-    public void invokeDefaultOnBackPressed() {
-        super.onBackPressed();
-    }
-
     private void startReactApplication() {
-        mReactRootView.startReactApplication(mReactInstanceManager, "WixRNNotifications", null);
-        setContentView(mReactRootView);
+        mReactRootView.startReactApplication(getReactInstanceManager(), "WixRNNotifications", null);
     }
 }

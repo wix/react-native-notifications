@@ -10,9 +10,15 @@
         android:name="${applicationId}.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application>
+
+        <!--
+         A proxy-activity that either launches the main activity or resumes the currently running app.
+         Required in order to keep the initial intent so it could be retrieved by the JS client.
+         Note: we declare it in its own private affinity so that a running app stack wouldn't shadow its creation.
+         -->
+        <activity android:name=".core.ProxyActivity" android:taskAffinity="com.wix.reactnativenotifications.core.ProxyActivity"/>
 
         <!--
          Google's ready-to-use GcmReceiver.
@@ -31,7 +37,7 @@
         </receiver>
         <!-- Dispatched by the GcmReceiver when messages are received. -->
         <service
-            android:name="com.wix.reactnativenotifications.GcmMessageHandlerService"
+            android:name="com.wix.reactnativenotifications.gcm.GcmMessageHandlerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -39,14 +45,14 @@
         </service>
         <!-- Dispatched by the GcmReceiver. Starts the designated refresh-handling service. -->
         <service
-            android:name="com.wix.reactnativenotifications.GcmInstanceIdListenerService"
+            android:name=".gcm.GcmInstanceIdListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
         <service
-            android:name="com.wix.reactnativenotifications.GcmInstanceIdRefreshHandlerService"
+            android:name=".gcm.GcmInstanceIdRefreshHandlerService"
             android:exported="false" />
     </application>
 

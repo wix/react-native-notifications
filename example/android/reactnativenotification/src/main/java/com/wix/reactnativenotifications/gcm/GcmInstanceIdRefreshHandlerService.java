@@ -1,4 +1,4 @@
-package com.wix.reactnativenotifications;
+package com.wix.reactnativenotifications.gcm;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -6,7 +6,9 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.ReactApplication;
+import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
@@ -66,10 +68,11 @@ public class GcmInstanceIdRefreshHandlerService extends IntentService {
     }
 
     protected void notifyTokenEvent(String registrationToken) {
-        final ReactApplicationContext reactContext = RNNotificationsContextHolder.getReactContext();
+        final ReactInstanceManager instanceManager = ((ReactApplication) getApplication()).getReactNativeHost().getReactInstanceManager();
+        final ReactContext reactContext = instanceManager.getCurrentReactContext();
 
         // Note: Cannot assume react-context exists cause this is an async dispatched service.
-        if (reactContext != null) {
+        if (reactContext != null && reactContext.hasActiveCatalystInstance()) {
             reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(TOKEN_RECEIVED_EVENT_NAME, registrationToken);
         }
     }

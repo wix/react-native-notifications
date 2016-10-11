@@ -1,4 +1,4 @@
-package com.wix.reactnativenotifications;
+package com.wix.reactnativenotifications.gcm;
 
 import android.content.Intent;
 

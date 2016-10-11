@@ -4,11 +4,11 @@ import json
 import sys
 
 API_KEY = "AIzaSyBVtqdO_SgPVhhXnyNGC_VXSbIX-fxk1YY"
-TOKEN = "eB6llQJLpw0:APA91bG3t07UNFyz_NPmGjgTZ8-tAUzwKmBJctKm2qpw973c-3vEINtTC3nVl89uJNv-l2LHzfd7fSmVPjeaVAQBE8tC9Pp2X5foteVMuBlHEiB5cznXqnP5RiCroGo1DdBIdWzBMwHW"
+TOKEN = "c70LL7cNR-0:APA91bFja9qHDqLFtKYGCKNZRBcgHAQrmcPE-XNIIctnFnsEKJml9tgbuQql15ORoJc4drw6fAA38_JFx1X3s3wF9FlArPO_laPTXmaCC4_ZFm1QzfgmoJ5hXUhDFsArJpTVFIonEOHR"
 
 data={
     "to": TOKEN,
-    "notification" : {
+    "data" : {
         "body": "A very tiny one",
         "title": "A tiny notification"
     }

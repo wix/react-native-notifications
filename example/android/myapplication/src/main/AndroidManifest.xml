@@ -3,25 +3,31 @@
           package="com.wix.reactnativenotifications.app">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+        android:name=".MainApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-
-        <meta-data android:name="com.wix.reactnativenotifications.gcmSenderId" android:value="434691868895\0"/>
+        <meta-data
+            android:name="com.wix.reactnativenotifications.gcmSenderId"
+            android:value="434691868895\0"/>
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ChildActivity"
+            android:label="Child Activity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.wix.reactnativenotifications.app.MainActivity"/>
         </activity>
 
     </application>
