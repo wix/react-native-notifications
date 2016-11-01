@@ -24,8 +24,8 @@ const _exportedEvents = [
   DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT,
   DEVICE_NOTIFICATION_OPENED_EVENT
 ];
-let _notificationHandlers = new Map();
-let _actionHandlers = new Map();
+const _notificationHandlers = new Map();
+const _actionHandlers = new Map();
 let _actionListener;
 
 export class NotificationAction {
@@ -84,18 +84,17 @@ export default class NotificationsIOS {
    */
   static removeEventListener(type: string, handler: Function) {
     if (_exportedEvents.indexOf(type) !== -1) {
-      let listener = _notificationHandlers.get(handler);
-      if (!listener) {
-        return;
+      const listener = _notificationHandlers.get(handler);
+      if (listener) {
+        listener.remove();
+        _notificationHandlers.delete(handler);
       }
 
-      listener.remove();
-      _notificationHandlers.delete(handler);
     }
   }
 
   static _actionHandlerDispatcher(action: Object) {
-    let actionHandler = _actionHandlers.get(action.identifier);
+    const actionHandler = _actionHandlers.get(action.identifier);
 
     if (actionHandler) {
       action.notification = new IOSNotification(action.notification);
@@ -180,7 +179,7 @@ export default class NotificationsIOS {
    * - `fireDate` : The date and time when the system should deliver the notification. if not specified, the notification will be dispatched immediately.
    */
   static localNotification(notification: Object) {
-    let notificationId = uuid.v4();
+    const notificationId = uuid.v4();
     NativeRNNotifications.localNotification(notification, notificationId);
 
     return notificationId;
