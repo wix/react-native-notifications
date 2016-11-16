@@ -11,7 +11,7 @@ public class NotificationIntentAdapter {
 
     public static PendingIntent createPendingNotificationIntent(Context appContext, Intent intent, PushNotificationProps notification) {
         intent.putExtra(PUSH_NOTIFICATION_EXTRA_NAME, notification.asBundle());
-        return PendingIntent.getActivity(appContext, PENDING_INTENT_CODE, intent, 0);
+        return PendingIntent.getService(appContext, PENDING_INTENT_CODE, intent, 0);
     }
 
     public static Bundle extractPendingNotificationDataFromIntent(Intent intent) {

@@ -14,11 +14,9 @@
     <application>
 
         <!--
-         A proxy-activity that either launches the main activity or resumes the currently running app.
-         Required in order to keep the initial intent so it could be retrieved by the JS client.
-         Note: we declare it in its own private affinity so that a running app stack wouldn't shadow its creation.
+         A proxy-service that gives the library an opportunity to do some work before launching/resuming the actual application task.
          -->
-        <activity android:name=".core.ProxyActivity" android:taskAffinity="com.wix.reactnativenotifications.core.ProxyActivity"/>
+        <service android:name=".core.ProxyService"/>
 
         <!--
          Google's ready-to-use GcmReceiver.

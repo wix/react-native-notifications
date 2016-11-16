@@ -1,5 +1,7 @@
 package com.wix.reactnativenotifications.core;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
@@ -7,8 +9,7 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.wix.reactnativenotifications.gcm.GcmToken;
-import com.wix.reactnativenotifications.gcm.IGcmToken;
+import com.wix.reactnativenotifications.gcm.GcmInstanceIdRefreshHandlerService;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
 
@@ -16,6 +17,8 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule {
 
     public RNNotificationsModule(ReactApplicationContext reactContext) {
         super(reactContext);
+
+        ReactAppLifecycleFacade.get().onAppInit(reactContext);
     }
 
     @Override
@@ -26,12 +29,18 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule {
     @Override
     public void initialize() {
         Log.d(LOGTAG, "Native module init");
-        IGcmToken gcmToken = GcmToken.get(getReactApplicationContext().getApplicationContext());
-        gcmToken.onAppReady();
+
+        final Context appContext = getReactApplicationContext().getApplicationContext();
+        final Intent tokenFetchIntent = new Intent(appContext, GcmInstanceIdRefreshHandlerService.class);
+        tokenFetchIntent.putExtra(GcmInstanceIdRefreshHandlerService.EXTRA_IS_APP_INIT, true);
+        appContext.startService(tokenFetchIntent);
     }
+
+
 
     @ReactMethod
     public void getInitialNotification(final Promise promise) {
+        Log.d(LOGTAG, "Native method invocation: getInitialNotification");
         Object result = null;
 
         try {
@@ -44,5 +53,15 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule {
         } finally {
             promise.resolve(result);
         }
+    }
+
+    @ReactMethod
+    public void refreshToken() {
+        Log.d(LOGTAG, "Native method invocation: refreshToken()");
+
+        final Context appContext = getReactApplicationContext().getApplicationContext();
+        final Intent tokenFetchIntent = new Intent(appContext, GcmInstanceIdRefreshHandlerService.class);
+        tokenFetchIntent.putExtra(GcmInstanceIdRefreshHandlerService.EXTRA_MANUAL_REFRESH, true);
+        appContext.startService(tokenFetchIntent);
     }
 }

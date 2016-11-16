@@ -23,7 +23,7 @@ public class GcmToken implements IGcmToken {
 
     protected static String sToken;
 
-    public GcmToken(Context appContext) {
+    protected GcmToken(Context appContext) {
         if (!(appContext instanceof ReactApplication)) {
             throw new IllegalStateException("Application instance isn't a react-application");
         }
