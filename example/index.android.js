@@ -16,8 +16,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-  mainText: {
-    fontSize: 20,
+  titleText: {
+    fontSize: 22,
+    textAlign: 'center',
+    margin: 10,
+  },
+  bodyText: {
+    fontSize: 18,
     textAlign: 'center',
     margin: 10,
   },
@@ -38,8 +43,13 @@ class MainComponent extends Component {
     NotificationsAndroid.setRegistrationTokenUpdateListener(this.onPushRegistered.bind(this));
     NotificationsAndroid.setNotificationOpenedListener(this.onNotificationOpened.bind(this));
     NotificationsAndroid.setNotificationReceivedListener(this.onNotificationReceived.bind(this));
+  }
 
+  componentDidMount() {
     setInterval(this.onTick.bind(this), 1000);
+    PendingNotifications.getInitialNotification()
+      .then((notification) => {console.log("getInitialNotification:", notification); this.setState({initialNotification: notification.getData()});})
+      .catch((err) => console.error("getInitialNotifiation failed", err));
   }
 
   onTick() {
@@ -49,12 +59,10 @@ class MainComponent extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight onPress={() => {console.log("Touch")}}>
-          <Text style={styles.mainText}>Wix React Native Notifications</Text>
-        </TouchableHighlight>
-        <Text style={styles.mainText}>Last notification:</Text>
-        <Text style={styles.mainText}>{this.state.lastNotification ? this.state.lastNotification.body + ` (opened at ''${this.state.notificationRxTime})` : "N/A"}</Text>
-        <Text style={styles.mainText}>Time elapsed: {this.state.elapsed}</Text>
+        <Text style={styles.titleText}>Wix React Native Notifications</Text>
+        <Text style={styles.bodyText}>{this.state.initialNotification ? 'Opened from notification' : ''}</Text>
+        <Text style={styles.bodyText}>Last notification: {this.state.lastNotification ? '\n'+this.state.lastNotification.body + ` (opened at ''${this.state.notificationRxTime})` : "N/A"}</Text>
+        <Text style={styles.bodyText}>Time elapsed: {this.state.elapsed}</Text>
       </View>
     )
   }

@@ -1,7 +1,7 @@
 require('react');
 import {NativeModules, DeviceEventEmitter} from 'react-native';
 
-const RNNotifications = NativeModules.WixRNNotification;
+const RNNotifications = NativeModules.WixRNNotifications;
 
 let notificationReceivedListener;
 let notificationOpenedListener;
@@ -63,7 +63,7 @@ export class NotificationsAndroid {
   }
 }
 
-  export class PendingNotifications {
+export class PendingNotifications {
   static async getInitialNotification() {
     return new NotificationAndroid(await RNNotifications.getInitialNotification());
   }
