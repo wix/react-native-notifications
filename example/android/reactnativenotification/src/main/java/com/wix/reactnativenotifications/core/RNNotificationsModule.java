@@ -1,7 +1,5 @@
 package com.wix.reactnativenotifications.core;
 
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
@@ -9,7 +7,8 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.wix.reactnativenotifications.gcm.GcmInstanceIdRefreshHandlerService;
+import com.wix.reactnativenotifications.gcm.GcmToken;
+import com.wix.reactnativenotifications.gcm.IGcmToken;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
 
@@ -26,10 +25,9 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule {
 
     @Override
     public void initialize() {
-        Log.d(LOGTAG, "native module init");
-        final Context appContext = getReactApplicationContext().getApplicationContext();
-        final Intent tokenFetchIntent = new Intent(appContext, GcmInstanceIdRefreshHandlerService.class);
-        appContext.startService(tokenFetchIntent);
+        Log.d(LOGTAG, "Native module init");
+        IGcmToken gcmToken = GcmToken.get(getReactApplicationContext().getApplicationContext());
+        gcmToken.onAppReady();
     }
 
     @ReactMethod
@@ -37,7 +35,7 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule {
         Object result = null;
 
         try {
-            final PushNotificationProps notification = InitialNotificationStore.getInitialNotification();
+            final PushNotificationProps notification = InitialNotification.get();
             if (notification == null) {
                 return;
             }

@@ -63,7 +63,7 @@ public class PushNotification {
             launchOrResumeApp(activity);
             notifyOpenedToJS(reactContext);
         } else {
-            InitialNotificationStore.setInitialNotification(mNotificationProps);
+            InitialNotification.set(mNotificationProps);
             launchOrResumeApp(activity);
         }
     }
