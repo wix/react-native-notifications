@@ -5,11 +5,10 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View,
-  TouchableHighlight
+  View
 } from 'react-native';
 
-import {NotificationsAndroid, PendingNotifications} from './notifications';
+import {NotificationsAndroid, PendingNotifications} from 'react-native-notifications';
 
 let mainScreen;
 
@@ -31,6 +30,8 @@ function onNotificationReceived(notification) {
   }
 }
 
+// It's highly recommended to keep listeners registration at global scope rather than at screen-scope seeing that
+// component mount and unmount lifecycle tend to be asymmetric!
 NotificationsAndroid.setRegistrationTokenUpdateListener(onPushRegistered);
 NotificationsAndroid.setNotificationOpenedListener(onNotificationOpened);
 NotificationsAndroid.setNotificationReceivedListener(onNotificationReceived);
@@ -64,11 +65,12 @@ class MainComponent extends Component {
 
     console.log('ReactScreen', 'ReactScreen');
     mainScreen = this;
+
+    setInterval(this.onTick.bind(this), 1000);
   }
 
   componentDidMount() {
     console.log('ReactScreen', 'componentDidMount');
-    setInterval(this.onTick.bind(this), 1000);
     PendingNotifications.getInitialNotification()
       .then((notification) => {console.log("getInitialNotification:", notification); this.setState({initialNotification: notification.getData()});})
       .catch((err) => console.error("getInitialNotifiation failed", err));

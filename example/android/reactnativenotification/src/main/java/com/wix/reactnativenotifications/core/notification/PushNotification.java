@@ -1,4 +1,4 @@
-package com.wix.reactnativenotifications.core;
+package com.wix.reactnativenotifications.core.notification;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -14,7 +14,13 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.wix.reactnativenotifications.core.AppLaunchHelper;
+import com.wix.reactnativenotifications.core.AppLifecycleFacade;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade.AppVisibilityListener;
+import com.wix.reactnativenotifications.core.InitialNotification;
+import com.wix.reactnativenotifications.core.NotificationIntentAdapter;
+import com.wix.reactnativenotifications.core.ProxyService;
+import com.wix.reactnativenotifications.core.notificationdrawer.PushNotificationsDrawer;
 
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_OPENED_EVENT_NAME;
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_EVENT_NAME;

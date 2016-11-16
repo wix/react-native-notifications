@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
-import com.wix.reactnativenotifications.core.IPushNotification;
-import com.wix.reactnativenotifications.core.PushNotification;
+import com.wix.reactnativenotifications.core.notification.IPushNotification;
+import com.wix.reactnativenotifications.core.notification.PushNotification;
 import com.wix.reactnativenotifications.core.ReactAppLifecycleFacade;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;

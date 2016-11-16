@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.wix.reactnativenotifications.core.notification.IPushNotification;
+import com.wix.reactnativenotifications.core.notification.PushNotification;
+
 public class ProxyService extends IntentService {
 
     private static final String TAG = ProxyService.class.getSimpleName();

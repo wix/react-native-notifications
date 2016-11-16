@@ -1,1 +1,4 @@
-include ':reactnativenotification', ':myapplication'
+include ':myapplication'
+
+include ':reactnativenotification'
+//project(':reactnativenotification').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notification/android')

@@ -1,4 +1,4 @@
-package com.wix.reactnativenotifications.core;
+package com.wix.reactnativenotifications.core.notification;
 
 public interface IPushNotification {
     class InvalidNotificationException extends Exception {

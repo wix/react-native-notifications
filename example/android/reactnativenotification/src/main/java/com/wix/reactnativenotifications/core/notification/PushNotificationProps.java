@@ -1,4 +1,4 @@
-package com.wix.reactnativenotifications.core;
+package com.wix.reactnativenotifications.core.notification;
 
 import android.os.Bundle;
 

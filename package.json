@@ -56,7 +56,6 @@
   "bugs": {
     "url": "https://github.com/wix/react-native-notifications/issues"
   },
-  "main": "index.ios.js",
   "babel": {
     "presets": [
       "react-native"

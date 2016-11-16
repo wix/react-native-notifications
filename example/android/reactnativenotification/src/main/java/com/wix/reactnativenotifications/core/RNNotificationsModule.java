@@ -12,6 +12,9 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
+import com.wix.reactnativenotifications.core.notificationdrawer.IPushNotificationsDrawer;
+import com.wix.reactnativenotifications.core.notificationdrawer.PushNotificationsDrawer;
 import com.wix.reactnativenotifications.gcm.GcmInstanceIdRefreshHandlerService;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
@@ -36,7 +39,7 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
         Log.d(LOGTAG, "Native module init");
         startGcmIntentService(GcmInstanceIdRefreshHandlerService.EXTRA_IS_APP_INIT);
 
-        IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
+        final IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
         notificationsDrawer.onAppInit();
     }
 
@@ -65,7 +68,7 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
 
     @Override
     public void onAppVisible() {
-        IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
+        final IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
         notificationsDrawer.onAppVisible();
     }
 
@@ -75,7 +78,7 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
+        final IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
         notificationsDrawer.onNewActivity(activity);
     }
 

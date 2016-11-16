@@ -1,4 +1,4 @@
-package com.wix.reactnativenotifications.core;
+package com.wix.reactnativenotifications.core.notificationdrawer;
 
 import android.app.Activity;
 

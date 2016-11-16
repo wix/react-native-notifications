@@ -1,8 +1,11 @@
-package com.wix.reactnativenotifications.core;
+package com.wix.reactnativenotifications.core.notificationdrawer;
 
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
+
+import com.wix.reactnativenotifications.core.AppLaunchHelper;
+import com.wix.reactnativenotifications.core.InitialNotification;
 
 public class PushNotificationsDrawer implements IPushNotificationsDrawer {
 

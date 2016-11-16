@@ -2,6 +2,8 @@ package com.wix.reactnativenotifications.core;
 
 import android.support.annotation.Nullable;
 
+import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
+
 public class InitialNotification {
     private static PushNotificationProps sNotification;
 
