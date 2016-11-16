@@ -34,7 +34,9 @@ public class AppLaunchHelper {
 
     public static boolean isLaunchIntentsActivity(Activity activity) {
         final Intent helperIntent = activity.getPackageManager().getLaunchIntentForPackage(activity.getPackageName());
-        return activity.getLocalClassName().equals(helperIntent.getComponent().getClassName());
+        final String activityName = activity.getComponentName().getClassName();
+        final String launchIntentActivityName = helperIntent.getComponent().getClassName();
+        return activityName.equals(launchIntentActivityName);
     }
 
     public static boolean isLaunchIntent(Intent intent) {

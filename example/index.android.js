@@ -11,6 +11,30 @@ import {
 
 import {NotificationsAndroid, PendingNotifications} from './notifications';
 
+let mainScreen;
+
+function onPushRegistered() {
+  if (mainScreen) {
+    mainScreen.onPushRegistered();
+  }
+}
+
+function onNotificationOpened(notification) {
+  if (mainScreen) {
+    mainScreen.onNotificationOpened(notification)
+  }
+}
+
+function onNotificationReceived(notification) {
+  if (mainScreen) {
+    mainScreen.onNotificationReceived(notification)
+  }
+}
+
+NotificationsAndroid.setRegistrationTokenUpdateListener(onPushRegistered);
+NotificationsAndroid.setNotificationOpenedListener(onNotificationOpened);
+NotificationsAndroid.setNotificationReceivedListener(onNotificationReceived);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -36,20 +60,22 @@ class MainComponent extends Component {
     this.state = {
       elapsed: 0,
       lastNotification: undefined
-    }
-  }
+    };
 
-  componentWillMount() {
-    NotificationsAndroid.setRegistrationTokenUpdateListener(this.onPushRegistered.bind(this));
-    NotificationsAndroid.setNotificationOpenedListener(this.onNotificationOpened.bind(this));
-    NotificationsAndroid.setNotificationReceivedListener(this.onNotificationReceived.bind(this));
+    console.log('ReactScreen', 'ReactScreen');
+    mainScreen = this;
   }
 
   componentDidMount() {
+    console.log('ReactScreen', 'componentDidMount');
     setInterval(this.onTick.bind(this), 1000);
     PendingNotifications.getInitialNotification()
       .then((notification) => {console.log("getInitialNotification:", notification); this.setState({initialNotification: notification.getData()});})
       .catch((err) => console.error("getInitialNotifiation failed", err));
+  }
+
+  componentWillUnmount() {
+    console.log('ReactScreen', 'componentWillUnmount');
   }
 
   onTick() {

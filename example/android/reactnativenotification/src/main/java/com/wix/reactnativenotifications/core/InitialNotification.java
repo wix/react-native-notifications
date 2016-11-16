@@ -9,6 +9,10 @@ public class InitialNotification {
         sNotification = pushNotificationProps;
     }
 
+    public static void clear() {
+        sNotification = null;
+    }
+
     @Nullable
     public static PushNotificationProps get() {
         return sNotification;

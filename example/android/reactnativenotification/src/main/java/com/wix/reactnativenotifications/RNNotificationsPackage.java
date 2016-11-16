@@ -1,5 +1,7 @@
 package com.wix.reactnativenotifications;
 
+import android.app.Application;
+
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
@@ -13,9 +15,16 @@ import java.util.List;
 
 public class RNNotificationsPackage implements ReactPackage {
 
+
+    final Application mApplication;
+
+    public RNNotificationsPackage(Application application) {
+        mApplication = application;
+    }
+
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        return Arrays.<NativeModule>asList(new RNNotificationsModule(reactContext));
+        return Arrays.<NativeModule>asList(new RNNotificationsModule(mApplication, reactContext));
     }
 
     @Override

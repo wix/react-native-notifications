@@ -58,7 +58,7 @@ public class PushNotification implements IPushNotification {
     @Override
     public void onOpened() {
         digestNotification();
-        deleteAllPostedNotifications();
+        PushNotificationsDrawer.get(mContext).onNotificationOpened();
     }
 
     @Override
@@ -169,10 +169,5 @@ public class PushNotification implements IPushNotification {
     protected void launchOrResumeApp() {
         final Intent intent = AppLaunchHelper.getLaunchIntent(mContext);
         mContext.startActivity(intent);
-    }
-
-    protected void deleteAllPostedNotifications() {
-        final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancelAll();
     }
 }

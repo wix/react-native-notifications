@@ -12,7 +12,7 @@ import static com.wix.reactnativenotifications.Defs.LOGTAG;
 
 public class ReactAppLifecycleFacade implements AppLifecycleFacade {
 
-    private static ReactAppLifecycleFacade sInstance = new ReactAppLifecycleFacade();
+    private static final ReactAppLifecycleFacade sInstance = new ReactAppLifecycleFacade();
 
     private ReactContext mReactContext;
     private boolean mIsVisible;
@@ -22,10 +22,8 @@ public class ReactAppLifecycleFacade implements AppLifecycleFacade {
         return sInstance;
     }
 
-    public synchronized void onAppInit(ReactContext reactContext) {
+    public void init(ReactContext reactContext) {
         mReactContext = reactContext;
-        mIsVisible = false;
-
         reactContext.addLifecycleEventListener(new LifecycleEventListener() {
             @Override
             public void onHostResume() {
@@ -35,15 +33,14 @@ public class ReactAppLifecycleFacade implements AppLifecycleFacade {
 
             @Override
             public void onHostPause() {
+                Log.d(LOGTAG, "onHostPause");
                 switchToInvisible();
             }
 
             @Override
             public void onHostDestroy() {
-                switchToInvisible();
                 Log.d(LOGTAG, "onHostDestroy");
-                mReactContext.removeLifecycleEventListener(this);
-                mReactContext = null;
+                switchToInvisible();
             }
         });
     }
