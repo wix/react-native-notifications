@@ -2,9 +2,11 @@
 
 Handle all the aspects of push notifications for your app, including remote and local notifications, interactive notifications, silent notifications, and more.
 
-**All the native iOS notifications features are supported!** Android push support is in progress.
+**All the native iOS notifications features are supported!** 
 
-### Supported Features (iOS)
+
+## Supported Features
+### iOS
 
 - [Remote notifications](#handling-received-notifications).
 - [Local notifications](#triggering-local-notifications).
@@ -15,6 +17,16 @@ Handle all the aspects of push notifications for your app, including remote and 
 
 ![Interactive notifications example](https://s3.amazonaws.com/nrjio/interactive.gif)
 
+### Android
+
+>**Please advise that Android support is a work in progress and is subject to breaking changes in the near future**
+
+- Receiving notifications in any App state (foreground, background, "dead")
+- Built-in notification drawer management
+- High degree of code extensibility to allow for advanced custom layouts and any specific notifications behavior as available by [Android's API](https://developer.android.com/training/notify-user/build-notification.html)
+- Android equivalent of React-Native's implementation of [`PushNotificationsIOS.getInitialNotification()`](https://facebook.github.io/react-native/docs/pushnotificationios.html#getinitialnotification).
+
+_Upcoming: local notifications, background-state Rx queue (iOS equivalent)_
 
 ## Installation
 
@@ -59,11 +71,59 @@ And the following methods to support registration and receiving notifications:
 ```
 
 ### Android
-WIP.
+
+
+Add a reference to the library's native code in your global `settings.gradle`:
+
+```
+include ':reactnativenotifications'
+project(':reactnativenotifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android')
+```
+
+Declare the library as a dependency in your **app-project's** `build.gradle`:
+
+```
+dependencies {
+	// ...
+	compile project(':reactnativenotifications')
+}
+```
+
+### Receiving push notifications
+
+> This section is only necessary in case you wish to **receive** push notifications in your React-Native app.
+
+Push notifications on Android are managed and dispatched using [Google's GCM service](https://developers.google.com/cloud-messaging/gcm) (now integrated into Firebase). The following installation steps are a TL;DR of [Google's GCM setup guide](https://developers.google.com/cloud-messaging/android/client). You can follow them to get GCM integrated quickly, but we recommend that you will in the very least have a peek at the guide's overview.
+
+##### Step #1: Subscribe to Google's GCM
+
+To set GCM in your app, you must first create a Google API-project and obtain a **Sender ID** and a **Server API Key**. If you have no existing API project yet, the easiest way to go about in creating one is using [this step-by-step installation process](https://developers.google.com/mobile/add); Use [this tutorial](https://code.tutsplus.com/tutorials/how-to-get-started-with-push-notifications-on-android--cms-25870) for insturctions.
+
+Alternatively, follow [Google's complete guide](https://developers.google.com/cloud-messaging/android/client#create-an-api-project).
+
+##### Step #2: Add Sender ID to Manifest File
+
+Once obtained, bundle the Sender ID onto your main `manifest.xml` file:
+
+```
+<manifest>
+...
+	<application>
+	...
+		// Replace '1234567890' with your sender ID.
+		// IMPORTANT: Leave the trailing \0 intact!!!
+	    <meta-data android:name="com.wix.reactnativenotifications.gcmSenderId" android:value="1234567890\0"/>
+	</application>
+</manifest>
+
+```
+
 
 ---
 
 ## Register to Push Notifications
+
+### iOS
 
 In order to handle notifications, you must register before- handle `remoteNotificationsRegistered` event.
 
@@ -79,7 +139,7 @@ class App extends Component {
 	}
 	
 	onPushRegistered(deviceToken) {
-		console.log("Device Token Received: " + deviceToken);
+		console.log("Device Token Received", deviceToken);
 	}
 	
 	componentWillUnmount() {
@@ -92,9 +152,28 @@ class App extends Component {
 
 When you have the device token, POST it to your server and register the device in your notifications provider (Amazon SNS, Azure, etc.).
 
+### Android
+
+The React-Native code equivalent on Android is:
+
+```javascript
+import {NotificationsAndroid} from 'react-native-notifications';
+
+// On Android, we allow for only one (global) listener per each event type.
+NotificationsAndroid.setRegistrationTokenUpdateListener((deviceToken) => {
+	console.log('Push-notifications regsitered!', deviceToken)
+});
+
+```
+
+`deviceToken` being the token used to identify the device on the GCM.
+
 ---
 
+
 ## Handling Received Notifications
+
+### iOS
 
 When you receive a notification, the application can be in one of the following states:
 
@@ -112,15 +191,15 @@ constructor() {
 }
 
 onNotificationReceivedForeground(notification) {
-	console.log("Notification Received Foreground: " + JSON.stringify(notification));
+	console.log("Notification Received - Foreground", notification);
 }
 
 onNotificationReceivedBackground(notification) {
-	console.log("Notification Received Background: " + JSON.stringify(notification));
+	console.log("Notification Received - Background", notification);
 }
 
 onNotificationOpened(notification) {
-	console.log("Notification Opened: " + JSON.stringify(notification));
+	console.log("Notification opened by device user", notification);
 }
 
 componentWillUnmount() {
@@ -131,7 +210,7 @@ componentWillUnmount() {
 }
 ```
 
-### Notification Object
+#### Notification Object
 When you receive a push notification, you'll get an instance of `IOSNotification` object, contains the following methods:
 
 - **`getMessage()`**- returns the notification's main message string.
@@ -141,16 +220,59 @@ When you receive a push notification, you'll get an instance of `IOSNotification
 - **`getData()`**- returns the data payload (additional info) of the notification.
 - **`getType()`**- returns `managed` for managed notifications, otherwise returns `regular`.
 
-
-### Background Queue (Important!)
+#### Background Queue (Important!)
 When a push notification is opened but the app is not running, the application will be in a **cold launch** state, until the JS engine is up and ready to handle the notification.
 The application will collect the events (notifications, actions, etc.) that happend during the cold launch for you. 
 
 When your app is ready (most of the time it's after the call to `requestPermissions()`), just call to `NotificationsIOS.consumeBackgroundQueue();` in order to consume the background queue. For more info see `index.ios.js` in the example app.
 
+### Android
+
+```javascript
+import {NotificationsAndroid} from 'react-native-notifications';
+
+// On Android, we allow for only one (global) listener per each event type.
+NotificationsAndroid.setNotificationReceivedListener((notification) => {
+	console.log("Notification received on device", notification.getData());
+});
+NotificationsAndroid.setNotificationOpenedListener((notification) => {
+	console.log("Notification opened by device user", notification.getData());
+});
+```
+
+#### Notification Object
+- **`getData()`**- content of the `data` section of the original message (sent to GCM).
+- **`getTitle()`**- Convenience for returning `data.title`.
+- **`getMessage()`**- Convenience for returning `data.body`.
+
 ---
 
+## Querying initial notification
+
+React-Native's [`PushNotificationsIOS.getInitialNotification()`](https://facebook.github.io/react-native/docs/pushnotificationios.html#getinitialnotification) allows for the async retrieval of the original notification used to open the App on iOS, but it has no equivalent implementation for Android.
+
+We provide a similar implementation on Android using `PendingNotifications.getInitialNotification()` which returns a promise:
+
+```javascript
+import {NotificationsAndroid, PendingNotifications} from 'react-native-notifications';
+
+PendingNotifications.getInitialNotification()
+  .then((notification) => {
+  		console.log("Initial notification was:", (notification ? notification.getData() : 'N/A');
+	})  	
+  .catch((err) => console.error("getInitialNotifiation() failed", err));
+
+```
+
+> Notifications are considered 'initial' under the following terms:
+
+> - User tapped on a notification, _AND_ -
+> - App was either not running at all ("dead" state), _OR_ it existed in the background with **no running activities** associated with it.
+
+
 ## Triggering Local Notifications
+
+> Currently, an iOS-only feture
 
 You can schedule a local notification for future presentation.
 Triggering local notifications is fully compatible with React Native `PushNotificationsIOS` library.

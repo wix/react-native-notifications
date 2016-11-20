@@ -1,51 +1,111 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
+'use strict';
 
+import React, {Component} from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
   View
 } from 'react-native';
-import React, {Component} from 'react';
 
-class NotificationsExampleApp extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native Notifications Demo App!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
+import {NotificationsAndroid, PendingNotifications} from 'react-native-notifications';
+
+let mainScreen;
+
+function onPushRegistered() {
+  if (mainScreen) {
+    mainScreen.onPushRegistered();
   }
 }
+
+function onNotificationOpened(notification) {
+  if (mainScreen) {
+    mainScreen.onNotificationOpened(notification)
+  }
+}
+
+function onNotificationReceived(notification) {
+  if (mainScreen) {
+    mainScreen.onNotificationReceived(notification)
+  }
+}
+
+// It's highly recommended to keep listeners registration at global scope rather than at screen-scope seeing that
+// component mount and unmount lifecycle tend to be asymmetric!
+NotificationsAndroid.setRegistrationTokenUpdateListener(onPushRegistered);
+NotificationsAndroid.setNotificationOpenedListener(onNotificationOpened);
+NotificationsAndroid.setNotificationReceivedListener(onNotificationReceived);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
+  titleText: {
+    fontSize: 22,
     textAlign: 'center',
     margin: 10,
   },
-  instructions: {
+  bodyText: {
+    fontSize: 18,
     textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    margin: 10,
   },
 });
 
-AppRegistry.registerComponent('NotificationsExampleApp', () => NotificationsExampleApp);
+class MainComponent extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      elapsed: 0,
+      lastNotification: undefined
+    };
+
+    console.log('ReactScreen', 'ReactScreen');
+    mainScreen = this;
+
+    setInterval(this.onTick.bind(this), 1000);
+  }
+
+  componentDidMount() {
+    console.log('ReactScreen', 'componentDidMount');
+    PendingNotifications.getInitialNotification()
+      .then((notification) => {console.log("getInitialNotification:", notification); this.setState({initialNotification: notification.getData()});})
+      .catch((err) => console.error("getInitialNotifiation failed", err));
+  }
+
+  componentWillUnmount() {
+    console.log('ReactScreen', 'componentWillUnmount');
+  }
+
+  onTick() {
+    this.setState({elapsed: this.state.elapsed + 1});
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.titleText}>Wix React Native Notifications</Text>
+        <Text style={styles.bodyText}>{this.state.initialNotification ? 'Opened from notification' : ''}</Text>
+        <Text style={styles.bodyText}>Last notification: {this.state.lastNotification ? '\n'+this.state.lastNotification.body + ` (opened at ''${this.state.notificationRxTime})` : "N/A"}</Text>
+        <Text style={styles.bodyText}>Time elapsed: {this.state.elapsed}</Text>
+      </View>
+    )
+  }
+
+  onPushRegistered() {
+  }
+
+  onNotificationOpened(notification) {
+    console.log("onNotificationOpened: ", notification);
+    this.setState({lastNotification: notification.getData(), notificationRxTime: this.state.elapsed});
+  }
+
+  onNotificationReceived(notification) {
+    console.log("onNotificationReceived: ", notification);
+  }
+}
+
+AppRegistry.registerComponent('WixRNNotifications', () => MainComponent);
