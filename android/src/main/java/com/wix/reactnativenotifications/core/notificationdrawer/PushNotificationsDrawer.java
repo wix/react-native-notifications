@@ -9,7 +9,7 @@ import com.wix.reactnativenotifications.core.InitialNotification;
 
 public class PushNotificationsDrawer implements IPushNotificationsDrawer {
 
-    protected final Context mContext;
+    final protected Context mContext;
 
     public PushNotificationsDrawer(Context context) {
         mContext = context;

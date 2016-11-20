@@ -25,16 +25,12 @@ import com.wix.reactnativenotifications.core.notificationdrawer.PushNotification
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_OPENED_EVENT_NAME;
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_EVENT_NAME;
 
-// TODO:
-// 1. Opening the from notif, then tapping 'home', the opening from launcher icon results in main activity over main activity
-// 2. Double check initial notification set up and clearing
-
 public class PushNotification implements IPushNotification {
 
-    final private Context mContext;
-    final private AppLifecycleFacade mAppLifecycleFacade;
-    final private PushNotificationProps mNotificationProps;
-    final private AppVisibilityListener mAppVisibilityListener = new AppVisibilityListener() {
+    final protected Context mContext;
+    final protected AppLifecycleFacade mAppLifecycleFacade;
+    final protected PushNotificationProps mNotificationProps;
+    final protected AppVisibilityListener mAppVisibilityListener = new AppVisibilityListener() {
         @Override
         public void onAppVisible() {
             mAppLifecycleFacade.removeVisibilityListener(this);
