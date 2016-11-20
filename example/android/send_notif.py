@@ -15,11 +15,11 @@ data = {
         "title": "Wix Example Project"
     }
 }
-dataAsJSON = json.dumps(data)
+dataJson = json.dumps(data)
 
 request = Request(
     'https://gcm-http.googleapis.com/gcm/send',
-    dataAsJSON,
+    dataJson,
     {
       "Authorization" : "key="+API_KEY,
       "Content-type" : "application/json"
