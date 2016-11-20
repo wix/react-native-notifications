@@ -19,12 +19,14 @@ Handle all the aspects of push notifications for your app, including remote and 
 
 ### Android
 
+>**Please advise that Android support is a work in progress and is subject to breaking changes in the near future**
+
 - Receiving notifications in any App state (foreground, background, "dead")
 - Built-in notification drawer management
-- High degree of code extensibility to allow for advanced custom layouts and specific notifications behavior as available by [Android's API](https://developer.android.com/training/notify-user/build-notification.html)
+- High degree of code extensibility to allow for advanced custom layouts and any specific notifications behavior as available by [Android's API](https://developer.android.com/training/notify-user/build-notification.html)
 - Android equivalent of React-Native's implementation of [`PushNotificationsIOS.getInitialNotification()`](https://facebook.github.io/react-native/docs/pushnotificationios.html#getinitialnotification).
 
->Upcoming: local notifications, background-state Rx queue (iOS equivalent)
+_Upcoming: local notifications, background-state Rx queue (iOS equivalent)_
 
 ## Installation
 
@@ -70,17 +72,36 @@ And the following methods to support registration and receiving notifications:
 
 ### Android
 
-> Installation on Android is necessary in case you wish to receive push notifications on your React-Native app.
+
+Add a reference to the library's native code in your global `settings.gradle`:
+
+```
+include ':reactnativenotifications'
+project(':reactnativenotifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android')
+```
+
+Declare the library as a dependency in your **app-project's** `build.gradle`:
+
+```
+dependencies {
+	// ...
+	compile project(':reactnativenotifications')
+}
+```
+
+### Receiving push notifications
+
+> This section is only necessary in case you wish to **receive** push notifications in your React-Native app.
 
 Push notifications on Android are managed and dispatched using [Google's GCM service](https://developers.google.com/cloud-messaging/gcm) (now integrated into Firebase). The following installation steps are a TL;DR of [Google's GCM setup guide](https://developers.google.com/cloud-messaging/android/client). You can follow them to get GCM integrated quickly, but we recommend that you will in the very least have a peek at the guide's overview.
 
-#### Step #1: Subscribe to Google's GCM
+##### Step #1: Subscribe to Google's GCM
 
-To set GCM in your app, you must first create a Google API-project and obtain a **Sender ID** and a **Server API Key**. If you have no existing API projects yet, the easiest way to go about in creating one is using [this step-by-step installation process](https://developers.google.com/mobile/add); Use [this tutorial](https://code.tutsplus.com/tutorials/how-to-get-started-with-push-notifications-on-android--cms-25870) for insturctions.
+To set GCM in your app, you must first create a Google API-project and obtain a **Sender ID** and a **Server API Key**. If you have no existing API project yet, the easiest way to go about in creating one is using [this step-by-step installation process](https://developers.google.com/mobile/add); Use [this tutorial](https://code.tutsplus.com/tutorials/how-to-get-started-with-push-notifications-on-android--cms-25870) for insturctions.
 
 Alternatively, follow [Google's complete guide](https://developers.google.com/cloud-messaging/android/client#create-an-api-project).
 
-#### Step #2: Add Sender ID to Manifest File
+##### Step #2: Add Sender ID to Manifest File
 
 Once obtained, bundle the Sender ID onto your main `manifest.xml` file:
 
