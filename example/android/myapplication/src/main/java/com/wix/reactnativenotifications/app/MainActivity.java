@@ -6,8 +6,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Toolbar;
 
@@ -26,10 +24,11 @@ public class MainActivity extends ReactActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ViewGroup layout = (ViewGroup) getLayoutInflater().inflate(R.layout.activity_main, null);
-        Toolbar toolbar = (Toolbar) layout.findViewById(R.id.toolbar);
-        setActionBar(toolbar);
-
+        final ViewGroup layout = (ViewGroup) getLayoutInflater().inflate(R.layout.activity_main, null);
+        if (SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Toolbar toolbar = (Toolbar) layout.findViewById(R.id.toolbar);
+            setActionBar(toolbar);
+        }
         mReactRootView = new ReactRootView(this);
         layout.addView(mReactRootView);
 
@@ -41,19 +40,6 @@ public class MainActivity extends ReactActivity {
         } else {
             startReactApplication();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add("Child Activity").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Intent intent = new Intent(MainActivity.this, ChildActivity.class);
-                MainActivity.this.startActivity(intent);
-                return true;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
