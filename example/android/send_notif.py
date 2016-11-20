@@ -25,4 +25,6 @@ request = Request(
       "Content-type" : "application/json"
     }
 )
+
+print "Sending notification..."
 print urlopen(request).read()
