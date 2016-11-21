@@ -41,6 +41,10 @@ export class NotificationsAndroid {
       notificationReceivedListener = null;
     }
   }
+
+  static refreshToken() {
+    RNNotifications.refreshToken();
+  }
 }
 
 export class PendingNotifications {

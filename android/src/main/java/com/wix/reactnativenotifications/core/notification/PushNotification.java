@@ -44,7 +44,7 @@ public class PushNotification implements IPushNotification {
     protected PushNotification(Context context, Bundle bundle, AppLifecycleFacade appLifecycleFacade) {
         mContext = context;
         mAppLifecycleFacade = appLifecycleFacade;
-        mNotificationProps = new PushNotificationProps(bundle);
+        mNotificationProps = createProps(bundle);
     }
 
     public static IPushNotification get(Context context, Bundle bundle, AppLifecycleFacade facade) {
@@ -95,6 +95,10 @@ public class PushNotification implements IPushNotification {
         } else {
             dispatchUponVisibility();
         }
+    }
+
+    protected PushNotificationProps createProps(Bundle bundle) {
+        return new PushNotificationProps(bundle);
     }
 
     protected void setAsInitialNotification() {

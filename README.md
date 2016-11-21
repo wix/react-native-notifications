@@ -76,8 +76,8 @@ And the following methods to support registration and receiving notifications:
 Add a reference to the library's native code in your global `settings.gradle`:
 
 ```
-include ':reactnativenotifications'
-project(':reactnativenotifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android')
+include ':react-native-notifications'
+project(':react-native-notifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android')
 ```
 
 Declare the library as a dependency in your **app-project's** `build.gradle`:
@@ -85,7 +85,8 @@ Declare the library as a dependency in your **app-project's** `build.gradle`:
 ```
 dependencies {
 	// ...
-	compile project(':reactnativenotifications')
+	
+	compile project(':react-native-notifications')
 }
 ```
 
@@ -95,13 +96,13 @@ dependencies {
 
 Push notifications on Android are managed and dispatched using [Google's GCM service](https://developers.google.com/cloud-messaging/gcm) (now integrated into Firebase). The following installation steps are a TL;DR of [Google's GCM setup guide](https://developers.google.com/cloud-messaging/android/client). You can follow them to get GCM integrated quickly, but we recommend that you will in the very least have a peek at the guide's overview.
 
-##### Step #1: Subscribe to Google's GCM
+#### Step #1: Subscribe to Google's GCM
 
 To set GCM in your app, you must first create a Google API-project and obtain a **Sender ID** and a **Server API Key**. If you have no existing API project yet, the easiest way to go about in creating one is using [this step-by-step installation process](https://developers.google.com/mobile/add); Use [this tutorial](https://code.tutsplus.com/tutorials/how-to-get-started-with-push-notifications-on-android--cms-25870) for insturctions.
 
 Alternatively, follow [Google's complete guide](https://developers.google.com/cloud-messaging/android/client#create-an-api-project).
 
-##### Step #2: Add Sender ID to Manifest File
+#### Step #2: Add Sender ID to Manifest File
 
 Once obtained, bundle the Sender ID onto your main `manifest.xml` file:
 
@@ -116,6 +117,15 @@ Once obtained, bundle the Sender ID onto your main `manifest.xml` file:
 	</application>
 </manifest>
 
+```
+
+#### Step #3: Add / verify GCM dependency in `build.gradle`:
+
+```
+dependencies {	
+	// If you haven't already done so, add Google's GCM module:
+	compile "com.google.android.gms:play-services-gcm:9+"
+}
 ```
 
 

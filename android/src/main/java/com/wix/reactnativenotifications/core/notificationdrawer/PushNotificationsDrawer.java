@@ -18,7 +18,7 @@ public class PushNotificationsDrawer implements IPushNotificationsDrawer {
     public static IPushNotificationsDrawer get(Context context) {
         final Context appContext = context.getApplicationContext();
         if (appContext instanceof INotificationsDrawerApplication) {
-            return ((INotificationsDrawerApplication) appContext).getPushNotificationsDrawer();
+            return ((INotificationsDrawerApplication) appContext).getPushNotificationsDrawer(context);
         }
 
         return new PushNotificationsDrawer(context);

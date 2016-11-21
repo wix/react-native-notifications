@@ -2,20 +2,21 @@ package com.wix.reactnativenotifications.core.notification;
 
 import android.os.Bundle;
 
-/**
- * @author amitd
- */
 public class PushNotificationProps {
 
-    private Bundle mBundle;
+    protected Bundle mBundle;
+
+    public PushNotificationProps() {
+        mBundle = new Bundle();
+    }
+
+    public PushNotificationProps(String title, String body) {
+        mBundle = new Bundle();
+        mBundle.putString("title", title);
+        mBundle.putString("body", body);
+    }
 
     public PushNotificationProps(Bundle bundle) {
-        final String title = bundle.getString("title");
-        final String body = bundle.getString("body");
-        if (title == null || title.trim().isEmpty() || body == null || body.trim().isEmpty()) {
-            throw new IllegalArgumentException("Invalid notification");
-        }
-
         mBundle = bundle;
     }
 
