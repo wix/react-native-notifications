@@ -76,8 +76,8 @@ And the following methods to support registration and receiving notifications:
 Add a reference to the library's native code in your global `settings.gradle`:
 
 ```
-include ':react-native-notifications'
-project(':react-native-notifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android')
+include ':reactnativenotifications'
+project(':reactnativenotifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android')
 ```
 
 Declare the library as a dependency in your **app-project's** `build.gradle`:
@@ -86,7 +86,7 @@ Declare the library as a dependency in your **app-project's** `build.gradle`:
 dependencies {
 	// ...
 	
-	compile project(':react-native-notifications')
+	compile project(':reactnativenotifications')
 }
 ```
 
