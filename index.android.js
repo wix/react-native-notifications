@@ -1,5 +1,5 @@
-import {NativeModules, DeviceEventEmitter} from 'react-native';
-import NotificationAndroid from './notification';
+import {NativeModules, DeviceEventEmitter} from "react-native";
+import NotificationAndroid from "./notification";
 
 const RNNotifications = NativeModules.WixRNNotifications;
 
@@ -9,7 +9,7 @@ let registrationTokenUpdateListener;
 
 export class NotificationsAndroid {
   static setRegistrationTokenUpdateListener(listener) {
-    registrationTokenUpdateListener = DeviceEventEmitter.addListener('remoteNotificationsRegistered', listener);
+    registrationTokenUpdateListener = DeviceEventEmitter.addListener("remoteNotificationsRegistered", listener);
   }
 
   static clearRegistrationTokenUpdateListener() {
@@ -20,12 +20,12 @@ export class NotificationsAndroid {
   }
 
   static setNotificationOpenedListener(listener) {
-    notificationOpenedListener = DeviceEventEmitter.addListener('notificationOpened', (notification) => listener(new NotificationAndroid(notification)));
+    notificationOpenedListener = DeviceEventEmitter.addListener("notificationOpened", (notification) => listener(new NotificationAndroid(notification)));
   }
 
 
   static setNotificationReceivedListener(listener) {
-    notificationReceivedListener = DeviceEventEmitter.addListener('notificationReceived', (notification) => listener(new NotificationAndroid(notification)));
+    notificationReceivedListener = DeviceEventEmitter.addListener("notificationReceived", (notification) => listener(new NotificationAndroid(notification)));
   }
 
   static clearNotificationOpenedListener() {
