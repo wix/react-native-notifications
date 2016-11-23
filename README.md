@@ -75,14 +75,14 @@ And the following methods to support registration and receiving notifications:
 
 Add a reference to the library's native code in your global `settings.gradle`:
 
-```
+```gradle
 include ':reactnativenotifications'
 project(':reactnativenotifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android')
 ```
 
 Declare the library as a dependency in your **app-project's** `build.gradle`:
 
-```
+```gradle
 dependencies {
 	// ...
 	
@@ -106,7 +106,7 @@ Alternatively, follow [Google's complete guide](https://developers.google.com/cl
 
 Once obtained, bundle the Sender ID onto your main `manifest.xml` file:
 
-```
+```gradle
 <manifest>
 ...
 	<application>
@@ -117,15 +117,6 @@ Once obtained, bundle the Sender ID onto your main `manifest.xml` file:
 	</application>
 </manifest>
 
-```
-
-#### Step #3: Add / verify GCM dependency in `build.gradle`:
-
-```
-dependencies {	
-	// If you haven't already done so, add Google's GCM module:
-	compile "com.google.android.gms:play-services-gcm:9+"
-}
 ```
 
 
@@ -444,7 +435,9 @@ componentWillUnmount() {
 
 ---
 
-## Interactive / Actionable Notifications (iOS only)
+## Interactive / Actionable Notifications
+
+> This section provides description for iOS. For notifications customization on Android, refer to [our wiki](https://github.com/wix/react-native-notifications/wiki/Android-Customizations#customizing-notifications-layout).
 
 Interactive notifications allow you to reply to a message right from the notification banner or take action right from the lock screen. 
 
