@@ -8,6 +8,28 @@ let notificationOpenedListener;
 let registrationTokenUpdateListener;
 
 export class NotificationsAndroid {
+  static setNotificationOpenedListener(listener) {
+    notificationOpenedListener = DeviceEventEmitter.addListener("notificationOpened", (notification) => listener(new NotificationAndroid(notification)));
+  }
+
+  static clearNotificationOpenedListener() {
+    if (notificationOpenedListener) {
+      notificationOpenedListener.remove();
+      notificationOpenedListener = null;
+    }
+  }
+
+  static setNotificationReceivedListener(listener) {
+    notificationReceivedListener = DeviceEventEmitter.addListener("notificationReceived", (notification) => listener(new NotificationAndroid(notification)));
+  }
+
+  static clearNotificationReceivedListener() {
+    if (notificationReceivedListener) {
+      notificationReceivedListener.remove();
+      notificationReceivedListener = null;
+    }
+  }
+
   static setRegistrationTokenUpdateListener(listener) {
     registrationTokenUpdateListener = DeviceEventEmitter.addListener("remoteNotificationsRegistered", listener);
   }
@@ -19,36 +41,16 @@ export class NotificationsAndroid {
     }
   }
 
-  static setNotificationOpenedListener(listener) {
-    notificationOpenedListener = DeviceEventEmitter.addListener("notificationOpened", (notification) => listener(new NotificationAndroid(notification)));
-  }
-
-
-  static setNotificationReceivedListener(listener) {
-    notificationReceivedListener = DeviceEventEmitter.addListener("notificationReceived", (notification) => listener(new NotificationAndroid(notification)));
-  }
-
-  static clearNotificationOpenedListener() {
-    if (notificationOpenedListener) {
-      notificationOpenedListener.remove();
-      notificationOpenedListener = null;
-    }
-  }
-
-  static clearNotificationReceivedListener() {
-    if (notificationReceivedListener) {
-      notificationReceivedListener.remove();
-      notificationReceivedListener = null;
-    }
-  }
-
   static refreshToken() {
     RNNotifications.refreshToken();
   }
 }
 
 export class PendingNotifications {
-  static async getInitialNotification() {
-    return new NotificationAndroid(await RNNotifications.getInitialNotification());
+  static getInitialNotification() {
+    return RNNotifications.getInitialNotification()
+      .then((rawNotification) => {
+        return new NotificationAndroid(rawNotification);
+      });
   }
 }
