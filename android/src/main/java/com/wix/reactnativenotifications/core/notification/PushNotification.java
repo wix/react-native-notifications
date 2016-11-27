@@ -38,7 +38,8 @@ public class PushNotification implements IPushNotification {
         }
 
         @Override
-        public void onAppNotVisible() {}
+        public void onAppNotVisible() {
+        }
     };
 
     protected PushNotification(Context context, Bundle bundle, AppLifecycleFacade appLifecycleFacade) {
@@ -127,15 +128,17 @@ public class PushNotification implements IPushNotification {
     }
 
     protected Notification buildNotification(PendingIntent intent) {
-        final Notification.Builder notificationBuilder = new Notification.Builder(mContext)
+        return getNotificationBuilder(intent).build();
+    }
+
+    protected Notification.Builder getNotificationBuilder(PendingIntent intent) {
+        return new Notification.Builder(mContext)
                 .setContentTitle(mNotificationProps.getTitle())
                 .setContentText(mNotificationProps.getBody())
                 .setSmallIcon(mContext.getApplicationInfo().icon)
                 .setContentIntent(intent)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true);
-
-        return notificationBuilder.build();
     }
 
     protected void postNotification(int id, Notification notification) {
