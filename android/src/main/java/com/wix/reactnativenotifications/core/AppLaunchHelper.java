@@ -10,7 +10,7 @@ public class AppLaunchHelper {
 
     private static final String LAUNCH_FLAG_KEY_NAME = "launchedFromNotification";
 
-    public static Intent getLaunchIntent(Context appContext) {
+    public Intent getLaunchIntent(Context appContext) {
         try {
             // The desired behavior upon notification opening is as follows:
             // - If app is in foreground (and possibly has several activities in stack), simply keep it as-is in foreground.
@@ -32,14 +32,14 @@ public class AppLaunchHelper {
         }
     }
 
-    public static boolean isLaunchIntentsActivity(Activity activity) {
+    public boolean isLaunchIntentsActivity(Activity activity) {
         final Intent helperIntent = activity.getPackageManager().getLaunchIntentForPackage(activity.getPackageName());
         final String activityName = activity.getComponentName().getClassName();
         final String launchIntentActivityName = helperIntent.getComponent().getClassName();
         return activityName.equals(launchIntentActivityName);
     }
 
-    public static boolean isLaunchIntent(Intent intent) {
+    public boolean isLaunchIntent(Intent intent) {
         return intent.getBooleanExtra(LAUNCH_FLAG_KEY_NAME, false);
     }
 }

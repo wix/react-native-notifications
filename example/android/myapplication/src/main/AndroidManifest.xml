@@ -24,11 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ChildActivity"
-            android:label="Child Activity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.wix.reactnativenotifications.app.MainActivity"/>
-        </activity>
 
     </application>
 

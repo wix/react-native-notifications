@@ -10,18 +10,24 @@ import com.wix.reactnativenotifications.core.InitialNotification;
 public class PushNotificationsDrawer implements IPushNotificationsDrawer {
 
     final protected Context mContext;
-
-    public PushNotificationsDrawer(Context context) {
-        mContext = context;
-    }
+    final protected AppLaunchHelper mAppLaunchHelper;
 
     public static IPushNotificationsDrawer get(Context context) {
+        return PushNotificationsDrawer.get(context, new AppLaunchHelper());
+    }
+
+    public static IPushNotificationsDrawer get(Context context, AppLaunchHelper appLaunchHelper) {
         final Context appContext = context.getApplicationContext();
         if (appContext instanceof INotificationsDrawerApplication) {
             return ((INotificationsDrawerApplication) appContext).getPushNotificationsDrawer(context);
         }
 
-        return new PushNotificationsDrawer(context);
+        return new PushNotificationsDrawer(context, appLaunchHelper);
+    }
+
+    protected PushNotificationsDrawer(Context context, AppLaunchHelper appLaunchHelper) {
+        mContext = context;
+        mAppLaunchHelper = appLaunchHelper;
     }
 
     @Override
@@ -36,8 +42,8 @@ public class PushNotificationsDrawer implements IPushNotificationsDrawer {
 
     @Override
     public void onNewActivity(Activity activity) {
-        if (AppLaunchHelper.isLaunchIntentsActivity(activity) &&
-            !AppLaunchHelper.isLaunchIntent(activity.getIntent())) {
+        if (mAppLaunchHelper.isLaunchIntentsActivity(activity) &&
+            !mAppLaunchHelper.isLaunchIntent(activity.getIntent())) {
             InitialNotification.clear();
         }
     }
@@ -45,6 +51,12 @@ public class PushNotificationsDrawer implements IPushNotificationsDrawer {
     @Override
     public void onNotificationOpened() {
         clearAll();
+    }
+
+    @Override
+    public void onNotificationClearRequest(int id) {
+        final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(id);
     }
 
     protected void clearAll() {

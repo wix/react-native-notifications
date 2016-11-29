@@ -55,6 +55,16 @@ public class ReactAppLifecycleFacade implements AppLifecycleFacade {
     }
 
     @Override
+    public ReactContext getRunningReactContext() {
+        ReactContext reactContext = mReactContext;
+        if (reactContext == null) {
+            return null;
+        }
+
+        return mReactContext;
+    }
+
+    @Override
     public boolean isAppVisible() {
         return mIsVisible;
     }

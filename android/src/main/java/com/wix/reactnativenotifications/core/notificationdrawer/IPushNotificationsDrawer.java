@@ -8,4 +8,5 @@ public interface IPushNotificationsDrawer {
     void onNewActivity(Activity activity);
 
     void onNotificationOpened();
+    void onNotificationClearRequest(int id);
 }

@@ -20,9 +20,11 @@ android {
 
 dependencies {
     // Google's GCM.
-    compile "com.google.android.gms:play-services-gcm:9.4.0"
+    compile 'com.google.android.gms:play-services-gcm:9.4.0'
 
     compile 'com.facebook.react:react-native:+'
 
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.+'
+    testCompile "org.robolectric:robolectric:3.1.4"
 }

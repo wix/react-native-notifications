@@ -3,16 +3,20 @@ let expect = require("chai").use(require("sinon-chai")).expect;
 import proxyquire from "proxyquire";
 import sinon from "sinon";
 
-describe("Notifications-Android", () => {
+describe("Notifications-Android > ", () => {
   proxyquire.noCallThru();
 
   let refreshTokenStub;
   let getInitialNotificationStub;
+  let postLocalNotificationStub;
+  let cancelLocalNotificationStub;
   let deviceEventEmitterListenerStub;
   let libUnderTest;
   beforeEach(() => {
     refreshTokenStub = sinon.stub();
     getInitialNotificationStub = sinon.stub();
+    postLocalNotificationStub = sinon.stub();
+    cancelLocalNotificationStub = sinon.stub();
     deviceEventEmitterListenerStub = sinon.stub();
 
     libUnderTest = proxyquire("../index.android", {
@@ -20,7 +24,9 @@ describe("Notifications-Android", () => {
         NativeModules: {
           WixRNNotifications: {
             refreshToken: refreshTokenStub,
-            getInitialNotification: getInitialNotificationStub
+            getInitialNotification: getInitialNotificationStub,
+            postLocalNotification: postLocalNotificationStub,
+            cancelLocalNotification: cancelLocalNotificationStub
           }
         },
         DeviceEventEmitter: {
@@ -153,10 +159,12 @@ describe("Notifications-Android", () => {
     });
   });
 
-  it("should refresh notification token upon refreshing request by the user", () => {
-    expect(refreshTokenStub).to.not.have.been.called;
-    libUnderTest.NotificationsAndroid.refreshToken();
-    expect(refreshTokenStub).to.have.been.calledOnce;
+  describe("Notification token", () => {
+    it("should refresh notification token upon refreshing request by the user", () => {
+      expect(refreshTokenStub).to.not.have.been.called;
+      libUnderTest.NotificationsAndroid.refreshToken();
+      expect(refreshTokenStub).to.have.been.calledOnce;
+    });
   });
 
   describe("Initial notification API", () => {
@@ -185,6 +193,39 @@ describe("Notifications-Android", () => {
         .catch((err) => done(err));
     });
 
+  });
+
+  describe("Local notification", () => {
+    const notification = {
+      title: "notification-title",
+      body: "notification-body"
+    };
+
+    it("should get published when posted manually", () => {
+      expect(postLocalNotificationStub).to.not.have.been.called;
+
+      const id = libUnderTest.NotificationsAndroid.localNotification(notification);
+      expect(id).to.not.be.undefined;
+      expect(postLocalNotificationStub).to.have.been.calledWith(notification, id);
+    });
+
+    it("should be called with a unique ID", () => {
+      expect(postLocalNotificationStub).to.not.have.been.called;
+
+      const id = libUnderTest.NotificationsAndroid.localNotification(notification);
+      const id2 = libUnderTest.NotificationsAndroid.localNotification(notification);
+      expect(id).to.not.be.undefined;
+      expect(id2).to.not.be.undefined;
+      expect(id).to.not.equal(id2);
+    });
+
+    it("should be cancellable with an ID", () => {
+      expect(cancelLocalNotificationStub).to.not.have.been.called;
+
+      libUnderTest.NotificationsAndroid.cancelLocalNotification(666);
+
+      expect(cancelLocalNotificationStub).to.have.been.calledWith(666);
+    });
   });
 
 });

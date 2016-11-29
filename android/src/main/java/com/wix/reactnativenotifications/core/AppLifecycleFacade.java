@@ -1,5 +1,7 @@
 package com.wix.reactnativenotifications.core;
 
+import com.facebook.react.bridge.ReactContext;
+
 public interface AppLifecycleFacade {
 
     interface AppVisibilityListener {
@@ -8,6 +10,7 @@ public interface AppLifecycleFacade {
     }
 
     boolean isReactInitialized();
+    ReactContext getRunningReactContext();
     boolean isAppVisible();
     void addVisibilityListener(AppVisibilityListener listener);
     void removeVisibilityListener(AppVisibilityListener listener);

@@ -7,6 +7,8 @@ import android.util.Log;
 
 import com.wix.reactnativenotifications.core.notification.IPushNotification;
 import com.wix.reactnativenotifications.core.notification.PushNotification;
+import com.wix.reactnativenotifications.core.notificationdrawer.IPushNotificationsDrawer;
+import com.wix.reactnativenotifications.core.notificationdrawer.PushNotificationsDrawer;
 
 public class ProxyService extends IntentService {
 
@@ -24,5 +26,8 @@ public class ProxyService extends IntentService {
         if (pushNotification != null) {
             pushNotification.onOpened();
         }
+
+        final IPushNotificationsDrawer pushNotificationDrawer = PushNotificationsDrawer.get(this);
+        pushNotificationDrawer.onNotificationOpened();
     }
 }
