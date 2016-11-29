@@ -46,7 +46,7 @@ export class NotificationsAndroid {
   }
 
   static localNotification(notification: Object) {
-    const id = Date.now() | 0; // Bitwise-OR forces value onto a 32bit limit
+    const id = Math.random() * 100000000 | 0; // Bitwise-OR forces value onto a 32bit limit
     RNNotifications.postLocalNotification(notification, id);
     return id;
   }
