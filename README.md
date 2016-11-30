@@ -90,6 +90,21 @@ dependencies {
 }
 ```
 
+Add the library to your `MainApplication.java`:
+
+```java
+import com.wix.reactnativenotifications.RNNotificationsPackage;
+
+...
+
+    @Override
+    protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+          new MainReactPackage(),
+	  ...
+	  new RNNotificationsPackage(MainApplication.this),
+```
+
 ### Receiving push notifications
 
 > This section is only necessary in case you wish to **receive** push notifications in your React-Native app.
