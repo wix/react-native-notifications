@@ -7,7 +7,7 @@ import android.content.Intent;
 
 import com.facebook.react.bridge.ReactContext;
 import com.wix.reactnativenotifications.core.AppLaunchHelper;
-import com.wix.reactnativenotifications.core.InitialNotification;
+import com.wix.reactnativenotifications.core.InitialNotificationHolder;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class PushNotificationsDrawerTest {
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        InitialNotification.setInstance(mock(InitialNotification.class));
+        InitialNotificationHolder.setInstance(mock(InitialNotificationHolder.class));
         when(mContext.getSystemService(Context.NOTIFICATION_SERVICE)).thenReturn(mNotificationManager);
     }
 
@@ -60,7 +60,7 @@ public class PushNotificationsDrawerTest {
 
     @Test
     public void onNewActivity_activityIsTheOneLaunchedByNotifs_clearInitialNotification() throws Exception {
-        verify(InitialNotification.getInstance(), never()).clear();
+        verify(InitialNotificationHolder.getInstance(), never()).clear();
 
         Activity activity = mock(Activity.class);
         Intent intent = mock(Intent.class);
@@ -70,7 +70,7 @@ public class PushNotificationsDrawerTest {
 
         createUUT().onNewActivity(activity);
 
-        verify(InitialNotification.getInstance()).clear();
+        verify(InitialNotificationHolder.getInstance()).clear();
     }
 
     @Test
@@ -83,7 +83,7 @@ public class PushNotificationsDrawerTest {
 
         createUUT().onNewActivity(activity);
 
-        verify(InitialNotification.getInstance(), never()).clear();
+        verify(InitialNotificationHolder.getInstance(), never()).clear();
     }
 
     @Test
@@ -96,7 +96,7 @@ public class PushNotificationsDrawerTest {
 
         createUUT().onNewActivity(activity);
 
-        verify(InitialNotification.getInstance(), never()).clear();
+        verify(InitialNotificationHolder.getInstance(), never()).clear();
     }
 
     protected PushNotificationsDrawer createUUT() {

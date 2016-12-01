@@ -10,18 +10,18 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
-public class InitialNotificationTest {
+public class InitialNotificationHolderTest {
 
     @Test
     public void initialState() throws Exception {
-        final InitialNotification uut = createUUT();
+        final InitialNotificationHolder uut = createUUT();
         assertNull(uut.get());
     }
 
     @Test
     public void setsInitialNotification() throws Exception {
         PushNotificationProps props = mock(PushNotificationProps.class);
-        final InitialNotification uut = createUUT();
+        final InitialNotificationHolder uut = createUUT();
         uut.set(props);
         assertEquals(props, uut.get());
     }
@@ -29,7 +29,7 @@ public class InitialNotificationTest {
     @Test
     public void clearsInitialNotification() throws Exception {
         PushNotificationProps props = mock(PushNotificationProps.class);
-        final InitialNotification uut = createUUT();
+        final InitialNotificationHolder uut = createUUT();
         uut.set(props);
         uut.clear();
         assertNull(uut.get());
@@ -39,7 +39,7 @@ public class InitialNotificationTest {
     public void replacesInitialNotification() throws Exception {
         PushNotificationProps props1 = mock(PushNotificationProps.class);
         PushNotificationProps props2 = mock(PushNotificationProps.class);
-        final InitialNotification uut = createUUT();
+        final InitialNotificationHolder uut = createUUT();
         uut.set(props1);
         uut.set(props2);
         assertNotEquals(props1, props2);
@@ -48,12 +48,12 @@ public class InitialNotificationTest {
 
     @Test
     public void isALazySingleton() throws Exception {
-        final InitialNotification instance = InitialNotification.getInstance();
+        final InitialNotificationHolder instance = InitialNotificationHolder.getInstance();
         assertNotNull(instance);
-        assertEquals(instance, InitialNotification.getInstance());
+        assertEquals(instance, InitialNotificationHolder.getInstance());
     }
 
-    private InitialNotification createUUT() {
-        return new InitialNotification();
+    private InitialNotificationHolder createUUT() {
+        return new InitialNotificationHolder();
     }
 }

@@ -12,7 +12,7 @@ import com.facebook.react.bridge.ReactContext;
 import com.wix.reactnativenotifications.core.AppLaunchHelper;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade.AppVisibilityListener;
-import com.wix.reactnativenotifications.core.InitialNotification;
+import com.wix.reactnativenotifications.core.InitialNotificationHolder;
 import com.wix.reactnativenotifications.core.JsIOHelper;
 
 import org.junit.Before;
@@ -58,7 +58,7 @@ public class PushNotificationTest {
     @Before
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
-        InitialNotification.setInstance(mock(InitialNotification.class));
+        InitialNotificationHolder.setInstance(mock(InitialNotificationHolder.class));
 
         when(mDefaultBundle.getString(eq("title"))).thenReturn(DEFAULT_NOTIFICATION_TITLE);
         when(mDefaultBundle.getString(eq("body"))).thenReturn(DEFAULT_NOTIFICATION_BODY);
@@ -96,7 +96,7 @@ public class PushNotificationTest {
         final PushNotification uut = createUUT();
         uut.onOpened();
 
-        verify(InitialNotification.getInstance()).set(any(PushNotificationProps.class));
+        verify(InitialNotificationHolder.getInstance()).set(any(PushNotificationProps.class));
     }
 
     @Test
@@ -119,7 +119,7 @@ public class PushNotificationTest {
         final PushNotification uut = createUUT();
         uut.onOpened();
 
-        verify(InitialNotification.getInstance(), never()).set(any(PushNotificationProps.class));
+        verify(InitialNotificationHolder.getInstance(), never()).set(any(PushNotificationProps.class));
     }
 
     @Test
@@ -176,7 +176,7 @@ public class PushNotificationTest {
         final PushNotification uut = createUUT();
         uut.onOpened();
 
-        verify(InitialNotification.getInstance(), never()).set(any(PushNotificationProps.class));
+        verify(InitialNotificationHolder.getInstance(), never()).set(any(PushNotificationProps.class));
     }
 
     @Test
@@ -187,7 +187,7 @@ public class PushNotificationTest {
         final PushNotification uut = createUUT();
         uut.onOpened();
 
-        verify(InitialNotification.getInstance()).set(any(PushNotificationProps.class));
+        verify(InitialNotificationHolder.getInstance()).set(any(PushNotificationProps.class));
     }
 
     @Test

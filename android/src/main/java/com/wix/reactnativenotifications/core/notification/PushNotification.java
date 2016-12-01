@@ -11,10 +11,11 @@ import com.facebook.react.bridge.ReactContext;
 import com.wix.reactnativenotifications.core.AppLaunchHelper;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade.AppVisibilityListener;
-import com.wix.reactnativenotifications.core.InitialNotification;
+import com.wix.reactnativenotifications.core.AppLifecycleFacadeHolder;
+import com.wix.reactnativenotifications.core.InitialNotificationHolder;
+import com.wix.reactnativenotifications.core.JsIOHelper;
 import com.wix.reactnativenotifications.core.NotificationIntentAdapter;
 import com.wix.reactnativenotifications.core.ProxyService;
-import com.wix.reactnativenotifications.core.JsIOHelper;
 
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_OPENED_EVENT_NAME;
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_EVENT_NAME;
@@ -38,16 +39,12 @@ public class PushNotification implements IPushNotification {
         }
     };
 
-    public static IPushNotification get(Context context, Bundle bundle, AppLifecycleFacade facade) {
-        return PushNotification.get(context, bundle, facade, new AppLaunchHelper());
-    }
-
-    public static IPushNotification get(Context context, Bundle bundle, AppLifecycleFacade facade, AppLaunchHelper appLaunchHelper) {
+    public static IPushNotification get(Context context, Bundle bundle) {
         Context appContext = context.getApplicationContext();
         if (appContext instanceof INotificationsApplication) {
-            return ((INotificationsApplication) appContext).getPushNotification(context, bundle, facade, appLaunchHelper);
+            return ((INotificationsApplication) appContext).getPushNotification(context, bundle, AppLifecycleFacadeHolder.get(), new AppLaunchHelper());
         }
-        return new PushNotification(context, bundle, facade, appLaunchHelper, new JsIOHelper());
+        return new PushNotification(context, bundle, AppLifecycleFacadeHolder.get(), new AppLaunchHelper(), new JsIOHelper());
     }
 
     protected PushNotification(Context context, Bundle bundle, AppLifecycleFacade appLifecycleFacade, AppLaunchHelper appLaunchHelper, JsIOHelper JsIOHelper) {
@@ -110,7 +107,7 @@ public class PushNotification implements IPushNotification {
     }
 
     protected void setAsInitialNotification() {
-        InitialNotification.getInstance().set(mNotificationProps);
+        InitialNotificationHolder.getInstance().set(mNotificationProps);
     }
 
     protected void dispatchImmediately() {

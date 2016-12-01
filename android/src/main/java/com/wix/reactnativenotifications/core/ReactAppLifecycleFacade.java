@@ -12,15 +12,9 @@ import static com.wix.reactnativenotifications.Defs.LOGTAG;
 
 public class ReactAppLifecycleFacade implements AppLifecycleFacade {
 
-    private static final ReactAppLifecycleFacade sInstance = new ReactAppLifecycleFacade();
-
     private ReactContext mReactContext;
     private boolean mIsVisible;
     private Set<AppVisibilityListener> mListeners = new CopyOnWriteArraySet<>();
-
-    public static ReactAppLifecycleFacade get() {
-        return sInstance;
-    }
 
     public void init(ReactContext reactContext) {
         mReactContext = reactContext;

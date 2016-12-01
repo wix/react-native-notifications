@@ -1,4 +1,4 @@
-package com.wix.reactnativenotifications.core;
+package com.wix.reactnativenotifications;
 
 import android.app.Activity;
 import android.app.Application;
@@ -13,6 +13,10 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
+import com.wix.reactnativenotifications.core.AppLifecycleFacade;
+import com.wix.reactnativenotifications.core.AppLifecycleFacadeHolder;
+import com.wix.reactnativenotifications.core.InitialNotificationHolder;
+import com.wix.reactnativenotifications.core.ReactAppLifecycleFacade;
 import com.wix.reactnativenotifications.core.notification.IPushNotification;
 import com.wix.reactnativenotifications.core.notification.PushNotification;
 import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
@@ -27,8 +31,10 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     public RNNotificationsModule(Application application, ReactApplicationContext reactContext) {
         super(reactContext);
 
-        ReactAppLifecycleFacade.get().init(reactContext);
-        ReactAppLifecycleFacade.get().addVisibilityListener(this);
+        if (AppLifecycleFacadeHolder.get() instanceof ReactAppLifecycleFacade) {
+            ((ReactAppLifecycleFacade) AppLifecycleFacadeHolder.get()).init(reactContext);
+        }
+        AppLifecycleFacadeHolder.get().addVisibilityListener(this);
         application.registerActivityLifecycleCallbacks(this);
     }
 
@@ -58,7 +64,7 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
         Object result = null;
 
         try {
-            final PushNotificationProps notification = InitialNotification.getInstance().get();
+            final PushNotificationProps notification = InitialNotificationHolder.getInstance().get();
             if (notification == null) {
                 return;
             }
@@ -73,7 +79,7 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     public void postLocalNotification(ReadableMap notificationPropsMap, int notificationId) {
         Log.d(LOGTAG, "Native method invocation: postLocalNotification");
         final Bundle notificationProps = Arguments.toBundle(notificationPropsMap);
-        final IPushNotification pushNotification = PushNotification.get(getReactApplicationContext().getApplicationContext(), notificationProps, ReactAppLifecycleFacade.get());
+        final IPushNotification pushNotification = PushNotification.get(getReactApplicationContext().getApplicationContext(), notificationProps);
         pushNotification.onPostRequest(notificationId);
     }
 

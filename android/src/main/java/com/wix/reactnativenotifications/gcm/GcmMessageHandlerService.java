@@ -6,7 +6,6 @@ import android.util.Log;
 import com.google.android.gms.gcm.GcmListenerService;
 import com.wix.reactnativenotifications.core.notification.IPushNotification;
 import com.wix.reactnativenotifications.core.notification.PushNotification;
-import com.wix.reactnativenotifications.core.ReactAppLifecycleFacade;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
 
@@ -17,7 +16,7 @@ public class GcmMessageHandlerService extends GcmListenerService {
         Log.d(LOGTAG, "New message from GCM: " + bundle);
 
         try {
-            final IPushNotification notification = PushNotification.get(getApplicationContext(), bundle, ReactAppLifecycleFacade.get());
+            final IPushNotification notification = PushNotification.get(getApplicationContext(), bundle);
             notification.onReceived();
         } catch (IPushNotification.InvalidNotificationException e) {
             // A GCM message, yes - but not the kind we know how to work with.
