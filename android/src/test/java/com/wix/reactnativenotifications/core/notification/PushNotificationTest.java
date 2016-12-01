@@ -1,5 +1,6 @@
 package com.wix.reactnativenotifications.core.notification;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -11,6 +12,7 @@ import com.facebook.react.bridge.ReactContext;
 import com.wix.reactnativenotifications.core.AppLaunchHelper;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade.AppVisibilityListener;
+import com.wix.reactnativenotifications.core.InitialNotification;
 import com.wix.reactnativenotifications.core.JsIOHelper;
 
 import org.junit.Before;
@@ -56,6 +58,7 @@ public class PushNotificationTest {
     @Before
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
+        InitialNotification.setInstance(mock(InitialNotification.class));
 
         when(mDefaultBundle.getString(eq("title"))).thenReturn(DEFAULT_NOTIFICATION_TITLE);
         when(mDefaultBundle.getString(eq("body"))).thenReturn(DEFAULT_NOTIFICATION_BODY);
@@ -85,6 +88,18 @@ public class PushNotificationTest {
     }
 
     @Test
+    public void onOpened_noReactContext_setAsInitialNotification() throws Exception {
+        when(mAppLifecycleFacade.isReactInitialized()).thenReturn(false);
+        Activity currentActivity = mock(Activity.class);
+        when(mReactContext.getCurrentActivity()).thenReturn(currentActivity);
+
+        final PushNotification uut = createUUT();
+        uut.onOpened();
+
+        verify(InitialNotification.getInstance()).set(any(PushNotificationProps.class));
+    }
+
+    @Test
     public void onOpened_appInvisible_resumeAppWaitForVisibility() throws Exception {
         setUpBackgroundApp();
 
@@ -93,6 +108,18 @@ public class PushNotificationTest {
 
         verify(mContext).startActivity(any(Intent.class));
         verify(mAppLifecycleFacade).addVisibilityListener(any(AppVisibilityListener.class));
+    }
+
+    @Test
+    public void onOpened_appInvisible_dontSetInitialNotification() throws Exception {
+        setUpBackgroundApp();
+        Activity currentActivity = mock(Activity.class);
+        when(mReactContext.getCurrentActivity()).thenReturn(currentActivity);
+
+        final PushNotification uut = createUUT();
+        uut.onOpened();
+
+        verify(InitialNotification.getInstance(), never()).set(any(PushNotificationProps.class));
     }
 
     @Test
@@ -127,6 +154,40 @@ public class PushNotificationTest {
 
         verify(mContext, never()).startActivity(any(Intent.class));
         verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_OPENED_EVENT_NAME), eq(mDefaultBundle), eq(mReactContext));
+    }
+
+    @Test
+    public void onOpened_appVisible_clearNotificationsDrawer() throws Exception {
+        verify(mNotificationManager, never()).cancelAll();
+        setUpForegroundApp();
+
+        final PushNotification uut = createUUT();
+        uut.onOpened();
+
+        verify(mNotificationManager).cancelAll();
+    }
+
+    @Test
+    public void onOpened_appVisible_dontSetInitialNotification() throws Exception {
+        setUpForegroundApp();
+        Activity currentActivity = mock(Activity.class);
+        when(mReactContext.getCurrentActivity()).thenReturn(currentActivity);
+
+        final PushNotification uut = createUUT();
+        uut.onOpened();
+
+        verify(InitialNotification.getInstance(), never()).set(any(PushNotificationProps.class));
+    }
+
+    @Test
+    public void onOpened_reactInitializedWithNoActivities_setAsInitialNotification() throws Exception {
+        setUpBackgroundApp();
+        when(mReactContext.getCurrentActivity()).thenReturn(null); // Just for clarity
+
+        final PushNotification uut = createUUT();
+        uut.onOpened();
+
+        verify(InitialNotification.getInstance()).set(any(PushNotificationProps.class));
     }
 
     @Test

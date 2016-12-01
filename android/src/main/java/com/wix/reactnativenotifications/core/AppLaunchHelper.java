@@ -39,7 +39,7 @@ public class AppLaunchHelper {
         return activityName.equals(launchIntentActivityName);
     }
 
-    public boolean isLaunchIntent(Intent intent) {
+    public boolean isLaunchIntentOfNotification(Intent intent) {
         return intent.getBooleanExtra(LAUNCH_FLAG_KEY_NAME, false);
     }
 }

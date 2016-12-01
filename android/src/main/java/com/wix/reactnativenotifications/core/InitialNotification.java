@@ -5,18 +5,35 @@ import android.support.annotation.Nullable;
 import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
 
 public class InitialNotification {
-    private static PushNotificationProps sNotification;
 
-    public static void set(PushNotificationProps pushNotificationProps) {
-        sNotification = pushNotificationProps;
+    private static InitialNotification sInstance;
+
+    private PushNotificationProps mNotification;
+
+    public static void setInstance(InitialNotification instance) {
+        sInstance = instance;
     }
 
-    public static void clear() {
-        sNotification = null;
+    /*package*/ InitialNotification() {
+    }
+
+    public static InitialNotification getInstance() {
+        if (sInstance == null) {
+            sInstance = new InitialNotification();
+        }
+        return sInstance;
+    }
+
+    public void set(PushNotificationProps pushNotificationProps) {
+        mNotification = pushNotificationProps;
+    }
+
+    public void clear() {
+        mNotification = null;
     }
 
     @Nullable
-    public static PushNotificationProps get() {
-        return sNotification;
+    public PushNotificationProps get() {
+        return mNotification;
     }
 }

@@ -58,7 +58,7 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
         Object result = null;
 
         try {
-            final PushNotificationProps notification = InitialNotification.get();
+            final PushNotificationProps notification = InitialNotification.getInstance().get();
             if (notification == null) {
                 return;
             }

@@ -19,7 +19,7 @@ public class PushNotificationsDrawer implements IPushNotificationsDrawer {
     public static IPushNotificationsDrawer get(Context context, AppLaunchHelper appLaunchHelper) {
         final Context appContext = context.getApplicationContext();
         if (appContext instanceof INotificationsDrawerApplication) {
-            return ((INotificationsDrawerApplication) appContext).getPushNotificationsDrawer(context);
+            return ((INotificationsDrawerApplication) appContext).getPushNotificationsDrawer(context, appLaunchHelper);
         }
 
         return new PushNotificationsDrawer(context, appLaunchHelper);
@@ -42,9 +42,10 @@ public class PushNotificationsDrawer implements IPushNotificationsDrawer {
 
     @Override
     public void onNewActivity(Activity activity) {
-        if (mAppLaunchHelper.isLaunchIntentsActivity(activity) &&
-            !mAppLaunchHelper.isLaunchIntent(activity.getIntent())) {
-            InitialNotification.clear();
+        boolean launchIntentsActivity = mAppLaunchHelper.isLaunchIntentsActivity(activity);
+        boolean launchIntentOfNotification = mAppLaunchHelper.isLaunchIntentOfNotification(activity.getIntent());
+        if (launchIntentsActivity && !launchIntentOfNotification) {
+            InitialNotification.getInstance().clear();
         }
     }
 
