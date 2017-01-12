@@ -20,7 +20,7 @@ android {
 
 dependencies {
     // Google's GCM.
-    compile 'com.google.android.gms:play-services-gcm:9.4.0'
+    compile 'com.google.android.gms:play-services-gcm:10.0.1'
 
     compile 'com.facebook.react:react-native:+'
 
