@@ -44,6 +44,17 @@ RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
                                                         }), UIUserNotificationActionBehaviorDefault, integerValue)
 @end
 
+@implementation RCTConvert (UIBackgroundFetchResult)
+
+RCT_ENUM_CONVERTER(UIBackgroundFetchResult, (@{
+                                               @"UIBackgroundFetchResultNewData": @(UIBackgroundFetchResultNewData),
+                                               @"UIBackgroundFetchResultNoData": @(UIBackgroundFetchResultNoData),
+                                               @"UIBackgroundFetchResultFailed": @(UIBackgroundFetchResultFailed),
+                                               }), UIBackgroundFetchResultNoData, integerValue)
+
+@end
+
+
 @implementation RCTConvert (UIMutableUserNotificationAction)
 + (UIMutableUserNotificationAction *)UIMutableUserNotificationAction:(id)json
 {
@@ -97,6 +108,10 @@ RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
 
     return notification;
 }
+@end
+
+@interface RNNotifications ()
+@property (nonatomic, strong) NSMutableDictionary *remoteNotificationCallbacks;
 @end
 
 @implementation RNNotifications
@@ -199,6 +214,29 @@ RCT_EXPORT_MODULE()
     }
 }
 
++ (void)didReceiveRemoteNotification:(NSDictionary *)notification fetchCompletionHandler:(id)completionHandler
+{
+  UIApplicationState state = [UIApplication sharedApplication].applicationState;
+
+  if ([RNNotificationsBridgeQueue sharedInstance].jsIsReady == YES) {
+    // JS thread is ready, push the notification to the bridge
+
+    if (state == UIApplicationStateActive) {
+      // Notification received foreground
+      [self didReceiveNotificationOnForegroundState:notification];
+    } else if (state == UIApplicationStateInactive) {
+      // Notification opened
+      [self didNotificationOpen:notification];
+    } else {
+      // Notification received background
+      [self didReceiveNotificationOnBackgroundState:notification fetchCompletionHandler:completionHandler];
+    }
+  } else {
+    // JS thread is not ready - store it in the native notifications queue
+    [[RNNotificationsBridgeQueue sharedInstance] postNotification:notification];
+  }
+}
+
 + (void)didReceiveLocalNotification:(UILocalNotification *)notification
 {
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
@@ -257,10 +295,39 @@ RCT_EXPORT_MODULE()
         }
     }
 
+    NSDictionary *userInfo = @{@"notification": notification};
+
     [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationReceivedBackground
                                                         object:self
-                                                      userInfo:notification];
+                                                      userInfo:userInfo];
 }
+
++ (void)didReceiveNotificationOnBackgroundState:(NSDictionary *)notification fetchCompletionHandler:(RCTRemoteNotificationCallback)completionHandler;
+{
+  NSDictionary* managedAps  = [notification objectForKey:@"managedAps"];
+  NSDictionary* alert = [managedAps objectForKey:@"alert"];
+  NSString* action = [managedAps objectForKey:@"action"];
+  NSString* notificationId = [managedAps objectForKey:@"notificationId"];
+
+  if (action) {
+    // create or delete notification
+    if ([action isEqualToString: RNNotificationCreateAction]
+        && notificationId
+        && alert) {
+      [self dispatchLocalNotificationFromNotification:notification];
+
+    } else if ([action isEqualToString: RNNotificationClearAction] && notificationId) {
+      [self clearNotificationFromNotificationsCenter:notificationId];
+    }
+  }
+
+  NSDictionary *userInfo = @{@"notification": notification, @"completionHandler": completionHandler};
+
+  [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationReceivedBackground
+                                                      object:self
+                                                    userInfo:userInfo];
+}
+
 
 + (void)didNotificationOpen:(NSDictionary *)notification
 {
@@ -418,7 +485,19 @@ RCT_EXPORT_MODULE()
 
 - (void)handleNotificationReceivedBackground:(NSNotification *)notification
 {
-    [_bridge.eventDispatcher sendDeviceEventWithName:@"notificationReceivedBackground" body:notification.userInfo];
+    NSMutableDictionary *remoteNotification = [NSMutableDictionary dictionaryWithDictionary:notification.userInfo[@"notification"]];
+    RCTRemoteNotificationCallback completionHandler = notification.userInfo[@"completionHandler"];
+    NSString *notificationId = [[NSUUID UUID] UUIDString];
+    remoteNotification[@"__id"] = notificationId;
+    if (completionHandler) {
+      if (!self.remoteNotificationCallbacks) {
+        // Lazy initialization
+        self.remoteNotificationCallbacks = [NSMutableDictionary dictionary];
+      }
+      self.remoteNotificationCallbacks[notificationId] = completionHandler;
+    }
+
+  [_bridge.eventDispatcher sendDeviceEventWithName:@"notificationReceivedBackground" body:remoteNotification];
 }
 
 - (void)handleNotificationOpened:(NSNotification *)notification
@@ -434,6 +513,17 @@ RCT_EXPORT_MODULE()
 /*
  * React Native exported methods
  */
+RCT_EXPORT_METHOD(onFinishRemoteNotification:(NSString*)notificationId fetchResult:(UIBackgroundFetchResult)result) {
+  RCTRemoteNotificationCallback completionHandler = self.remoteNotificationCallbacks[notificationId];
+  if (!completionHandler) {
+    RCTLogError(@"There is no completion handler with notification id: %@", notificationId);
+    return;
+  }
+  completionHandler(result);
+  [self.remoteNotificationCallbacks removeObjectForKey:notificationId];
+}
+
+
 RCT_EXPORT_METHOD(requestPermissionsWithCategories:(NSArray *)json)
 {
     NSMutableSet* categories = nil;
