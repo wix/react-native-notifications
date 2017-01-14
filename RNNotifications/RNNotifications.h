@@ -1,6 +1,6 @@
 @import UIKit;
 
-#import "RCTBridgeModule.h"
+#import <React/RCTBridgeModule.h>
 #import <PushKit/PushKit.h>
 
 @interface RNNotifications : NSObject <RCTBridgeModule>

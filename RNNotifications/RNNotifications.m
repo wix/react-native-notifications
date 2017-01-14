@@ -1,11 +1,11 @@
 
 #import <UIKit/UIKit.h>
 #import <PushKit/PushKit.h>
-#import "RCTBridge.h"
-#import "RCTEventDispatcher.h"
+#import <React/RCTBridge.h>
+#import <React/RCTEventDispatcher.h>
 #import "RNNotifications.h"
-#import "RCTConvert.h"
-#import "RCTUtils.h"
+#import <React/RCTConvert.h>
+#import <React/RCTUtils.h>
 #import "RNNotificationsBridgeQueue.h"
 
 NSString* const RNNotificationCreateAction = @"CREATE";
