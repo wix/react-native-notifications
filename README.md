@@ -36,7 +36,7 @@ $ npm install react-native-notifications --save
 
 ### iOS
 
-First, [Manully link](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking) the library to your Xcode project.
+First, [Manually link](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking) the library to your Xcode project.
 
 Then, to enable notifications support add the following line at the top of your `AppDelegate.m`
 
