@@ -10,6 +10,7 @@ const NativeRNNotifications = NativeModules.RNNotifications; // eslint-disable-l
 import IOSNotification from "./notification.ios";
 
 export const DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT = "remoteNotificationsRegistered";
+export const DEVICE_REMOTE_NOTIFICATIONS_REGISTRATION_FAILED_EVENT = "remoteNotificationsRegistrationFailed";
 export const DEVICE_PUSH_KIT_REGISTERED_EVENT = "pushKitRegistered";
 export const DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT = "notificationReceivedForeground";
 export const DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT = "notificationReceivedBackground";
@@ -19,6 +20,7 @@ const DEVICE_NOTIFICATION_ACTION_RECEIVED = "notificationActionReceived";
 
 const _exportedEvents = [
   DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT,
+  DEVICE_REMOTE_NOTIFICATIONS_REGISTRATION_FAILED_EVENT,
   DEVICE_PUSH_KIT_REGISTERED_EVENT,
   DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT,
   DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT,
@@ -61,6 +63,11 @@ export default class NotificationsIOS {
         listener = DeviceEventEmitter.addListener(
           DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT,
           registration => handler(registration.deviceToken)
+        );
+      } else if (type === DEVICE_REMOTE_NOTIFICATIONS_REGISTRATION_FAILED_EVENT) {
+        listener = DeviceEventEmitter.addListener(
+          DEVICE_REMOTE_NOTIFICATIONS_REGISTRATION_FAILED_EVENT,
+          error => handler(error)
         );
       } else if (type === DEVICE_PUSH_KIT_REGISTERED_EVENT) {
         listener = DeviceEventEmitter.addListener(
