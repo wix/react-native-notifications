@@ -6,6 +6,7 @@
 @interface RNNotifications : NSObject <RCTBridgeModule>
 
 + (void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
++ (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
 + (void)didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings;
 + (void)didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(NSString *)type;
 

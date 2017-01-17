@@ -12,6 +12,7 @@ NSString* const RNNotificationCreateAction = @"CREATE";
 NSString* const RNNotificationClearAction = @"CLEAR";
 
 NSString* const RNNotificationsRegistered = @"RNNotificationsRegistered";
+NSString* const RNNotificationsRegistrationFailed = @"RNNotificationsRegistrationFailed";
 NSString* const RNPushKitRegistered = @"RNPushKitRegistered";
 NSString* const RNNotificationReceivedForeground = @"RNNotificationReceivedForeground";
 NSString* const RNNotificationReceivedBackground = @"RNNotificationReceivedBackground";
@@ -119,6 +120,11 @@ RCT_EXPORT_MODULE()
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleNotificationsRegistrationFailed:)
+                                                 name:RNNotificationsRegistrationFailed
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handlePushKitRegistered:)
                                                  name:RNPushKitRegistered
                                                object:nil];
@@ -162,6 +168,12 @@ RCT_EXPORT_MODULE()
     [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationsRegistered
                                                         object:self
                                                       userInfo:@{@"deviceToken": [self deviceTokenToString:deviceToken]}];
+}
+
++ (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationsRegistrationFailed
+                                                        object:self
+                                                      userInfo:@{@"code": [NSNumber numberWithInteger:error.code], @"domain": error.domain, @"localizedDescription": error.localizedDescription}];
 }
 
 + (void)didReceiveRemoteNotification:(NSDictionary *)notification
@@ -387,6 +399,11 @@ RCT_EXPORT_MODULE()
 - (void)handleNotificationsRegistered:(NSNotification *)notification
 {
     [_bridge.eventDispatcher sendDeviceEventWithName:@"remoteNotificationsRegistered" body:notification.userInfo];
+}
+
+- (void)handleNotificationsRegistrationFailed:(NSNotification *)notification
+{
+    [_bridge.eventDispatcher sendDeviceEventWithName:@"remoteNotificationsRegistrationFailed" body:notification.userInfo];
 }
 
 - (void)handlePushKitRegistered:(NSNotification *)notification

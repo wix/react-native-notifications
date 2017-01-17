@@ -9,6 +9,7 @@ describe("NotificationsIOS", () => {
   let deviceEvents = [
     "pushKitRegistered",
     "remoteNotificationsRegistered",
+    "remoteNotificationsRegistrationFailed",
     "notificationReceivedForeground",
     "notificationReceivedBackground",
     "notificationOpened"
