@@ -5,8 +5,16 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import com.wix.reactnativenotifications.helpers.ApplicationBadgeHelper;
 import com.facebook.react.bridge.ReactContext;
 import com.wix.reactnativenotifications.core.AppLaunchHelper;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade;
@@ -22,6 +30,7 @@ import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_EVENT_
 
 public class PushNotification implements IPushNotification {
 
+    final protected Bundle mBundle;
     final protected Context mContext;
     final protected AppLifecycleFacade mAppLifecycleFacade;
     final protected AppLaunchHelper mAppLaunchHelper;
@@ -49,6 +58,7 @@ public class PushNotification implements IPushNotification {
 
     protected PushNotification(Context context, Bundle bundle, AppLifecycleFacade appLifecycleFacade, AppLaunchHelper appLaunchHelper, JsIOHelper JsIOHelper) {
         mContext = context;
+        mBundle = bundle;
         mAppLifecycleFacade = appLifecycleFacade;
         mAppLaunchHelper = appLaunchHelper;
         mJsIOHelper = JsIOHelper;
@@ -136,23 +146,98 @@ public class PushNotification implements IPushNotification {
     }
 
     protected Notification.Builder getNotificationBuilder(PendingIntent intent) {
-        return new Notification.Builder(mContext)
-                .setContentTitle(mNotificationProps.getTitle())
-                .setContentText(mNotificationProps.getBody())
-                .setSmallIcon(mContext.getApplicationInfo().icon)
-                .setContentIntent(intent)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setAutoCancel(true);
+        Resources res = mContext.getResources();
+        String packageName = mContext.getPackageName();
+
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        String soundName = mNotificationProps.getSound();
+
+        if (soundName != null) {
+            if (!"default".equalsIgnoreCase(soundName)) {
+                // sound name can be full filename, or just the resource name.
+                // So the strings 'my_sound.mp3' AND 'my_sound' are accepted
+                // The reason is to make the iOS and android javascript interfaces compatible
+                int resId;
+                if (res.getIdentifier(soundName, "raw", packageName) != 0) {
+                    resId = res.getIdentifier(soundName, "raw", packageName);
+                } else {
+                    resId = res.getIdentifier(soundName.substring(0, soundName.lastIndexOf('.')), "raw", packageName);
+                }
+
+                soundUri = Uri.parse("android.resource://" + packageName + "/" + resId);
+            }
+        }
+
+
+        int smallIconResId;
+        int largeIconResId;
+
+        String smallIcon = mBundle.getString("smallIcon");
+        String largeIcon = mBundle.getString("largeIcon");
+
+        if (smallIcon != null) {
+            smallIconResId = res.getIdentifier(smallIcon, "mipmap", packageName);
+        } else {
+            smallIconResId = res.getIdentifier("ic_stat_name", "mipmap", packageName);
+        }
+
+        if (smallIconResId == 0) {
+            smallIconResId = res.getIdentifier("ic_launcher", "mipmap", packageName);
+
+            if (smallIconResId == 0) {
+                smallIconResId = android.R.drawable.ic_dialog_info;
+            }
+        }
+
+        if (largeIcon != null) {
+            largeIconResId = res.getIdentifier(largeIcon, "mipmap", packageName);
+        } else {
+            largeIconResId = res.getIdentifier("ic_launcher", "mipmap", packageName);
+        }
+
+        Bitmap largeIconBitmap = BitmapFactory.decodeResource(res, largeIconResId);
+
+        String title = mNotificationProps.getTitle();
+        if (title == null) {
+            ApplicationInfo appInfo = mContext.getApplicationInfo();
+            title = mContext.getPackageManager().getApplicationLabel(appInfo).toString();
+        }
+
+
+        Notification.Builder notificationBuilder = new Notification.Builder(mContext)
+            .setContentTitle(title)
+            .setContentText(mNotificationProps.getBody())
+            .setPriority(Notification.PRIORITY_HIGH)
+            .setContentIntent(intent)
+            .setSmallIcon(smallIconResId)
+            .setSound(soundUri)
+            .setAutoCancel(true);
+
+        if (mNotificationProps.getGroup() != null && Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            notificationBuilder.setGroup("offers");
+        }
+
+        if (largeIconResId != 0 && (largeIcon != null || Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)) {
+            notificationBuilder.setLargeIcon(largeIconBitmap);
+        }
+
+        return notificationBuilder;
     }
+
 
     protected int postNotification(Notification notification, Integer notificationId) {
         int id = notificationId != null ? notificationId : createNotificationId(notification);
+        int badge = mNotificationProps.getBadge();
+        if (badge >= 0) {
+            ApplicationBadgeHelper.INSTANCE.setApplicationIconBadgeNumber(mContext, badge);
+        }
         postNotification(id, notification);
         return id;
     }
 
     protected void postNotification(int id, Notification notification) {
         final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+
         notificationManager.notify(id, notification);
     }
 
