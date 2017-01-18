@@ -46,9 +46,9 @@ export class NotificationCategory {
 export default class NotificationsIOS {
 
   static RemoteBackgroundFetchResult = {
-    NewData: 'UIBackgroundFetchResultNewData',
-    NoData: 'UIBackgroundFetchResultNoData',
-    ResultFailed: 'UIBackgroundFetchResultFailed',
+    NewData: "UIBackgroundFetchResultNewData",
+    NoData: "UIBackgroundFetchResultNoData",
+    ResultFailed: "UIBackgroundFetchResultFailed"
   };
 
   /**
