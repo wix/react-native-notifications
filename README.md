@@ -62,9 +62,15 @@ And the following methods to support registration and receiving notifications:
   [RNNotifications didFailToRegisterForRemoteNotificationsWithError:error];
 }
 
-// Required for the notification event.
+// Deprecated
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification {
   [RNNotifications didReceiveRemoteNotification:notification];
+}
+
+// Required for the notification event.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification
+                                                       fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
+  [RNNotifications didReceiveRemoteNotification:notification fetchCompletionHandler:completionHandler];
 }
 
 // Required for the localNotification event.
@@ -229,6 +235,9 @@ onNotificationReceivedForeground(notification) {
 
 onNotificationReceivedBackground(notification) {
 	console.log("Notification Received - Background", notification);
+  // You must call this method for all background notifications to tell the OS
+  // you are done processing and its safe to shutdown the app.
+  notification.finish(NotificationsIOS.RemoteBackgroundFetchResult.NewData);
 }
 
 onNotificationOpened(notification) {
