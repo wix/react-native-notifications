@@ -45,6 +45,10 @@ export class NotificationsAndroid {
     RNNotifications.refreshToken();
   }
 
+  static setBadgeCount(number: Number) {
+    RNNotifications.setBadgeCount(number);
+  }
+
   static localNotification(notification: Object) {
     const id = Math.random() * 100000000 | 0; // Bitwise-OR forces value onto a 32bit limit
     RNNotifications.postLocalNotification(notification, id);

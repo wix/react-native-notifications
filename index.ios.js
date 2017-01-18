@@ -192,6 +192,14 @@ export default class NotificationsIOS {
     return notificationId;
   }
 
+  static setBadgeCount(number: Number) {
+    NativeRNNotifications.setBadgeCount(number);
+  }
+
+  static getBadgeCount(callback: Function) {
+    NativeRNNotifications.getBadgeCount(callback);
+  }
+
   static cancelLocalNotification(notificationId: String) {
     NativeRNNotifications.cancelLocalNotification(notificationId);
   }

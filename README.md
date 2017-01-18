@@ -373,6 +373,26 @@ NotificationsIOS.cancelAllLocalNotifications();
 
 ---
 
+## Badge Counts
+
+Setting a badge is possible on iOS and Android. In addition to this retreiving the badge is possible on iOS but _not_ yet supported on Android.
+
+To add `getBadgeCount` support on Android or to read up on what particular devices are supported [check here](https://github.com/leolin310148/ShortcutBadger).
+
+### iOS
+```js
+NotificationsIOS.setBadgeCount(10);
+NotificationsIOS.getBadgeCount(function(count) {
+  console.log('Badge count is', count); // 10
+});
+```
+
+### Android
+```js
+NotificationsAndroid.setBadgeCount(10);
+```
+
+
 ## Managed Notifications (iOS only)
 
 Managed notifications are notifications that can be cleared by a server request.
