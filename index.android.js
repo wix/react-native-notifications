@@ -60,7 +60,7 @@ export class PendingNotifications {
   static getInitialNotification() {
     return RNNotifications.getInitialNotification()
       .then((rawNotification) => {
-        return new NotificationAndroid(rawNotification);
+        return rawNotification ? new NotificationAndroid(rawNotification) : undefined;
       });
   }
 }

@@ -103,10 +103,11 @@ import com.wix.reactnativenotifications.RNNotificationsPackage;
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-	  ...
-	  new RNNotificationsPackage(MainApplication.this),
+        return Arrays.<ReactPackage>asList(
+            new MainReactPackage(),
+	        // ...
+	        new RNNotificationsPackage(MainApplication.this)
+        );
 ```
 
 ### Receiving push notifications

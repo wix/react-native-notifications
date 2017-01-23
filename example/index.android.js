@@ -89,7 +89,7 @@ class MainComponent extends Component {
   componentDidMount() {
     console.log('ReactScreen', 'componentDidMount');
     PendingNotifications.getInitialNotification()
-      .then((notification) => {console.log("getInitialNotification:", notification); this.setState({initialNotification: notification.getData()});})
+      .then((notification) => {console.log("getInitialNotification:", notification); this.setState({initialNotification: (notification ? notification.getData() : undefined)});})
       .catch((err) => console.error("getInitialNotifiation failed", err));
   }
 
