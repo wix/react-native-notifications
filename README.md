@@ -195,7 +195,7 @@ import {NotificationsAndroid} from 'react-native-notifications';
 
 // On Android, we allow for only one (global) listener per each event type.
 NotificationsAndroid.setRegistrationTokenUpdateListener((deviceToken) => {
-	console.log('Push-notifications regsitered!', deviceToken)
+	console.log('Push-notifications registered!', deviceToken)
 });
 
 ```
