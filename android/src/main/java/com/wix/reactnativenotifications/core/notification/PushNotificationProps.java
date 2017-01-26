@@ -23,18 +23,31 @@ public class PushNotificationProps {
         mBundle = bundle;
     }
 
-    public int getBadge() { return mBundle.getInt("badge"); }
+    public int getBadge() {
+        if (mBundle.containsKey("badge")) {
+            return mBundle.getInt("badge");
+        }
+        return -1;
+    }
 
     public String getGroup() { return mBundle.getString("group"); }
 
     public String getSound() { return mBundle.getString("sound"); }
 
-    public String getTitle() {
-        return mBundle.getString("title");
-    }
+    public String getTitle() { return mBundle.getString("title"); }
 
     public String getBody() {
         return mBundle.getString("body");
+    }
+
+    public boolean isVisible() {
+        String title = getTitle();
+        String sound = getSound();
+        String body = getBody();
+        return  getBadge() >= 0 ||
+                (title != null && !title.isEmpty()) ||
+                (sound != null && !sound.isEmpty()) ||
+                (body != null && !body.isEmpty());
     }
 
     public Bundle asBundle() {
