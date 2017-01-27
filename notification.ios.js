@@ -33,9 +33,10 @@ export default class IOSNotification {
       this._sound = notification.aps.sound;
       this._badge = notification.aps.badge;
       this._category = notification.aps.category;
-      this._id = notification.__id;
       this._type = "regular";
     }
+
+    this._id = notification.__id;
 
     Object.keys(notification).filter(key => key !== "aps").forEach(key => {
       this._data[key] = notification[key];
