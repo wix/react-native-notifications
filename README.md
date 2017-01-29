@@ -158,6 +158,10 @@ class App extends Component {
 		NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
 		NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFaled.bind(this));
 		NotificationsIOS.requestPermissions();
+		NotificationsIOS.checkPermissions((permissions) => {
+		  // permissions = { alert: 1, badge: 1, sound: 1 }
+	      console.log(permissions); 
+	    });
 	}
 	
 	onPushRegistered(deviceToken) {

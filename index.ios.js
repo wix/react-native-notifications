@@ -138,6 +138,14 @@ export default class NotificationsIOS {
   }
 
   /**
+   * See what push permissions are currently enabled. 
+   * Callback invoked with ({ alert: boolean, badge: boolean, sound: boolean })
+   */
+  static checkPermissions(cb) {
+    NativeRNNotifications.checkPermissions(cb);
+  }
+
+  /**
    * Unregister for all remote notifications received via Apple Push Notification service.
    */
   static abandonPermissions() {
