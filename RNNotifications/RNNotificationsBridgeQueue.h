@@ -3,17 +3,17 @@
 @interface RNNotificationsBridgeQueue : NSObject
 
 @property BOOL jsIsReady;
-@property NSDictionary* openedRemoteNotification;
-@property NSDictionary* openedLocalNotification;
+@property (nullable) NSDictionary* openedRemoteNotification;
+@property (nullable) NSDictionary* openedLocalNotification;
 
+// Fix nullibility errors in Xcode7+ https://developer.apple.com/swift/blog/?id=25
 + (nonnull instancetype)sharedInstance;
 
-- (void)postAction:(NSDictionary *)action withCompletionKey:(NSString *)completionKey andCompletionHandler:(void (^)())completionHandler;
-- (void)postNotification:(NSDictionary *)notification;
+- (void)postAction:(nonnull NSDictionary *)action withCompletionKey:(nonnull NSString *)completionKey andCompletionHandler:(nullable void (^)())completionHandler;
+- (void)postNotification:(nonnull NSDictionary *)notification;
 
-- (void)consumeActionsQueue:(void (^)(NSDictionary *))block;
-- (void)consumeNotificationsQueue:(void (^)(NSDictionary *))block;
+- (void)consumeActionsQueue:(nullable void (^)(NSDictionary * _Nonnull))block;
+- (void)consumeNotificationsQueue:(nullable void (^)(NSDictionary * _Nonnull))block;
 
-- (void)completeAction:(NSString *)completionKey;
-
+- (void)completeAction:(nonnull NSString *)completionKey;
 @end
