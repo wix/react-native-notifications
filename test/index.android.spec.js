@@ -181,13 +181,13 @@ describe("Notifications-Android > ", () => {
         .catch((err) => done(err));
     });
 
-    it("should return empty notification data if not available", (done) => {
+    it("should return empty notification if not available", (done) => {
       expect(getInitialNotificationStub).to.not.have.been.called;
       getInitialNotificationStub.returns(Promise.resolve(null));
 
       libUnderTest.PendingNotifications.getInitialNotification()
         .then((notification) => {
-          expect(notification.getData()).to.equal(null);
+          expect(notification).to.be.undefined;
           done();
         })
         .catch((err) => done(err));

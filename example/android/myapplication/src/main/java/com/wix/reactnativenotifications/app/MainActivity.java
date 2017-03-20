@@ -24,10 +24,13 @@ public class MainActivity extends ReactActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final ViewGroup layout = (ViewGroup) getLayoutInflater().inflate(R.layout.activity_main, null);
+        ViewGroup layout;
         if (SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            layout = (ViewGroup) getLayoutInflater().inflate(R.layout.activity_main, null);
             Toolbar toolbar = (Toolbar) layout.findViewById(R.id.toolbar);
             setActionBar(toolbar);
+        } else {
+            layout = (ViewGroup) getLayoutInflater().inflate(R.layout.activity_main_prelollipop, null);
         }
         mReactRootView = new ReactRootView(this);
         layout.addView(mReactRootView);
