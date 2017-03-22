@@ -4,7 +4,7 @@ import IOSNotification from "../notification.ios";
 
 describe("iOS Notification Object", () => {
   let notification;
-  let someBadgeCount = 123, someSound = "someSound", someCategory = "some_notification_category";
+  let someBadgeCount = 123, someSound = "someSound", someCategory = "some_notification_category", someThread = "thread-1";
 
   describe("for a regular iOS push notification", () => {
     let regularNativeNotifications = [
@@ -17,7 +17,8 @@ describe("iOS Notification Object", () => {
           },
           badge: someBadgeCount,
           sound: someSound,
-          category: someCategory
+          category: someCategory,
+          "thread-id": someThread
         },
         key1: "value1",
         key2: "value2"
@@ -33,7 +34,8 @@ describe("iOS Notification Object", () => {
           },
           badge: someBadgeCount,
           sound: someSound,
-          category: someCategory
+          category: someCategory,
+          "thread-id": someThread
         },
         key1: "value1",
         key2: "value2"
@@ -63,6 +65,10 @@ describe("iOS Notification Object", () => {
 
       it("should return the category", () => {
         expect(notification.getCategory()).to.equal(someCategory);
+      });
+
+      it("should return the thread", () => {
+        expect(notification.getThread()).to.equal("thread-1");
       });
 
       it("should return the custom data", () => {

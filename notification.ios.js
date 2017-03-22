@@ -5,6 +5,7 @@ export default class IOSNotification {
   _badge: number;
   _category: string;
   _type: string; // regular / managed
+  _thread: string;
 
   constructor(notification: Object) {
     this._data = {};
@@ -21,6 +22,7 @@ export default class IOSNotification {
       this._badge = notification.aps.badge;
       this._category = notification.managedAps.category;
       this._type = "managed";
+      this._thread = notification.aps["thread-id"];
     } else if (
       notification.aps &&
       notification.aps.alert) {
@@ -30,6 +32,7 @@ export default class IOSNotification {
       this._badge = notification.aps.badge;
       this._category = notification.aps.category;
       this._type = "regular";
+      this._thread = notification.aps["thread-id"];
     }
 
     Object.keys(notification).filter(key => key !== "aps").forEach(key => {
@@ -59,5 +62,9 @@ export default class IOSNotification {
 
   getType(): ?string {
     return this._type;
+  }
+
+  getThread(): ?string {
+    return this._thread;
   }
 }

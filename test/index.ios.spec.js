@@ -27,10 +27,14 @@ describe("NotificationsIOS", () => {
       nativeConsumeBackgroundQueue,
       nativeLocalNotification,
       nativeCancelLocalNotification,
-      nativeCancelAllLocalNotifications;
+      nativeCancelAllLocalNotifications,
+      nativeRemoveAllDeliveredNotifications,
+      nativeRemoveDeliveredNotifications,
+      nativeGetDeliveredNotifications;
   let NotificationsIOS, NotificationAction, NotificationCategory;
   let someHandler = () => {};
   let constantGuid = "some-random-uuid";
+  let identifiers = ["some-random-uuid", "other-random-uuid"];
   /*eslint-enable indent*/
 
   before(() => {
@@ -46,6 +50,9 @@ describe("NotificationsIOS", () => {
     nativeLocalNotification = sinon.spy();
     nativeCancelLocalNotification = sinon.spy();
     nativeCancelAllLocalNotifications = sinon.spy();
+    nativeRemoveAllDeliveredNotifications = sinon.spy();
+    nativeRemoveDeliveredNotifications = sinon.spy();
+    nativeGetDeliveredNotifications = sinon.spy();
 
     let libUnderTest = proxyquire("../index.ios", {
       "uuid": {
@@ -61,7 +68,10 @@ describe("NotificationsIOS", () => {
             consumeBackgroundQueue: nativeConsumeBackgroundQueue,
             localNotification: nativeLocalNotification,
             cancelLocalNotification: nativeCancelLocalNotification,
-            cancelAllLocalNotifications: nativeCancelAllLocalNotifications
+            cancelAllLocalNotifications: nativeCancelAllLocalNotifications,
+            removeAllDeliveredNotifications: nativeRemoveAllDeliveredNotifications,
+            removeDeliveredNotifications: nativeRemoveDeliveredNotifications,
+            getDeliveredNotifications: nativeGetDeliveredNotifications
           }
         },
         NativeAppEventEmitter: {
@@ -100,6 +110,9 @@ describe("NotificationsIOS", () => {
     nativeLocalNotification.reset();
     nativeCancelLocalNotification.reset();
     nativeCancelAllLocalNotifications.reset();
+    nativeRemoveAllDeliveredNotifications.reset();
+    nativeRemoveDeliveredNotifications.reset();
+    nativeGetDeliveredNotifications.reset();
   });
 
   after(() => {
@@ -115,6 +128,9 @@ describe("NotificationsIOS", () => {
     nativeLocalNotification = null;
     nativeCancelLocalNotification = null;
     nativeCancelAllLocalNotifications = null;
+    nativeRemoveAllDeliveredNotifications = null;
+    nativeRemoveDeliveredNotifications = null;
+    nativeGetDeliveredNotifications = null;
 
     NotificationsIOS = null;
     NotificationAction = null;
@@ -280,6 +296,31 @@ describe("NotificationsIOS", () => {
       NotificationsIOS.cancelAllLocalNotifications();
 
       expect(nativeCancelAllLocalNotifications).to.have.been.calledWith();
+    });
+  });
+
+  describe("Remove all delivered notifications", () => {
+    it("should call native remove all delivered notifications method", () => {
+      NotificationsIOS.removeAllDeliveredNotifications();
+
+      expect(nativeRemoveAllDeliveredNotifications).to.have.been.calledWith();
+    });
+  });
+
+  describe("Remove delivered notifications", () => {
+    it("should call native remove delivered notifications method", () => {
+      NotificationsIOS.removeDeliveredNotifications(identifiers);
+
+      expect(nativeRemoveDeliveredNotifications).to.have.been.calledWith(identifiers);
+    });
+  });
+
+  describe("Get delivered notifications", () => {
+    it("should call native get delivered notifications method", () => {
+      const callback = (notifications) => console.log(notifications);
+      NotificationsIOS.getDeliveredNotifications(callback);
+
+      expect(nativeGetDeliveredNotifications).to.have.been.calledWith(callback);
     });
   });
 });

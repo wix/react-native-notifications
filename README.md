@@ -431,6 +431,28 @@ Now the server should push the notification a bit differently- background instea
 
 ---
 
+## Remove notifications (iOS only)
+
+### getDeliveredNotifications
+
+`PushNotification.getDeliveredNotifications(callback: (notifications: [Object]) => void)` 
+
+Provides you with a list of the app’s notifications that are still displayed in Notification Center.
+
+### removeDeliveredNotifications
+
+`PushNotification.removeDeliveredNotifications(identifiers: [string])` 
+
+Removes the specified notifications from Notification Center.
+
+### removeAllDeliveredNotifications
+
+`PushNotification.removeAllDeliveredNotifications()` 
+
+Removes all delivered notifications from Notification Center.
+
+---
+
 ## PushKit API (iOS only)
 
 The PushKit framework provides the classes for your iOS apps to receive background pushes from remote servers. it has better support for background notifications compared to regular push notifications with `content-available: 1`. More info in [iOS PushKit documentation](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Reference/PushKit_Framework/).
