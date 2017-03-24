@@ -450,7 +450,7 @@ RCT_EXPORT_METHOD(requestPermissionsWithCategories:(NSArray *)json)
 
 RCT_EXPORT_METHOD(log:(NSString *)message)
 {
-    NSLog(message);
+    NSLog(@"%@", message);
 }
 
 RCT_EXPORT_METHOD(completionHandler:(NSString *)completionKey)
@@ -504,7 +504,7 @@ RCT_EXPORT_METHOD(consumeBackgroundQueue)
     }
 }
 
-RCT_EXPORT_METHOD(localNotification:(NSDictionary *)notification withId:(NSString *)notificationId)
+RCT_EXPORT_METHOD(localNotification:(nonull NSDictionary *)notification withId:(NSString *)notificationId)
 {
     UILocalNotification* localNotification = [RCTConvert UILocalNotification:notification];
     NSMutableArray* userInfo = localNotification.userInfo.mutableCopy;
