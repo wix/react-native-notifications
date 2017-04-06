@@ -13,7 +13,7 @@ Handle all the aspects of push notifications for your app, including remote and 
 - [Background notifications](#managed-notifications-ios-only).
 - [Managed notifications](#managed-notifications-ios-only) (notifications that can be cleared from the server, like Facebook messenger and Whatsapp web).
 - [PushKit API](#pushkit-api-ios-only) for VoIP and other background messages.
-- [Interactive notifications](#interactive--actionable-notifications-ios-only) that allows you to provide additional functionality to your users outside of your application.
+- [Interactive notifications](#interactive--actionable-notifications) that allows you to provide additional functionality to your users outside of your application.
 
 ![Interactive notifications example](https://s3.amazonaws.com/nrjio/interactive.gif)
 
@@ -88,9 +88,9 @@ Declare the library as a dependency in your **app-project's** `build.gradle`:
 
 ```gradle
 dependencies {
-	// ...
-	
-	compile project(':reactnativenotifications')
+    // ...
+
+    compile project(':reactnativenotifications')
 }
 ```
 
@@ -108,6 +108,7 @@ import com.wix.reactnativenotifications.RNNotificationsPackage;
 	        // ...
 	        new RNNotificationsPackage(MainApplication.this)
         );
+    }
 ```
 
 ### Receiving push notifications
@@ -129,12 +130,12 @@ Once obtained, bundle the Sender ID onto your main `manifest.xml` file:
 ```gradle
 <manifest>
 ...
-	<application>
-	...
-		// Replace '1234567890' with your sender ID.
-		// IMPORTANT: Leave the trailing \0 intact!!!
-	    <meta-data android:name="com.wix.reactnativenotifications.gcmSenderId" android:value="1234567890\0"/>
-	</application>
+    <application>
+    ...
+        // Replace '1234567890' with your sender ID.
+        // IMPORTANT: Leave the trailing \0 intact!!!
+        <meta-data android:name="com.wix.reactnativenotifications.gcmSenderId" android:value="1234567890\0"/>
+    </application>
 </manifest>
 
 ```
@@ -154,32 +155,32 @@ In your React Native app:
 import NotificationsIOS from 'react-native-notifications';
 
 class App extends Component {
-	constructor() {
-		NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
-		NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFaled.bind(this));
-		NotificationsIOS.requestPermissions();
-	}
-	
-	onPushRegistered(deviceToken) {
-		console.log("Device Token Received", deviceToken);
-	}
+  constructor() {
+    NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
+    NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFaled.bind(this));
+    NotificationsIOS.requestPermissions();
+  }
 
-	onPushRegistrationFailed(error) {
-		// For example:
-		//
-		// error={
-		//   domain: 'NSCocoaErroDomain',
-		//   code: 3010,
-		//   localizedDescription: 'remote notifications are not supported in the simulator'
-		// }
-		console.error(error);
-	}
-	
-	componentWillUnmount() {
-  		// prevent memory leaks!
-  		NotificationsIOS.removeEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
-		NotificationsIOS.removeEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFailed.bind(this));
-	}
+  onPushRegistered(deviceToken) {
+    console.log("Device Token Received", deviceToken);
+  }
+
+  onPushRegistrationFailed(error) {
+    // For example:
+    //
+    // error={
+    //   domain: 'NSCocoaErroDomain',
+    //   code: 3010,
+    //   localizedDescription: 'remote notifications are not supported in the simulator'
+    // }
+    console.error(error);
+  }
+
+  componentWillUnmount() {
+    // prevent memory leaks!
+    NotificationsIOS.removeEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
+    NotificationsIOS.removeEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFailed.bind(this));
+  }
 }
 
 ```
@@ -195,7 +196,7 @@ import {NotificationsAndroid} from 'react-native-notifications';
 
 // On Android, we allow for only one (global) listener per each event type.
 NotificationsAndroid.setRegistrationTokenUpdateListener((deviceToken) => {
-	console.log('Push-notifications registered!', deviceToken)
+  console.log('Push-notifications registered!', deviceToken)
 });
 
 ```
@@ -219,28 +220,28 @@ Example:
 
 ```javascript
 constructor() {
-	NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
-    NotificationsIOS.addEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
-    NotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
+  NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
+  NotificationsIOS.addEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
+  NotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
 }
 
 onNotificationReceivedForeground(notification) {
-	console.log("Notification Received - Foreground", notification);
+  console.log("Notification Received - Foreground", notification);
 }
 
 onNotificationReceivedBackground(notification) {
-	console.log("Notification Received - Background", notification);
+  console.log("Notification Received - Background", notification);
 }
 
 onNotificationOpened(notification) {
-	console.log("Notification opened by device user", notification);
+  console.log("Notification opened by device user", notification);
 }
 
 componentWillUnmount() {
-	// Don't forget to remove the event listeners to prevent memory leaks!
-	NotificationsIOS.removeEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
-	NotificationsIOS.removeEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
-	NotificationsIOS.removeEventListener('notificationOpened', this.onNotificationOpened.bind(this));
+  // Don't forget to remove the event listeners to prevent memory leaks!
+  NotificationsIOS.removeEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
+  NotificationsIOS.removeEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
+  NotificationsIOS.removeEventListener('notificationOpened', this.onNotificationOpened.bind(this));
 }
 ```
 
@@ -267,10 +268,10 @@ import {NotificationsAndroid} from 'react-native-notifications';
 
 // On Android, we allow for only one (global) listener per each event type.
 NotificationsAndroid.setNotificationReceivedListener((notification) => {
-	console.log("Notification received on device", notification.getData());
+  console.log("Notification received on device", notification.getData());
 });
 NotificationsAndroid.setNotificationOpenedListener((notification) => {
-	console.log("Notification opened by device user", notification.getData());
+  console.log("Notification opened by device user", notification.getData());
 });
 ```
 
@@ -292,10 +293,9 @@ import {NotificationsAndroid, PendingNotifications} from 'react-native-notificat
 
 PendingNotifications.getInitialNotification()
   .then((notification) => {
-  		console.log("Initial notification was:", (notification ? notification.getData() : 'N/A');
-	})  	
+    console.log("Initial notification was:", (notification ? notification.getData() : 'N/A');
+  })  	
   .catch((err) => console.error("getInitialNotifiation() failed", err));
-
 ```
 
 > Notifications are considered 'initial' under the following terms:
@@ -315,12 +315,12 @@ Example:
 
 ```javascript
 let localNotification = NotificationsIOS.localNotification({
-	alertBody: "Local notificiation!",
-	alertTitle: "Local Notification Title",
-	alertAction: "Click here to open",
-	soundName: "chime.aiff",
-	category: "SOME_CATEGORY",
-	userInfo: { }
+  alertBody: "Local notificiation!",
+  alertTitle: "Local Notification Title",
+  alertAction: "Click here to open",
+  soundName: "chime.aiff",
+  category: "SOME_CATEGORY",
+  userInfo: { }
 });
 ```
 
@@ -331,7 +331,7 @@ Notification object contains:
 - `alertTitle`- The title of the notification, displayed in the notifications center.
 - `alertAction`- The "action" displayed beneath an actionable notification.
 - `soundName`- The sound played when the notification is fired (optional).
-- `category`- The category of this notification, required for [interactive notifications](#interactive--actionable-notifications-ios-only) (optional).
+- `category`- The category of this notification, required for [interactive notifications](#interactive--actionable-notifications) (optional).
 - `userInfo`- An optional object containing additional notification data.
 
 ### Android
@@ -340,9 +340,9 @@ Much like on iOS, notifications can be triggered locally. The API to do so is a 
 
 ```javascript
 NotificationsAndroid.localNotification({
-	title: "Local notification",
-	body: "This notification was generated by the app!",
-	extra: "data"
+  title: "Local notification",
+  body: "This notification was generated by the app!",
+  extra: "data"
 });
 ```
 
@@ -355,12 +355,12 @@ Example (iOS):
 
 ```javascript
 let someLocalNotification = NotificationsIOS.localNotification({
-	alertBody: "Local notificiation!",
-	alertTitle: "Local Notification Title",
-	alertAction: "Click here to open",
-	soundName: "chime.aiff",
-	category: "SOME_CATEGORY",
-	userInfo: { }
+  alertBody: "Local notificiation!",
+  alertTitle: "Local Notification Title",
+  alertAction: "Click here to open",
+  soundName: "chime.aiff",
+  category: "SOME_CATEGORY",
+  userInfo: { }
 });
 
 NotificationsIOS.cancelLocalNotification(someLocalNotification);
@@ -404,9 +404,9 @@ Now the server should push the notification a bit differently- background instea
   aps: {
     alert: {
       body: "This is regular notification"
-	},
-	badge: 5,
-	sound: "chime.aiff",
+    },
+    badge: 5,
+    sound: "chime.aiff"
   }
 }
 ```
@@ -416,7 +416,7 @@ Now the server should push the notification a bit differently- background instea
 ```javascript
 {
   aps: {
-  	"content-available": 1
+    "content-available": 1
   },
   managedAps: {
     action: "CREATE", // set it to "CLEAR" in order to clear the notification remotely
@@ -462,17 +462,17 @@ In your ReactNative code, add event handler for `pushKitRegistered` event and ca
 
 ```javascript
 constructor() {
-	NotificationsIOS.addEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
+    NotificationsIOS.addEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
     NotificationsIOS.registerPushKit();
 }
 
 onPushKitRegistered(deviceToken) {
-	console.log("PushKit Token Received: " + deviceToken);
+    console.log("PushKit Token Received: " + deviceToken);
 }
 
 componentWillUnmount() {
-	// Don't forget to remove the event listeners to prevent memory leaks!
-	NotificationsIOS.removeEventListener('pushKitRegistered', onPushKitRegistered(this));
+    // Don't forget to remove the event listeners to prevent memory leaks!
+    NotificationsIOS.removeEventListener('pushKitRegistered', onPushKitRegistered(this));
 }
 ```
 
@@ -582,8 +582,8 @@ Notification payload should look like this:
 ```javascript
 {
   aps: {
-	// ... (alert, sound, badge, etc)
-	category: "EXAMPLE_CATEGORY"
+    // ... (alert, sound, badge, etc)
+    category: "EXAMPLE_CATEGORY"
   }
 }
 ```
