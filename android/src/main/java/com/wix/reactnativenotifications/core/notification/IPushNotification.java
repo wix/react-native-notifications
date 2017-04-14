@@ -25,6 +25,4 @@ public interface IPushNotification {
      * @return The ID effectively assigned to the notification (Auto-assigned if not specified as a parameter).
      */
     int onPostRequest(Integer notificationId);
-
-    PushNotificationProps asProps();
 }

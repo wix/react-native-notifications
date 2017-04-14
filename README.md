@@ -2,7 +2,7 @@
 
 Handle all the aspects of push notifications for your app, including remote and local notifications, interactive notifications, silent notifications, and more.
 
-**All the native iOS notifications features are supported!** 
+**All the native iOS notifications features are supported!**
 
 >For information regarding proper integration with [react-native-navigation](https://github.com/wix/react-native-navigation), follow [this wiki](https://github.com/wix/react-native-notifications/wiki/Android:-working-with-RNN).
 
@@ -75,25 +75,38 @@ And the following methods to support registration and receiving notifications:
 
 ### Android
 
-
-Add a reference to the library's native code in your global `settings.gradle`:
+1. Add a reference to the library's native code in your global `settings.gradle`:
 
 ```gradle
-include ':reactnativenotifications'
-project(':reactnativenotifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android')
+include ':react-native-notifications'
+project(':react-native-notifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android')
 ```
 
-Declare the library as a dependency in your **app-project's** `build.gradle`:
+2. Declare the library as a dependency in your **app-project's** `build.gradle`:
 
 ```gradle
 dependencies {
 	// ...
-	
-	compile project(':reactnativenotifications')
+
+	compile project(':react-native-notifications')
 }
 ```
 
-Add the library to your `MainApplication.java`:
+Alternatively, if you're already using a specific Firebase version, you can exclude our `firebase-messaging` dependency and replace it with your own version (e.g. 10.2.1) as follows:
+
+```gradle
+dependencies {
+    // ...
+
+    compile(project(':react-native-notifications')) {
+        exclude group: 'com.google.firebase', module: 'firebase-messaging'
+    }
+
+    com.google.firebase:firebase-messaging:10.2.1
+}
+```
+
+3. Add the library to your `MainApplication.java`:
 
 ```java
 import com.wix.reactnativenotifications.RNNotificationsPackage;
@@ -113,17 +126,13 @@ import com.wix.reactnativenotifications.RNNotificationsPackage;
 
 > This section is only necessary in case you wish to **receive** push notifications in your React-Native app.
 
-Push notifications on Android are managed and dispatched using [Google's GCM service](https://developers.google.com/cloud-messaging/gcm) (now integrated into Firebase). The following installation steps are a TL;DR of [Google's GCM setup guide](https://developers.google.com/cloud-messaging/android/client). You can follow them to get GCM integrated quickly, but we recommend that you will in the very least have a peek at the guide's overview.
+Push notifications on Android are managed and dispatched using Google's [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging/) service.
 
-#### Step #1: Subscribe to Google's GCM
+1. [Integrate Firebase](https://firebase.google.com/docs/android/setup).
 
-To set GCM in your app, you must first create a Google API-project and obtain a **Sender ID** and a **Server API Key**. If you have no existing API project yet, the easiest way to go about in creating one is using [this step-by-step installation process](https://developers.google.com/mobile/add); Use [this tutorial](https://code.tutsplus.com/tutorials/how-to-get-started-with-push-notifications-on-android--cms-25870) for insturctions.
+2. Add Firebase Messaging to your Android app in the [Firebase console](https://console.firebase.google.com/), Settings -> Cloud Messaging.
 
-Alternatively, follow [Google's complete guide](https://developers.google.com/cloud-messaging/android/client#create-an-api-project).
-
-#### Step #2: Add Sender ID to Manifest File
-
-Once obtained, bundle the Sender ID onto your main `manifest.xml` file:
+3. Grab your Firebase Cloud Messaging sender ID (from `https://console.firebase.google.com/project/<YOUR FIREBASE PROJECT ID>/settings/cloudmessaging`) and add it to `AndroidManifest.xml` as follows:
 
 ```gradle
 <manifest>
@@ -132,12 +141,11 @@ Once obtained, bundle the Sender ID onto your main `manifest.xml` file:
 	...
 		// Replace '1234567890' with your sender ID.
 		// IMPORTANT: Leave the trailing \0 intact!!!
-	    <meta-data android:name="com.wix.reactnativenotifications.gcmSenderId" android:value="1234567890\0"/>
+	    <meta-data android:name="com.wix.reactnativenotifications.fcmSenderId" android:value="1234567890\0"/>
 	</application>
 </manifest>
 
 ```
-
 
 ---
 
@@ -158,7 +166,7 @@ class App extends Component {
 		NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFaled.bind(this));
 		NotificationsIOS.requestPermissions();
 	}
-	
+
 	onPushRegistered(deviceToken) {
 		console.log("Device Token Received", deviceToken);
 	}
@@ -173,7 +181,7 @@ class App extends Component {
 		// }
 		console.error(error);
 	}
-	
+
 	componentWillUnmount() {
   		// prevent memory leaks!
   		NotificationsIOS.removeEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
@@ -255,7 +263,7 @@ When you receive a push notification, you'll get an instance of `IOSNotification
 
 #### Background Queue (Important!)
 When a push notification is opened but the app is not running, the application will be in a **cold launch** state, until the JS engine is up and ready to handle the notification.
-The application will collect the events (notifications, actions, etc.) that happend during the cold launch for you. 
+The application will collect the events (notifications, actions, etc.) that happend during the cold launch for you.
 
 When your app is ready (most of the time it's after the call to `requestPermissions()`), just call to `NotificationsIOS.consumeBackgroundQueue();` in order to consume the background queue. For more info see `index.ios.js` in the example app.
 
@@ -292,7 +300,7 @@ import {NotificationsAndroid, PendingNotifications} from 'react-native-notificat
 PendingNotifications.getInitialNotification()
   .then((notification) => {
   		console.log("Initial notification was:", (notification ? notification.getData() : 'N/A');
-	})  	
+	})
   .catch((err) => console.error("getInitialNotifiation() failed", err));
 
 ```
@@ -440,7 +448,7 @@ After [preparing your app to receive VoIP push notifications](https://developer.
 ```objective-c
 #import "RNNotifications.h"
 #import <PushKit/PushKit.h>
-``` 
+```
 
 And the following methods:
 
@@ -485,9 +493,9 @@ componentWillUnmount() {
 
 > This section provides description for iOS. For notifications customization on Android, refer to [our wiki](https://github.com/wix/react-native-notifications/wiki/Android-Customizations#customizing-notifications-layout).
 
-Interactive notifications allow you to reply to a message right from the notification banner or take action right from the lock screen. 
+Interactive notifications allow you to reply to a message right from the notification banner or take action right from the lock screen.
 
-On the Lock screen and within Notification Center, you swipe from right to left 
+On the Lock screen and within Notification Center, you swipe from right to left
 to reveal actions. Destructive actions, like trashing an email, are color-coded red. Relatively neutral actions, like dismissing an alert or declining an invitation, are color-coded gray.
 
 For banners, you pull down to reveal actions as buttons. For popups, the actions are immediately visible — the buttons are right there.

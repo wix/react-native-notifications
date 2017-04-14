@@ -22,7 +22,7 @@ import com.wix.reactnativenotifications.core.notification.PushNotification;
 import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
 import com.wix.reactnativenotifications.core.notificationdrawer.IPushNotificationsDrawer;
 import com.wix.reactnativenotifications.core.notificationdrawer.PushNotificationsDrawer;
-import com.wix.reactnativenotifications.gcm.GcmInstanceIdRefreshHandlerService;
+import com.wix.reactnativenotifications.fcm.FcmInstanceIdRefreshHandlerService;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
 
@@ -45,17 +45,15 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
 
     @Override
     public void initialize() {
-        Log.d(LOGTAG, "Native module init");
-        startGcmIntentService(GcmInstanceIdRefreshHandlerService.EXTRA_IS_APP_INIT);
-
         final IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
         notificationsDrawer.onAppInit();
+        startTokenRefreshService(FcmInstanceIdRefreshHandlerService.ACTION_APP_LAUNCH);
     }
 
     @ReactMethod
     public void refreshToken() {
         Log.d(LOGTAG, "Native method invocation: refreshToken()");
-        startGcmIntentService(GcmInstanceIdRefreshHandlerService.EXTRA_MANUAL_REFRESH);
+        startTokenRefreshService(FcmInstanceIdRefreshHandlerService.ACTION_MANUAL_REFRESH);
     }
 
     @ReactMethod
@@ -129,10 +127,10 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     public void onActivityDestroyed(Activity activity) {
     }
 
-    protected void startGcmIntentService(String extraFlag) {
+    protected void startTokenRefreshService(String action) {
         final Context appContext = getReactApplicationContext().getApplicationContext();
-        final Intent tokenFetchIntent = new Intent(appContext, GcmInstanceIdRefreshHandlerService.class);
-        tokenFetchIntent.putExtra(extraFlag, true);
-        appContext.startService(tokenFetchIntent);
+        final Intent tokenRefreshIntent = new Intent(appContext, FcmInstanceIdRefreshHandlerService.class);
+        tokenRefreshIntent.setAction(action);
+        appContext.startService(tokenRefreshIntent);
     }
 }

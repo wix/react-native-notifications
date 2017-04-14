@@ -72,11 +72,6 @@ public class PushNotification implements IPushNotification {
         return postNotification(notificationId);
     }
 
-    @Override
-    public PushNotificationProps asProps() {
-        return mNotificationProps.copy();
-    }
-
     protected int postNotification(Integer notificationId) {
         final PendingIntent pendingIntent = getCTAPendingIntent();
         final Notification notification = buildNotification(pendingIntent);
