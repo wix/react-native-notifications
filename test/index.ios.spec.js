@@ -27,7 +27,9 @@ describe("NotificationsIOS", () => {
       nativeConsumeBackgroundQueue,
       nativeLocalNotification,
       nativeCancelLocalNotification,
-      nativeCancelAllLocalNotifications;
+      nativeCancelAllLocalNotifications,
+      nativeSetBadgesCount;
+
   let NotificationsIOS, NotificationAction, NotificationCategory;
   let someHandler = () => {};
   let constantGuid = "some-random-uuid";
@@ -46,6 +48,7 @@ describe("NotificationsIOS", () => {
     nativeLocalNotification = sinon.spy();
     nativeCancelLocalNotification = sinon.spy();
     nativeCancelAllLocalNotifications = sinon.spy();
+    nativeSetBadgesCount = sinon.spy();
 
     let libUnderTest = proxyquire("../index.ios", {
       "uuid": {
@@ -61,7 +64,8 @@ describe("NotificationsIOS", () => {
             consumeBackgroundQueue: nativeConsumeBackgroundQueue,
             localNotification: nativeLocalNotification,
             cancelLocalNotification: nativeCancelLocalNotification,
-            cancelAllLocalNotifications: nativeCancelAllLocalNotifications
+            cancelAllLocalNotifications: nativeCancelAllLocalNotifications,
+            setBadgesCount: nativeSetBadgesCount
           }
         },
         NativeAppEventEmitter: {
@@ -208,6 +212,15 @@ describe("NotificationsIOS", () => {
         expect(nativeAppRemoveEventListener).to.have.been.calledOnce;
       });
     });
+
+    describe("set badges count", () => {
+      it("should call native setBadgesCount", () => {
+        NotificationsIOS.setBadgesCount(44);
+
+        expect(nativeSetBadgesCount).to.have.been.calledWith(44);
+      });
+    });
+
   });
 
   describe("register push kit for background notifications", function () {

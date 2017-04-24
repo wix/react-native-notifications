@@ -476,6 +476,11 @@ RCT_EXPORT_METHOD(registerPushKit)
     [RNNotifications registerPushKit];
 }
 
+RCT_EXPORT_METHOD(setBadgesCount:(int)count)
+{
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
+}
+
 RCT_EXPORT_METHOD(backgroundTimeRemaining:(RCTResponseSenderBlock)callback)
 {
     NSTimeInterval remainingTime = [UIApplication sharedApplication].backgroundTimeRemaining;
