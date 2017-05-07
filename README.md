@@ -292,7 +292,7 @@ import {NotificationsAndroid, PendingNotifications} from 'react-native-notificat
 
 PendingNotifications.getInitialNotification()
   .then((notification) => {
-  		console.log("Initial notification was:", (notification ? notification.getData() : 'N/A');
+  		console.log("Initial notification was:", (notification ? notification.getData() : 'N/A'));
 	})  	
   .catch((err) => console.error("getInitialNotifiation() failed", err));
 
