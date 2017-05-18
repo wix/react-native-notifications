@@ -4,6 +4,7 @@ Handle all the aspects of push notifications for your app, including remote and 
 
 **All the native iOS notifications features are supported!** 
 
+>For information regarding proper integration with [react-native-navigation](https://github.com/wix/react-native-navigation), follow [this wiki](https://github.com/wix/react-native-notifications/wiki/Android:-working-with-RNN).
 
 ## Supported Features
 ### iOS
