@@ -20,8 +20,6 @@ Handle all the aspects of push notifications for your app, including remote and 
 
 ### Android
 
->**Please advise that Android support is a work in progress and is subject to breaking changes in the near future**
-
 - Receiving notifications in any App state (foreground, background, "dead")
 - Built-in notification drawer management
 - High degree of code extensibility to allow for advanced custom layouts and any specific notifications behavior as available by [Android's API](https://developer.android.com/training/notify-user/build-notification.html)
