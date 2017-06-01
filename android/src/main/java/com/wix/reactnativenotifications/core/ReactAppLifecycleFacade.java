@@ -41,20 +41,11 @@ public class ReactAppLifecycleFacade implements AppLifecycleFacade {
 
     @Override
     public synchronized boolean isReactInitialized() {
-        if (mReactContext == null) {
-            return false;
-        }
-
-        return mReactContext.hasActiveCatalystInstance();
+        return mReactContext != null && mReactContext.hasActiveCatalystInstance();
     }
 
     @Override
     public ReactContext getRunningReactContext() {
-        ReactContext reactContext = mReactContext;
-        if (reactContext == null) {
-            return null;
-        }
-
         return mReactContext;
     }
 
