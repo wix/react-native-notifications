@@ -2,7 +2,7 @@
 
 Handle all the aspects of push notifications for your app, including remote and local notifications, interactive notifications, silent notifications, and more.
 
-**All the native iOS notifications features are supported!** 
+**All the native iOS notifications features are supported!**
 
 >For information regarding proper integration with [react-native-navigation](https://github.com/wix/react-native-navigation), follow [this wiki](https://github.com/wix/react-native-notifications/wiki/Android:-working-with-RNN).
 
@@ -75,37 +75,50 @@ And the following methods to support registration and receiving notifications:
 
 ### Android
 
-
-Add a reference to the library's native code in your global `settings.gradle`:
+1. Add a reference to the library's native code in your global `settings.gradle`:
 
 ```gradle
-include ':reactnativenotifications'
-project(':reactnativenotifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android')
+include ':react-native-notifications'
+project(':react-native-notifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android')
 ```
 
-Declare the library as a dependency in your **app-project's** `build.gradle`:
+2. Declare the library as a dependency in your **app-project's** `build.gradle`:
 
 ```gradle
 dependencies {
 	// ...
-	
-	compile project(':reactnativenotifications')
+
+	compile project(':react-native-notifications')
 }
 ```
 
-Add the library to your `MainApplication.java`:
+Alternatively, if you're already using a specific Firebase version, you can exclude our `firebase-messaging` dependency and replace it with your own version (e.g. 10.2.1) as follows:
+
+```gradle
+dependencies {
+    // ...
+
+    compile(project(':react-native-notifications')) {
+        exclude group: 'com.google.firebase', module: 'firebase-messaging'
+    }
+
+    com.google.firebase:firebase-messaging:10.2.1
+}
+```
+
+3. Add the library to your `MainApplication.java`:
 
 ```java
 import com.wix.reactnativenotifications.RNNotificationsPackage;
 
-...
+// ...
 
     @Override
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
-	        // ...
-	        new RNNotificationsPackage(MainApplication.this)
+            // ...
+            new RNNotificationsPackage(MainApplication.this)
         );
 ```
 
@@ -113,31 +126,22 @@ import com.wix.reactnativenotifications.RNNotificationsPackage;
 
 > This section is only necessary in case you wish to **receive** push notifications in your React-Native app.
 
-Push notifications on Android are managed and dispatched using [Google's GCM service](https://developers.google.com/cloud-messaging/gcm) (now integrated into Firebase). The following installation steps are a TL;DR of [Google's GCM setup guide](https://developers.google.com/cloud-messaging/android/client). You can follow them to get GCM integrated quickly, but we recommend that you will in the very least have a peek at the guide's overview.
+Push notifications on Android are managed and dispatched using Google's [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging/) service.
 
-#### Step #1: Subscribe to Google's GCM
+1. Add Firebase Messaging to your Android app in the [Firebase console](https://console.firebase.google.com/), Settings -> Cloud Messaging.
 
-To set GCM in your app, you must first create a Google API-project and obtain a **Sender ID** and a **Server API Key**. If you have no existing API project yet, the easiest way to go about in creating one is using [this step-by-step installation process](https://developers.google.com/mobile/add); Use [this tutorial](https://code.tutsplus.com/tutorials/how-to-get-started-with-push-notifications-on-android--cms-25870) for insturctions.
+2. [Integrate Firebase](https://firebase.google.com/docs/android/setup) in your native Android project.
 
-Alternatively, follow [Google's complete guide](https://developers.google.com/cloud-messaging/android/client#create-an-api-project).
-
-#### Step #2: Add Sender ID to Manifest File
-
-Once obtained, bundle the Sender ID onto your main `manifest.xml` file:
+If you've followed the instructions correctly your Android project will now include a file called `google-services.json` and the bottom of your `build.gradle` will look something like:
 
 ```gradle
-<manifest>
-...
-	<application>
-	...
-		// Replace '1234567890' with your sender ID.
-		// IMPORTANT: Leave the trailing \0 intact!!!
-	    <meta-data android:name="com.wix.reactnativenotifications.gcmSenderId" android:value="1234567890\0"/>
-	</application>
-</manifest>
 
+// ...
+
+apply plugin: 'com.google.gms.google-services'
 ```
 
+**IMPORTANT**: Do NOT add `com.google.firebase:firebase-messaging` as an explicit dependency unless you wish to try override our version (see "Installation").
 
 ---
 
@@ -158,7 +162,7 @@ class App extends Component {
 		NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFailed.bind(this));
 		NotificationsIOS.requestPermissions();
 	}
-	
+
 	onPushRegistered(deviceToken) {
 		console.log("Device Token Received", deviceToken);
 	}
@@ -173,7 +177,7 @@ class App extends Component {
 		// }
 		console.error(error);
 	}
-	
+
 	componentWillUnmount() {
   		// prevent memory leaks!
   		NotificationsIOS.removeEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
@@ -196,6 +200,9 @@ import {NotificationsAndroid} from 'react-native-notifications';
 NotificationsAndroid.setRegistrationTokenUpdateListener((deviceToken) => {
 	console.log('Push-notifications registered!', deviceToken)
 });
+
+// In case the token registration took place prior to setting our listener.
+NotificationsAndroid.refreshToken();
 
 ```
 
@@ -255,7 +262,7 @@ When you receive a push notification, you'll get an instance of `IOSNotification
 
 #### Background Queue (Important!)
 When a push notification is opened but the app is not running, the application will be in a **cold launch** state, until the JS engine is up and ready to handle the notification.
-The application will collect the events (notifications, actions, etc.) that happend during the cold launch for you. 
+The application will collect the events (notifications, actions, etc.) that happend during the cold launch for you.
 
 When your app is ready (most of the time it's after the call to `requestPermissions()`), just call to `NotificationsIOS.consumeBackgroundQueue();` in order to consume the background queue. For more info see `index.ios.js` in the example app.
 
@@ -273,35 +280,64 @@ NotificationsAndroid.setNotificationOpenedListener((notification) => {
 });
 ```
 
-#### Notification Object
-- **`getData()`**- content of the `data` section of the original message (sent to GCM).
-- **`getTitle()`**- Convenience for returning `data.title`.
-- **`getMessage()`**- Convenience for returning `data.body`.
+#### Receiving Notifications in the Background
 
+On Android there are a very specific set of rules regarding when when and _if_ notifications are delivered to your application.
+
+Data-only push notifications are _always_ delivered to your application when Android receives them. Foreground, background, even if your app is dead, it will be woken to receive the notification.
+
+Firebase push notifications that contain visual notification information (title, body etc.) are _not_ data only and will _never_ be delivered to your app if it's running in the background!
+Instead the notifications go to the "system tray" application, and it automatically generates a notification in the tray.
+
+These automatic background notifications have several limited functionality:
+
+- They do not support the full range of options that are available to app generated "local notifications". e.g. `largeIcon` is not supported.
+  
+  Please refer to the official [Firebase server reference](https://firebase.google.com/docs/cloud-messaging/http-server-ref#table2) to see what is supported.
+
+- When a user taps on an system tray generated notification the Android OS will actually re-launch your app's primary/launcher activity. If you're using stock React Native this effectively restarts your app.
+
+- Because your app is relaunched, you will _not_ receive a notification open event to your listener. Instead the `data` (`title`, `body` etc. will be omitted) from the push notification will be available in your application's _initial notification_ (see below).
+
+> If you want fine-grained control over your application it's suggested you send "data-only" notifications, and use this data to generate a local notification with `NotificationsAndroid.localNotification()`.
+
+#### Notification Object
+- **`isDataOnly()`**- indicates whether the notification contains only data (`getData()`) and not other notification properties.
+- **`getData()`**- content of the `data` section of the original message (sent to Firebase's servers).
+- **`getTitle()`**- the notification's title.
+- **`getBody()`/`getMessage()`**- the notification's body.
+- **`getIcon()`**- the notification's icon (the name of a Android _drawable_ bundled with your app).
+- **`getSound()`**- the notification's sound (the name of a native Android sound asset bundled with your app).
+- **`getTag()`**- an identifier for this notification. If two notifications are posted (locally or remotely) with the same _tag_ AND `id` (_not_ part of the notification's properties) the latter notification will replace/update the former.
+- **`getColor()`**- a `#rrggbb` formatted color that will be used to tint your app icon and name in the system notification tray/drawer.
+- **`getLargeIcon()`**- a larger icon (typically displayed on the right) of your notification. This can be specified as a **URL** (local or online), or as the name of an Android _drawable_ bundled in your app. 
+- **`getLightsColor()`**- a `#rrggbb` formatted color that will set the color of the flashing notification LED on device's that have one. Typically this will only light-up if the device's screen is off when the notification is received.
+- **`getLightsOnMs()`**- how many milliseconds the notification LED should stay lit whilst flashing.
+- **`getLightsOffMs()`**- how many milliseconds the notification LED should stay unlit between flashes.
 ---
 
 ## Querying initial notification
 
 React-Native's [`PushNotificationsIOS.getInitialNotification()`](https://facebook.github.io/react-native/docs/pushnotificationios.html#getinitialnotification) allows for the async retrieval of the original notification used to open the App on iOS, but it has no equivalent implementation for Android.
 
-We provide a similar implementation on Android using `PendingNotifications.getInitialNotification()` which returns a promise:
+We provide a similar implementation on Android using `NotificationsAndroid.getInitialNotification()` which returns a promise:
 
 ```javascript
-import {NotificationsAndroid, PendingNotifications} from 'react-native-notifications';
+import {NotificationsAndroid} from 'react-native-notifications';
 
 PendingNotifications.getInitialNotification()
   .then((notification) => {
-  		console.log("Initial notification was:", (notification ? notification.getData() : 'N/A'));
-	})  	
+  		console.log("Initial notification was:", notification || "N/A");
+	})
   .catch((err) => console.error("getInitialNotifiation() failed", err));
 
 ```
 
-> Notifications are considered 'initial' under the following terms:
+Notifications are considered 'initial' when a user taps a notification and **ANY** of the following are true:
 
-> - User tapped on a notification, _AND_ -
-> - App was either not running at all ("dead" state), _OR_ it existed in the background with **no running activities** associated with it.
-
+ - The app was not running at all ("dead" state) when the notification was tapped.
+ - The app was running in the background, but with **no running activities** associated with it.
+ - The app was in the background _when the push notification was received_ AND the notification was not a "data-only" notification, hence the tapped notification was automatically generated by the system tray _not_ your app (see "Receiving Notifications in the Background").
 
 ## Triggering Local Notifications
 
@@ -341,14 +377,24 @@ Much like on iOS, notifications can be triggered locally. The API to do so is a 
 NotificationsAndroid.localNotification({
 	title: "Local notification",
 	body: "This notification was generated by the app!",
-	extra: "data"
+	data: {
+	    extra: "Some data"
+	}
 });
 ```
+The supported properties are:
 
-Upon notification opening (tapping by the device user), all data fields will be delivered as-is).
+`data`, `title`, `body`, `icon`, `tag`, `sound`, `color`, `largeIcon`, `lightsColor`, `lightsOnMs` and `lightsOffMs`.
+
+Please refer to the "Notification Object" section for details about each property.
+
+Any custom information you wish to be available when the notification is tapped should be placed inside an object given as the `data` field.
 
 ### Cancel Local Notification
-The `NotificationsIOS.localNotification()` and `NotificationsAndroid.localNotification()` methods return unique `notificationId` values, which can be used in order to cancel specific local notifications. You can cancel local notification by calling `NotificationsIOS.cancelLocalNotification(notificationId)` or `NotificationsAndroid.cancelLocalNotification(notificationId)`.
+
+The `NotificationsIOS.localNotification()` and `NotificationsAndroid.localNotification()` methods return unique `notificationId` values, which can be used in order to cancel or update/replace specific local notifications.
+
+You can cancel local notification by calling `NotificationsIOS.cancelLocalNotification(notificationId)` or `NotificationsAndroid.cancelLocalNotification(notificationId)`.
 
 Example (iOS):
 
@@ -365,7 +411,15 @@ let someLocalNotification = NotificationsIOS.localNotification({
 NotificationsIOS.cancelLocalNotification(someLocalNotification);
 ```
 
-### Cancel All Local Notifications (iOS-only!)
+On Android, it is the pair of an `id` AND `tag` (which may be `null` omitted) which uniquely identify a notification. You can cancel a notification with a `tag` as follows:
+
+```javascript
+NotificationsAndroid.cancelLocalNotification(0, "someTag");
+```
+
+### Cancel All Local Notifications
+
+Example (iOS):
 
 ```javascript
 NotificationsIOS.cancelAllLocalNotifications();
@@ -440,7 +494,7 @@ After [preparing your app to receive VoIP push notifications](https://developer.
 ```objective-c
 #import "RNNotifications.h"
 #import <PushKit/PushKit.h>
-``` 
+```
 
 And the following methods:
 
@@ -485,9 +539,9 @@ componentWillUnmount() {
 
 > This section provides description for iOS. For notifications customization on Android, refer to [our wiki](https://github.com/wix/react-native-notifications/wiki/Android-Customizations#customizing-notifications-layout).
 
-Interactive notifications allow you to reply to a message right from the notification banner or take action right from the lock screen. 
+Interactive notifications allow you to reply to a message right from the notification banner or take action right from the lock screen.
 
-On the Lock screen and within Notification Center, you swipe from right to left 
+On the Lock screen and within Notification Center, you swipe from right to left
 to reveal actions. Destructive actions, like trashing an email, are color-coded red. Relatively neutral actions, like dismissing an alert or declining an invitation, are color-coded gray.
 
 For banners, you pull down to reveal actions as buttons. For popups, the actions are immediately visible — the buttons are right there.
