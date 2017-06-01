@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class NotificationProps {
 
@@ -27,6 +28,9 @@ public class NotificationProps {
     // Local-only support
 
     private static final String LARGE_ICON = "largeIcon"; // Drawable name or URL
+    private static final String LIGHTS_COLOR = "lightsColor";
+    private static final String LIGHTS_ON_MS = "lightsOnMs";
+    private static final String LIGHTS_OFF_MS = "lightsOffMs";
 
     public static NotificationProps fromRemoteMessage(Context context, RemoteMessage remoteMessage) {
         final Bundle properties = new Bundle();
@@ -124,6 +128,21 @@ public class NotificationProps {
     }
 
     @Nullable
+    public Integer getLightsColor() {
+        return colorFromString(mProperties.getString(LIGHTS_COLOR));
+    }
+
+    @Nullable
+    public Integer getLightsOnMs() {
+        return getInteger(LIGHTS_ON_MS);
+    }
+
+    @Nullable
+    public Integer getLightsOffMs() {
+        return getInteger(LIGHTS_OFF_MS);
+    }
+
+    @Nullable
     public Bundle getData() {
         return mProperties.getBundle(DATA);
     }
@@ -139,6 +158,30 @@ public class NotificationProps {
             sb.append(key).append("=").append(mProperties.get(key)).append(", ");
         }
         return sb.toString();
+    }
+
+    @Nullable
+    private Integer getInteger(String key) {
+        final Object object = mProperties.get(key);
+
+        if (object instanceof Number) {
+            return ((Number) object).intValue();
+        }
+
+        return integerFromString(mProperties.getString(key));
+    }
+
+    @Nullable
+    private Integer integerFromString(String string) {
+        if (string != null) {
+            try {
+                return Integer.parseInt(string);
+            } catch (NumberFormatException e) {
+                // Move on
+            }
+        }
+
+        return null;
     }
 
     @Nullable

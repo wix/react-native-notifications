@@ -130,7 +130,6 @@ public class LocalNotification implements ILocalNotification {
 
     protected Notification.Builder getNotificationBuilder(PendingIntent intent) {
         final Integer icon = mNotificationProps.getIcon();
-        final Integer color = mNotificationProps.getColor();
 
         final Notification.Builder builder = new Notification.Builder(mContext)
                 .setContentTitle(mNotificationProps.getTitle())
@@ -141,8 +140,18 @@ public class LocalNotification implements ILocalNotification {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true);
 
+        final Integer color = mNotificationProps.getColor();
+
         if (color != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder.setColor(color);
+        }
+
+        final Integer lightsColor = mNotificationProps.getLightsColor();
+        final Integer lightsOnMs = mNotificationProps.getLightsOnMs();
+        final Integer lightsOffMs = mNotificationProps.getLightsOffMs();
+
+        if (lightsColor != null && lightsOnMs != null && lightsOffMs != null) {
+            builder.setLights(lightsColor, lightsOnMs, lightsOffMs);
         }
 
         return builder;
