@@ -68,9 +68,7 @@ export class NotificationsAndroid {
   static cancelAllLocalNotifications() {
     RNNotifications.cancelAllLocalNotifications();
   }
-}
 
-export class PendingNotifications {
   static getInitialNotification() {
     return RNNotifications.getInitialNotification()
       .then((rawNotification) => {

@@ -179,7 +179,7 @@ describe("Notifications-Android > ", () => {
       const rawNotification = {data};
       getInitialNotificationStub.returns(Promise.resolve(rawNotification));
 
-      libUnderTest.PendingNotifications.getInitialNotification()
+      libUnderTest.NotificationsAndroid.getInitialNotification()
         .then((notification) => {
           expect(notification.getData()).to.equal(data);
           done();
@@ -191,7 +191,7 @@ describe("Notifications-Android > ", () => {
       expect(getInitialNotificationStub).to.not.have.been.called;
       getInitialNotificationStub.returns(Promise.resolve(null));
 
-      libUnderTest.PendingNotifications.getInitialNotification()
+      libUnderTest.NotificationsAndroid.getInitialNotification()
         .then((notification) => {
           expect(notification).to.be.undefined;
           done();

@@ -9,7 +9,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-import {NotificationsAndroid, PendingNotifications} from 'react-native-notifications';
+import {NotificationsAndroid} from 'react-native-notifications';
 
 let mainScreen;
 
@@ -88,7 +88,7 @@ class MainComponent extends Component {
 
   componentDidMount() {
     console.log('ReactScreen', 'componentDidMount');
-    PendingNotifications.getInitialNotification()
+    NotificationsAndroid.getInitialNotification()
       .then((notification) => {console.log("getInitialNotification:", notification); this.setState({initialNotification: (notification ? notification.getData() : undefined)});})
       .catch((err) => console.error("getInitialNotifiation failed", err));
   }
