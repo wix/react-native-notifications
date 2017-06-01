@@ -43,4 +43,8 @@ export default class NotificationAndroid {
   getColor() {
     return this.properties.color;
   }
+
+  getLargeIcon() {
+    return this.properties.largeIcon;
+  }
 }

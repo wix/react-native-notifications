@@ -12,6 +12,7 @@ import com.facebook.react.bridge.ReactContext;
 import com.wix.reactnativenotifications.core.AppLaunchHelper;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade.AppVisibilityListener;
+import com.wix.reactnativenotifications.core.BitmapLoader;
 import com.wix.reactnativenotifications.core.InitialNotificationHolder;
 import com.wix.reactnativenotifications.core.JsIOHelper;
 
@@ -53,6 +54,7 @@ public class LocalNotificationTest {
     @Mock private AppLifecycleFacade mAppLifecycleFacade;
     @Mock private AppLaunchHelper mAppLaunchHelper;
     @Mock private JsIOHelper mJsIOHelper;
+    @Mock private BitmapLoader mImageLoader;
 
     @Before
     public void setup() throws Exception {
@@ -245,7 +247,7 @@ public class LocalNotificationTest {
 
     protected LocalNotification createUUT(Bundle bundle) {
         final NotificationProps localNotificationProps = new NotificationProps(mContext, bundle);
-        return new LocalNotification(mContext, localNotificationProps, mAppLifecycleFacade, mAppLaunchHelper, mJsIOHelper);
+        return new LocalNotification(mContext, localNotificationProps, mAppLifecycleFacade, mAppLaunchHelper, mJsIOHelper, mImageLoader);
     }
 
     protected void setUpBackgroundApp() {

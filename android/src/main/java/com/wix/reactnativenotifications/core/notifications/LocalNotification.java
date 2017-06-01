@@ -16,6 +16,7 @@ import com.wix.reactnativenotifications.core.AppLaunchHelper;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade.AppVisibilityListener;
 import com.wix.reactnativenotifications.core.AppLifecycleFacadeHolder;
+import com.wix.reactnativenotifications.core.BitmapLoader;
 import com.wix.reactnativenotifications.core.InitialNotificationHolder;
 import com.wix.reactnativenotifications.core.JsIOHelper;
 import com.wix.reactnativenotifications.core.NotificationIntentAdapter;
@@ -31,6 +32,7 @@ public class LocalNotification implements ILocalNotification {
     private final AppLifecycleFacade mAppLifecycleFacade;
     private final AppLaunchHelper mAppLaunchHelper;
     private final JsIOHelper mJsIOHelper;
+    private final BitmapLoader mImageLoader;
     private final AppVisibilityListener mAppVisibilityListener = new AppVisibilityListener() {
 
         @Override
@@ -56,23 +58,24 @@ public class LocalNotification implements ILocalNotification {
         return new LocalNotification(context, localNotificationProps, appLifecycleFacade, appLaunchHelper);
     }
 
-    protected LocalNotification(Context context, NotificationProps localNotificationProps, AppLifecycleFacade appLifecycleFacade, AppLaunchHelper appLaunchHelper, JsIOHelper jsIOHelper) {
+    protected LocalNotification(Context context, NotificationProps localNotificationProps, AppLifecycleFacade appLifecycleFacade, AppLaunchHelper appLaunchHelper, JsIOHelper jsIOHelper, BitmapLoader imageLoader) {
         mContext = context;
         mNotificationProps = localNotificationProps;
         mAppLifecycleFacade = appLifecycleFacade;
         mAppLaunchHelper = appLaunchHelper;
         mJsIOHelper = jsIOHelper;
+        mImageLoader = imageLoader;
     }
 
     protected LocalNotification(Context context, NotificationProps localNotificationProps, AppLifecycleFacade appLifecycleFacade, AppLaunchHelper appLaunchHelper) {
-        this(context, localNotificationProps, appLifecycleFacade, appLaunchHelper, new JsIOHelper(context));
+        this(context, localNotificationProps, appLifecycleFacade, appLaunchHelper, new JsIOHelper(context), new BitmapLoader(context));
     }
 
     @Override
     public int post(Integer notificationId) {
         final PendingIntent pendingIntent = getCTAPendingIntent();
         final int id = notificationId != null ? notificationId : createNotificationId();
-        postNotification(id, getNotificationBuilder(pendingIntent).build());
+        setLargeIconThenPostNotification(id, getNotificationBuilder(pendingIntent));
         return id;
     }
 
@@ -143,6 +146,33 @@ public class LocalNotification implements ILocalNotification {
         }
 
         return builder;
+    }
+
+    protected void setLargeIconThenPostNotification(final int notificationId, final Notification.Builder notificationBuilder) {
+        final String icon = mNotificationProps.getLargeIcon();
+
+        if (icon != null && (icon.startsWith("http://") || icon.startsWith("https://") || icon.startsWith("file://"))) {
+            mImageLoader.loadUri(Uri.parse(icon), new BitmapLoader.OnBitmapLoadedCallback() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap) {
+                    notificationBuilder.setLargeIcon(bitmap);
+                    postNotification(notificationId, notificationBuilder.build());
+                }
+            });
+        } else {
+            if (icon != null) {
+                final int id = mContext.getResources().getIdentifier(icon, "drawable", mContext.getPackageName());
+                final Bitmap bitmap = id != 0 ? BitmapFactory.decodeResource(mContext.getResources(), id) : null;
+
+                if (bitmap != null) {
+                    notificationBuilder.setLargeIcon(bitmap);
+                } else {
+                    Log.e(LOGTAG, icon + " does not correspond to a known bitmap drawable");
+                }
+            }
+
+            postNotification(notificationId, notificationBuilder.build());
+        }
     }
 
     protected void postNotification(int id, Notification notification) {

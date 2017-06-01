@@ -26,6 +26,8 @@ public class NotificationProps {
 
     // Local-only support
 
+    private static final String LARGE_ICON = "largeIcon"; // Drawable name or URL
+
     public static NotificationProps fromRemoteMessage(Context context, RemoteMessage remoteMessage) {
         final Bundle properties = new Bundle();
         final RemoteMessage.Notification notification = remoteMessage.getNotification();
@@ -114,6 +116,11 @@ public class NotificationProps {
     @Nullable
     public Integer getColor() {
         return colorFromString(mProperties.getString(COLOR));
+    }
+
+    @Nullable
+    public String getLargeIcon() {
+        return mProperties.getString(LARGE_ICON);
     }
 
     @Nullable
