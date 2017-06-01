@@ -507,12 +507,14 @@ RCT_EXPORT_METHOD(consumeBackgroundQueue)
     // Push opened local notifications
     NSDictionary* openedLocalNotification = [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification;
     if (openedLocalNotification) {
+        [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = nil;
         [RNNotifications didNotificationOpen:openedLocalNotification];
     }
 
     // Push opened remote notifications
     NSDictionary* openedRemoteNotification = [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification;
     if (openedRemoteNotification) {
+        [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification = nil;
         [RNNotifications didNotificationOpen:openedRemoteNotification];
     }
 }
