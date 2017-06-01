@@ -7,9 +7,13 @@ let notificationReceivedListener;
 let notificationOpenedListener;
 let registrationTokenUpdateListener;
 
+export const EVENT_OPENED = "com.wix.reactnativenotifications.notificationOpened";
+export const EVENT_RECEIVED = "com.wix.reactnativenotifications.notificationReceived";
+export const EVENT_REGISTERED = "com.wix.reactnativenotifications.remoteNotificationsRegistered";
+
 export class NotificationsAndroid {
   static setNotificationOpenedListener(listener) {
-    notificationOpenedListener = DeviceEventEmitter.addListener("notificationOpened", (notification) => listener(new NotificationAndroid(notification)));
+    notificationOpenedListener = DeviceEventEmitter.addListener(EVENT_OPENED, (notification) => listener(new NotificationAndroid(notification)));
   }
 
   static clearNotificationOpenedListener() {
@@ -20,7 +24,7 @@ export class NotificationsAndroid {
   }
 
   static setNotificationReceivedListener(listener) {
-    notificationReceivedListener = DeviceEventEmitter.addListener("notificationReceived", (notification) => listener(new NotificationAndroid(notification)));
+    notificationReceivedListener = DeviceEventEmitter.addListener(EVENT_RECEIVED, (notification) => listener(new NotificationAndroid(notification)));
   }
 
   static clearNotificationReceivedListener() {
@@ -31,7 +35,8 @@ export class NotificationsAndroid {
   }
 
   static setRegistrationTokenUpdateListener(listener) {
-    registrationTokenUpdateListener = DeviceEventEmitter.addListener("remoteNotificationsRegistered", listener);
+    NotificationsAndroid.clearRegistrationTokenUpdateListener();
+    registrationTokenUpdateListener = DeviceEventEmitter.addListener(EVENT_REGISTERED, listener);
   }
 
   static clearRegistrationTokenUpdateListener() {

@@ -47,7 +47,7 @@ describe("Notifications-Android > ", () => {
 
       libUnderTest.NotificationsAndroid.setRegistrationTokenUpdateListener(userListener);
 
-      expect(deviceEventEmitterListenerStub).to.have.been.calledWith("remoteNotificationsRegistered", userListener);
+      expect(deviceEventEmitterListenerStub).to.have.been.calledWith(libUnderTest.EVENT_REGISTERED, userListener);
       expect(deviceEventEmitterListenerStub).to.have.been.calledOnce;
     });
 
@@ -80,7 +80,7 @@ describe("Notifications-Android > ", () => {
       libUnderTest.NotificationsAndroid.setNotificationOpenedListener(userListenerStub);
 
       expect(deviceEventEmitterListenerStub).to.have.been.calledOnce;
-      expect(deviceEventEmitterListenerStub).to.have.been.calledWith("notificationOpened", sinon.match.func);
+      expect(deviceEventEmitterListenerStub).to.have.been.calledWith(libUnderTest.EVENT_OPENED, sinon.match.func);
     });
 
     it("should assign a wrapper-callback upon registration", () => {
@@ -126,7 +126,7 @@ describe("Notifications-Android > ", () => {
       libUnderTest.NotificationsAndroid.setNotificationReceivedListener(userListenerStub);
 
       expect(deviceEventEmitterListenerStub).to.have.been.calledOnce;
-      expect(deviceEventEmitterListenerStub).to.have.been.calledWith("notificationReceived", sinon.match.func);
+      expect(deviceEventEmitterListenerStub).to.have.been.calledWith(libUnderTest.EVENT_RECEIVED, sinon.match.func);
     });
 
     it("should assign a wrapper-callback upon registration", () => {
