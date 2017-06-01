@@ -1,4 +1,4 @@
-package com.wix.reactnativenotifications.core.notification;
+package com.wix.reactnativenotifications.core.notifications;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -25,6 +25,8 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowNotification;
 
+import static com.wix.reactnativenotifications.Defs.NOTIFICATION_OPENED_EVENT_NAME;
+import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_EVENT_NAME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -37,10 +39,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-public class PushNotificationTest {
-
-    private static final String NOTIFICATION_OPENED_EVENT_NAME = "notificationOpened";
-    private static final String NOTIFICATION_RECEIVED_EVENT_NAME = "notificationReceived";
+public class LocalNotificationTest {
 
     private static final String DEFAULT_NOTIFICATION_TITLE = "Notification-title";
     private static final String DEFAULT_NOTIFICATION_BODY = "Notification-body";
@@ -76,7 +75,7 @@ public class PushNotificationTest {
     public void onOpened_noReactContext_launchApp() throws Exception {
         when(mAppLifecycleFacade.isReactInitialized()).thenReturn(false);
 
-        final PushNotification uut = createUUT();
+        final LocalNotification uut = createUUT();
         uut.onOpened();
 
         verify(mContext).startActivity(eq(mLaunchIntent));
@@ -93,17 +92,17 @@ public class PushNotificationTest {
         Activity currentActivity = mock(Activity.class);
         when(mReactContext.getCurrentActivity()).thenReturn(currentActivity);
 
-        final PushNotification uut = createUUT();
+        final LocalNotification uut = createUUT();
         uut.onOpened();
 
-        verify(InitialNotificationHolder.getInstance()).set(any(PushNotificationProps.class));
+        verify(InitialNotificationHolder.getInstance()).set(any(NotificationProps.class));
     }
 
     @Test
     public void onOpened_appInvisible_resumeAppWaitForVisibility() throws Exception {
         setUpBackgroundApp();
 
-        final PushNotification uut = createUUT();
+        final LocalNotification uut = createUUT();
         uut.onOpened();
 
         verify(mContext).startActivity(any(Intent.class));
@@ -116,10 +115,10 @@ public class PushNotificationTest {
         Activity currentActivity = mock(Activity.class);
         when(mReactContext.getCurrentActivity()).thenReturn(currentActivity);
 
-        final PushNotification uut = createUUT();
+        final LocalNotification uut = createUUT();
         uut.onOpened();
 
-        verify(InitialNotificationHolder.getInstance(), never()).set(any(PushNotificationProps.class));
+        verify(InitialNotificationHolder.getInstance(), never()).set(any(NotificationProps.class));
     }
 
     @Test
@@ -131,7 +130,7 @@ public class PushNotificationTest {
 
         // Act
 
-        final PushNotification uut = createUUT();
+        final LocalNotification uut = createUUT();
         uut.onOpened();
 
         // Hijack and invoke visibility listener
@@ -142,18 +141,18 @@ public class PushNotificationTest {
 
         // Assert
 
-        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_OPENED_EVENT_NAME), eq(mDefaultBundle), eq(mReactContext));
+        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_OPENED_EVENT_NAME), eq(mDefaultBundle));
     }
 
     @Test
     public void onOpened_appVisible_notifyJS() throws Exception {
         setUpForegroundApp();
 
-        final PushNotification uut = createUUT();
+        final LocalNotification uut = createUUT();
         uut.onOpened();
 
         verify(mContext, never()).startActivity(any(Intent.class));
-        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_OPENED_EVENT_NAME), eq(mDefaultBundle), eq(mReactContext));
+        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_OPENED_EVENT_NAME), eq(mDefaultBundle));
     }
 
     @Test
@@ -161,7 +160,7 @@ public class PushNotificationTest {
         verify(mNotificationManager, never()).cancelAll();
         setUpForegroundApp();
 
-        final PushNotification uut = createUUT();
+        final LocalNotification uut = createUUT();
         uut.onOpened();
 
         verify(mNotificationManager).cancelAll();
@@ -173,10 +172,10 @@ public class PushNotificationTest {
         Activity currentActivity = mock(Activity.class);
         when(mReactContext.getCurrentActivity()).thenReturn(currentActivity);
 
-        final PushNotification uut = createUUT();
+        final LocalNotification uut = createUUT();
         uut.onOpened();
 
-        verify(InitialNotificationHolder.getInstance(), never()).set(any(PushNotificationProps.class));
+        verify(InitialNotificationHolder.getInstance(), never()).set(any(NotificationProps.class));
     }
 
     @Test
@@ -184,62 +183,10 @@ public class PushNotificationTest {
         setUpBackgroundApp();
         when(mReactContext.getCurrentActivity()).thenReturn(null); // Just for clarity
 
-        final PushNotification uut = createUUT();
+        final LocalNotification uut = createUUT();
         uut.onOpened();
 
-        verify(InitialNotificationHolder.getInstance()).set(any(PushNotificationProps.class));
-    }
-
-    @Test
-    public void onReceived_validData_postNotificationAndNotifyJS() throws Exception {
-        // Arrange
-
-        setUpForegroundApp();
-
-        // Act
-
-        final PushNotification uut = createUUT();
-        uut.onReceived();
-
-        // Assert
-
-        ArgumentCaptor<Notification> notificationCaptor = ArgumentCaptor.forClass(Notification.class);
-        verify(mNotificationManager).notify(anyInt(), notificationCaptor.capture());
-        verifyNotification(notificationCaptor.getValue());
-
-        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), eq(mDefaultBundle), eq(mReactContext));
-    }
-
-    @Test
-    public void onReceived_validDataForBackgroundApp_postNotificationAndNotifyJs() throws Exception {
-        // Arrange
-
-        setUpForegroundApp();
-
-        // Act
-
-        final PushNotification uut = createUUT();
-        uut.onReceived();
-
-        // Assert
-
-        ArgumentCaptor<Notification> notificationCaptor = ArgumentCaptor.forClass(Notification.class);
-        verify(mNotificationManager).notify(anyInt(), notificationCaptor.capture());
-        verifyNotification(notificationCaptor.getValue());
-
-        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), eq(mDefaultBundle), eq(mReactContext));
-    }
-
-    @Test
-    public void onReceived_validDataForDeadApp_postNotificationDontNotifyJS() throws Exception {
-        final PushNotification uut = createUUT();
-        uut.onReceived();
-
-        ArgumentCaptor<Notification> notificationCaptor = ArgumentCaptor.forClass(Notification.class);
-        verify(mNotificationManager).notify(anyInt(), notificationCaptor.capture());
-        verifyNotification(notificationCaptor.getValue());
-
-        verify(mJsIOHelper, never()).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), any(Bundle.class), any(ReactContext.class));
+        verify(InitialNotificationHolder.getInstance()).set(any(NotificationProps.class));
     }
 
     @Test
@@ -251,8 +198,8 @@ public class PushNotificationTest {
 
         // Act
 
-        final PushNotification uut = createUUT();
-        uut.onPostRequest(null);
+        final LocalNotification uut = createUUT();
+        uut.post(null);
 
         // Assert
 
@@ -261,13 +208,13 @@ public class PushNotificationTest {
         verifyNotification(notificationCaptor.getValue());
 
         // Shouldn't notify an event on an explicit call to notification posting
-        verify(mJsIOHelper, never()).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), any(Bundle.class), any(ReactContext.class));
+        verify(mJsIOHelper, never()).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), any(Bundle.class));
     }
 
     @Test
     public void onPostRequest_withValidDataButNoId_idsShouldBeUnique() throws Exception {
-        createUUT().onPostRequest(null);
-        createUUT().onPostRequest(null);
+        createUUT().post(null);
+        createUUT().post(null);
 
         ArgumentCaptor<Integer> idsCaptor = ArgumentCaptor.forClass(Integer.class);
         verify(mNotificationManager, times(2)).notify(idsCaptor.capture(), any(Notification.class));
@@ -278,26 +225,27 @@ public class PushNotificationTest {
     public void onPostRequest_withValidDataAndExplicitId_postNotification() throws Exception {
         final int id = 666;
 
-        final PushNotification uut = createUUT();
-        uut.onPostRequest(id);
+        final LocalNotification uut = createUUT();
+        uut.post(id);
 
         verify(mNotificationManager).notify(eq(id), any(Notification.class));
     }
 
     @Test
     public void onPostRequest_emptyData_postNotification() throws Exception {
-        PushNotification uut = createUUT(new Bundle());
-        uut.onPostRequest(null);
+        LocalNotification uut = createUUT(new Bundle());
+        uut.post(null);
 
         verify(mNotificationManager).notify(anyInt(), any(Notification.class));
     }
 
-    protected PushNotification createUUT() {
+    protected LocalNotification createUUT() {
         return createUUT(mDefaultBundle);
     }
 
-    protected PushNotification createUUT(Bundle bundle) {
-        return new PushNotification(mContext, bundle, mAppLifecycleFacade, mAppLaunchHelper, mJsIOHelper);
+    protected LocalNotification createUUT(Bundle bundle) {
+        final NotificationProps localNotificationProps = new NotificationProps(mContext, bundle);
+        return new LocalNotification(mContext, localNotificationProps, mAppLifecycleFacade, mAppLaunchHelper, mJsIOHelper);
     }
 
     protected void setUpBackgroundApp() {

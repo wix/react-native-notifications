@@ -45,14 +45,23 @@ export class NotificationsAndroid {
     RNNotifications.refreshToken();
   }
 
-  static localNotification(notification: Object) {
-    const id = Math.random() * 100000000 | 0; // Bitwise-OR forces value onto a 32bit limit
-    RNNotifications.postLocalNotification(notification, id);
+  static localNotification(notification, id) {
+    const notificationProperties = notification instanceof NotificationAndroid ? notification.properties : notification;
+
+    if (!id && id !== 0) {
+      id = notificationProperties.tag ? 0 : Math.random() * 100000000 | 0; // Bitwise-OR forces value onto a 32bit limit
+    }
+
+    RNNotifications.postLocalNotification(notificationProperties, id);
     return id;
   }
 
-  static cancelLocalNotification(id) {
-    RNNotifications.cancelLocalNotification(id);
+  static cancelLocalNotification(id, tag) {
+    RNNotifications.cancelLocalNotification(id, tag);
+  }
+
+  static cancelAllLocalNotifications() {
+    RNNotifications.cancelAllLocalNotifications();
   }
 }
 

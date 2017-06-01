@@ -2,13 +2,13 @@ package com.wix.reactnativenotifications.core;
 
 import android.support.annotation.Nullable;
 
-import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
+import com.wix.reactnativenotifications.core.notifications.NotificationProps;
 
 public class InitialNotificationHolder {
 
     private static InitialNotificationHolder sInstance;
 
-    private PushNotificationProps mNotification;
+    private NotificationProps mNotification;
 
     public static void setInstance(InitialNotificationHolder instance) {
         sInstance = instance;
@@ -24,8 +24,8 @@ public class InitialNotificationHolder {
         return sInstance;
     }
 
-    public void set(PushNotificationProps pushNotificationProps) {
-        mNotification = pushNotificationProps;
+    public void set(NotificationProps notificationProps) {
+        mNotification = notificationProps;
     }
 
     public void clear() {
@@ -33,7 +33,7 @@ public class InitialNotificationHolder {
     }
 
     @Nullable
-    public PushNotificationProps get() {
+    public NotificationProps get() {
         return mNotification;
     }
 }

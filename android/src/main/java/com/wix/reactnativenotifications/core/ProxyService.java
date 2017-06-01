@@ -5,8 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.wix.reactnativenotifications.core.notification.IPushNotification;
-import com.wix.reactnativenotifications.core.notification.PushNotification;
+import com.wix.reactnativenotifications.core.notifications.ILocalNotification;
+import com.wix.reactnativenotifications.core.notifications.LocalNotification;
+import com.wix.reactnativenotifications.core.notifications.NotificationProps;
 
 public class ProxyService extends IntentService {
 
@@ -19,10 +20,12 @@ public class ProxyService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.d(TAG, "New intent: "+intent);
-        final Bundle notificationData = NotificationIntentAdapter.extractPendingNotificationDataFromIntent(intent);
-        final IPushNotification pushNotification = PushNotification.get(this, notificationData);
-        if (pushNotification != null) {
-            pushNotification.onOpened();
+        final Bundle notificationBundle = NotificationIntentAdapter.extractPendingNotificationDataFromIntent(intent);
+
+        if (notificationBundle != null) {
+            final NotificationProps notificationProps = NotificationProps.fromBundle(this, notificationBundle);
+            final ILocalNotification localNotification = LocalNotification.get(this, notificationProps);
+            localNotification.onOpened();
         }
     }
 }

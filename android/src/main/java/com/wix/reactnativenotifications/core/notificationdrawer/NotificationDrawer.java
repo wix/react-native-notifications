@@ -3,29 +3,32 @@ package com.wix.reactnativenotifications.core.notificationdrawer;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.Nullable;
 
 import com.wix.reactnativenotifications.core.AppLaunchHelper;
 import com.wix.reactnativenotifications.core.InitialNotificationHolder;
+import com.wix.reactnativenotifications.core.notifications.NotificationProps;
 
-public class PushNotificationsDrawer implements IPushNotificationsDrawer {
+public class NotificationDrawer implements INotificationDrawer {
 
-    final protected Context mContext;
-    final protected AppLaunchHelper mAppLaunchHelper;
+    protected final Context mContext;
+    protected final AppLaunchHelper mAppLaunchHelper;
 
-    public static IPushNotificationsDrawer get(Context context) {
-        return PushNotificationsDrawer.get(context, new AppLaunchHelper());
+    public static INotificationDrawer get(Context context) {
+        return NotificationDrawer.get(context, new AppLaunchHelper());
     }
 
-    public static IPushNotificationsDrawer get(Context context, AppLaunchHelper appLaunchHelper) {
+    public static INotificationDrawer get(Context context, AppLaunchHelper appLaunchHelper) {
         final Context appContext = context.getApplicationContext();
-        if (appContext instanceof INotificationsDrawerApplication) {
-            return ((INotificationsDrawerApplication) appContext).getPushNotificationsDrawer(context, appLaunchHelper);
+        if (appContext instanceof INotificationDrawerApplication) {
+            return ((INotificationDrawerApplication) appContext).getNotificationsDrawer(context, appLaunchHelper);
         }
 
-        return new PushNotificationsDrawer(context, appLaunchHelper);
+        return new NotificationDrawer(context, appLaunchHelper);
     }
 
-    protected PushNotificationsDrawer(Context context, AppLaunchHelper appLaunchHelper) {
+    protected NotificationDrawer(Context context, AppLaunchHelper appLaunchHelper) {
         mContext = context;
         mAppLaunchHelper = appLaunchHelper;
     }
@@ -55,9 +58,14 @@ public class PushNotificationsDrawer implements IPushNotificationsDrawer {
     }
 
     @Override
-    public void onNotificationClearRequest(int id) {
+    public void onCancelLocalNotification(@Nullable String tag, int id) {
         final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(id);
+        notificationManager.cancel(tag, id);
+    }
+
+    @Override
+    public void onCancelAllLocalNotifications() {
+        clearAll();
     }
 
     protected void clearAll() {

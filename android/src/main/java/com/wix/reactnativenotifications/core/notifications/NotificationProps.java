@@ -1,0 +1,146 @@
+package com.wix.reactnativenotifications.core.notifications;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
+import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.Map;
+
+public class NotificationProps {
+
+    // Local & remote (Firebase) support
+
+    private static final String TITLE = "title";
+    private static final String BODY = "body";
+    private static final String ICON = "icon";
+    private static final String SOUND = "sound";
+    private static final String TAG = "tag";
+    private static final String COLOR = "color";
+
+    private static final String DATA = "data";
+
+    // Local-only support
+
+    public static NotificationProps fromRemoteMessage(Context context, RemoteMessage remoteMessage) {
+        final Bundle properties = new Bundle();
+        final RemoteMessage.Notification notification = remoteMessage.getNotification();
+
+        if (notification != null) {
+            properties.putString(TITLE, notification.getTitle());
+            properties.putString(BODY, notification.getBody());
+            properties.putString(ICON, notification.getIcon());
+            properties.putString(SOUND, notification.getSound());
+            properties.putString(TAG, notification.getTag());
+            properties.putString(COLOR, notification.getColor());
+        }
+
+        final Map<String, String> data = remoteMessage.getData();
+
+        if (data != null) {
+            final Bundle dataBundle = new Bundle();
+
+            for (final Map.Entry<String, String> entry : data.entrySet()) {
+                dataBundle.putString(entry.getKey(), entry.getValue());
+            }
+
+            properties.putBundle(DATA, dataBundle);
+        }
+
+        return new NotificationProps(context, properties);
+    }
+
+    public static NotificationProps fromBundle(Context context, Bundle bundle) {
+        return new NotificationProps(context, new Bundle(bundle));
+    }
+
+    private Context mContext;
+    private Bundle mProperties;
+
+    protected NotificationProps(Context context, Bundle properties) {
+        mContext = context;
+        mProperties = properties;
+    }
+
+    @Nullable
+    public String getTitle() {
+        return mProperties.getString(TITLE);
+    }
+
+    @Nullable
+    public String getBody() {
+        return mProperties.getString(BODY);
+    }
+
+    @Nullable
+    public Integer getIcon() {
+        return drawableIdFromString(mProperties.getString(ICON));
+    }
+
+    @Nullable
+    public Uri getSound() {
+        return rawResourceUriFromString(mProperties.getString(SOUND));
+    }
+
+    @Nullable
+    public String getTag() {
+        return mProperties.getString(TAG);
+    }
+
+    @Nullable
+    public Integer getColor() {
+        return colorFromString(mProperties.getString(COLOR));
+    }
+
+    @Nullable
+    public Bundle getData() {
+        return mProperties.getBundle(DATA);
+    }
+
+    public Bundle asBundle() {
+        return new Bundle(mProperties);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(1024);
+        for (String key : mProperties.keySet()) {
+            sb.append(key).append("=").append(mProperties.get(key)).append(", ");
+        }
+        return sb.toString();
+    }
+
+    @Nullable
+    private Integer colorFromString(String string) {
+        if (string != null) {
+            try {
+                return Color.parseColor(string);
+            } catch (IllegalArgumentException e) {
+                // Move on
+            }
+        }
+
+        return null;
+    }
+
+    @Nullable
+    private Integer drawableIdFromString(String string) {
+        if (string != null) {
+            int id = mContext.getResources().getIdentifier(string, "drawable", mContext.getPackageName());
+
+            if (id != 0) {
+                return id;
+            }
+        }
+
+        return null;
+    }
+
+    @Nullable
+    private Uri rawResourceUriFromString(String string) {
+        return string != null ? Uri.parse("android.resource://" + mContext.getPackageName() + "/raw/" + string) : null;
+    }
+}

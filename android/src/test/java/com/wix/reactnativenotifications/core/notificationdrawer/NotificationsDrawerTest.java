@@ -18,13 +18,14 @@ import org.robolectric.RobolectricTestRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-public class PushNotificationsDrawerTest {
+public class NotificationsDrawerTest {
 
     @Mock private ReactContext mReactContext;
     @Mock private Context mContext;
@@ -53,8 +54,8 @@ public class PushNotificationsDrawerTest {
 
     @Test
     public void onNotificationClearRequest_clearSpecificNotification() throws Exception {
-        createUUT().onNotificationClearRequest(666);
-        verify(mNotificationManager).cancel(eq(666));
+        createUUT().onCancelLocalNotification(null, 666);
+        verify(mNotificationManager).cancel((String) isNull(), eq(666));
         verify(mNotificationManager, never()).cancelAll();
     }
 
@@ -99,7 +100,7 @@ public class PushNotificationsDrawerTest {
         verify(InitialNotificationHolder.getInstance(), never()).clear();
     }
 
-    protected PushNotificationsDrawer createUUT() {
-        return new PushNotificationsDrawer(mContext, mAppLaunchHelper);
+    protected NotificationDrawer createUUT() {
+        return new NotificationDrawer(mContext, mAppLaunchHelper);
     }
 }

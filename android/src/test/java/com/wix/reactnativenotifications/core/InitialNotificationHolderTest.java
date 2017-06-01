@@ -1,6 +1,6 @@
 package com.wix.reactnativenotifications.core;
 
-import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
+import com.wix.reactnativenotifications.core.notifications.NotificationProps;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,7 @@ public class InitialNotificationHolderTest {
 
     @Test
     public void setsInitialNotification() throws Exception {
-        PushNotificationProps props = mock(PushNotificationProps.class);
+        NotificationProps props = mock(NotificationProps.class);
         final InitialNotificationHolder uut = createUUT();
         uut.set(props);
         assertEquals(props, uut.get());
@@ -28,7 +28,7 @@ public class InitialNotificationHolderTest {
 
     @Test
     public void clearsInitialNotification() throws Exception {
-        PushNotificationProps props = mock(PushNotificationProps.class);
+        NotificationProps props = mock(NotificationProps.class);
         final InitialNotificationHolder uut = createUUT();
         uut.set(props);
         uut.clear();
@@ -37,8 +37,8 @@ public class InitialNotificationHolderTest {
 
     @Test
     public void replacesInitialNotification() throws Exception {
-        PushNotificationProps props1 = mock(PushNotificationProps.class);
-        PushNotificationProps props2 = mock(PushNotificationProps.class);
+        NotificationProps props1 = mock(NotificationProps.class);
+        NotificationProps props2 = mock(NotificationProps.class);
         final InitialNotificationHolder uut = createUUT();
         uut.set(props1);
         uut.set(props2);

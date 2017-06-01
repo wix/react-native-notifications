@@ -5,13 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
+import com.wix.reactnativenotifications.core.notifications.NotificationProps;
 
 public class NotificationIntentAdapter {
     private static final int PENDING_INTENT_CODE = 0;
     private static final String PUSH_NOTIFICATION_EXTRA_NAME = "pushNotification";
 
-    public static PendingIntent createPendingNotificationIntent(Context appContext, Intent intent, PushNotificationProps notification) {
+    public static PendingIntent createPendingNotificationIntent(Context appContext, Intent intent, NotificationProps notification) {
         intent.putExtra(PUSH_NOTIFICATION_EXTRA_NAME, notification.asBundle());
         return PendingIntent.getService(appContext, PENDING_INTENT_CODE, intent, PendingIntent.FLAG_ONE_SHOT);
     }
