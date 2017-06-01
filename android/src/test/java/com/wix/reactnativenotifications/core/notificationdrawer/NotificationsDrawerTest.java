@@ -41,18 +41,6 @@ public class NotificationsDrawerTest {
     }
 
     @Test
-    public void onAppInit_clearAllNotifications() throws Exception {
-        createUUT().onAppInit();
-        verify(mNotificationManager).cancelAll();
-    }
-
-    @Test
-    public void onAppVisible_clearAllNotifications() throws Exception {
-        createUUT().onAppVisible();
-        verify(mNotificationManager).cancelAll();
-    }
-
-    @Test
     public void onNotificationClearRequest_clearSpecificNotification() throws Exception {
         createUUT().onCancelLocalNotification(null, 666);
         verify(mNotificationManager).cancel((String) isNull(), eq(666));

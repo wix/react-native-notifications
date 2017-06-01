@@ -79,7 +79,6 @@ public class LocalNotification implements ILocalNotification {
     @Override
     public void onOpened() {
         digestNotification();
-        clearAllNotifications();
     }
 
     protected void digestNotification() {
@@ -149,11 +148,6 @@ public class LocalNotification implements ILocalNotification {
     protected void postNotification(int id, Notification notification) {
         final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(mNotificationProps.getTag(), id, notification);
-    }
-
-    protected void clearAllNotifications() {
-        final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancelAll();
     }
 
     protected int createNotificationId() {

@@ -35,12 +35,10 @@ public class NotificationDrawer implements INotificationDrawer {
 
     @Override
     public void onAppInit() {
-        clearAll();
     }
 
     @Override
     public void onAppVisible() {
-        clearAll();
     }
 
     @Override
@@ -62,7 +60,6 @@ public class NotificationDrawer implements INotificationDrawer {
 
     @Override
     public void onNotificationOpened() {
-        clearAll();
     }
 
     @Override
@@ -73,10 +70,6 @@ public class NotificationDrawer implements INotificationDrawer {
 
     @Override
     public void onCancelAllLocalNotifications() {
-        clearAll();
-    }
-
-    protected void clearAll() {
         final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
     }
