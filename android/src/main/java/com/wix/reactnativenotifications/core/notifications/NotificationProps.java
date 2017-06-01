@@ -1,6 +1,7 @@
 package com.wix.reactnativenotifications.core.notifications;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -55,6 +56,26 @@ public class NotificationProps {
 
     public static NotificationProps fromBundle(Context context, Bundle bundle) {
         return new NotificationProps(context, new Bundle(bundle));
+    }
+
+    public static NotificationProps fromBackgroundPushNotificationIntent(Context context, Intent intent) {
+        // The types of values in the extras are not guaranteed. Rather than mess around inspecting
+        // Object types, we'll just copy extras twice and remove via whitelists/blacklists.
+
+        final Bundle properties = new Bundle(intent.getExtras());
+        final Bundle data = new Bundle(intent.getExtras());
+
+        for (final String key : intent.getExtras().keySet()) {
+            if (key.equals(IntentExtras.FCM_COLLAPSE_KEY) || key.equals(IntentExtras.FCM_FROM) || key.startsWith(IntentExtras.FCM_PREFIX)) {
+                data.remove(key);
+            } else {
+                properties.remove(key);
+            }
+        }
+
+        properties.putBundle(DATA, data);
+
+        return new NotificationProps(context, properties);
     }
 
     private Context mContext;

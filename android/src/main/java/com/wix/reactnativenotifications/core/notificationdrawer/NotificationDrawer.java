@@ -45,10 +45,18 @@ public class NotificationDrawer implements INotificationDrawer {
 
     @Override
     public void onNewActivity(Activity activity) {
-        boolean launchIntentsActivity = mAppLaunchHelper.isLaunchIntentsActivity(activity);
-        boolean launchIntentOfNotification = mAppLaunchHelper.isLaunchIntentOfNotification(activity.getIntent());
-        if (launchIntentsActivity && !launchIntentOfNotification) {
-            InitialNotificationHolder.getInstance().clear();
+        if (mAppLaunchHelper.isLaunchIntentsActivity(activity)) {
+            final Intent intent = activity.getIntent();
+
+            if (!mAppLaunchHelper.isLaunchIntentOfNotification(intent)) {
+                final InitialNotificationHolder initialNotificationHolder = InitialNotificationHolder.getInstance();
+                initialNotificationHolder.clear();
+
+                if (mAppLaunchHelper.isLaunchIntentOfBackgroundPushNotification(intent)) {
+                    final NotificationProps notificationProps = NotificationProps.fromBackgroundPushNotificationIntent(activity, intent);
+                    initialNotificationHolder.set(notificationProps);
+                }
+            }
         }
     }
 
