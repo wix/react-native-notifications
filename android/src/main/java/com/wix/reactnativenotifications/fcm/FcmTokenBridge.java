@@ -31,6 +31,16 @@ public class FcmTokenBridge {
         }
     }
 
+    public void invalidateToken() {
+        try {
+            Log.i(LOGTAG, "Manually deleting firebase token: FirebaseInstanceId=" + mFirebaseInstanceId.getId() + ", token=" + mFirebaseInstanceId.getToken());
+            mFirebaseInstanceId.deleteInstanceId();
+            sendReceivedEvent();
+        } catch (Exception e) {
+            Log.e(LOGTAG, "Failed to invalidate FCM token", e);
+        }
+    }
+
     private void sendReceivedEvent() {
         final String token = mFirebaseInstanceId.getToken();
         Log.i(LOGTAG, "Firebase has a new token: FirebaseInstanceId=" + mFirebaseInstanceId.getId() + ", token=" + token);

@@ -51,6 +51,19 @@ public class FcmTokenBridgeTest {
         verify(mJsIOHelper).sendEventToJS(eq(TOKEN_RECEIVED_EVENT_NAME), eq(mDefaultBundle));
     }
 
+    @Test
+    public void invalidateToken_deleteInstanceIdAndNotifyJs() throws Exception {
+        // Act
+
+        final FcmTokenBridge uut = createUUT();
+        uut.invalidateToken();
+
+        // Assert
+
+        verify(mFirebaseInstanceId).deleteInstanceId();
+        verify(mJsIOHelper).sendEventToJS(eq(TOKEN_RECEIVED_EVENT_NAME), eq(mDefaultBundle));
+    }
+
     protected FcmTokenBridge createUUT() {
         return new FcmTokenBridge(mFirebaseInstanceId, mJsIOHelper);
     }

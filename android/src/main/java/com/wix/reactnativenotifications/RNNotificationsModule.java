@@ -58,6 +58,12 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     }
 
     @ReactMethod
+    public void invalidateToken() {
+        Log.d(LOGTAG, "Native method invocation: invalidateToken()");
+        startTokenService(FcmTokenService.ACTION_INVALIDATE_TOKEN);
+    }
+
+    @ReactMethod
     public void getInitialNotification(final Promise promise) {
         Log.d(LOGTAG, "Native method invocation: getInitialNotification");
         Object result = null;
