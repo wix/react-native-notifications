@@ -50,6 +50,10 @@ export class NotificationsAndroid {
     RNNotifications.refreshToken();
   }
 
+  static invalidateToken() {
+    RNNotifications.invalidateToken();
+  }
+
   static localNotification(notification, id) {
     const notificationProperties = notification instanceof NotificationAndroid ? notification.properties : notification;
 
