@@ -35,7 +35,7 @@ $ npm install react-native-notifications --save
 
 ### iOS
 
-First, [Manually link](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking) the library to your Xcode project.
+First, [Manually link](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking) the library to your Xcode project. Be sure to complete Step 3 which adds RNNotifications to your Header Search Paths.
 
 Then, to enable notifications support add the following line at the top of your `AppDelegate.m`
 
@@ -154,8 +154,9 @@ import NotificationsIOS from 'react-native-notifications';
 
 class App extends Component {
 	constructor() {
+		super()
 		NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
-		NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFaled.bind(this));
+		NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFailed.bind(this));
 		NotificationsIOS.requestPermissions();
 	}
 	
