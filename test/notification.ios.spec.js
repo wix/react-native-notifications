@@ -3,7 +3,6 @@ import { expect } from "chai";
 import IOSNotification from "../notification.ios";
 
 describe("iOS Notification Object", () => {
-  let notification;
   let someBadgeCount = 123, someSound = "someSound", someCategory = "some_notification_category";
 
   describe("for a regular iOS push notification", () => {
@@ -37,10 +36,20 @@ describe("iOS Notification Object", () => {
         },
         key1: "value1",
         key2: "value2"
+      },
+
+      // another example, with badge only
+      {
+        aps: {
+          badge: someBadgeCount
+        }
       }
     ];
 
     regularNativeNotifications.forEach(nativeNotification => {
+      let notification;
+      let {aps, ...data} = nativeNotification;
+
       beforeEach(() => {
         notification = new IOSNotification(nativeNotification);
       });
@@ -50,28 +59,29 @@ describe("iOS Notification Object", () => {
       });
 
       it("should return the alert object", () => {
-        expect(notification.getMessage()).to.deep.equal(nativeNotification.aps.alert);
+        expect(notification.getMessage()).to.deep.equal(aps.alert);
       });
 
       it("should return the sound", () => {
-        expect(notification.getSound()).to.equal(someSound);
+        expect(notification.getSound()).to.equal(aps.sound);
       });
 
       it("should return the badge count", () => {
-        expect(notification.getBadgeCount()).to.equal(someBadgeCount);
+        expect(notification.getBadgeCount()).to.equal(aps.badge);
       });
 
       it("should return the category", () => {
-        expect(notification.getCategory()).to.equal(someCategory);
+        expect(notification.getCategory()).to.equal(aps.category);
       });
 
       it("should return the custom data", () => {
-        expect(notification.getData()).to.deep.equal({ key1: "value1", key2: "value2" });
+        expect(notification.getData()).to.deep.equal(data);
       });
     });
   });
 
   describe("for a managed iOS push notification (silent notification, with managedAps key and content-available = 1)", () => {
+    let notification;
     let managedNativeNotification = {
       aps: {
         "content-available": 1,

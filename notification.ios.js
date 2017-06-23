@@ -21,9 +21,7 @@ export default class IOSNotification {
       this._badge = notification.aps.badge;
       this._category = notification.managedAps.category;
       this._type = "managed";
-    } else if (
-      notification.aps &&
-      notification.aps.alert) {
+    } else if (notification.aps) {
       // regular notification
       this._alert = notification.aps.alert;
       this._sound = notification.aps.sound;
