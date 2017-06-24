@@ -37,7 +37,7 @@ public class JsIOHelperTest {
         WritableMap data = mock(WritableMap.class);
 
         final JsIOHelper uut = createUUT();
-        boolean result = uut.sendEventToJS("my-event", data, mReactContext);
+        boolean result = uut.sendEventToJS("my-event", data);
 
         assertTrue(result);
         verify(mRCTDeviceEventEmitter).emit("my-event", data);
@@ -48,13 +48,13 @@ public class JsIOHelperTest {
         WritableMap data = mock(WritableMap.class);
 
         final JsIOHelper uut = createUUT();
-        boolean result = uut.sendEventToJS("my-event", data, null);
+        boolean result = uut.sendEventToJS("my-event", data);
 
         assertFalse(result);
         verify(mRCTDeviceEventEmitter, never()).emit(anyString(), any(WritableMap.class));
     }
 
     private JsIOHelper createUUT() {
-        return new JsIOHelper();
+        return new JsIOHelper(mReactContext);
     }
 }
