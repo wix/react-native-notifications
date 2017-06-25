@@ -19,8 +19,7 @@ import com.wix.reactnativenotifications.core.AppLifecycleFacadeHolder;
 import com.wix.reactnativenotifications.core.BitmapLoader;
 import com.wix.reactnativenotifications.core.InitialNotificationHolder;
 import com.wix.reactnativenotifications.core.JsIOHelper;
-import com.wix.reactnativenotifications.core.NotificationIntentAdapter;
-import com.wix.reactnativenotifications.core.ProxyService;
+import com.wix.reactnativenotifications.core.LocalNotificationService;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_OPENED_EVENT_NAME;
@@ -73,8 +72,8 @@ public class LocalNotification implements ILocalNotification {
 
     @Override
     public int post(Integer notificationId) {
-        final PendingIntent pendingIntent = getCTAPendingIntent();
         final int id = notificationId != null ? notificationId : createNotificationId();
+        final PendingIntent pendingIntent = createOnOpenedIntent(id);
         setLargeIconThenPostNotification(id, getNotificationBuilder(pendingIntent));
         return id;
     }
@@ -123,9 +122,10 @@ public class LocalNotification implements ILocalNotification {
         return mAppVisibilityListener;
     }
 
-    protected PendingIntent getCTAPendingIntent() {
-        final Intent cta = new Intent(mContext, ProxyService.class);
-        return NotificationIntentAdapter.createPendingNotificationIntent(mContext, cta, mNotificationProps);
+    protected PendingIntent createOnOpenedIntent(int id) {
+        final Intent serviceIntent = new Intent(mContext, LocalNotificationService.class);
+        serviceIntent.putExtra(LocalNotificationService.EXTRA_NOTIFICATION, mNotificationProps.asBundle());
+        return PendingIntent.getService(mContext, id, serviceIntent, PendingIntent.FLAG_ONE_SHOT);
     }
 
     protected Notification.Builder getNotificationBuilder(PendingIntent intent) {

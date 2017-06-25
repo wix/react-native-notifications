@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
-import java.util.Objects;
 
 public class NotificationProps {
 
