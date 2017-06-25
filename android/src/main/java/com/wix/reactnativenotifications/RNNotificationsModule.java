@@ -17,6 +17,7 @@ import com.facebook.react.bridge.ReadableMap;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade;
 import com.wix.reactnativenotifications.core.AppLifecycleFacadeHolder;
 import com.wix.reactnativenotifications.core.InitialNotificationHolder;
+import com.wix.reactnativenotifications.core.JsIOHelper;
 import com.wix.reactnativenotifications.core.ReactAppLifecycleFacade;
 import com.wix.reactnativenotifications.core.notificationdrawer.INotificationDrawer;
 import com.wix.reactnativenotifications.core.notificationdrawer.NotificationDrawer;
@@ -99,6 +100,12 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     public void cancelAllLocalNotifications() {
         INotificationDrawer notificationDrawer = NotificationDrawer.get(getReactApplicationContext().getApplicationContext());
         notificationDrawer.onCancelAllLocalNotifications();
+    }
+
+    @ReactMethod
+    public void consumeBackgroundQueue() {
+        final JsIOHelper jsIOHelper = new JsIOHelper(getReactApplicationContext().getApplicationContext());
+        jsIOHelper.consumeBackgroundQueue();
     }
 
     @Override

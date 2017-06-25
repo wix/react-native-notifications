@@ -210,8 +210,22 @@ NotificationsAndroid.refreshToken();
 
 ---
 
-
 ## Handling Received Notifications
+
+### Background Queue _Important!_
+
+When a push notification is received or opened and the app is not yet running, the application will automatically be launched. However, the OS notifies the application events before the JS engine is fully initialized. Hence, your listeners/callbacks aren't yet listening for events.
+
+To ensure you don't miss any events, the application will *not* deliver any events (notifications, actions, etc.) until your application explicitly indicates it is ready to receive them. Events will be queued up until the app is ready, you indicate your application is ready to receive events by calling:
+
+ * `NotificationsIOS.consumeBackgroundQueue()`, and/or
+ * `NotificationsAndroid.consumeBackgroundQueue()`
+
+Typically. you will call `consumeBackgroundQueue()` immediately after setting up your event listeners (further details below).
+
+#### Register your listeners outside the Component hierarchy
+
+When your applications is launched in the background in response to a push notification being received, React Native will *not* `render()` your application's view/component hierarchy; in fact, your root component won't even be initialized. To handle events in the background your listeners must therefore be installed as part of the Javascript app start-up (part of, or included from, `index.ios.js`/`index.android.js`), *not* added/removed inside Components.
 
 ### iOS
 
@@ -224,30 +238,29 @@ When you receive a notification, the application can be in one of the following 
 Example:
 
 ```javascript
-constructor() {
-	NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
-    NotificationsIOS.addEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
-    NotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
-}
+NotificationsIOS.addEventListener('notificationReceivedForeground', onNotificationReceivedForeground());
+NotificationsIOS.addEventListener('notificationReceivedBackground', onNotificationReceivedBackground());
+NotificationsIOS.addEventListener('notificationOpened', onNotificationOpened());
 
-onNotificationReceivedForeground(notification) {
+function onNotificationReceivedForeground(notification) {
 	console.log("Notification Received - Foreground", notification);
 }
 
-onNotificationReceivedBackground(notification) {
+function onNotificationReceivedBackground(notification) {
 	console.log("Notification Received - Background", notification);
 }
 
-onNotificationOpened(notification) {
+function onNotificationOpened(notification) {
 	console.log("Notification opened by device user", notification);
 }
+```
 
-componentWillUnmount() {
-	// Don't forget to remove the event listeners to prevent memory leaks!
-	NotificationsIOS.removeEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
-	NotificationsIOS.removeEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
-	NotificationsIOS.removeEventListener('notificationOpened', this.onNotificationOpened.bind(this));
-}
+You can remove listeners as follows:
+
+```
+NotificationsIOS.removeEventListener('notificationReceivedForeground', onNotificationReceivedForeground);
+NotificationsIOS.removeEventListener('notificationReceivedBackground', onNotificationReceivedBackground);
+NotificationsIOS.removeEventListener('notificationOpened', onNotificationOpened);
 ```
 
 #### Notification Object
@@ -260,17 +273,9 @@ When you receive a push notification, you'll get an instance of `IOSNotification
 - **`getData()`**- returns the data payload (additional info) of the notification.
 - **`getType()`**- returns `managed` for managed notifications, otherwise returns `regular`.
 
-#### Background Queue (Important!)
-When a push notification is opened but the app is not running, the application will be in a **cold launch** state, until the JS engine is up and ready to handle the notification.
-The application will collect the events (notifications, actions, etc.) that happend during the cold launch for you.
-
-When your app is ready (most of the time it's after the call to `requestPermissions()`), just call to `NotificationsIOS.consumeBackgroundQueue();` in order to consume the background queue. For more info see `index.ios.js` in the example app.
-
 ### Android
 
 ```javascript
-import {NotificationsAndroid} from 'react-native-notifications';
-
 // On Android, we allow for only one (global) listener per each event type.
 NotificationsAndroid.setNotificationReceivedListener((notification) => {
 	console.log("Notification received on device", notification.getData());
@@ -279,6 +284,22 @@ NotificationsAndroid.setNotificationOpenedListener((notification) => {
 	console.log("Notification opened by device user", notification.getData());
 });
 ```
+
+#### Notification Object
+
+- **`isDataOnly()`**- indicates whether the notification contains only data (`getData()`) and not other notification properties.
+- **`getData()`**- content of the `data` section of the original message (sent to Firebase's servers).
+- **`getTitle()`**- the notification's title.
+- **`getBody()`/`getMessage()`**- the notification's body.
+- **`getIcon()`**- the notification's icon (the name of a Android _drawable_ bundled with your app).
+- **`getSound()`**- the notification's sound (the name of a native Android sound asset bundled with your app).
+- **`getTag()`**- an identifier for this notification. If two notifications are posted (locally or remotely) with the same _tag_ AND `id` (_not_ part of the notification's properties) the latter notification will replace/update the former.
+- **`getColor()`**- a `#rrggbb` formatted color that will be used to tint your app icon and name in the system notification tray/drawer.
+- **`getLargeIcon()`**- a larger icon (typically displayed on the right) of your notification. This can be specified as a **URL** (local or online), or as the name of an Android _drawable_ bundled in your app.
+- **`getLightsColor()`**- a `#rrggbb` formatted color that will set the color of the flashing notification LED on device's that have one. Typically this will only light-up if the device's screen is off when the notification is received.
+- **`getLightsOnMs()`**- how many milliseconds the notification LED should stay lit whilst flashing.
+- **`getLightsOffMs()`**- how many milliseconds the notification LED should stay unlit between flashes.
+---
 
 #### Receiving Notifications in the Background
 
@@ -301,22 +322,7 @@ These automatic background notifications have several limited functionality:
 
 > If you want fine-grained control over your application it's suggested you send "data-only" notifications, and use this data to generate a local notification with `NotificationsAndroid.localNotification()`.
 
-#### Notification Object
-- **`isDataOnly()`**- indicates whether the notification contains only data (`getData()`) and not other notification properties.
-- **`getData()`**- content of the `data` section of the original message (sent to Firebase's servers).
-- **`getTitle()`**- the notification's title.
-- **`getBody()`/`getMessage()`**- the notification's body.
-- **`getIcon()`**- the notification's icon (the name of a Android _drawable_ bundled with your app).
-- **`getSound()`**- the notification's sound (the name of a native Android sound asset bundled with your app).
-- **`getTag()`**- an identifier for this notification. If two notifications are posted (locally or remotely) with the same _tag_ AND `id` (_not_ part of the notification's properties) the latter notification will replace/update the former.
-- **`getColor()`**- a `#rrggbb` formatted color that will be used to tint your app icon and name in the system notification tray/drawer.
-- **`getLargeIcon()`**- a larger icon (typically displayed on the right) of your notification. This can be specified as a **URL** (local or online), or as the name of an Android _drawable_ bundled in your app. 
-- **`getLightsColor()`**- a `#rrggbb` formatted color that will set the color of the flashing notification LED on device's that have one. Typically this will only light-up if the device's screen is off when the notification is received.
-- **`getLightsOnMs()`**- how many milliseconds the notification LED should stay lit whilst flashing.
-- **`getLightsOffMs()`**- how many milliseconds the notification LED should stay unlit between flashes.
----
-
-## Querying initial notification
+## Querying Initial Notification
 
 React-Native's [`PushNotificationsIOS.getInitialNotification()`](https://facebook.github.io/react-native/docs/pushnotificationios.html#getinitialnotification) allows for the async retrieval of the original notification used to open the App on iOS, but it has no equivalent implementation for Android.
 

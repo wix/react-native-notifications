@@ -79,4 +79,8 @@ export class NotificationsAndroid {
         return rawNotification ? new NotificationAndroid(rawNotification) : undefined;
       });
   }
+
+  static consumeBackgroundQueue() {
+    RNNotifications.consumeBackgroundQueue();
+  }
 }
