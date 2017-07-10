@@ -77,7 +77,11 @@ export default class NotificationsIOS {
       } else {
         listener = DeviceEventEmitter.addListener(
           type,
-          notification => handler(new IOSNotification(notification))
+          async (notification) => {
+            const iosNotification = new IOSNotification(notification);
+            await handler(iosNotification);
+            iosNotification.finish();
+          }
         );
       }
 

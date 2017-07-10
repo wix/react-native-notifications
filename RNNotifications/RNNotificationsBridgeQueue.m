@@ -1,3 +1,4 @@
+#import <UIKit/UIKit.h>
 #import "RNNotificationsBridgeQueue.h"
 
 @implementation RNNotificationsBridgeQueue
@@ -5,6 +6,7 @@
 NSMutableArray<NSDictionary *>* actionsQueue;
 NSMutableArray<NSDictionary *>* notificationsQueue;
 NSMutableDictionary* actionCompletionHandlers;
+NSMutableDictionary* fetchCompletionHandlers;
 
 + (nonnull instancetype)sharedInstance {
     static RNNotificationsBridgeQueue* sharedInstance = nil;
@@ -21,6 +23,7 @@ NSMutableDictionary* actionCompletionHandlers;
     actionsQueue = [NSMutableArray new];
     notificationsQueue = [NSMutableArray new];
     actionCompletionHandlers = [NSMutableDictionary new];
+    fetchCompletionHandlers = [NSMutableDictionary new];
     self.jsIsReady = NO;
 
     return self;
@@ -30,6 +33,12 @@ NSMutableDictionary* actionCompletionHandlers;
 {
     if (!notificationsQueue) return;
     [notificationsQueue insertObject:notification atIndex:0];
+}
+
+- (void)postFetchHandler:(NSMutableDictionary *)notification completionKey:(NSString *)completionKey
+    fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler
+{
+    fetchCompletionHandlers[completionKey] = completionHandler;
 }
 
 - (NSDictionary *)dequeueSingleNotification
@@ -89,6 +98,16 @@ NSMutableDictionary* actionCompletionHandlers;
     if (completionHandler) {
         completionHandler();
         [actionCompletionHandlers removeObjectForKey:completionKey];
+    }
+}
+
+- (void)completeFetch:(NSString *)completionKey fetchResult:(UIBackgroundFetchResult)result
+{
+    void (^completionHandler)(UIBackgroundFetchResult) =
+        (void (^)(UIBackgroundFetchResult))[fetchCompletionHandlers valueForKey:completionKey];
+    if (completionHandler) {
+        [fetchCompletionHandlers removeObjectForKey:completionKey];
+        completionHandler(result);
     }
 }
 

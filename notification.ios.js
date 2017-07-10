@@ -1,3 +1,7 @@
+"use strict";
+import { NativeModules } from "react-native";
+const RNNotifications = NativeModules.RNNotifications;
+
 export default class IOSNotification {
   _data: Object;
   _alert: string | Object;
@@ -5,6 +9,7 @@ export default class IOSNotification {
   _badge: number;
   _category: string;
   _type: string; // regular / managed
+  _finishCalled: boolean;
 
   constructor(notification: Object) {
     this._data = {};
@@ -35,6 +40,7 @@ export default class IOSNotification {
     Object.keys(notification).filter(key => key !== "aps").forEach(key => {
       this._data[key] = notification[key];
     });
+    this._finishCalled = false;
   }
 
   getMessage(): ?string | ?Object {
@@ -60,4 +66,21 @@ export default class IOSNotification {
   getType(): ?string {
     return this._type;
   }
+
+  finish(finishResult) {
+    if (!this._finishCalled && this._data._completionHandlerId) {
+      this._finishCalled = true;
+      const result = finishResult || REMOTE_NOTIFICATION_RESULT.NoData;
+      if (!Object.values(REMOTE_NOTIFICATION_RESULT).includes(result)) {
+        throw new Error('Invalid REMOTE_NOTIFICATION_RESULT value');
+      }
+      RNNotifications.finishRemoteNotification(this._data._completionHandlerId, result);
+    }
+  }
 }
+
+export const REMOTE_NOTIFICATION_RESULT = {
+  NewData: 'NewData',
+  NoData: 'NoData',
+  Failed: 'Failed',
+};
