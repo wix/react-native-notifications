@@ -549,4 +549,17 @@ RCT_EXPORT_METHOD(cancelAllLocalNotifications)
     [RCTSharedApplication() cancelAllLocalNotifications];
 }
 
+RCT_EXPORT_METHOD(isRegisteredForRemoteNotifications:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
+{
+    BOOL ans;
+    
+    if (TARGET_IPHONE_SIMULATOR) {
+        ans = [[[UIApplication sharedApplication] currentUserNotificationSettings] types] != 0;
+    }
+    else {
+        ans = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+    }
+    resolve(@(ans));
+}
+
 @end
