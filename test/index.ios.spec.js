@@ -17,18 +17,19 @@ describe("NotificationsIOS", () => {
 
   /*eslint-disable indent*/
   let deviceAddEventListener,
-      deviceRemoveEventListener,
-      nativeAppAddEventListener,
-      nativeAppRemoveEventListener,
-      nativeRequestPermissionsWithCategories,
-      nativeAbandonPermissions,
-      nativeRegisterPushKit,
-      nativeBackgroundTimeRemaining,
-      nativeConsumeBackgroundQueue,
-      nativeLocalNotification,
-      nativeCancelLocalNotification,
-      nativeCancelAllLocalNotifications,
-      nativeSetBadgesCount;
+    deviceRemoveEventListener,
+    nativeAppAddEventListener,
+    nativeAppRemoveEventListener,
+    nativeRequestPermissionsWithCategories,
+    nativeAbandonPermissions,
+    nativeRegisterPushKit,
+    nativeBackgroundTimeRemaining,
+    nativeConsumeBackgroundQueue,
+    nativeLocalNotification,
+    nativeCancelLocalNotification,
+    nativeCancelAllLocalNotifications,
+    nativeSetBadgesCount,
+    nativeIsRegisteredForRemoteNotifications;
 
   let NotificationsIOS, NotificationAction, NotificationCategory;
   let someHandler = () => {};
@@ -49,6 +50,7 @@ describe("NotificationsIOS", () => {
     nativeCancelLocalNotification = sinon.spy();
     nativeCancelAllLocalNotifications = sinon.spy();
     nativeSetBadgesCount = sinon.spy();
+    nativeIsRegisteredForRemoteNotifications = sinon.spy();
 
     let libUnderTest = proxyquire("../index.ios", {
       "uuid": {
@@ -65,7 +67,8 @@ describe("NotificationsIOS", () => {
             localNotification: nativeLocalNotification,
             cancelLocalNotification: nativeCancelLocalNotification,
             cancelAllLocalNotifications: nativeCancelAllLocalNotifications,
-            setBadgesCount: nativeSetBadgesCount
+            setBadgesCount: nativeSetBadgesCount,
+            isRegisteredForRemoteNotifications: nativeIsRegisteredForRemoteNotifications
           }
         },
         NativeAppEventEmitter: {
@@ -104,6 +107,7 @@ describe("NotificationsIOS", () => {
     nativeLocalNotification.reset();
     nativeCancelLocalNotification.reset();
     nativeCancelAllLocalNotifications.reset();
+    nativeIsRegisteredForRemoteNotifications.reset();
   });
 
   after(() => {
@@ -119,6 +123,7 @@ describe("NotificationsIOS", () => {
     nativeLocalNotification = null;
     nativeCancelLocalNotification = null;
     nativeCancelAllLocalNotifications = null;
+    nativeIsRegisteredForRemoteNotifications = null;
 
     NotificationsIOS = null;
     NotificationAction = null;
@@ -293,6 +298,15 @@ describe("NotificationsIOS", () => {
       NotificationsIOS.cancelAllLocalNotifications();
 
       expect(nativeCancelAllLocalNotifications).to.have.been.calledWith();
+    });
+  });
+
+
+  describe("Is registered for remote notifications ", () => {
+    it("should call native is registered for remote notifications", () => {
+      NotificationsIOS.isRegisteredForRemoteNotifications();
+      expect(nativeIsRegisteredForRemoteNotifications).to.have.been.calledWith();
+
     });
   });
 });
