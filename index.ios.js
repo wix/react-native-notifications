@@ -203,4 +203,8 @@ export default class NotificationsIOS {
   static cancelAllLocalNotifications() {
     NativeRNNotifications.cancelAllLocalNotifications();
   }
+
+  static async isRegisteredForRemoteNotifications() {
+    return await NativeRNNotifications.isRegisteredForRemoteNotifications();
+  }
 }
