@@ -72,7 +72,7 @@ export default class IOSNotification {
       this._finishCalled = true;
       const result = finishResult || REMOTE_NOTIFICATION_RESULT.NoData;
       if (!Object.values(REMOTE_NOTIFICATION_RESULT).includes(result)) {
-        throw new Error('Invalid REMOTE_NOTIFICATION_RESULT value');
+        throw new Error("Invalid REMOTE_NOTIFICATION_RESULT value");
       }
       RNNotifications.finishRemoteNotification(this._data._completionHandlerId, result);
     }
@@ -80,7 +80,7 @@ export default class IOSNotification {
 }
 
 export const REMOTE_NOTIFICATION_RESULT = {
-  NewData: 'NewData',
-  NoData: 'NoData',
-  Failed: 'Failed',
+  NewData: "NewData",
+  NoData: "NoData",
+  Failed: "Failed"
 };
