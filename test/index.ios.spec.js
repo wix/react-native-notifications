@@ -83,6 +83,11 @@ describe("NotificationsIOS", () => {
           }
         },
         "@noCallThru": true
+      },
+      "./notification.ios": {
+        IOSNotification: {
+        },
+        "@noCallThru": true
       }
     });
 

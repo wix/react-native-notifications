@@ -1,8 +1,28 @@
 "use strict";
 import { expect } from "chai";
-import IOSNotification from "../notification.ios";
+import proxyquire from "proxyquire";
 
 describe("iOS Notification Object", () => {
+  let IOSNotification;
+
+  before(() => {
+    let libUnderTest = proxyquire("../notification.ios", {
+      "react-native": {
+        NativeModules: {
+          RNNotifications: {
+          }
+        },
+        "@noCallThru": true
+      }
+    });
+
+    IOSNotification = libUnderTest.default;
+  });
+
+  after(() => {
+    IOSNotification = null;
+  });
+
   let notification;
   let someBadgeCount = 123, someSound = "someSound", someCategory = "some_notification_category";
 
