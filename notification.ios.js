@@ -60,4 +60,8 @@ export default class IOSNotification {
   getType(): ?string {
     return this._type;
   }
+
+  getPushType(): ?string {
+    return this._data._pushType;
+  }
 }

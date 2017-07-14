@@ -226,6 +226,13 @@ RCT_EXPORT_MODULE()
     }
 }
 
++ (void)didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type
+{
+    NSMutableDictionary *dictionary = [payload.dictionaryPayload mutableCopy];
+    dictionary[@"_pushType"] = type;
+    [RNNotifications didReceiveRemoteNotification:dictionary];
+}
+
 + (void)handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
 {
     [self emitNotificationActionForIdentifier:identifier responseInfo:responseInfo userInfo:notification.userInfo completionHandler:completionHandler];
