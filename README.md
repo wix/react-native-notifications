@@ -155,7 +155,7 @@ import NotificationsIOS from 'react-native-notifications';
 class App extends Component {
 	constructor() {
 		NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
-		NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFaled.bind(this));
+		NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFailed.bind(this));
 		NotificationsIOS.requestPermissions();
 	}
 	
