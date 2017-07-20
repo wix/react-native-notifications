@@ -31,6 +31,9 @@ const _actionHandlers = new Map();
 let _actionListener;
 
 export class NotificationAction {
+  options: Object;
+  handler: Function;
+
   constructor(options: Object, handler: Function) {
     this.options = options;
     this.handler = handler;
@@ -38,6 +41,8 @@ export class NotificationAction {
 }
 
 export class NotificationCategory {
+  options: Object;
+
   constructor(options: Object) {
     this.options = options;
   }
