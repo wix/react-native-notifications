@@ -68,7 +68,8 @@ describe("NotificationsIOS", () => {
             cancelLocalNotification: nativeCancelLocalNotification,
             cancelAllLocalNotifications: nativeCancelAllLocalNotifications,
             setBadgesCount: nativeSetBadgesCount,
-            isRegisteredForRemoteNotifications: nativeIsRegisteredForRemoteNotifications
+            isRegisteredForRemoteNotifications: nativeIsRegisteredForRemoteNotifications,
+            checkPermissions: nativeCheckPermissions,
           }
         },
         NativeAppEventEmitter: {
@@ -306,6 +307,14 @@ describe("NotificationsIOS", () => {
     it("should call native is registered for remote notifications", () => {
       NotificationsIOS.isRegisteredForRemoteNotifications();
       expect(nativeIsRegisteredForRemoteNotifications).to.have.been.calledWith();
+
+    });
+  });
+
+  describe("Check permissions ", () => {
+    it("should call native check permissions", () => {
+      NotificationsIOS.checkPermissions();
+      expect(nativeCheckPermissions).to.have.been.calledWith();
 
     });
   });
