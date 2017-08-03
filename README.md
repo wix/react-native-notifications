@@ -1,3 +1,6 @@
+# FORKED on 8/3/2018
+There is a bug that makes the master version of React Native Notifications ignore repeating local notifications.  I have [a PR out](https://github.com/wix/react-native-notifications/pull/97) that will hopefully someday make it into release.  In the meantime, we shall use this.
+
 # React Native Notifications [![Build Status](https://travis-ci.org/wix/react-native-notifications.svg)](https://travis-ci.org/wix/react-native-notifications)
 
 Handle all the aspects of push notifications for your app, including remote and local notifications, interactive notifications, silent notifications, and more.
