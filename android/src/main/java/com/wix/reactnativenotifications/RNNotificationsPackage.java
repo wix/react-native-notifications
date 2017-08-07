@@ -26,7 +26,7 @@ public class RNNotificationsPackage implements ReactPackage {
         return Arrays.<NativeModule>asList(new RNNotificationsModule(mApplication, reactContext));
     }
 
-    // RN 0.47 compatibility
+    // Deprecated from RN 0.47
     public List<Class<? extends JavaScriptModule>> createJSModules() {
         return Collections.emptyList();
     }
