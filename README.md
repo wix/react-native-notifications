@@ -326,7 +326,6 @@ Example:
 let localNotification = NotificationsIOS.localNotification({
 	alertBody: "Local notificiation!",
 	alertTitle: "Local Notification Title",
-	alertAction: "Click here to open",
 	soundName: "chime.aiff",
 	category: "SOME_CATEGORY",
 	userInfo: { }
@@ -338,7 +337,7 @@ Notification object contains:
 - **`fireDate`**- The date and time when the system should deliver the notification (optinal - default is immidiate dispatch).
 - `alertBody`- The message displayed in the notification alert.
 - `alertTitle`- The title of the notification, displayed in the notifications center.
-- `alertAction`- The "action" displayed beneath an actionable notification.
+- `alertAction`- The "action" displayed beneath an actionable notification on the lockscreen (e.g. "Slide to **open**"). Note that Apple no longer shows this in iOS 10.
 - `soundName`- The sound played when the notification is fired (optional).
 - `category`- The category of this notification, required for [interactive notifications](#interactive--actionable-notifications-ios-only) (optional).
 - `userInfo`- An optional object containing additional notification data.
@@ -357,8 +356,9 @@ NotificationsAndroid.localNotification({
 
 Upon notification opening (tapping by the device user), all data fields will be delivered as-is).
 
-### Cancel Local Notification
-The `NotificationsIOS.localNotification()` and `NotificationsAndroid.localNotification()` methods return unique `notificationId` values, which can be used in order to cancel specific local notifications. You can cancel local notification by calling `NotificationsIOS.cancelLocalNotification(notificationId)` or `NotificationsAndroid.cancelLocalNotification(notificationId)`.
+### Cancel Scheduled Local Notifications
+
+The `NotificationsIOS.localNotification()` and `NotificationsAndroid.localNotification()` methods return unique `notificationId` values, which can be used in order to cancel specific local notifications that were scheduled for delivery on `fireDate` and have not yet been delivered. You can cancel local notification by calling `NotificationsIOS.cancelLocalNotification(notificationId)` or `NotificationsAndroid.cancelLocalNotification(notificationId)`.
 
 Example (iOS):
 
@@ -366,7 +366,6 @@ Example (iOS):
 let someLocalNotification = NotificationsIOS.localNotification({
 	alertBody: "Local notificiation!",
 	alertTitle: "Local Notification Title",
-	alertAction: "Click here to open",
 	soundName: "chime.aiff",
 	category: "SOME_CATEGORY",
 	userInfo: { }
@@ -375,11 +374,25 @@ let someLocalNotification = NotificationsIOS.localNotification({
 NotificationsIOS.cancelLocalNotification(someLocalNotification);
 ```
 
-### Cancel All Local Notifications (iOS-only!)
+To cancel all local notifications (**iOS only!**), use `cancelAllLocalNotifications()`:
 
 ```javascript
 NotificationsIOS.cancelAllLocalNotifications();
 ```
+
+### Cancel Delivered Local Notifications (iOS 10+ only)
+
+To dismiss notifications from the notification center that have already been shown to the user, call `NotificationsIOS.removeDeliveredNotifications([notificationId])`:
+
+```javascript
+let someLocalNotification = NotificationsIOS.localNotification({...});
+
+NotificationsIOS.removeDeliveredNotifications([someLocalNotification]);
+```
+
+Call `removeAllDeliveredNotifications()` to dismiss all delivered notifications
+(note that this will dismiss push notifications in addition to local
+notifications).
 
 ---
 
@@ -444,13 +457,13 @@ Now the server should push the notification a bit differently- background instea
 
 ### getDeliveredNotifications
 
-`PushNotification.getDeliveredNotifications(callback: (notifications: [Object]) => void)` 
+`PushNotification.getDeliveredNotifications(callback: (notifications: Array<Object>) => void)` 
 
 Provides you with a list of the app’s notifications that are still displayed in Notification Center.
 
 ### removeDeliveredNotifications
 
-`PushNotification.removeDeliveredNotifications(identifiers: [string])` 
+`PushNotification.removeDeliveredNotifications(identifiers: Array<String>)` 
 
 Removes the specified notifications from Notification Center.
 

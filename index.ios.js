@@ -229,7 +229,7 @@ export default class NotificationsIOS {
    *
    * @param identifiers Array of notification identifiers
    */
-  static removeDeliveredNotifications(identifiers: [string]) {
+  static removeDeliveredNotifications(identifiers: Array<String>) {
     return NativeRNNotifications.removeDeliveredNotifications(identifiers);
   }
 
@@ -248,7 +248,7 @@ export default class NotificationsIOS {
    * - `thread-id`  : The thread identifier of this notification, if has one.
    * - `fireDate` : The date and time when the system should deliver the notification. if not specified, the notification will be dispatched immediately.
    */
-  static getDeliveredNotifications(callback: (notifications: [Object]) => void) {
+  static getDeliveredNotifications(callback: (notifications: Array<Object>) => void) {
     return NativeRNNotifications.getDeliveredNotifications(callback);
   }
 }
