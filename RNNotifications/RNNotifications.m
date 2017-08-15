@@ -562,4 +562,14 @@ RCT_EXPORT_METHOD(isRegisteredForRemoteNotifications:(RCTPromiseResolveBlock)res
     resolve(@(ans));
 }
 
+RCT_EXPORT_METHOD(checkPermissions:(RCTPromiseResolveBlock) resolve
+                  reject:(RCTPromiseRejectBlock) reject) {
+    UIUserNotificationSettings *currentSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+    resolve(@{
+              @"badge": @((currentSettings.types & UIUserNotificationTypeBadge) > 0),
+              @"sound": @((currentSettings.types & UIUserNotificationTypeSound) > 0),
+              @"alert": @((currentSettings.types & UIUserNotificationTypeAlert) > 0),
+              });
+}
+
 @end

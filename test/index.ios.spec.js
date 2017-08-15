@@ -29,7 +29,8 @@ describe("NotificationsIOS", () => {
     nativeCancelLocalNotification,
     nativeCancelAllLocalNotifications,
     nativeSetBadgesCount,
-    nativeIsRegisteredForRemoteNotifications;
+    nativeIsRegisteredForRemoteNotifications,
+    nativeCheckPermissions;
 
   let NotificationsIOS, NotificationAction, NotificationCategory;
   let someHandler = () => {};
@@ -51,6 +52,7 @@ describe("NotificationsIOS", () => {
     nativeCancelAllLocalNotifications = sinon.spy();
     nativeSetBadgesCount = sinon.spy();
     nativeIsRegisteredForRemoteNotifications = sinon.spy();
+    nativeCheckPermissions = sinon.spy();
 
     let libUnderTest = proxyquire("../index.ios", {
       "uuid": {
@@ -68,7 +70,8 @@ describe("NotificationsIOS", () => {
             cancelLocalNotification: nativeCancelLocalNotification,
             cancelAllLocalNotifications: nativeCancelAllLocalNotifications,
             setBadgesCount: nativeSetBadgesCount,
-            isRegisteredForRemoteNotifications: nativeIsRegisteredForRemoteNotifications
+            isRegisteredForRemoteNotifications: nativeIsRegisteredForRemoteNotifications,
+            checkPermissions: nativeCheckPermissions
           }
         },
         NativeAppEventEmitter: {
@@ -108,6 +111,7 @@ describe("NotificationsIOS", () => {
     nativeCancelLocalNotification.reset();
     nativeCancelAllLocalNotifications.reset();
     nativeIsRegisteredForRemoteNotifications.reset();
+    nativeCheckPermissions.reset();
   });
 
   after(() => {
@@ -124,6 +128,7 @@ describe("NotificationsIOS", () => {
     nativeCancelLocalNotification = null;
     nativeCancelAllLocalNotifications = null;
     nativeIsRegisteredForRemoteNotifications = null;
+    nativeCheckPermissions = null;
 
     NotificationsIOS = null;
     NotificationAction = null;
@@ -306,6 +311,14 @@ describe("NotificationsIOS", () => {
     it("should call native is registered for remote notifications", () => {
       NotificationsIOS.isRegisteredForRemoteNotifications();
       expect(nativeIsRegisteredForRemoteNotifications).to.have.been.calledWith();
+
+    });
+  });
+
+  describe("Check permissions ", () => {
+    it("should call native check permissions", () => {
+      NotificationsIOS.checkPermissions();
+      expect(nativeCheckPermissions).to.have.been.calledWith();
 
     });
   });

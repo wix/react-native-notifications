@@ -212,4 +212,8 @@ export default class NotificationsIOS {
   static isRegisteredForRemoteNotifications() {
     return NativeRNNotifications.isRegisteredForRemoteNotifications();
   }
+
+  static checkPermissions() {
+    return NativeRNNotifications.checkPermissions();
+  }
 }

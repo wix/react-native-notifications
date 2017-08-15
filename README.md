@@ -185,6 +185,16 @@ class App extends Component {
 
 When you have the device token, POST it to your server and register the device in your notifications provider (Amazon SNS, Azure, etc.).
 
+You can check if the user granted permissions by calling `checkPermissions()`:
+
+```javascript
+NotificationsIOS.checkPermissions().then((currentPermissions) => {
+    console.log('Badges enabled: ' + !!currentPermissions.badge);
+    console.log('Sounds enabled: ' + !!currentPermissions.sound);
+    console.log('Alerts enabled: ' + !!currentPermissions.alert);
+});
+```
+
 ### Android
 
 The React-Native code equivalent on Android is:
