@@ -30,11 +30,15 @@ describe("NotificationsIOS", () => {
     nativeCancelAllLocalNotifications,
     nativeSetBadgesCount,
     nativeIsRegisteredForRemoteNotifications,
-    nativeCheckPermissions;
+    nativeCheckPermissions,
+    nativeRemoveAllDeliveredNotifications,
+    nativeRemoveDeliveredNotifications,
+    nativeGetDeliveredNotifications;
 
   let NotificationsIOS, NotificationAction, NotificationCategory;
   let someHandler = () => {};
   let constantGuid = "some-random-uuid";
+  let identifiers = ["some-random-uuid", "other-random-uuid"];
   /*eslint-enable indent*/
 
   before(() => {
@@ -53,6 +57,9 @@ describe("NotificationsIOS", () => {
     nativeSetBadgesCount = sinon.spy();
     nativeIsRegisteredForRemoteNotifications = sinon.spy();
     nativeCheckPermissions = sinon.spy();
+    nativeRemoveAllDeliveredNotifications = sinon.spy();
+    nativeRemoveDeliveredNotifications = sinon.spy();
+    nativeGetDeliveredNotifications = sinon.spy();
 
     let libUnderTest = proxyquire("../index.ios", {
       "uuid": {
@@ -71,7 +78,10 @@ describe("NotificationsIOS", () => {
             cancelAllLocalNotifications: nativeCancelAllLocalNotifications,
             setBadgesCount: nativeSetBadgesCount,
             isRegisteredForRemoteNotifications: nativeIsRegisteredForRemoteNotifications,
-            checkPermissions: nativeCheckPermissions
+            checkPermissions: nativeCheckPermissions,
+            removeAllDeliveredNotifications: nativeRemoveAllDeliveredNotifications,
+            removeDeliveredNotifications: nativeRemoveDeliveredNotifications,
+            getDeliveredNotifications: nativeGetDeliveredNotifications
           }
         },
         NativeAppEventEmitter: {
@@ -112,6 +122,9 @@ describe("NotificationsIOS", () => {
     nativeCancelAllLocalNotifications.reset();
     nativeIsRegisteredForRemoteNotifications.reset();
     nativeCheckPermissions.reset();
+    nativeRemoveAllDeliveredNotifications.reset();
+    nativeRemoveDeliveredNotifications.reset();
+    nativeGetDeliveredNotifications.reset();
   });
 
   after(() => {
@@ -129,6 +142,9 @@ describe("NotificationsIOS", () => {
     nativeCancelAllLocalNotifications = null;
     nativeIsRegisteredForRemoteNotifications = null;
     nativeCheckPermissions = null;
+    nativeRemoveAllDeliveredNotifications = null;
+    nativeRemoveDeliveredNotifications = null;
+    nativeGetDeliveredNotifications = null;
 
     NotificationsIOS = null;
     NotificationAction = null;
@@ -306,7 +322,6 @@ describe("NotificationsIOS", () => {
     });
   });
 
-
   describe("Is registered for remote notifications ", () => {
     it("should call native is registered for remote notifications", () => {
       NotificationsIOS.isRegisteredForRemoteNotifications();
@@ -320,6 +335,31 @@ describe("NotificationsIOS", () => {
       NotificationsIOS.checkPermissions();
       expect(nativeCheckPermissions).to.have.been.calledWith();
 
+    });
+  });
+
+  describe("Remove all delivered notifications", () => {
+    it("should call native remove all delivered notifications method", () => {
+      NotificationsIOS.removeAllDeliveredNotifications();
+
+      expect(nativeRemoveAllDeliveredNotifications).to.have.been.calledWith();
+    });
+  });
+
+  describe("Remove delivered notifications", () => {
+    it("should call native remove delivered notifications method", () => {
+      NotificationsIOS.removeDeliveredNotifications(identifiers);
+
+      expect(nativeRemoveDeliveredNotifications).to.have.been.calledWith(identifiers);
+    });
+  });
+
+  describe("Get delivered notifications", () => {
+    it("should call native get delivered notifications method", () => {
+      const callback = (notifications) => console.log(notifications);
+      NotificationsIOS.getDeliveredNotifications(callback);
+
+      expect(nativeGetDeliveredNotifications).to.have.been.calledWith(callback);
     });
   });
 });
