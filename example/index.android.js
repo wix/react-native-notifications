@@ -126,8 +126,20 @@ class MainComponent extends Component {
         <TouchableHighlight onPress={() => this.onCancelNotification()}>
           <Text style={styles.plainButtonText}>Undo last</Text>
         </TouchableHighlight>
+        <TouchableHighlight onPress={() => this.onCheckPermissions()}>
+          <Text style={styles.plainButtonText}>Check permissions</Text>
+        </TouchableHighlight>
       </View>
     )
+  }
+
+  async onCheckPermissions() {
+    const hasPermissions = await NotificationsAndroid.isRegisteredForRemoteNotifications();
+    if (hasPermissions) {
+      alert('Yay! You have permissions');
+    } else {
+      alert('Boo! You don\'t have permissions');
+    }
   }
 
   onPushRegistered() {
