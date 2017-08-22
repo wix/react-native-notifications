@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
@@ -87,6 +88,12 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     public void cancelLocalNotification(int notificationId) {
         IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
         notificationsDrawer.onNotificationClearRequest(notificationId);
+    }
+
+    @ReactMethod
+    public void isRegisteredForRemoteNotifications(Promise promise) {
+        boolean hasPermission = NotificationManagerCompat.from(getReactApplicationContext()).areNotificationsEnabled();
+        promise.resolve(new Boolean(hasPermission));
     }
 
     @Override

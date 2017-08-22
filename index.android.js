@@ -41,6 +41,10 @@ export class NotificationsAndroid {
     }
   }
 
+  static async isRegisteredForRemoteNotifications() {
+    return await RNNotifications.isRegisteredForRemoteNotifications();
+  }
+
   static refreshToken() {
     RNNotifications.refreshToken();
   }
