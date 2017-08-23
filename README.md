@@ -111,7 +111,7 @@ import com.wix.reactnativenotifications.RNNotificationsPackage;
 
 ### Receiving push notifications
 
-> This section is only necessary in case you wish to **receive** push notifications in your React-Native app.
+> This section is only necessary in case you wish to **receive** remote push notifications in your React-Native app. For local notifications, you can skip this step. 
 
 Push notifications on Android are managed and dispatched using [Google's GCM service](https://developers.google.com/cloud-messaging/gcm) (now integrated into Firebase). The following installation steps are a TL;DR of [Google's GCM setup guide](https://developers.google.com/cloud-messaging/android/client). You can follow them to get GCM integrated quickly, but we recommend that you will in the very least have a peek at the guide's overview.
 
