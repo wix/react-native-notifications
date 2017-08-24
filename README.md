@@ -327,6 +327,7 @@ let localNotification = NotificationsIOS.localNotification({
 	alertBody: "Local notificiation!",
 	alertTitle: "Local Notification Title",
 	soundName: "chime.aiff",
+    silent: false,
 	category: "SOME_CATEGORY",
 	userInfo: { }
 });
@@ -338,7 +339,8 @@ Notification object contains:
 - `alertBody`- The message displayed in the notification alert.
 - `alertTitle`- The title of the notification, displayed in the notifications center.
 - `alertAction`- The "action" displayed beneath an actionable notification on the lockscreen (e.g. "Slide to **open**"). Note that Apple no longer shows this in iOS 10.
-- `soundName`- The sound played when the notification is fired (optional).
+- `soundName`- The sound played when the notification is fired (optional -- will play default sound if unspecified). This must be the filename of a sound included in the application bundle; the sound must be 30 seconds or less and should be encoded with linear PCM or IMA4.
+- `silent`- Whether the notification sound should be suppressed (optional).
 - `category`- The category of this notification, required for [interactive notifications](#interactive--actionable-notifications-ios-only) (optional).
 - `userInfo`- An optional object containing additional notification data.
 

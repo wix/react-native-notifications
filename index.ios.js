@@ -190,6 +190,7 @@ export default class NotificationsIOS {
    * - `alertTitle` : The message title displayed in the notification.
    * - `alertAction` : The "action" displayed beneath an actionable notification. Defaults to "view";
    * - `soundName` : The sound played when the notification is fired (optional).
+   * - `silent`    : If true, the notification sound will be suppressed (optional).
    * - `category`  : The category of this notification, required for actionable notifications (optional).
    * - `userInfo`  : An optional object containing additional notification data.
    * - `fireDate` : The date and time when the system should deliver the notification. if not specified, the notification will be dispatched immediately.
