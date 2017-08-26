@@ -103,6 +103,9 @@ RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
     notification.alertTitle = [RCTConvert NSString:details[@"alertTitle"]];
     notification.alertAction = [RCTConvert NSString:details[@"alertAction"]];
     notification.soundName = [RCTConvert NSString:details[@"soundName"]] ?: UILocalNotificationDefaultSoundName;
+    if ([RCTConvert BOOL:details[@"silent"]]) {
+        notification.soundName = nil;
+    }
     notification.userInfo = [RCTConvert NSDictionary:details[@"userInfo"]] ?: @{};
     notification.category = [RCTConvert NSString:details[@"category"]];
 
@@ -121,6 +124,9 @@ RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
     content.sound = [RCTConvert NSString:details[@"soundName"]]
         ? [UNNotificationSound soundNamed:[RCTConvert NSString:details[@"soundName"]]]
         : [UNNotificationSound defaultSound];
+    if ([RCTConvert BOOL:details[@"silent"]]) {
+        content.sound = nil;
+    }
     content.userInfo = [RCTConvert NSDictionary:details[@"userInfo"]] ?: @{};
     content.categoryIdentifier = [RCTConvert NSString:details[@"category"]];
 
