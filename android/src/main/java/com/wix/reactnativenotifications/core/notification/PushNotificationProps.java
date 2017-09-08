@@ -10,10 +10,11 @@ public class PushNotificationProps {
         mBundle = new Bundle();
     }
 
-    public PushNotificationProps(String title, String body) {
+    public PushNotificationProps(String title, String body, String smallIcon) {
         mBundle = new Bundle();
         mBundle.putString("title", title);
         mBundle.putString("body", body);
+        mBundle.putString("smallIcon", smallIcon);
     }
 
     public PushNotificationProps(Bundle bundle) {
@@ -26,6 +27,14 @@ public class PushNotificationProps {
 
     public String getBody() {
         return mBundle.getString("body");
+    }
+
+    public boolean hasSmallIcon() {
+        return mBundle.containsKey("smallIcon");
+    }
+
+    public String getSmallIcon() {
+        return mBundle.getString("smallIcon");
     }
 
     public Bundle asBundle() {

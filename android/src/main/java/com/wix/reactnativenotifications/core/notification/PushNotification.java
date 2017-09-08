@@ -5,6 +5,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.facebook.react.bridge.ReactContext;
@@ -136,11 +139,14 @@ public class PushNotification implements IPushNotification {
     }
 
     protected Notification.Builder getNotificationBuilder(PendingIntent intent) {
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         return new Notification.Builder(mContext)
                 .setContentTitle(mNotificationProps.getTitle())
                 .setContentText(mNotificationProps.getBody())
-                .setSmallIcon(mContext.getApplicationInfo().icon)
+                .setSmallIcon(mNotificationProps.hasSmallIcon() ? mContext.getResources().getIdentifier(mNotificationProps.getSmallIcon(), null, mContext.getPackageName()) : mContext.getApplicationInfo().icon)
+                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), mContext.getApplicationInfo().icon))
                 .setContentIntent(intent)
+                .setSound(defaultSoundUri)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true);
     }
