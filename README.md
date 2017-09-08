@@ -82,29 +82,22 @@ include ':react-native-notifications'
 project(':react-native-notifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android')
 ```
 
-2. Declare the library as a dependency in your **app-project's** `build.gradle`:
+2. Declare the library *and* Firebase Messaging as dependencies in your **app-project's** `build.gradle`:
 
-```gradle
-dependencies {
-	// ...
-
-	compile project(':react-native-notifications')
-}
-```
-
-Alternatively, if you're already using a specific Firebase version, you can exclude our `firebase-messaging` dependency and replace it with your own version (e.g. 10.2.1) as follows:
 
 ```gradle
 dependencies {
     // ...
 
+    compile 'com.google.firebase:firebase-messaging:10.2.6'
+
     compile(project(':react-native-notifications')) {
         exclude group: 'com.google.firebase', module: 'firebase-messaging'
     }
-
-    com.google.firebase:firebase-messaging:10.2.1
 }
 ```
+
+**IMPORTANT:** Excluding `firebase-messaging` from `react-native-notifications`, then adding it as a direct dependency if your app is extremely important. It is a work-around for a bug in the Google Services (`com.google.gms.google-services`) plugin (see _Receiving push notifications_ below).
 
 3. Add the library to your `MainApplication.java`:
 
@@ -132,7 +125,20 @@ Push notifications on Android are managed and dispatched using Google's [Firebas
 
 2. [Integrate Firebase](https://firebase.google.com/docs/android/setup) in your native Android project.
 
-If you've followed the instructions correctly your Android project will now include a file called `google-services.json` and the bottom of your `build.gradle` will look something like:
+If you've followed the instructions correctly your Android project will now include a file called `google-services.json`, your root `build.gradle` (`android/build.gradle`) will have an additional classpath dependency:
+
+```gradle
+buildscript {
+    // ...
+    dependencies {
+	// ...
+        classpath 'com.google.gms:google-services:3.0.0'
+        // ...
+    }
+}
+```
+
+and the bottom of your app's `build.gradle` (`android/app/build.gradle`) will look something like:
 
 ```gradle
 
@@ -140,8 +146,6 @@ If you've followed the instructions correctly your Android project will now incl
 
 apply plugin: 'com.google.gms.google-services'
 ```
-
-**IMPORTANT**: Do NOT add `com.google.firebase:firebase-messaging` as an explicit dependency unless you wish to try override our version (see "Installation").
 
 ---
 
@@ -200,10 +204,6 @@ import {NotificationsAndroid} from 'react-native-notifications';
 NotificationsAndroid.setRegistrationTokenUpdateListener((deviceToken) => {
 	console.log('Push-notifications registered!', deviceToken)
 });
-
-// In case the token registration took place prior to setting our listener.
-NotificationsAndroid.refreshToken();
-
 ```
 
 `deviceToken` being the token used to identify the device on the GCM.
