@@ -136,11 +136,14 @@ public class PushNotification implements IPushNotification {
     }
 
     protected Notification.Builder getNotificationBuilder(PendingIntent intent) {
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         return new Notification.Builder(mContext)
                 .setContentTitle(mNotificationProps.getTitle())
                 .setContentText(mNotificationProps.getBody())
                 .setSmallIcon(mContext.getApplicationInfo().icon)
+                .setLargeIcon(BitmapFactory.decodeResource(mContext.getApplicationInfo().icon))
                 .setContentIntent(intent)
+                .setSound(defaultSoundUri)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true);
     }
