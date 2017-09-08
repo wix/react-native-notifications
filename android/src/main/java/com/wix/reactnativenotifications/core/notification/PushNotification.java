@@ -144,7 +144,7 @@ public class PushNotification implements IPushNotification {
                 .setContentTitle(mNotificationProps.getTitle())
                 .setContentText(mNotificationProps.getBody())
                 .setSmallIcon(mContext.getApplicationInfo().icon)
-                .setLargeIcon(BitmapFactory.decodeResource(mContext.getApplicationInfo().icon))
+                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), mContext.getApplicationInfo().icon))
                 .setContentIntent(intent)
                 .setSound(defaultSoundUri)
                 .setDefaults(Notification.DEFAULT_ALL)
