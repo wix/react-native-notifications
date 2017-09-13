@@ -30,6 +30,24 @@ NSString* const RNNotificationReceivedBackground = @"RNNotificationReceivedBackg
 NSString* const RNNotificationOpened = @"RNNotificationOpened";
 NSString* const RNNotificationActionTriggered = @"RNNotificationActionTriggered";
 
+#if !TARGET_OS_TV
+@implementation RCTConvert (NSCalendarUnit)
+
+RCT_ENUM_CONVERTER(NSCalendarUnit,
+                   (@{
+                      @"year": @(NSCalendarUnitYear),
+                      @"month": @(NSCalendarUnitMonth),
+                      @"week": @(NSCalendarUnitWeekOfYear),
+                      @"day": @(NSCalendarUnitDay),
+                      @"hour": @(NSCalendarUnitHour),
+                      @"minute": @(NSCalendarUnitMinute)
+                      }),
+                   0,
+                   integerValue)
+
+@end
+#endif
+
 /*
  * Converters for Interactive Notifications
  */
@@ -102,6 +120,7 @@ RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
     notification.alertBody = [RCTConvert NSString:details[@"alertBody"]];
     notification.alertTitle = [RCTConvert NSString:details[@"alertTitle"]];
     notification.alertAction = [RCTConvert NSString:details[@"alertAction"]];
+    notification.repeatInterval = [RCTConvert NSCalendarUnit:details[@"repeatInterval"]];
     notification.soundName = [RCTConvert NSString:details[@"soundName"]] ?: UILocalNotificationDefaultSoundName;
     if ([RCTConvert BOOL:details[@"silent"]]) {
         notification.soundName = nil;
