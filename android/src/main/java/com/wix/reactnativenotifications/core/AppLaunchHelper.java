@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.wix.reactnativenotifications.core.notifications.IntentExtras;
+import com.wix.reactnativenotifications.core.notifications.NotificationProps;
 
 public class AppLaunchHelper {
     private static final String TAG = AppLaunchHelper.class.getSimpleName();
@@ -23,8 +24,16 @@ public class AppLaunchHelper {
             // flags) as they do.
             final Intent helperIntent = appContext.getPackageManager().getLaunchIntentForPackage(appContext.getPackageName());
             final Intent intent = new Intent(appContext, Class.forName(helperIntent.getComponent().getClassName()));
+            final NotificationProps notification = InitialNotificationHolder.getInstance().get();
+
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
             intent.putExtra(IntentExtras.FCM_PREFIX, true);
+            if (notification != null) {
+                // If an initial notification has been set from a cold boot, we must pass on
+                // the notification to ensure it is accessible from subsequent getInitialNotification calls
+                intent.putExtras(notification.asBundle());
+            }
+
             return intent;
         } catch (ClassNotFoundException e) {
             // Note: this is an imaginary scenario cause we're asking for a class of our very own package.

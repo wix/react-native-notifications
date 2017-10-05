@@ -313,7 +313,7 @@ Instead the notifications go to the "system tray" application, and it automatica
 These automatic background notifications have several limited functionality:
 
 - They do not support the full range of options that are available to app generated "local notifications". e.g. `largeIcon` is not supported.
-  
+
   Please refer to the official [Firebase server reference](https://firebase.google.com/docs/cloud-messaging/http-server-ref#table2) to see what is supported.
 
 - When a user taps on an system tray generated notification the Android OS will actually re-launch your app's primary/launcher activity. If you're using stock React Native this effectively restarts your app.
@@ -331,7 +331,7 @@ We provide a similar implementation on Android using `NotificationsAndroid.getIn
 ```javascript
 import {NotificationsAndroid} from 'react-native-notifications';
 
-PendingNotifications.getInitialNotification()
+NotificationsAndroid.getInitialNotification()
   .then((notification) => {
   		console.log("Initial notification was:", notification || "N/A");
 	})
@@ -670,10 +670,10 @@ The [example app](https://github.com/wix/react-native-notifications/tree/master/
 	- `default` (default) - Displayes up to 4 actions (full UI).
 	- `minimal` - Displays up tp 2 actions (minimal UI).
 
-	
-#### Set application icon badges count (iOS only) 
 
-Set to specific number: 
+#### Set application icon badges count (iOS only)
+
+Set to specific number:
 ```javascript
 NotificationsIOS.setBadgesCount(2);
 ```
