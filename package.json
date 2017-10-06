@@ -21,7 +21,7 @@
   ],
   "nativePackage": true,
   "dependencies": {
-    "core-js": "^1.0.0",
+    "core-js": "^2.4.0",
     "uuid": "^2.0.3"
   },
   "peerDependencies": {
