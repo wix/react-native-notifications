@@ -26,7 +26,6 @@ public class RNNotificationsPackage implements ReactPackage {
         return Arrays.<NativeModule>asList(new RNNotificationsModule(mApplication, reactContext));
     }
 
-    @Override
     public List<Class<? extends JavaScriptModule>> createJSModules() {
         return Collections.emptyList();
     }
