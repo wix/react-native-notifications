@@ -220,7 +220,7 @@ NotificationsAndroid.setRegistrationTokenUpdateListener((deviceToken) => {
 
 When you receive a notification, the application can be in one of the following states:
 
-1. **Forground**- When the app in running and is used by the user right now. in this case, `notificationReceivedForeground` event will be fired.
+1. **Foreground**- When the app in running and is used by the user right now. in this case, `notificationReceivedForeground` event will be fired.
 2. **Background**- When the app is running but in background state. in this case, `notificationReceivedBackground` event will be fired.
 3. **Notification Opened**- When you open the notifications from the notification center. in this case, `notificationOpened` event will be fired.
 
