@@ -7,18 +7,17 @@ Handle all the aspects of push notifications for your app, including remote and 
 _For information regarding proper integration with [react-native-navigation](https://github.com/wix/react-native-navigation), follow [this wiki](https://github.com/wix/react-native-notifications/wiki/Android:-working-with-RNN)._
 
 
-## iOS
+### iOS
 
-- [Remote notifications](#handling-received-notifications).
-- [Local notifications](#triggering-local-notifications).
-- [Background notifications](#managed-notifications-ios-only).
-- [Managed notifications](#managed-notifications-ios-only) (notifications that can be cleared from the server, like Facebook messenger and Whatsapp web).
-- [PushKit API](#pushkit-api-ios-only) for VoIP and other background messages.
-- [Interactive notifications](#interactive--actionable-notifications-ios-only) that allows you to provide additional functionality to your users outside of your application.
+<img src="https://s3.amazonaws.com/nrjio/interactive.gif" alt="Interactive notifications example" width=350/>
 
-<img src="https://s3.amazonaws.com/nrjio/interactive.gif" alt="Interactive notifications example" width=300/>
+- Remote (push) notifications
+- Local notifications
+- Background/Managed notifications (notifications that can be cleared from the server, like Facebook messenger and Whatsapp web)
+- PushKit API (for VoIP and other background messages)
+- Interactive notifications (allows you to provide additional functionality to your users outside of your application such as action buttons)
 
-## Android
+### Android
 
 - Receiving notifications in any App state (foreground, background, "dead")
 - Built-in notification drawer management
