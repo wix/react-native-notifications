@@ -1,5 +1,4 @@
 /**
- * @providesModule RNNotifications
  * @flow
  */
 "use strict";
