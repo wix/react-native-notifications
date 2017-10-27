@@ -138,7 +138,7 @@ export default class NotificationsIOS {
       });
     }
 
-    NativeRNNotifications.requestPermissionsWithCategories(notificationCategories);
+    return NativeRNNotifications.requestPermissionsWithCategories(notificationCategories);
   }
 
   /**

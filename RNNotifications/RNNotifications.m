@@ -29,6 +29,8 @@ NSString* const RNNotificationReceivedForeground = @"RNNotificationReceivedForeg
 NSString* const RNNotificationReceivedBackground = @"RNNotificationReceivedBackground";
 NSString* const RNNotificationOpened = @"RNNotificationOpened";
 NSString* const RNNotificationActionTriggered = @"RNNotificationActionTriggered";
+NSString *const RNRegisterUserNotificationSettings = @"RNRegisterUserNotificationSettings";
+
 
 /*
  * Converters for Interactive Notifications
@@ -172,6 +174,9 @@ static NSDictionary *RCTFormatUNNotification(UNNotification *notification)
 }
 
 @implementation RNNotifications
+{
+    RCTPromiseResolveBlock _requestPermissionsResolveBlock;
+}
 
 RCT_EXPORT_MODULE()
 
@@ -220,6 +225,11 @@ RCT_EXPORT_MODULE()
                                              selector:@selector(handleNotificationActionTriggered:)
                                                  name:RNNotificationActionTriggered
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleRegisterUserNotificationSettings:)
+                                                 name:RNRegisterUserNotificationSettings
+                                               object:nil];
 
     [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification = [_bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = [_bridge.launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
@@ -232,6 +242,9 @@ RCT_EXPORT_MODULE()
 {
     if ([UIApplication instancesRespondToSelector:@selector(registerForRemoteNotifications)]) {
         [[UIApplication sharedApplication] registerForRemoteNotifications];
+        [[NSNotificationCenter defaultCenter] postNotificationName:RNRegisterUserNotificationSettings
+                                                            object:self
+                                                          userInfo:@{@"notificationSettings": notificationSettings}];
     }
 }
 
@@ -504,11 +517,36 @@ RCT_EXPORT_MODULE()
     [_bridge.eventDispatcher sendAppEventWithName:@"notificationActionReceived" body:notification.userInfo];
 }
 
+
+- (void)handleRegisterUserNotificationSettings:(NSNotification *)notification
+{
+    if (_requestPermissionsResolveBlock == nil) {
+        return;
+    }
+    UIUserNotificationSettings *notificationSettings = notification.userInfo[@"notificationSettings"];
+    NSDictionary *notificationTypes = @{
+                                        @"alert": @((notificationSettings.types & UIUserNotificationTypeAlert) > 0),
+                                        @"sound": @((notificationSettings.types & UIUserNotificationTypeSound) > 0),
+                                        @"badge": @((notificationSettings.types & UIUserNotificationTypeBadge) > 0),
+                                        };
+    _requestPermissionsResolveBlock(notificationTypes);
+    _requestPermissionsResolveBlock = nil;
+}
+
+
 /*
  * React Native exported methods
  */
-RCT_EXPORT_METHOD(requestPermissionsWithCategories:(NSArray *)json)
+RCT_EXPORT_METHOD(requestPermissionsWithCategories:(NSArray *)json
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    if (_requestPermissionsResolveBlock != nil) {
+        RCTLogError(@"Cannot call requestPermissions twice before the first has returned.");
+        return;
+    }
+    _requestPermissionsResolveBlock = resolve;
+
     NSMutableSet* categories = nil;
 
     if ([json count] > 0) {
