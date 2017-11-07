@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import com.facebook.react.bridge.ReactContext;
@@ -139,7 +140,8 @@ public class PushNotification implements IPushNotification {
         return new Notification.Builder(mContext)
                 .setContentTitle(mNotificationProps.getTitle())
                 .setContentText(mNotificationProps.getBody())
-                .setSmallIcon(mContext.getApplicationInfo().icon)
+                .setSmallIcon(mContext.getResources().getIdentifier("ic_notification", "drawable", mContext.getPackageName()))
+                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), mContext.getResources().getIdentifier("ic_notification_large_icon", "drawable", mContext.getPackageName())))
                 .setContentIntent(intent)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true);
