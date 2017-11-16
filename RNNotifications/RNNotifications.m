@@ -62,9 +62,7 @@ RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
 
     UIMutableUserNotificationAction* action =[UIMutableUserNotificationAction new];
     action.activationMode = [RCTConvert UIUserNotificationActivationMode:details[@"activationMode"]];
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")) {
-        action.behavior = [RCTConvert UIUserNotificationActionBehavior:details[@"behavior"]];
-    }
+    action.behavior = [RCTConvert UIUserNotificationActionBehavior:details[@"behavior"]];
     action.authenticationRequired = [RCTConvert BOOL:details[@"authenticationRequired"]];
     action.destructive = [RCTConvert BOOL:details[@"destructive"]];
     action.title = [RCTConvert NSString:details[@"title"]];
@@ -102,9 +100,7 @@ RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
     UILocalNotification* notification = [UILocalNotification new];
     notification.fireDate = [RCTConvert NSDate:details[@"fireDate"]];
     notification.alertBody = [RCTConvert NSString:details[@"alertBody"]];
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.2")) {
-        notification.alertTitle = [RCTConvert NSString:details[@"alertTitle"]];
-    }
+    notification.alertTitle = [RCTConvert NSString:details[@"alertTitle"]];
     notification.alertAction = [RCTConvert NSString:details[@"alertAction"]];
     notification.soundName = [RCTConvert NSString:details[@"soundName"]] ?: UILocalNotificationDefaultSoundName;
     if ([RCTConvert BOOL:details[@"silent"]]) {
