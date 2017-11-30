@@ -589,10 +589,17 @@ RCT_EXPORT_METHOD(consumeBackgroundQueue)
     }];
 
     // Push opened local notifications
-    NSDictionary* openedLocalNotification = [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification;
+    UILocalNotification* openedLocalNotification = [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification;
     if (openedLocalNotification) {
+        UIApplicationState state = [UIApplication sharedApplication].applicationState;
+    
+        NSMutableDictionary* newUserInfo = openedLocalNotification.userInfo.mutableCopy;
+        [newUserInfo removeObjectForKey:@"__id"];
+        openedLocalNotification.userInfo = newUserInfo;
+
         [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = nil;
-        [RNNotifications didNotificationOpen:openedLocalNotification];
+        // [RNNotifications didNotificationOpen:openedLocalNotification];
+        [RNNotifications didNotificationOpen:openedLocalNotification.userInfo];
     }
 
     // Push opened remote notifications
