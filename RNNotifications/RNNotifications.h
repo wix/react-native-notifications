@@ -1,10 +1,6 @@
 @import UIKit;
 
-#if __has_include(<React/RCTBridgeModule.h>)
-  #import <React/RCTBridgeModule.h>
-#else
-  #import "RCTBridgeModule.h"
-#endif
+#import <React/RCTBridgeModule.h>
 #import <PushKit/PushKit.h>
 
 @interface RNNotifications : NSObject <RCTBridgeModule>
