@@ -22,5 +22,9 @@ public class GcmMessageHandlerService extends GcmListenerService {
             // A GCM message, yes - but not the kind we know how to work with.
             Log.v(LOGTAG, "GCM message handling aborted", e);
         }
+         catch (Exception e) {
+            // Handle other errors, i.e when app is not running
+            Log.v(LOGTAG, "GCM message handling aborted", e);
+        }
     }
 }
