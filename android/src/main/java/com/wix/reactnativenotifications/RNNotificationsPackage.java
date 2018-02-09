@@ -14,14 +14,30 @@ import java.util.List;
 public class RNNotificationsPackage implements ReactPackage {
 
     private final Application mApplication;
+    private final boolean mClearNotificationsOnInit;
+    private final boolean mClearNotificationsOnResume;
 
     public RNNotificationsPackage(Application application) {
         mApplication = application;
+        mClearNotificationsOnInit = true;
+        mClearNotificationsOnResume = true;
+    }
+
+    public RNNotificationsPackage(Application application, boolean clearNotificationsOnInit) {
+        mApplication = application;
+        mClearNotificationsOnInit = clearNotificationsOnInit;
+        mClearNotificationsOnResume = true;
+    }
+
+    public RNNotificationsPackage(Application application, boolean clearNotificationsOnInit, boolean clearNotificationsOnResume) {
+        mApplication = application;
+        mClearNotificationsOnInit = clearNotificationsOnInit;
+        mClearNotificationsOnResume = clearNotificationsOnResume;
     }
 
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        return Arrays.<NativeModule>asList(new RNNotificationsModule(mApplication, reactContext));
+        return Arrays.<NativeModule>asList(new RNNotificationsModule(mApplication, reactContext, mClearNotificationsOnInit, mClearNotificationsOnResume));
     }
 
     @Override

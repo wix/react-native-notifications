@@ -35,6 +35,7 @@ _Upcoming: local notifications, background-state Rx queue (iOS equivalent)_
 - [Local notifications](./docs/localNotifications.md) - Manually triggering notifications (i.e. not via push)
 - [Advanced iOS topics](./docs/advancedIos.md) - e.g. managed notifications, PushKit API, Notifications actions
 - [Notifications layout control - Android (wiki page)](https://github.com/wix/react-native-notifications/wiki/Android:-Layout-Customization) - Learn how to fully customize your notifications layout on Android!
+- [Customize how your app dismisses (or not) notifications on Open/Resume](./docs/androidAppOpenBehaviour.md)
 
 # License
 The MIT License.

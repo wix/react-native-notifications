@@ -31,13 +31,17 @@ public class PushNotificationsDrawer implements IPushNotificationsDrawer {
     }
 
     @Override
-    public void onAppInit() {
-        clearAll();
+    public void onAppInit(boolean clearNotifications) {
+        if (clearNotifications) {
+            clearAll();
+        }
     }
 
     @Override
-    public void onAppVisible() {
-        clearAll();
+    public void onAppVisible(boolean clearNotifications) {
+        if (clearNotifications) {
+            clearAll();
+        }
     }
 
     @Override
