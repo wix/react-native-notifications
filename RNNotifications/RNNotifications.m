@@ -214,7 +214,8 @@ RCT_EXPORT_MODULE()
                                                object:nil];
 
     [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification = [_bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = [_bridge.launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    UILocalNotification *localNotification = [_bridge.launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = localNotification ? localNotification.userInfo : nil;
 }
 
 /*
