@@ -514,6 +514,17 @@ RCT_EXPORT_METHOD(requestPermissionsWithCategories:(NSArray *)json)
     [RNNotifications requestPermissionsWithCategories:categories];
 }
 
+RCT_EXPORT_METHOD(getInitialNotification:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
+{
+    NSDictionary * notification = nil;
+    notification = [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification ?
+        [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification :
+        [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification;
+    [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification = nil;
+    [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = nil;
+    resolve(notification);
+}
+
 RCT_EXPORT_METHOD(log:(NSString *)message)
 {
     NSLog(message);
