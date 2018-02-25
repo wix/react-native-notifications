@@ -260,7 +260,12 @@ The [example app](https://github.com/wix/react-native-notifications/tree/master/
 	- `minimal` - Displays up tp 2 actions (minimal UI).
 
 	
-#### Set application icon badges count (iOS only) 
+#### Get and set application icon badges count (iOS only) 
+
+Get the current number:
+```javascript
+NotificationsIOS.getBadgesCount((count) => console.log(count));
+```
 
 Set to specific number: 
 ```javascript
