@@ -77,6 +77,13 @@ NotificationsAndroid.setNotificationOpenedListener((notification) => {
 });
 ```
 
+You can also remove the event listeners when they are no longer needed:
+
+```javascript
+NotificationsAndroid.clearNotificationReceivedListener();
+NotificationsAndroid.clearNotificationOpenedListener();
+```
+
 ### Notification Object
 
 - **`getData()`**- content of the `data` section of the original message (sent to GCM).
