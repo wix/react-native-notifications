@@ -98,6 +98,7 @@ RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
     if ([RCTConvert BOOL:details[@"silent"]]) {
         notification.soundName = nil;
     }
+    notification.applicationIconBadgeNumber = [RCTConvert NSInteger:details[@"applicationIconBadgeNumber"]];
     notification.userInfo = [RCTConvert NSDictionary:details[@"userInfo"]] ?: @{};
     notification.category = [RCTConvert NSString:details[@"category"]];
 
@@ -119,6 +120,7 @@ RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
     if ([RCTConvert BOOL:details[@"silent"]]) {
         content.sound = nil;
     }
+    content.badge = [RCTConvert NSNumber:details[@"applicationIconBadgeNumber"]]; 
     content.userInfo = [RCTConvert NSDictionary:details[@"userInfo"]] ?: @{};
     content.categoryIdentifier = [RCTConvert NSString:details[@"category"]];
 
