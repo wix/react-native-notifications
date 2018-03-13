@@ -17,13 +17,14 @@ import com.facebook.react.bridge.ReadableMap;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade;
 import com.wix.reactnativenotifications.core.AppLifecycleFacadeHolder;
 import com.wix.reactnativenotifications.core.InitialNotificationHolder;
-import com.wix.reactnativenotifications.core.ReactAppLifecycleFacade;
 import com.wix.reactnativenotifications.core.notification.IPushNotification;
 import com.wix.reactnativenotifications.core.notification.PushNotification;
 import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
 import com.wix.reactnativenotifications.core.notificationdrawer.IPushNotificationsDrawer;
 import com.wix.reactnativenotifications.core.notificationdrawer.PushNotificationsDrawer;
+import com.wix.reactnativenotifications.core.ReactAppLifecycleFacade;
 import com.wix.reactnativenotifications.gcm.GcmInstanceIdRefreshHandlerService;
+import com.wix.reactnativenotifications.helpers.ApplicationBadgeHelper;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
 
@@ -57,6 +58,11 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     public void refreshToken() {
         Log.d(LOGTAG, "Native method invocation: refreshToken()");
         startGcmIntentService(GcmInstanceIdRefreshHandlerService.EXTRA_MANUAL_REFRESH);
+    }
+
+    @ReactMethod
+    public void setBadgeCount(int bagdeCount) {
+        ApplicationBadgeHelper.INSTANCE.setApplicationIconBadgeNumber(getReactApplicationContext().getApplicationContext(), bagdeCount);
     }
 
     @ReactMethod
