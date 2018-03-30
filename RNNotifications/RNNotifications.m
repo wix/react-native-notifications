@@ -29,7 +29,8 @@ RCT_ENUM_CONVERTER(NSCalendarUnit,
                    (@{
                       @"year": @(NSCalendarUnitYear),
                       @"month": @(NSCalendarUnitMonth),
-                      @"week": @(NSCalendarUnitWeekOfYear),
+                      @"weekOfYear": @(NSCalendarUnitWeekOfYear),
+                      @"week": @(NSCalendarUnitWeekday),
                       @"day": @(NSCalendarUnitDay),
                       @"hour": @(NSCalendarUnitHour),
                       @"minute": @(NSCalendarUnitMinute)
@@ -144,14 +145,32 @@ RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
     NSDate *triggerDate = [RCTConvert NSDate:details[@"fireDate"]];
     UNCalendarNotificationTrigger *trigger = nil;
     if (triggerDate != nil) {
+        BOOL repeats = [RCTConvert BOOL:details[@"repeats"]];
+        NSCalendarUnit repeatInterval = [RCTConvert NSCalendarUnit:details[@"repeatInterval"]];
+        switch(repeatInterval) {
+            case NSCalendarUnitMinute:
+                repeatInterval = NSCalendarUnitSecond;
+                break;
+            case NSCalendarUnitHour:
+                repeatInterval = NSCalendarUnitMinute;
+                break;
+            case NSCalendarUnitDay:
+                repeatInterval = NSCalendarUnitMinute + NSCalendarUnitHour;
+                break;
+            case NSCalendarUnitMonth:
+                repeatInterval = NSCalendarUnitMinute + NSCalendarUnitHour + NSCalendarUnitDay;
+                break;
+            case NSCalendarUnitYear:
+                repeatInterval = NSCalendarUnitMinute + NSCalendarUnitHour +
+                         NSCalendarUnitDay + NSCalendarUnitMonth;
+                break;
+        }
+
         NSDateComponents *triggerDateComponents = [[NSCalendar currentCalendar]
-                                                   components:NSCalendarUnitYear +
-                                                   NSCalendarUnitMonth + NSCalendarUnitDay +
-                                                   NSCalendarUnitHour + NSCalendarUnitMinute +
-                                                   NSCalendarUnitSecond + NSCalendarUnitTimeZone
+                                                   components: repeatInterval
                                                    fromDate:triggerDate];
         trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:triggerDateComponents
-                                                                           repeats:NO];
+                                                                           repeats:repeats];
     }
 
     return [UNNotificationRequest requestWithIdentifier:notificationId
