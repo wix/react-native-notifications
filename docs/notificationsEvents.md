@@ -80,6 +80,7 @@ NotificationsAndroid.setNotificationOpenedListener((notification) => {
 You can also remove the event listeners when they are no longer needed:
 
 ```javascript
+NotificationsAndroid.clearRegistrationTokenUpdateListener();
 NotificationsAndroid.clearNotificationReceivedListener();
 NotificationsAndroid.clearNotificationOpenedListener();
 ```
