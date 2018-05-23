@@ -105,7 +105,7 @@ public class GcmToken implements IGcmToken {
         if (senderId == null) {
             throw new IllegalStateException("Sender ID not found in manifest. Did you forget to add it as the value of a '"+GCM_SENDER_ID_ATTR_NAME+"' meta-data field?");
         }
-        return senderId;
+        return senderId.substring(0, senderId.length() - 1);
     }
 
     protected String getSenderIdFromManifest() {
