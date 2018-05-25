@@ -45,6 +45,14 @@ public class PushNotificationProps {
         return mBundle.getString("body");
     }
 
+    public String getBigPicture() {
+        return mBundle.getString("bigPicture");
+    }
+
+    public String getLargeIcon() {
+        return mBundle.getString("largeIcon");
+    }
+
     public boolean isVisible() {
         String title = getTitle();
         String sound = getSound();

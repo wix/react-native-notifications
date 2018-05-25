@@ -26,7 +26,9 @@ import com.wix.reactnativenotifications.core.InitialNotificationHolder;
 import com.wix.reactnativenotifications.core.JsIOHelper;
 import com.wix.reactnativenotifications.core.NotificationIntentAdapter;
 import com.wix.reactnativenotifications.core.ProxyService;
+import com.wix.reactnativenotifications.core.BitmapLoader;
 
+import static com.wix.reactnativenotifications.Defs.LOGTAG;
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_OPENED_EVENT_NAME;
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_EVENT_NAME;
 
@@ -34,6 +36,7 @@ import android.util.Log;
 
 public class PushNotification implements IPushNotification {
 
+    final protected BitmapLoader mImageLoader;
     final protected Bundle mBundle;
     final protected Context mContext;
     final protected AppLifecycleFacade mAppLifecycleFacade;
@@ -57,16 +60,17 @@ public class PushNotification implements IPushNotification {
         if (appContext instanceof INotificationsApplication) {
             return ((INotificationsApplication) appContext).getPushNotification(context, bundle, AppLifecycleFacadeHolder.get(), new AppLaunchHelper());
         }
-        return new PushNotification(context, bundle, AppLifecycleFacadeHolder.get(), new AppLaunchHelper(), new JsIOHelper());
+        return new PushNotification(context, bundle, AppLifecycleFacadeHolder.get(), new AppLaunchHelper(), new JsIOHelper(), new BitmapLoader(appContext));
     }
 
-    protected PushNotification(Context context, Bundle bundle, AppLifecycleFacade appLifecycleFacade, AppLaunchHelper appLaunchHelper, JsIOHelper JsIOHelper) {
+    protected PushNotification(Context context, Bundle bundle, AppLifecycleFacade appLifecycleFacade, AppLaunchHelper appLaunchHelper, JsIOHelper JsIOHelper, BitmapLoader imageLoader) {
         mContext = context;
         mBundle = bundle;
         mAppLifecycleFacade = appLifecycleFacade;
         mAppLaunchHelper = appLaunchHelper;
         mJsIOHelper = JsIOHelper;
         mNotificationProps = createProps(bundle);
+        mImageLoader = imageLoader;
     }
 
     @Override
@@ -95,24 +99,21 @@ public class PushNotification implements IPushNotification {
 
     protected int postNotification(Integer notificationId) {
         final PendingIntent pendingIntent = getCTAPendingIntent();
-        final Notification notification = buildNotification(pendingIntent);
-        return postNotification(notification, notificationId);
-    }
+        //final Notification notification = buildNotification(pendingIntent);
+        int id = notificationId != null ? notificationId : createNotificationId();
 
-    protected int postNotification(Notification notification, Integer notificationId) {
-        int id = notificationId != null ? notificationId : createNotificationId(notification);
         int badge = mNotificationProps.getBadge();
         if (badge >= 0) {
             ApplicationBadgeHelper.INSTANCE.setApplicationIconBadgeNumber(mContext, badge);
         }
-        postNotification(id, notification);
+
+        setLargeIconThenPostNotification(id, getNotificationBuilder(pendingIntent));
         return id;
     }
 
     protected void postNotification(int id, Notification notification) {
         final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Log.d("PUSHMARTIN", "- emitiendo "+notification.getGroup());
         notificationManager.notify(notification.getGroup(), id, notification);
 
         stackNotificationIfNeeded(notification);
@@ -170,6 +171,47 @@ public class PushNotification implements IPushNotification {
         return getNotificationBuilder(intent).build();
     }
 
+    protected void setLargeIconThenPostNotification(final int notificationId, final Notification.Builder notificationBuilder) {
+        final String icon = mNotificationProps.getLargeIcon();
+
+        if (icon != null && (icon.startsWith("http://") || icon.startsWith("https://") || icon.startsWith("file://"))) {
+            mImageLoader.loadUri(Uri.parse(icon), new BitmapLoader.OnBitmapLoadedCallback() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap) {
+                    notificationBuilder.setLargeIcon(bitmap);
+                    setBigPictureThenPostNotification(notificationId, notificationBuilder);
+                }
+            });
+        } else {
+            if (icon != null) {
+                final int id = mContext.getResources().getIdentifier(icon, "drawable", mContext.getPackageName());
+                final Bitmap bitmap = id != 0 ? BitmapFactory.decodeResource(mContext.getResources(), id) : null;
+
+                if (bitmap != null) {
+                    notificationBuilder.setLargeIcon(bitmap);
+                }
+            }
+
+            setBigPictureThenPostNotification(notificationId, notificationBuilder);
+        }
+    }
+
+    protected void setBigPictureThenPostNotification(final int notificationId, final Notification.Builder notificationBuilder) {
+        final String bigPicture = mNotificationProps.getBigPicture();
+
+        if (bigPicture != null && (bigPicture.startsWith("http://") || bigPicture.startsWith("https://") || bigPicture.startsWith("file://"))) {
+            mImageLoader.loadUri(Uri.parse(bigPicture), new BitmapLoader.OnBitmapLoadedCallback() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap) {
+                    notificationBuilder.setStyle(new Notification.BigPictureStyle().bigPicture(bitmap).setSummaryText(mNotificationProps.getBody()));
+                    postNotification(notificationId, notificationBuilder.build());
+                }
+            });
+        } else {
+            postNotification(notificationId, notificationBuilder.build());
+        }
+    }
+
     protected Notification.Builder getNotificationBuilder(PendingIntent intent) {
         Resources res = mContext.getResources();
         String packageName = mContext.getPackageName();
@@ -195,17 +237,6 @@ public class PushNotification implements IPushNotification {
 
 
         int smallIconResId = getSmallIconResId();
-        int largeIconResId;
-
-        String largeIcon = mBundle.getString("largeIcon");
-
-        if (largeIcon != null) {
-            largeIconResId = res.getIdentifier(largeIcon, "mipmap", packageName);
-        } else {
-            largeIconResId = res.getIdentifier("ic_launcher", "mipmap", packageName);
-        }
-
-        Bitmap largeIconBitmap = BitmapFactory.decodeResource(res, largeIconResId);
 
         String title = mNotificationProps.getTitle();
         if (title == null) {
@@ -223,15 +254,9 @@ public class PushNotification implements IPushNotification {
             .setSound(soundUri)
             .setAutoCancel(true);
 
-        // we group by uri if it exists
-        if (mNotificationProps.getUri() != null) {
-            notificationBuilder.setGroup(mNotificationProps.getUri());
-        } else {
+        // we group if it exists
+        if (mNotificationProps.getGroup() != null){
             notificationBuilder.setGroup(mNotificationProps.getGroup());
-        }
-
-        if (largeIconResId != 0 && (largeIcon != null || Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)) {
-            notificationBuilder.setLargeIcon(largeIconBitmap);
         }
 
         return notificationBuilder;
@@ -310,8 +335,10 @@ public class PushNotification implements IPushNotification {
                     .setPriority(Notification.PRIORITY_HIGH);
 
                 builder.setContentIntent(getCTAPendingIntent());
-                
+
                 builder.setSmallIcon(smallIconResId);
+
+                if (notification.getLargeIcon() != null) builder.setLargeIcon(notification.getLargeIcon());
 
                 Notification stackNotification = builder.build();
                 stackNotification.defaults = Notification.DEFAULT_ALL;
@@ -329,7 +356,7 @@ public class PushNotification implements IPushNotification {
         notificationManager.cancelAll();
     }
 
-    protected int createNotificationId(Notification notification) {
+    protected int createNotificationId() {
         return (int) System.nanoTime();
     }
 
