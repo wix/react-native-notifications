@@ -26,7 +26,7 @@ public class PushNotificationProps {
 
     public int getBadge() {
         if (mBundle.containsKey("badge")) {
-            return mBundle.getInt("badge");
+            return Integer.parseInt(mBundle.getString("badge"));
         }
         return -1;
     }

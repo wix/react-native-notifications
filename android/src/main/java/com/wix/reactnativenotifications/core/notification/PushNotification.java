@@ -314,7 +314,7 @@ public class PushNotification implements IPushNotification {
                 Notification.InboxStyle inbox = new Notification.InboxStyle();
                 {
                     for (StatusBarNotification activeSbn : groupedNotifications) {
-                        String stackNotificationLine = (String)activeSbn.getNotification().extras.get(Notification.EXTRA_TITLE);
+                        String stackNotificationLine = (String)activeSbn.getNotification().extras.get(Notification.EXTRA_TEXT);
                         if (stackNotificationLine != null) {
                             inbox.addLine(stackNotificationLine);
                         }
