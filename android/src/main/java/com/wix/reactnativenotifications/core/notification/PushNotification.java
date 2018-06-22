@@ -53,6 +53,7 @@ public class PushNotification implements IPushNotification {
         mAppLaunchHelper = appLaunchHelper;
         mJsIOHelper = JsIOHelper;
         mNotificationProps = createProps(bundle);
+		setAsInitialNotification();
     }
 
     @Override
@@ -85,15 +86,15 @@ public class PushNotification implements IPushNotification {
 
     protected void digestNotification() {
         if (!mAppLifecycleFacade.isReactInitialized()) {
-            setAsInitialNotification();
+            //setAsInitialNotification();
             launchOrResumeApp();
             return;
         }
 
-        final ReactContext reactContext = mAppLifecycleFacade.getRunningReactContext();
+        /*final ReactContext reactContext = mAppLifecycleFacade.getRunningReactContext();
         if (reactContext.getCurrentActivity() == null) {
             setAsInitialNotification();
-        }
+        }*/
 
         if (mAppLifecycleFacade.isAppVisible()) {
             dispatchImmediately();

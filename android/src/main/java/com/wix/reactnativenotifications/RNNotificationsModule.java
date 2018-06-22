@@ -1,5 +1,8 @@
 package com.wix.reactnativenotifications;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -62,17 +65,20 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     @ReactMethod
     public void getInitialNotification(final Promise promise) {
         Log.d(LOGTAG, "Native method invocation: getInitialNotification");
-        Object result = null;
+        List<Object> result = new ArrayList<Object>();
 
         try {
-            final PushNotificationProps notification = InitialNotificationHolder.getInstance().get();
-            if (notification == null) {
+            final List<PushNotificationProps> notifications = InitialNotificationHolder.getInstance().get();
+            if (notifications == null) {
                 return;
             }
 
-            result = Arguments.fromBundle(notification.asBundle());
+            for(PushNotificationProps props: notifications){
+                result.add(Arguments.fromBundle(props.asBundle()));
+            }
         } finally {
-            promise.resolve(result);
+            promise.resolve(Arguments.makeNativeArray(result));
+            InitialNotificationHolder.getInstance().clear();
         }
     }
 
