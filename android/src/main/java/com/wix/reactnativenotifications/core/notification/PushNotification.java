@@ -53,7 +53,7 @@ public class PushNotification implements IPushNotification {
         mAppLaunchHelper = appLaunchHelper;
         mJsIOHelper = JsIOHelper;
         mNotificationProps = createProps(bundle);
-		setAsInitialNotification();
+        setAsInitialNotification();
     }
 
     @Override
