@@ -28,6 +28,7 @@ describe("NotificationsIOS", () => {
     nativeLocalNotification,
     nativeCancelLocalNotification,
     nativeCancelAllLocalNotifications,
+    nativeGetBadgesCount,
     nativeSetBadgesCount,
     nativeIsRegisteredForRemoteNotifications,
     nativeCheckPermissions,
@@ -54,6 +55,7 @@ describe("NotificationsIOS", () => {
     nativeLocalNotification = sinon.spy();
     nativeCancelLocalNotification = sinon.spy();
     nativeCancelAllLocalNotifications = sinon.spy();
+    nativeGetBadgesCount = sinon.spy();
     nativeSetBadgesCount = sinon.spy();
     nativeIsRegisteredForRemoteNotifications = sinon.spy();
     nativeCheckPermissions = sinon.spy();
@@ -76,6 +78,7 @@ describe("NotificationsIOS", () => {
             localNotification: nativeLocalNotification,
             cancelLocalNotification: nativeCancelLocalNotification,
             cancelAllLocalNotifications: nativeCancelAllLocalNotifications,
+            getBadgesCount: nativeGetBadgesCount,
             setBadgesCount: nativeSetBadgesCount,
             isRegisteredForRemoteNotifications: nativeIsRegisteredForRemoteNotifications,
             checkPermissions: nativeCheckPermissions,
@@ -236,6 +239,15 @@ describe("NotificationsIOS", () => {
         NotificationsIOS.resetCategories();
 
         expect(nativeAppRemoveEventListener).to.have.been.calledOnce;
+      });
+    });
+
+    describe("get badges count", () => {
+      it("should call native getBadgesCount", () => {
+        const callback = (count) => console.log(count);
+        NotificationsIOS.getBadgesCount(callback);
+
+        expect(nativeGetBadgesCount).to.have.been.calledWith(callback);
       });
     });
 
