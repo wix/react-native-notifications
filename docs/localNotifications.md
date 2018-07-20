@@ -21,7 +21,7 @@ let localNotification = NotificationsIOS.localNotification({
 
 Notification object contains:
 
-- **`fireDate`**- The date and time when the system should deliver the notification (optinal - default is immidiate dispatch).
+- **`fireDate`**- The date and time when the system should deliver the notification (optional - default is immidiate dispatch).
 - `alertBody`- The message displayed in the notification alert.
 - `alertTitle`- The title of the notification, displayed in the notifications center.
 - `alertAction`- The "action" displayed beneath an actionable notification on the lockscreen (e.g. "Slide to **open**"). Note that Apple no longer shows this in iOS 10.
