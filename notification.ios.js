@@ -8,14 +8,17 @@ export default class IOSNotification {
   _thread: string;
 
   constructor(notification: Object) {
+    // Holds all the extra data that do not fit the IOSNotification structure
     this._data = {};
 
-    if (notification.aps &&
+    if (
+      notification.aps &&
       notification.aps["content-available"] &&
       notification.aps["content-available"] === 1 &&
       !notification.aps.alert &&
       !notification.aps.sound &&
-      notification.managedAps) {
+      notification.managedAps
+    ) {
       // managed notification
       this._alert = notification.managedAps.alert;
       this._sound = notification.managedAps.sound;
@@ -23,9 +26,7 @@ export default class IOSNotification {
       this._category = notification.managedAps.category;
       this._type = "managed";
       this._thread = notification.aps["thread-id"];
-    } else if (
-      notification.aps &&
-      notification.aps.alert) {
+    } else if (notification.aps && notification.aps.alert) {
       // regular notification
       this._alert = notification.aps.alert;
       this._sound = notification.aps.sound;
@@ -35,7 +36,7 @@ export default class IOSNotification {
       this._thread = notification.aps["thread-id"];
     }
 
-    Object.keys(notification).filter(key => key !== "aps").forEach(key => {
+    Object.keys(notification).forEach(key => {
       this._data[key] = notification[key];
     });
   }
