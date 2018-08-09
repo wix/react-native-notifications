@@ -8,6 +8,7 @@ Start by running this:
 
 ```
 $ npm install react-native-notifications --save
+$ react-native link
 ```
 
 ## <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/2000px-Apple_logo_black.svg.png" width=30/> iOS
