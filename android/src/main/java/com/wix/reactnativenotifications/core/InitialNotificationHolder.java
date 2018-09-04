@@ -2,6 +2,7 @@ package com.wix.reactnativenotifications.core;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.support.annotation.Nullable;
 
@@ -11,7 +12,7 @@ public class InitialNotificationHolder {
 
     private static InitialNotificationHolder sInstance;
 
-    private List<PushNotificationProps> mNotificationArray = new ArrayList<PushNotificationProps>();
+    private HashMap<String,PushNotificationProps> mNotifications = new HashMap<String,PushNotificationProps>();
 
     public static void setInstance(InitialNotificationHolder instance) {
         sInstance = instance;
@@ -28,15 +29,15 @@ public class InitialNotificationHolder {
     }
 
     public void set(PushNotificationProps pushNotificationProps) {
-        mNotificationArray.add(pushNotificationProps);
+        mNotifications.put(pushNotificationProps.toString(),pushNotificationProps);
     }
 
     public void clear() {
-        mNotificationArray.clear();
+        mNotifications.clear();
     }
 
     @Nullable
     public List<PushNotificationProps> get() {
-        return mNotificationArray;
+        return new ArrayList<PushNotificationProps>(mNotifications.values());
     }
 }
