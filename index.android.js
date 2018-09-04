@@ -58,6 +58,10 @@ export class NotificationsAndroid {
   static cancelLocalNotification(id) {
     RNNotifications.cancelLocalNotification(id);
   }
+
+  static cancelAllNotifications() {
+    RNNotifications.cancelAllNotifications();
+  }
 }
 
 export class PendingNotifications {

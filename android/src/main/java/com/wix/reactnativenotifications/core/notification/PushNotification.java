@@ -64,6 +64,7 @@ public class PushNotification implements IPushNotification {
 
     @Override
     public void onOpened() {
+        mNotificationProps.setOpened();
         digestNotification();
         clearAllNotifications();
     }

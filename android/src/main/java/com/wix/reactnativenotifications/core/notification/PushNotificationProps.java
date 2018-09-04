@@ -32,6 +32,10 @@ public class PushNotificationProps {
         return (Bundle) mBundle.clone();
     }
 
+    public void setOpened(){
+        mBundle.putByte("opened", (byte) 1);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(1024);
