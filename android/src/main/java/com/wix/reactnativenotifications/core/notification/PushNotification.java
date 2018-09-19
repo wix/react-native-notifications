@@ -2,6 +2,7 @@ package com.wix.reactnativenotifications.core.notification;
 
 import java.util.ArrayList;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -257,6 +258,17 @@ public class PushNotification implements IPushNotification {
         // we group if it exists
         if (mNotificationProps.getGroup() != null){
             notificationBuilder.setGroup(mNotificationProps.getGroup());
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String CHANNEL_ID = "channel_01";
+            String CHANNEL_NAME = "Channel Name";
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                                                                  CHANNEL_NAME,
+                                                                  NotificationManager.IMPORTANCE_DEFAULT);
+            final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(channel);
+            notificationBuilder.setChannelId(CHANNEL_ID);
         }
 
         return notificationBuilder;
