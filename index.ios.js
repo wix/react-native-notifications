@@ -124,6 +124,7 @@ export default class NotificationsIOS {
 
     if (categories) {
       // subscribe once for all actions
+      NativeAppEventEmitter.removeAllListeners(DEVICE_NOTIFICATION_ACTION_RECEIVED);      
       _actionListener = NativeAppEventEmitter.addListener(DEVICE_NOTIFICATION_ACTION_RECEIVED, this._actionHandlerDispatcher.bind(this));
 
       notificationCategories = categories.map(category => {
