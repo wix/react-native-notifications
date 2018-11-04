@@ -12,6 +12,8 @@
     "react-native-notifications": "../"
   },
   "babel": {
-    "presets": ["react-native-stage-0"]
+    "presets": [
+      "react-native-stage-0"
+    ]
   }
 }
