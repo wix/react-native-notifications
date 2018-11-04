@@ -32,7 +32,7 @@ function onNotificationReceived(notification) {
 }
 
 // It's highly recommended to keep listeners registration at global scope rather than at screen-scope seeing that
-// component mount and unmount lifecycle tend to be asymmetric!
+// component mount and unmount lifecycle tends to be asymmetric!
 NotificationsAndroid.setRegistrationTokenUpdateListener(onPushRegistered);
 NotificationsAndroid.setNotificationOpenedListener(onNotificationOpened);
 NotificationsAndroid.setNotificationReceivedListener(onNotificationReceived);
