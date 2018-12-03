@@ -244,8 +244,12 @@ RCT_EXPORT_MODULE()
 
 + (void)didReceiveRemoteNotification:(NSDictionary *)notification
 {
-    UIApplicationState state = [UIApplication sharedApplication].applicationState;
+    [self didReceiveRemoteNotification:notification];
+}
 
++ (void)application:(UIApplication *) application didReceiveRemoteNotification:(NSDictionary *)notification
+{
+    UIApplicationState state = (application && application.applicationState) || [UIApplication sharedApplication].applicationState;
     if ([RNNotificationsBridgeQueue sharedInstance].jsIsReady == YES) {
         // JS thread is ready, push the notification to the bridge
 

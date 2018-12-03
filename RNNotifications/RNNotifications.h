@@ -11,6 +11,7 @@
 + (void)didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(NSString *)type;
 
 + (void)didReceiveRemoteNotification:(NSDictionary *)notification;
++ (void)application:(UIApplication *) didReceiveRemoteNotification:(NSDictionary *)notification;
 + (void)didReceiveLocalNotification:(UILocalNotification *)notification;
 
 + (void)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler;
