@@ -72,6 +72,9 @@ import {NotificationsAndroid} from 'react-native-notifications';
 NotificationsAndroid.setNotificationReceivedListener((notification) => {
 	console.log("Notification received on device", notification.getData());
 });
+NotificationsAndroid.setNotificationReceivedInForegroundListener((notification) => {
+	console.log("Notification received on device", notification.getData());
+});
 NotificationsAndroid.setNotificationOpenedListener((notification) => {
 	console.log("Notification opened by device user", notification.getData());
 });
