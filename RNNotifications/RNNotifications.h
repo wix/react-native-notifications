@@ -2,6 +2,8 @@
 
 #import <React/RCTBridgeModule.h>
 #import <PushKit/PushKit.h>
+#import "RNNRouter.h"
+
 
 @interface RNNotifications : NSObject <RCTBridgeModule>
 
