@@ -1,6 +1,6 @@
 {
   "name": "react-native-notifications",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
   "author": "Lidan Hifi <lidan.hifi@gmail.com>",
   "license": "MIT",
