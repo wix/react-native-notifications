@@ -25,6 +25,8 @@ import com.wix.reactnativenotifications.core.notificationdrawer.IPushNotificatio
 import com.wix.reactnativenotifications.core.notificationdrawer.PushNotificationsDrawer;
 import com.wix.reactnativenotifications.gcm.FcmInstanceIdRefreshHandlerService;
 
+import com.google.firebase.FirebaseApp;
+
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
 
 public class RNNotificationsModule extends ReactContextBaseJavaModule implements AppLifecycleFacade.AppVisibilityListener, Application.ActivityLifecycleCallbacks {
@@ -32,6 +34,7 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     public RNNotificationsModule(Application application, ReactApplicationContext reactContext) {
         super(reactContext);
 
+        FirebaseApp.initializeApp(reactContext.getApplicationContext());
         if (AppLifecycleFacadeHolder.get() instanceof ReactAppLifecycleFacade) {
             ((ReactAppLifecycleFacade) AppLifecycleFacadeHolder.get()).init(reactContext);
         }
