@@ -63,11 +63,14 @@ public class RNNotificationsPackage implements ReactPackage, AppLifecycleFacade.
         final IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(mApplication.getApplicationContext());
         notificationsDrawer.onNewActivity(activity);
 
-        Bundle notificationData = activity.getIntent().getExtras();
-        if (notificationData != null) {
-            final IPushNotification pushNotification = PushNotification.get(mApplication.getApplicationContext(), notificationData);
-            if (pushNotification != null) {
-                pushNotification.onOpened();
+        Intent intent = activity.getIntent();
+        if (intent != null) {
+            Bundle notificationData = intent.getExtras();
+            if (notificationData != null) {
+                final IPushNotification pushNotification = PushNotification.get(mApplication.getApplicationContext(), notificationData);
+                if (pushNotification != null) {
+                    pushNotification.onOpened();
+                }
             }
         }
     }

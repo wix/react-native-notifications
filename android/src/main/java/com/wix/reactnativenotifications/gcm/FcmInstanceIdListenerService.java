@@ -21,8 +21,7 @@ public class FcmInstanceIdListenerService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage message){
-        Map data = message.getData();
-        Bundle bundle = convertMapToBundle(data);
+        Bundle bundle = message.toIntent().getExtras();
         Log.d(LOGTAG, "New message from GCM: " + bundle);
 
         try {
@@ -33,14 +32,4 @@ public class FcmInstanceIdListenerService extends FirebaseMessagingService {
             Log.v(LOGTAG, "GCM message handling aborted", e);
         }
     }
-
-    private Bundle convertMapToBundle(Map<String, String> map) {
-        Bundle bundle = new Bundle();
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            bundle.putString(entry.getKey(), entry.getValue());
-        }
-
-        return bundle;
-    }
-
 }
