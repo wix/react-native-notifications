@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
+import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -23,20 +24,21 @@ import com.wix.reactnativenotifications.core.notification.PushNotification;
 import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
 import com.wix.reactnativenotifications.core.notificationdrawer.IPushNotificationsDrawer;
 import com.wix.reactnativenotifications.core.notificationdrawer.PushNotificationsDrawer;
-import com.wix.reactnativenotifications.gcm.GcmInstanceIdRefreshHandlerService;
+import com.wix.reactnativenotifications.gcm.FcmInstanceIdRefreshHandlerService;
+
+import com.google.firebase.FirebaseApp;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
 
-public class RNNotificationsModule extends ReactContextBaseJavaModule implements AppLifecycleFacade.AppVisibilityListener, Application.ActivityLifecycleCallbacks {
+public class RNNotificationsModule extends ReactContextBaseJavaModule implements ActivityEventListener {
 
     public RNNotificationsModule(Application application, ReactApplicationContext reactContext) {
         super(reactContext);
-
         if (AppLifecycleFacadeHolder.get() instanceof ReactAppLifecycleFacade) {
             ((ReactAppLifecycleFacade) AppLifecycleFacadeHolder.get()).init(reactContext);
         }
-        AppLifecycleFacadeHolder.get().addVisibilityListener(this);
-        application.registerActivityLifecycleCallbacks(this);
+
+        reactContext.addActivityEventListener(this);
     }
 
     @Override
@@ -47,16 +49,32 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     @Override
     public void initialize() {
         Log.d(LOGTAG, "Native module init");
-        startGcmIntentService(GcmInstanceIdRefreshHandlerService.EXTRA_IS_APP_INIT);
+        startGcmIntentService(FcmInstanceIdRefreshHandlerService.EXTRA_IS_APP_INIT);
 
         final IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
         notificationsDrawer.onAppInit();
     }
 
+    @Override
+    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        Bundle notificationData = intent.getExtras();
+        if (notificationData != null) {
+            final IPushNotification notification = PushNotification.get(getReactApplicationContext().getApplicationContext(), notificationData);
+            if (notification != null) {
+                notification.onOpened();
+            }
+        }
+    }
+
     @ReactMethod
     public void refreshToken() {
         Log.d(LOGTAG, "Native method invocation: refreshToken()");
-        startGcmIntentService(GcmInstanceIdRefreshHandlerService.EXTRA_MANUAL_REFRESH);
+        startGcmIntentService(FcmInstanceIdRefreshHandlerService.EXTRA_MANUAL_REFRESH);
     }
 
     @ReactMethod
@@ -96,49 +114,9 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
         promise.resolve(new Boolean(hasPermission));
     }
 
-    @Override
-    public void onAppVisible() {
-        final IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
-        notificationsDrawer.onAppVisible();
-    }
-
-    @Override
-    public void onAppNotVisible() {
-    }
-
-    @Override
-    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        final IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
-        notificationsDrawer.onNewActivity(activity);
-    }
-
-    @Override
-    public void onActivityStarted(Activity activity) {
-    }
-
-    @Override
-    public void onActivityResumed(Activity activity) {
-    }
-
-    @Override
-    public void onActivityPaused(Activity activity) {
-    }
-
-    @Override
-    public void onActivityStopped(Activity activity) {
-    }
-
-    @Override
-    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-    }
-
-    @Override
-    public void onActivityDestroyed(Activity activity) {
-    }
-
     protected void startGcmIntentService(String extraFlag) {
         final Context appContext = getReactApplicationContext().getApplicationContext();
-        final Intent tokenFetchIntent = new Intent(appContext, GcmInstanceIdRefreshHandlerService.class);
+        final Intent tokenFetchIntent = new Intent(appContext, FcmInstanceIdRefreshHandlerService.class);
         tokenFetchIntent.putExtra(extraFlag, true);
         appContext.startService(tokenFetchIntent);
     }
