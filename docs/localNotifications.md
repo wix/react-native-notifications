@@ -81,4 +81,4 @@ NotificationsAndroid.localNotification({
 });
 ```
 
-Upon notification opening (tapping by the device user), all data fields will be delivered as-is).
+Upon notification opening (tapping by the device user), all data fields will be delivered as-is.
