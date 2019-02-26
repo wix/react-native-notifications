@@ -3,15 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wix.reactnativenotifications">
 
-    <!--
-     Permissions required for enabling FCM.
-     -->
-    <permission
-        android:name="${applicationId}.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-
     <application>
 
         <!--
