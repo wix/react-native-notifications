@@ -22,7 +22,7 @@
 @implementation RNNRouter
 
 + (nonnull instancetype)sharedInstance
-/Users/muhammadr/Desktop/Production/RNNotifions/react-native-notifications/example/node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj{
+{
     static RNNRouter* sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
