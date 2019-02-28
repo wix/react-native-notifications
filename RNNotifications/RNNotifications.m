@@ -509,12 +509,14 @@ RCT_EXPORT_METHOD(completionHandler:(NSString *)completionKey)
 
 RCT_EXPORT_METHOD(registerPushKit)
 {
-    // Create a push registry object
-    PKPushRegistry* pushKitRegistry = [[PKPushRegistry alloc] initWithQueue:dispatch_get_main_queue()];
-    
-    // Set the registry delegate to app delegate
-    pushKitRegistry.delegate = [[UIApplication sharedApplication] delegate];
-    pushKitRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // Create a push registry object
+        PKPushRegistry* pushKitRegistry = [[PKPushRegistry alloc] initWithQueue:dispatch_get_main_queue()];
+        
+        // Set the registry delegate to app delegate
+        pushKitRegistry.delegate = [[UIApplication sharedApplication] delegate];
+        pushKitRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
+    })
 }
 
 
