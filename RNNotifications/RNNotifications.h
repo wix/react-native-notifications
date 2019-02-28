@@ -7,5 +7,5 @@
 
 
 @interface RNNotifications : RCTEventEmitter <RCTBridgeModule, RNNRerouterDelegate>
-
++ (NSString *)deviceTokenToString:(NSData *)deviceToken;
 @end

@@ -12,7 +12,7 @@
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
 #import "RNNotifications.h"
-
+#import "RNNRouter.h"
 #import <PushKit/PushKit.h>
 
 @implementation AppDelegate
@@ -40,48 +40,66 @@
 // PushKit API Example
 - (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(NSString *)type
 {
-  [RNNotifications didUpdatePushCredentials:credentials forType:type];
+  [[RNNRouter sharedInstance] didUpdatePushCredentials:credentials forType:type];
 }
+
 
 - (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(NSString *)type
 {
-  [RNNotifications didReceiveRemoteNotification:payload.dictionaryPayload];
+  [[RNNRouter sharedInstance] application:nil didReceiveRemoteNotification:payload.dictionaryPayload fetchCompletionHandler:nil];
 }
 
-
-// Required to register for notifications
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-  [RNNotifications didRegisterUserNotificationSettings:notificationSettings];
+  [[RNNRouter sharedInstance] application:application didFailToRegisterForRemoteNotificationsWithError:error];
 }
+
+//// Required to register for notifications
+//- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+//{
+//  [RNNotifications didRegisterUserNotificationSettings:notificationSettings];
+//}
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-  [RNNotifications didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+  [[RNNRouter sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
 
 // Required for the notification event.
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification {
-  [RNNotifications didReceiveRemoteNotification:notification];
-}
-
-// Required for the localNotification event.
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification
 {
-  [RNNotifications didReceiveLocalNotification:notification];
+  [[RNNRouter sharedInstance] application:application didReceiveRemoteNotification:notification fetchCompletionHandler:nil];
 }
 
-
-// Required for the notification actions.
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
 {
-  [RNNotifications handleActionWithIdentifier:identifier forLocalNotification:notification withResponseInfo:responseInfo completionHandler:completionHandler];
+  [[RNNRouter sharedInstance] userNotificationCenter:center willPresentNotification:notification withCompletionHandler:completionHandler];
 }
 
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
 {
-  [RNNotifications handleActionWithIdentifier:identifier forRemoteNotification:userInfo withResponseInfo:responseInfo completionHandler:completionHandler];
+  [[RNNRouter sharedInstance] userNotificationCenter:center didReceiveNotificationResponse:response withCompletionHandler:completionHandler];
 }
+
+
+
+//// Required for the localNotification event.
+//- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+//{
+//  [RNNotifications didReceiveLocalNotification:notification];
+//}
+
+
+//// Required for the notification actions.
+//- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
+//{
+//  [RNNotifications handleActionWithIdentifier:identifier forLocalNotification:notification withResponseInfo:responseInfo completionHandler:completionHandler];
+//}
+//
+//- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
+//{
+//  [RNNotifications handleActionWithIdentifier:identifier forRemoteNotification:userInfo withResponseInfo:responseInfo completionHandler:completionHandler];
+//}
 
 @end

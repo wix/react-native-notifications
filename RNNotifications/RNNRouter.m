@@ -7,7 +7,7 @@
 //
 
 #import "RNNRouter.h"
-
+#import "RNNotifications.h"
 //RNNNotifications's router (delegater) :::  singleton which routes all the static, system functions delegate calls to RNNNotifications insatnce ; can't have and RNNNotifications instance from outside of it's class
 
 
@@ -22,7 +22,7 @@
 @implementation RNNRouter
 
 + (nonnull instancetype)sharedInstance
-{
+/Users/muhammadr/Desktop/Production/RNNotifions/react-native-notifications/example/node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj{
     static RNNRouter* sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -105,11 +105,6 @@
     }
 }
 
-
-/////////////////////////////////////////////////////////////////
-#pragma mark static calls for RNNNotifications rerouting purpous functions
-////////////////////////////////////////////////////////////////
-
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     if (self.delegate != nil)
@@ -139,14 +134,16 @@
 {
     if(self.delegate != nil)
     {
-        //        [self.delegate handlePushKitRegistered:@{@"pushKitToken": [RNNotifications deviceTokenToString:credentials.token]}];
+        [self.delegate handlePushKitRegistered:@{@"pushKitToken": [RNNotifications deviceTokenToString:credentials.token]}];
     }
 }
 
 - (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(NSString *)type
 {
-    //TODO: check here
-    //    [RNNotifications didReceiveRemoteNotification:payload.dictionaryPayload];
+    if (self.delegate != nil)
+    {
+        [self.delegate application:nil didReceiveRemoteNotification:payload.dictionaryPayload fetchCompletionHandler:nil];
+    }
 }
 
 @end

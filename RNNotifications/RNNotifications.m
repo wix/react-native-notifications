@@ -295,7 +295,7 @@ RCT_EXPORT_MODULE()
     }
 }
 
-- (void)handlePushKitRegistered:(NSNotification *)notification
+- (void)handlePushKitRegistered:(NSDictionary *)notification
 {
     [self checkAndSendEvent:RNPushKitRegistered body:notification];
 }
