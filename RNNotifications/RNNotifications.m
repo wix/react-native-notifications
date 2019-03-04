@@ -516,7 +516,7 @@ RCT_EXPORT_METHOD(registerPushKit)
         // Set the registry delegate to app delegate
         pushKitRegistry.delegate = [[UIApplication sharedApplication] delegate];
         pushKitRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
-    })
+    });
 }
 
 
