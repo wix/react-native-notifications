@@ -23,8 +23,6 @@ NSString* const RNNotificationActionTriggered = @"RNNotificationActionTriggered"
 //NSString* const RNNotificationActionReceived = @"notificationActionReceived";
 //NSString* const RNNotificationActionDismissed = @"RNNotificationActionDismissed";
 
-//TODO: check possibility to register the delegate as the UNUserNotificationCenterDelegate;
-
 
 ////////////////////////////////////////////////////////////////
 #pragma mark conversions
@@ -156,6 +154,7 @@ static NSDictionary *RCTFormatUNNotification(UNNotification *notification)
 @interface RNNotifications()
 
 @property(nonatomic) bool hasListeners;
+@property(nonatomic) NSDictionary* openedNotification;
 
 @end
 
@@ -179,10 +178,11 @@ RCT_EXPORT_MODULE()
 {
     NSLog(@"ABOELBISHER : bridge set");
     //    [super setBridge:bridge];
+    _openedNotification = [bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification = [bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    UILocalNotification *localNotification = [bridge.launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
-    [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = localNotification ? localNotification.userInfo : nil;
-
+//    UILocalNotification *localNotification = [bridge.launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+//    [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = localNotification ? localNotification.userInfo : nil;
+    
 }
 
 ////////////////////////////////////////////////////////////////
@@ -212,6 +212,8 @@ RCT_EXPORT_MODULE()
 #pragma mark NRNNManagerDelegate
 ////////////////////////////////////////////////////////////////
 //application:didReceiveLocalNotification : replacement
+
+//called when a notification is delivered to a foreground ap
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -222,15 +224,20 @@ RCT_EXPORT_MODULE()
         //        notification.request.content.userInfo = newUserInfo;
         //        ////
         
+        if (![RNNotificationsBridgeQueue sharedInstance].jsIsReady)
+        {
+            [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = notification.request.content.userInfo;
+            return;
+        }
         
         NSLog(@"ABOELBISHER : willPresentNotification");
         UIApplicationState state = [UIApplication sharedApplication].applicationState;
         [self handleReceiveNotification:state userInfo:notification.request.content.userInfo];
-        
         completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
     });
 }
 
+//called when a user selects an action in a delivered notification
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
 {
     NSString* identifier = response.actionIdentifier;
@@ -256,6 +263,8 @@ RCT_EXPORT_MODULE()
     if ([RNNotificationsBridgeQueue sharedInstance].jsIsReady == YES) {
         [self checkAndSendEvent:RNNotificationActionTriggered body:info];
         completionHandler();
+    } else {
+        [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = info;
     }
     
 }
@@ -393,7 +402,7 @@ RCT_EXPORT_METHOD(setBadgesCount:(int)count)
                                                       userInfo:notification];
 }
 
-+ (void)didReceiveNotificationOnBackgroundState:(NSDictionary *)notification
+-(void)didReceiveNotificationOnBackgroundState:(NSDictionary *)notification
 {
     NSDictionary* managedAps  = [notification objectForKey:@"managedAps"];
     NSDictionary* alert = [managedAps objectForKey:@"alert"];
@@ -412,9 +421,8 @@ RCT_EXPORT_METHOD(setBadgesCount:(int)count)
         }
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationReceivedBackground
-                                                        object:self
-                                                      userInfo:notification];
+    [self checkAndSendEvent:RNNotificationReceivedBackground body:notification];
+    
 }
 
 + (void)didNotificationOpen:(NSDictionary *)notification
@@ -427,7 +435,7 @@ RCT_EXPORT_METHOD(setBadgesCount:(int)count)
 /*
  * Helper methods
  */
-+ (void)dispatchLocalNotificationFromNotification:(NSDictionary *)notification
+-(void)dispatchLocalNotificationFromNotification:(NSDictionary *)notification
 {
     NSDictionary* managedAps  = [notification objectForKey:@"managedAps"];
     NSDictionary* alert = [managedAps objectForKey:@"alert"];
@@ -458,7 +466,7 @@ RCT_EXPORT_METHOD(setBadgesCount:(int)count)
     }
 }
 
-+ (void)clearNotificationFromNotificationsCenter:(NSString *)notificationId
+-(void)clearNotificationFromNotificationsCenter:(NSString *)notificationId
 {
     NSString* notificationKey = [self buildNotificationKeyfromNotification:notificationId];
     NSData* data = [[NSUserDefaults standardUserDefaults] objectForKey:notificationKey];
@@ -475,7 +483,7 @@ RCT_EXPORT_METHOD(setBadgesCount:(int)count)
     }
 }
 
-+ (NSString *)buildNotificationKeyfromNotification:(NSString *)notificationId
+-(NSString *)buildNotificationKeyfromNotification:(NSString *)notificationId
 {
     return [NSString stringWithFormat:@"%@.%@", [[NSBundle mainBundle] bundleIdentifier], notificationId];
 }
@@ -546,21 +554,21 @@ RCT_EXPORT_METHOD(consumeBackgroundQueue)
     
     // Push background notifications to JS
     [[RNNotificationsBridgeQueue sharedInstance] consumeNotificationsQueue:^(NSDictionary* notification) {
-        [RNNotifications didReceiveNotificationOnBackgroundState:notification];
+        [self didReceiveNotificationOnBackgroundState:notification];
     }];
     
     // Push opened local notifications
     NSDictionary* openedLocalNotification = [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification;
     if (openedLocalNotification) {
         [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = nil;
-        [RNNotifications didNotificationOpen:openedLocalNotification];
+        [self checkAndSendEvent:RNNotificationOpened body:openedLocalNotification];
     }
     
     // Push opened remote notifications
     NSDictionary* openedRemoteNotification = [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification;
     if (openedRemoteNotification) {
         [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification = nil;
-        [RNNotifications didNotificationOpen:openedRemoteNotification];
+        [self checkAndSendEvent:RNNotificationOpened body:openedRemoteNotification];
     }
 }
 
