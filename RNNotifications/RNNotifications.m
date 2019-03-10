@@ -23,6 +23,8 @@ NSString* const RNNotificationActionTriggered = @"RNNotificationActionTriggered"
 //NSString* const RNNotificationActionReceived = @"notificationActionReceived";
 //NSString* const RNNotificationActionDismissed = @"RNNotificationActionDismissed";
 
+//TODO: check possibility to register the delegate as the UNUserNotificationCenterDelegate;
+
 
 ////////////////////////////////////////////////////////////////
 #pragma mark conversions
@@ -154,7 +156,6 @@ static NSDictionary *RCTFormatUNNotification(UNNotification *notification)
 @interface RNNotifications()
 
 @property(nonatomic) bool hasListeners;
-@property(nonatomic) NSDictionary* openedNotification;
 
 @end
 
@@ -178,7 +179,10 @@ RCT_EXPORT_MODULE()
 {
     NSLog(@"ABOELBISHER : bridge set");
     //    [super setBridge:bridge];
-    _openedNotification = [bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification = [bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    UILocalNotification *localNotification = [bridge.launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = localNotification ? localNotification.userInfo : nil;
+
 }
 
 ////////////////////////////////////////////////////////////////
