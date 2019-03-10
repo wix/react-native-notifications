@@ -20,7 +20,7 @@ NSString* const RNNotificationReceivedForeground = @"notificationReceivedForegro
 NSString* const RNNotificationReceivedBackground = @"notificationReceivedBackground";
 NSString* const RNNotificationOpened = @"notificationOpened";
 NSString* const RNNotificationActionTriggered = @"RNNotificationActionTriggered";
-//NSString* const RNNotificationActionReceived = @"notificationActionReceived";
+NSString* const RNNotificationActionReceived = @"notificationActionReceived";
 //NSString* const RNNotificationActionDismissed = @"RNNotificationActionDismissed";
 
 
@@ -180,8 +180,8 @@ RCT_EXPORT_MODULE()
     //    [super setBridge:bridge];
     _openedNotification = [bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification = [bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-//    UILocalNotification *localNotification = [bridge.launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
-//    [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = localNotification ? localNotification.userInfo : nil;
+    //    UILocalNotification *localNotification = [bridge.launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    //    [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = localNotification ? localNotification.userInfo : nil;
     
 }
 
@@ -395,12 +395,6 @@ RCT_EXPORT_METHOD(setBadgesCount:(int)count)
 /*
  * Notification handlers
  */
-+ (void)didReceiveNotificationOnForegroundState:(NSDictionary *)notification
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationReceivedForeground
-                                                        object:self
-                                                      userInfo:notification];
-}
 
 -(void)didReceiveNotificationOnBackgroundState:(NSDictionary *)notification
 {
@@ -547,9 +541,7 @@ RCT_EXPORT_METHOD(consumeBackgroundQueue)
     
     // Push actions to JS
     [[RNNotificationsBridgeQueue sharedInstance] consumeActionsQueue:^(NSDictionary* action) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationActionTriggered
-                                                            object:self
-                                                          userInfo:action];
+        [self checkAndSendEvent:RNNotificationActionReceived body:action];
     }];
     
     // Push background notifications to JS
