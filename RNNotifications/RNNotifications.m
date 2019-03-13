@@ -177,7 +177,7 @@ RCT_EXPORT_MODULE()
 - (void)setBridge:(RCTBridge *)bridge
 {
     NSLog(@"ABOELBISHER : bridge set");
-    //    [super setBridge:bridge];
+    [super setBridge:bridge];
     _openedNotification = [bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification = [bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     //    UILocalNotification *localNotification = [bridge.launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
@@ -271,7 +271,10 @@ RCT_EXPORT_MODULE()
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    [self checkAndSendEvent:RNNotificationsRegistered body:[RNNotifications deviceTokenToString:deviceToken]];
+    NSString * str = [RNNotifications deviceTokenToString:deviceToken];
+    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken: %@", str);
+    
+    [self checkAndSendEvent:RNNotificationsRegistered body:str];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -395,6 +398,12 @@ RCT_EXPORT_METHOD(setBadgesCount:(int)count)
 /*
  * Notification handlers
  */
+//+ (void)didReceiveNotificationOnForegroundState:(NSDictionary *)notification
+//{
+//    [[NSNotificationCenter defaultCenter] postNotificationName:RNNotificationReceivedForeground
+//                                                        object:self
+//                                                      userInfo:notification];
+//}
 
 -(void)didReceiveNotificationOnBackgroundState:(NSDictionary *)notification
 {

@@ -2,10 +2,11 @@
  * @flow
  */
 "use strict";
-import { NativeModules, DeviceEventEmitter, NativeAppEventEmitter } from "react-native";
+import { NativeModules, NativeEventEmitter } from "react-native";
 import Map from "core-js/library/es6/map";
 import uuid from "uuid";
-const NativeRNNotifications = NativeModules.RNNotifications; // eslint-disable-line no-unused-vars
+const {RNNotifications} = NativeModules; // eslint-disable-line no-unused-vars
+const rnnotificationsEmitter = new NativeEventEmitter(RNNotifications);
 import IOSNotification from "./notification.ios";
 
 export const DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT = "remoteNotificationsRegistered";
@@ -61,25 +62,28 @@ export default class NotificationsIOS {
    */
   static addEventListener(type: string, handler: Function) {
     if (_exportedEvents.indexOf(type) !== -1) {
+
+      console.log('ABOELBISHER addEventListener type', type);
+
       let listener;
 
       if (type === DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT) {
-        listener = DeviceEventEmitter.addListener(
+        listener = rnnotificationsEmitter.addListener(
           DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT,
           registration => handler(registration.deviceToken)
         );
       } else if (type === DEVICE_REMOTE_NOTIFICATIONS_REGISTRATION_FAILED_EVENT) {
-        listener = DeviceEventEmitter.addListener(
+        listener = rnnotificationsEmitter.addListener(
           DEVICE_REMOTE_NOTIFICATIONS_REGISTRATION_FAILED_EVENT,
           error => handler(error)
         );
       } else if (type === DEVICE_PUSH_KIT_REGISTERED_EVENT) {
-        listener = DeviceEventEmitter.addListener(
+        listener = rnnotificationsEmitter.addListener(
           DEVICE_PUSH_KIT_REGISTERED_EVENT,
           registration => handler(registration.pushKitToken)
         );
       } else {
-        listener = DeviceEventEmitter.addListener(
+        listener = rnnotificationsEmitter.addListener(
           type,
           notification => handler(new IOSNotification(notification))
         );
@@ -111,7 +115,7 @@ export default class NotificationsIOS {
       action.notification = new IOSNotification(action.notification);
 
       actionHandler(action, () => {
-        NativeRNNotifications.completionHandler(action.completionKey);
+        RNNotifications.completionHandler(action.completionKey);
       });
     }
   }
@@ -124,7 +128,7 @@ export default class NotificationsIOS {
 
     if (categories) {
       // subscribe once for all actions
-      _actionListener = NativeAppEventEmitter.addListener(DEVICE_NOTIFICATION_ACTION_RECEIVED, this._actionHandlerDispatcher.bind(this));
+      _actionListener = rnnotificationsEmitter.addListener(DEVICE_NOTIFICATION_ACTION_RECEIVED, this._actionHandlerDispatcher.bind(this));
 
       notificationCategories = categories.map(category => {
         return Object.assign({}, category.options, {
@@ -138,14 +142,14 @@ export default class NotificationsIOS {
       });
     }
 
-    NativeRNNotifications.requestPermissionsWithCategories(notificationCategories);
+    RNNotifications.requestPermissionsWithCategories(notificationCategories);
   }
 
   /**
    * Unregister for all remote notifications received via Apple Push Notification service.
    */
   static abandonPermissions() {
-    NativeRNNotifications.abandonPermissions();
+    RNNotifications.abandonPermissions();
   }
 
   /**
@@ -161,31 +165,31 @@ export default class NotificationsIOS {
   }
 
   static getBadgesCount(callback: Function) {
-    NativeRNNotifications.getBadgesCount(callback);
+    RNNotifications.getBadgesCount(callback);
   }
 
   static setBadgesCount(count: number) {
-    NativeRNNotifications.setBadgesCount(count);
+    RNNotifications.setBadgesCount(count);
   }
 
   static registerPushKit() {
-    NativeRNNotifications.registerPushKit();
+    RNNotifications.registerPushKit();
   }
 
   static backgroundTimeRemaining(callback: Function) {
-    NativeRNNotifications.backgroundTimeRemaining(callback);
+    RNNotifications.backgroundTimeRemaining(callback);
   }
 
   static consumeBackgroundQueue() {
-    NativeRNNotifications.consumeBackgroundQueue();
+    RNNotifications.consumeBackgroundQueue();
   }
 
   static log(message: string) {
-    NativeRNNotifications.log(message);
+    RNNotifications.log(message);
   }
 
   static async getInitialNotification() {
-    const notification = await NativeRNNotifications.getInitialNotification();
+    const notification = await RNNotifications.getInitialNotification();
     if (notification) {
       return new IOSNotification(notification);
     } else {
@@ -209,32 +213,32 @@ export default class NotificationsIOS {
    */
   static localNotification(notification: Object) {
     const notificationId = uuid.v4();
-    NativeRNNotifications.localNotification(notification, notificationId);
+    RNNotifications.localNotification(notification, notificationId);
 
     return notificationId;
   }
 
   static cancelLocalNotification(notificationId: String) {
-    NativeRNNotifications.cancelLocalNotification(notificationId);
+    RNNotifications.cancelLocalNotification(notificationId);
   }
 
   static cancelAllLocalNotifications() {
-    NativeRNNotifications.cancelAllLocalNotifications();
+    RNNotifications.cancelAllLocalNotifications();
   }
 
   static isRegisteredForRemoteNotifications() {
-    return NativeRNNotifications.isRegisteredForRemoteNotifications();
+    return RNNotifications.isRegisteredForRemoteNotifications();
   }
 
   static checkPermissions() {
-    return NativeRNNotifications.checkPermissions();
+    return RNNotifications.checkPermissions();
   }
 
   /**
    * Remove all delivered notifications from Notification Center
    */
   static removeAllDeliveredNotifications() {
-    return NativeRNNotifications.removeAllDeliveredNotifications();
+    return RNNotifications.removeAllDeliveredNotifications();
   }
 
   /**
@@ -243,7 +247,7 @@ export default class NotificationsIOS {
    * @param identifiers Array of notification identifiers
    */
   static removeDeliveredNotifications(identifiers: Array<String>) {
-    return NativeRNNotifications.removeDeliveredNotifications(identifiers);
+    return RNNotifications.removeDeliveredNotifications(identifiers);
   }
 
   /**
@@ -262,6 +266,6 @@ export default class NotificationsIOS {
    * - `fireDate` : The date and time when the system should deliver the notification. if not specified, the notification will be dispatched immediately.
    */
   static getDeliveredNotifications(callback: (notifications: Array<Object>) => void) {
-    return NativeRNNotifications.getDeliveredNotifications(callback);
+    return RNNotifications.getDeliveredNotifications(callback);
   }
 }
