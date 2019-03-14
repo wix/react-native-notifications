@@ -62,9 +62,6 @@ export default class NotificationsIOS {
    */
   static addEventListener(type: string, handler: Function) {
     if (_exportedEvents.indexOf(type) !== -1) {
-
-      console.log('ABOELBISHER addEventListener type', type);
-
       let listener;
 
       if (type === DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT) {
