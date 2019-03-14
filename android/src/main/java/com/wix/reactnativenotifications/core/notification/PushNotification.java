@@ -104,6 +104,7 @@ public class PushNotification implements IPushNotification {
     protected void digestNotification() {
         if (!mAppLifecycleFacade.isReactInitialized()) {
             setAsInitialNotification();
+            launchOrResumeApp();
             return;
         }
 
@@ -133,6 +134,10 @@ public class PushNotification implements IPushNotification {
 
     protected void dispatchUponVisibility() {
         mAppLifecycleFacade.addVisibilityListener(getIntermediateAppVisibilityListener());
+
+        // Make the app visible so that we'll dispatch the notification opening when visibility changes to 'true' (see
+        // above listener registration).
+        launchOrResumeApp();
     }
 
     protected AppVisibilityListener getIntermediateAppVisibilityListener() {
@@ -203,5 +208,10 @@ public class PushNotification implements IPushNotification {
 
     private void notifyOpenedToJS() {
         mJsIOHelper.sendEventToJS(NOTIFICATION_OPENED_EVENT_NAME, mNotificationProps.asBundle(), mAppLifecycleFacade.getRunningReactContext());
+    }
+
+    protected void launchOrResumeApp() {
+        final Intent intent = mAppLaunchHelper.getLaunchIntent(mContext);
+        mContext.startActivity(intent);
     }
 }
