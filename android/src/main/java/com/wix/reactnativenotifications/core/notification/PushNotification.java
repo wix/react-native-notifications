@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 
 import com.facebook.react.bridge.ReactContext;
 import com.wix.reactnativenotifications.core.AppLaunchHelper;
@@ -141,19 +142,19 @@ public class PushNotification implements IPushNotification {
         return getNotificationBuilder(intent).build();
     }
 
-    protected Notification.Builder getNotificationBuilder(PendingIntent intent) {
+    protected NotificationCompat.Builder getNotificationBuilder(PendingIntent intent) {
 
         String CHANNEL_ID = "channel_01";
         String CHANNEL_NAME = "Channel Name";
 
-        final Notification.Builder notification = new Notification.Builder(mContext)
+        final NotificationCompat.Builder notification = new NotificationCompat.Builder(mContext, CHANNEL_ID)
                 .setContentTitle(mNotificationProps.getTitle())
                 .setContentText(mNotificationProps.getBody())
                 .setSmallIcon(mContext.getApplicationInfo().icon)
                 .setContentIntent(intent)
-                .setDefaults(Notification.DEFAULT_ALL)
+                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true);
-
+        
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
                                                                   CHANNEL_NAME,
