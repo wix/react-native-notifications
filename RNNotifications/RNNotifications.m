@@ -272,9 +272,7 @@ RCT_EXPORT_MODULE()
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     NSString * str = [RNNotifications deviceTokenToString:deviceToken];
-    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken: %@", str);
-    
-    [self checkAndSendEvent:RNNotificationsRegistered body:str];
+    [self checkAndSendEvent:RNNotificationsRegistered body:@{@"deviceToken":str}];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
