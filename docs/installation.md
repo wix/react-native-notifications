@@ -17,7 +17,7 @@ First, [Manually link](https://facebook.github.io/react-native/docs/linking-libr
 Then, to enable notifications support add the following line at the top of your `AppDelegate.m`
 
 ```objective-c
-#import "RNNotifications.h"
+#import "RNNRouter.h"
 ```
 
 And the following methods to support registration and receiving notifications:
