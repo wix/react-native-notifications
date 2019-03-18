@@ -8,6 +8,6 @@
   "dependencies": {
     "react": "16.6.0-alpha.8af6728",
     "react-native": "^0.57.4",
-    "react-native-notifications": "latest"
+    "react-native-notifications": "git://github.com/wix/react-native-notifications.git#iosDeprecationsFixes"
   }
 }
