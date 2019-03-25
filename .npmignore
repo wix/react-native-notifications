@@ -2,6 +2,7 @@ example/
 test/
 RNNotifications/DerivedData
 node_modules/
+.history/
 
 .eslintrc
 *.yml
