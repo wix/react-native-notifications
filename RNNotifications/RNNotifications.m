@@ -241,6 +241,26 @@ RCT_EXPORT_MODULE()
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
 {
     NSString* identifier = response.actionIdentifier;
+    NSDictionary* userInfo = response.notification.request.content.userInfo;
+    if ([identifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
+        if ([RNNotificationsBridgeQueue sharedInstance].jsIsReady) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self checkAndSendEvent:RNNotificationOpened body:userInfo];
+            });
+        } else {
+            [[RNNotificationsBridgeQueue sharedInstance] postNotification:userInfo];
+        }
+
+        completionHandler();
+        return;
+    }
+
+//    TODO: emit this
+//    if ([identifier isEqualToString:UNNotificationDismissActionIdentifier]) {
+//        [self checkAndSendEvent:RNNotificationDismissed body:userInfo];
+//        return;
+//    }
+
     NSString* completionKey = [NSString stringWithFormat:@"%@.%@", identifier, [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]]];
     NSMutableDictionary* info = [[NSMutableDictionary alloc] initWithDictionary:@{ @"identifier": identifier, @"completionKey": completionKey }];
     
@@ -249,8 +269,6 @@ RCT_EXPORT_MODULE()
     if (text != NULL) {
         info[@"text"] = text;
     }
-    
-    NSDictionary* userInfo = response.notification.request.content.userInfo;
     
     // add notification custom data
     if (userInfo != NULL) {
