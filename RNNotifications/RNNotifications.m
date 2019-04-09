@@ -262,10 +262,10 @@ RCT_EXPORT_MODULE()
     
     // If notification has a TextInput, add its text to our info
     if ([response isKindOfClass:[UNTextInputNotificationResponse class]]) {
-    NSString* text = ((UNTextInputNotificationResponse*)response).userText;//[response objectForKey:UIUserNotificationActionResponseTypedTextKey];
-    if (text != NULL) {
-        info[@"text"] = text;
-    }
+        NSString* text = ((UNTextInputNotificationResponse*)response).userText;//[response objectForKey:UIUserNotificationActionResponseTypedTextKey];
+        if (text != NULL) {
+            info[@"text"] = text;
+        }
     }
     
     // add notification custom data
@@ -277,7 +277,7 @@ RCT_EXPORT_MODULE()
     [[RNNotificationsBridgeQueue sharedInstance] postAction:info withCompletionKey:completionKey andCompletionHandler:completionHandler];
     
     if ([RNNotificationsBridgeQueue sharedInstance].jsIsReady == YES) {
-        [self checkAndSendEvent:RNNotificationActionTriggered body:info];
+        [self checkAndSendEvent:RNNotificationActionReceived body:info];
         completionHandler();
     } else {
         [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = info;
@@ -341,6 +341,7 @@ RCT_EXPORT_MODULE()
               RNNotificationsRegistrationFailed,
               RNNotificationReceivedForeground,
               RNNotificationReceivedBackground,
+              RNNotificationActionReceived,
               RNNotificationOpened];
     
 }
