@@ -150,22 +150,7 @@ Notification **actions** allow the user to interact with a given notification.
 
 Notification **categories** allow you to group multiple actions together, and to connect the actions with the push notification itself.
 
-In order to support interactive notifications, firstly add the following methods to `appDelegate.m` file:
-
-```objective-c
-// Required for the notification actions.
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
-{
-  [RNNotifications handleActionWithIdentifier:identifier forLocalNotification:notification withResponseInfo:responseInfo completionHandler:completionHandler];
-}
-
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler
-{
-  [RNNotifications handleActionWithIdentifier:identifier forRemoteNotification:userInfo withResponseInfo:responseInfo completionHandler:completionHandler];
-}
-```
-
-Then, follow the basic workflow of adding interactive notifications to your app:
+Follow this workflow of adding interactive notifications to your app:
 
 1. Config the actions.
 2. Group actions together into categories.
