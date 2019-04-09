@@ -325,7 +325,8 @@ RCT_EXPORT_MODULE()
               RNNotificationsRegistrationFailed,
               RNNotificationReceivedForeground,
               RNNotificationReceivedBackground,
-              RNNotificationOpened];
+              RNNotificationOpened,
+              RNPushKitRegistered];
     
 }
 
