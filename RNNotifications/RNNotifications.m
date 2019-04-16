@@ -300,12 +300,13 @@ RCT_EXPORT_MODULE()
     {
         case (int)UIApplicationStateActive:
             [self checkAndSendEvent:RNNotificationReceivedForeground body:userInfo];
-            
+            break;   
         case (int)UIApplicationStateInactive:
             [self checkAndSendEvent:RNNotificationOpened body:userInfo];
-            
+            break;
         default:
             [self checkAndSendEvent:RNNotificationReceivedBackground body:userInfo];
+            break;
     }
 }
 
