@@ -6,8 +6,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-    "react": "16.6.0-alpha.8af6728",
-    "react-native": "^0.57.4",
+    "react": "16.8.3",
+    "react-native": "0.59.x",
     "react-native-notifications": "git://github.com/wix/react-native-notifications.git#iosDeprecationsFixes"
   }
 }
