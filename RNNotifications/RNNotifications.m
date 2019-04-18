@@ -172,7 +172,9 @@ RCT_EXPORT_MODULE()
     return self;
 }
 
-
++ (BOOL)requiresMainQueueSetup {
+    return YES;
+}
 
 - (void)setBridge:(RCTBridge *)bridge
 {
