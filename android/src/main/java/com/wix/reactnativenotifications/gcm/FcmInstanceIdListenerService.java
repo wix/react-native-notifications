@@ -26,7 +26,9 @@ public class FcmInstanceIdListenerService extends FirebaseMessagingService {
 
         try {
             final IPushNotification notification = PushNotification.get(getApplicationContext(), bundle);
-            notification.onReceived();
+            if (notification != null) {
+                notification.onReceived();
+            }
         } catch (IPushNotification.InvalidNotificationException e) {
             // A GCM message, yes - but not the kind we know how to work with.
             Log.v(LOGTAG, "GCM message handling aborted", e);
