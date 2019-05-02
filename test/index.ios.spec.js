@@ -18,6 +18,8 @@ describe("NotificationsIOS", () => {
   /*eslint-disable indent*/
   let deviceAddEventListener,
     deviceRemoveEventListener,
+    nativeAppAddEventListener,
+    nativeAppRemoveEventListener,
     nativeRequestPermissionsWithCategories,
     nativeAbandonPermissions,
     nativeRegisterPushKit,
@@ -35,8 +37,7 @@ describe("NotificationsIOS", () => {
     nativeGetDeliveredNotifications;
 
   let NotificationsIOS, NotificationAction, NotificationCategory;
-  let someHandler = () => {
-  };
+  let someHandler = () => {};
   let constantGuid = "some-random-uuid";
   let identifiers = ["some-random-uuid", "other-random-uuid"];
   /*eslint-enable indent*/
@@ -44,6 +45,8 @@ describe("NotificationsIOS", () => {
   before(() => {
     deviceAddEventListener = sinon.spy();
     deviceRemoveEventListener = sinon.spy();
+    nativeAppAddEventListener = sinon.spy();
+    nativeAppRemoveEventListener = sinon.spy();
     nativeRequestPermissionsWithCategories = sinon.spy();
     nativeAbandonPermissions = sinon.spy();
     nativeRegisterPushKit = sinon.spy();
@@ -59,7 +62,6 @@ describe("NotificationsIOS", () => {
     nativeRemoveAllDeliveredNotifications = sinon.spy();
     nativeRemoveDeliveredNotifications = sinon.spy();
     nativeGetDeliveredNotifications = sinon.spy();
-
 
     let libUnderTest = proxyquire("../index.ios", {
       "uuid": {
@@ -85,12 +87,20 @@ describe("NotificationsIOS", () => {
             getDeliveredNotifications: nativeGetDeliveredNotifications
           }
         },
-        NativeEventEmitter: () => ({
+        NativeAppEventEmitter: {
+          addListener: (...args) => {
+            nativeAppAddEventListener(...args);
+
+            return { remove: nativeAppRemoveEventListener };
+          }
+        },
+        DeviceEventEmitter: {
           addListener: (...args) => {
             deviceAddEventListener(...args);
-            return {remove: deviceRemoveEventListener};
+
+            return { remove: deviceRemoveEventListener };
           }
-        }),
+        },
         "@noCallThru": true
       }
     });
@@ -103,6 +113,8 @@ describe("NotificationsIOS", () => {
   afterEach(() => {
     deviceAddEventListener.reset();
     deviceRemoveEventListener.reset();
+    nativeAppAddEventListener.reset();
+    nativeAppRemoveEventListener.reset();
     nativeRequestPermissionsWithCategories.reset();
     nativeAbandonPermissions.reset();
     nativeRegisterPushKit.reset();
@@ -121,6 +133,8 @@ describe("NotificationsIOS", () => {
   after(() => {
     deviceAddEventListener = null;
     deviceRemoveEventListener = null;
+    nativeAppAddEventListener = null;
+    nativeAppRemoveEventListener = null;
     nativeRequestPermissionsWithCategories = null;
     nativeAbandonPermissions = null;
     nativeRegisterPushKit = null;
@@ -186,8 +200,7 @@ describe("NotificationsIOS", () => {
     };
 
     beforeEach(() => {
-      someAction = new NotificationAction(actionOpts, () => {
-      });
+      someAction = new NotificationAction(actionOpts, () => {});
 
       someCategory = new NotificationCategory({
         identifier: "SOME_CATEGORY",
@@ -213,11 +226,11 @@ describe("NotificationsIOS", () => {
         expect(nativeRequestPermissionsWithCategories).to.have.been.calledWith([]);
       });
 
-      ("should subscribe to 'notificationActionReceived' event once, with a single event handler", () => {
+      it("should subscribe to 'notificationActionReceived' event once, with a single event handler", () => {
         NotificationsIOS.requestPermissions([someCategory]);
 
-        expect(deviceAddEventListener).to.have.been.calledOnce;
-        // expect(nativeAppAddEventListener).to.have.been.calledWith("notificationActionReceived", sinon.match.func);
+        expect(nativeAppAddEventListener).to.have.been.calledOnce;
+        expect(nativeAppAddEventListener).to.have.been.calledWith("notificationActionReceived", sinon.match.func);
       });
     });
 
@@ -225,7 +238,7 @@ describe("NotificationsIOS", () => {
       it("should remove 'notificationActionReceived' event handler", () => {
         NotificationsIOS.resetCategories();
 
-        expect(deviceRemoveEventListener).to.have.been.calledOnce;
+        expect(nativeAppRemoveEventListener).to.have.been.calledOnce;
       });
     });
 
@@ -266,8 +279,7 @@ describe("NotificationsIOS", () => {
 
   describe("Get background remaining time", () => {
     it("should call native background remaining time method", () => {
-      let someCallback = (time) => {
-      };
+      let someCallback = (time) => { };
 
       NotificationsIOS.backgroundTimeRemaining(someCallback);
 

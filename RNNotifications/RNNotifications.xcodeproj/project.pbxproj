@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		432801F221F09C0F00A81AC2 /* RNNRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 432801F021F09C0F00A81AC2 /* RNNRouter.m */; };
 		D85B37451CC05A0900DE9EB6 /* RNNotificationsBridgeQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D85B37441CC05A0900DE9EB6 /* RNNotificationsBridgeQueue.m */; };
 		D8A2F7551CB57F1A002CC8F5 /* RNNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A2F7541CB57F1A002CC8F5 /* RNNotifications.m */; };
 /* End PBXBuildFile section */
@@ -26,8 +25,6 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNNotifications.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNNotifications.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		432801F021F09C0F00A81AC2 /* RNNRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNRouter.m; sourceTree = "<group>"; };
-		432801F121F09C0F00A81AC2 /* RNNRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNNRouter.h; sourceTree = "<group>"; };
 		D85B37441CC05A0900DE9EB6 /* RNNotificationsBridgeQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNotificationsBridgeQueue.m; sourceTree = "<group>"; };
 		D85B37461CC05A1200DE9EB6 /* RNNotificationsBridgeQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNNotificationsBridgeQueue.h; sourceTree = "<group>"; };
 		D8A2F7541CB57F1A002CC8F5 /* RNNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNotifications.m; sourceTree = "<group>"; };
@@ -60,8 +57,6 @@
 				D85B37441CC05A0900DE9EB6 /* RNNotificationsBridgeQueue.m */,
 				D8A2F7561CB57F28002CC8F5 /* RNNotifications.h */,
 				D8A2F7541CB57F1A002CC8F5 /* RNNotifications.m */,
-				432801F121F09C0F00A81AC2 /* RNNRouter.h */,
-				432801F021F09C0F00A81AC2 /* RNNRouter.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -124,7 +119,6 @@
 			files = (
 				D8A2F7551CB57F1A002CC8F5 /* RNNotifications.m in Sources */,
 				D85B37451CC05A0900DE9EB6 /* RNNotificationsBridgeQueue.m in Sources */,
-				432801F221F09C0F00A81AC2 /* RNNRouter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
