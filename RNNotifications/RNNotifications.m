@@ -271,23 +271,20 @@ RCT_EXPORT_MODULE()
 
 + (void)didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    
-    return @[ RNNotificationsRegistered,
-              RNNotificationsRegistrationFailed,
-              RNNotificationReceivedForeground,
-              RNNotificationReceivedBackground,
-              RNNotificationOpened,
-              RNNotificationActionReceived,
-              RNPushKitRegistered,
-              RNNotificationActionTriggered];
-    
-}
+    UIApplicationState state = [UIApplication sharedApplication].applicationState;
 
--(void) checkAndSendEvent:(NSString*)name body:(id)body
-{
-    if(_hasListeners)
-    {
-        [self sendEventWithName:name body:body];
+    NSMutableDictionary* newUserInfo = notification.userInfo.mutableCopy;
+    [newUserInfo removeObjectForKey:@"__id"];
+    notification.userInfo = newUserInfo;
+
+    if (state == UIApplicationStateActive) {
+        [self didReceiveNotificationOnForegroundState:notification.userInfo];
+    } else if (state == UIApplicationStateInactive) {
+        NSString* notificationId = [notification.userInfo objectForKey:@"notificationId"];
+        if (notificationId) {
+            [self clearNotificationFromNotificationsCenter:notificationId];
+        }
+        [self didNotificationOpen:notification.userInfo];
     }
 }
 
