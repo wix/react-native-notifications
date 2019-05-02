@@ -247,11 +247,9 @@ RCT_EXPORT_MODULE()
     NSMutableDictionary* info = [[NSMutableDictionary alloc] initWithDictionary:@{ @"identifier": identifier, @"completionKey": completionKey }];
     
     // add text
-    if ([response isKindOfClass:[UNTextInputNotificationResponse class]]) {
-        NSString* text = ((UNTextInputNotificationResponse*)response).userText;
-        if (text != NULL) {
-            info[@"text"] = text;
-        }
+    NSString* text = ((UNTextInputNotificationResponse*)response).userText;//[response objectForKey:UIUserNotificationActionResponseTypedTextKey];
+    if (text != NULL) {
+        info[@"text"] = text;
     }
     
     NSDictionary* userInfo = response.notification.request.content.userInfo;
