@@ -24,6 +24,10 @@ export class NotificationsAndroid {
     notificationReceivedListener = DeviceEventEmitter.addListener("notificationReceived", (notification) => listener(new NotificationAndroid(notification)));
   }
 
+  static setLocalNotificationReceivedListener(listener) {
+    notificationReceivedListener = DeviceEventEmitter.addListener("localNotificationReceived", (notification) => listener(new NotificationAndroid(notification)));
+  }
+
   static setNotificationReceivedInForegroundListener(listener) {
     notificationReceivedInForegroundListener = DeviceEventEmitter.addListener("notificationReceivedInForeground", (notification) => listener(new NotificationAndroid(notification)));
   }
@@ -63,12 +67,13 @@ export class NotificationsAndroid {
 
   static localNotification(notification: Object) {
     const id = Math.random() * 100000000 | 0; // Bitwise-OR forces value onto a 32bit limit
-    RNNotifications.postLocalNotification(notification, id);
+    notification["google.message_id"] = id + '';
+    RNNotifications.postLocalNotification(notification);
     return id;
   }
 
   static cancelLocalNotification(id) {
-    RNNotifications.cancelLocalNotification(id);
+    RNNotifications.cancelLocalNotification(parseInt(id));
   }
 }
 

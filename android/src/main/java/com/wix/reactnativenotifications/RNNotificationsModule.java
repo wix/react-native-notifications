@@ -95,8 +95,9 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     }
 
     @ReactMethod
-    public void postLocalNotification(ReadableMap notificationPropsMap, int notificationId) {
+    public void postLocalNotification(ReadableMap notificationPropsMap) {
         Log.d(LOGTAG, "Native method invocation: postLocalNotification");
+        int notificationId = Integer.parseInt(notificationPropsMap.getString("google.message_id"));
         final Bundle notificationProps = Arguments.toBundle(notificationPropsMap);
         final IPushNotification pushNotification = PushNotification.get(getReactApplicationContext().getApplicationContext(), notificationProps);
         pushNotification.onPostRequest(notificationId);

@@ -21,6 +21,7 @@ import com.wix.reactnativenotifications.core.ProxyService;
 
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_OPENED_EVENT_NAME;
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_EVENT_NAME;
+import static com.wix.reactnativenotifications.Defs.LOCAL_NOTIFICATION_RECEIVED_EVENT_NAME;
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_FOREGROUND_EVENT_NAME;
 
 public class PushNotification implements IPushNotification {
@@ -87,7 +88,9 @@ public class PushNotification implements IPushNotification {
 
     @Override
     public int onPostRequest(Integer notificationId) {
-        return postNotification(notificationId);
+        int id = postNotification(notificationId);
+        notifyLocalReceivedToJS();
+        return id;
     }
 
     @Override
@@ -200,6 +203,10 @@ public class PushNotification implements IPushNotification {
 
     private void notifyReceivedToJS() {
         mJsIOHelper.sendEventToJS(NOTIFICATION_RECEIVED_EVENT_NAME, mNotificationProps.asBundle(), mAppLifecycleFacade.getRunningReactContext());
+    }
+
+    private void notifyLocalReceivedToJS() {
+        mJsIOHelper.sendEventToJS(LOCAL_NOTIFICATION_RECEIVED_EVENT_NAME, mNotificationProps.asBundle(), mAppLifecycleFacade.getRunningReactContext());
     }
 
     private void notifiyReceivedForegroundNotificationToJS() {
