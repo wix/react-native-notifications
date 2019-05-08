@@ -67,7 +67,7 @@ export class NotificationsAndroid {
 
   static localNotification(notification: Object) {
     const id = Math.random() * 100000000 | 0; // Bitwise-OR forces value onto a 32bit limit
-    notification["google.message_id"] = id + '';
+    notification["google.message_id"] = id + "";
     RNNotifications.postLocalNotification(notification);
     return id;
   }
