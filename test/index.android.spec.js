@@ -206,7 +206,7 @@ describe("Notifications-Android > ", () => {
 
       const id = libUnderTest.NotificationsAndroid.localNotification(notification);
       expect(id).to.not.be.undefined;
-      expect(postLocalNotificationStub).to.have.been.calledWith(notification, id);
+      expect(postLocalNotificationStub).to.have.been.calledWith(notification);
     });
 
     it("should be called with a unique ID", () => {
