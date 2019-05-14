@@ -591,7 +591,9 @@ RCT_EXPORT_METHOD(consumeBackgroundQueue)
 
 RCT_EXPORT_METHOD(cancelAllLocalNotifications)
 {
-    [RCTSharedApplication() cancelAllLocalNotifications];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [RCTSharedApplication() cancelAllLocalNotifications];
+    });
 }
 
 RCT_EXPORT_METHOD(isRegisteredForRemoteNotifications:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
