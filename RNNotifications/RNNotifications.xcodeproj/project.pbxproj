@@ -11,6 +11,13 @@
 		50351F9222CD7DF4000713B3 /* RNBridgeModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F9122CD7DF4000713B3 /* RNBridgeModule.m */; };
 		50351F9522CD7FF1000713B3 /* RCTConvert+Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F9422CD7FF1000713B3 /* RCTConvert+Notifications.m */; };
 		50351F9822CD8604000713B3 /* RNCommandsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F9722CD8604000713B3 /* RNCommandsHandler.m */; };
+		507DCCF522CE3EBD005D4E0B /* RNNotifications.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8A2F7561CB57F28002CC8F5 /* RNNotifications.h */; };
+		507DCCF722CE3EF7005D4E0B /* RNBridgeModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F9022CD7DF4000713B3 /* RNBridgeModule.h */; };
+		507DCCF822CE3F04005D4E0B /* RNNotificationsBridgeQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = D85B37461CC05A1200DE9EB6 /* RNNotificationsBridgeQueue.h */; };
+		507DCCF922CE3F04005D4E0B /* RNNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = D8A2F7561CB57F28002CC8F5 /* RNNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		507DCCFA22CE3F04005D4E0B /* RNEventEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F8D22CD782F000713B3 /* RNEventEmitter.h */; };
+		507DCCFB22CE3F04005D4E0B /* RNCommandsHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F9622CD8604000713B3 /* RNCommandsHandler.h */; };
+		507DCCFC22CE3F04005D4E0B /* RCTConvert+Notifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F9322CD7FF1000713B3 /* RCTConvert+Notifications.h */; };
 		D85B37451CC05A0900DE9EB6 /* RNNotificationsBridgeQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D85B37441CC05A0900DE9EB6 /* RNNotificationsBridgeQueue.m */; };
 		D8A2F7551CB57F1A002CC8F5 /* RNNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A2F7541CB57F1A002CC8F5 /* RNNotifications.m */; };
 /* End PBXBuildFile section */
@@ -22,6 +29,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				507DCCF522CE3EBD005D4E0B /* RNNotifications.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,11 +91,28 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		507DCCF622CE3EEF005D4E0B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				507DCCF922CE3F04005D4E0B /* RNNotifications.h in Headers */,
+				507DCCF822CE3F04005D4E0B /* RNNotificationsBridgeQueue.h in Headers */,
+				507DCCFA22CE3F04005D4E0B /* RNEventEmitter.h in Headers */,
+				507DCCFB22CE3F04005D4E0B /* RNCommandsHandler.h in Headers */,
+				507DCCFC22CE3F04005D4E0B /* RCTConvert+Notifications.h in Headers */,
+				507DCCF722CE3EF7005D4E0B /* RNBridgeModule.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		58B511DA1A9E6C8500147676 /* RNNotifications */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "RNNotifications" */;
 			buildPhases = (
+				507DCCF622CE3EEF005D4E0B /* Headers */,
 				58B511D71A9E6C8500147676 /* Sources */,
 				58B511D81A9E6C8500147676 /* Frameworks */,
 				58B511D91A9E6C8500147676 /* CopyFiles */,

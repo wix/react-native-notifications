@@ -44,7 +44,9 @@
     "proxyquire": "^1.7.4",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
-    "shell-utils": "1.x.x"
+    "shell-utils": "1.x.x",
+    "react-native": "0.57.7",
+    "react": "16.8.6"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
