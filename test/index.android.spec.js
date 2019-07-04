@@ -1,9 +1,9 @@
-"use strict";
-let expect = require("chai").use(require("sinon-chai")).expect;
-import proxyquire from "proxyquire";
-import sinon from "sinon";
+'use strict';
+let expect = require('chai').use(require('sinon-chai')).expect;
+import proxyquire from 'proxyquire';
+import sinon from 'sinon';
 
-describe("Notifications-Android > ", () => {
+describe('Notifications-Android > ', () => {
   proxyquire.noCallThru();
 
   let refreshTokenStub;
@@ -19,8 +19,8 @@ describe("Notifications-Android > ", () => {
     cancelLocalNotificationStub = sinon.stub();
     deviceEventEmitterListenerStub = sinon.stub();
 
-    libUnderTest = proxyquire("../index.android", {
-      "react-native": {
+    libUnderTest = proxyquire('../index.android', {
+      'react-native': {
         NativeModules: {
           WixRNNotifications: {
             refreshToken: refreshTokenStub,
@@ -33,22 +33,22 @@ describe("Notifications-Android > ", () => {
           addListener: deviceEventEmitterListenerStub
         }
       },
-      "./notification": require("../notification.android")
+      './notification': require('../notification.android')
     });
   });
 
-  describe("Registration token API", () => {
-    it("should assign callback to native event upon listener registration", () => {
+  describe('Registration token API', () => {
+    it('should assign callback to native event upon listener registration', () => {
       expect(deviceEventEmitterListenerStub).to.not.have.been.called;
       const userListener = () => {};
 
       libUnderTest.NotificationsAndroid.setRegistrationTokenUpdateListener(userListener);
 
-      expect(deviceEventEmitterListenerStub).to.have.been.calledWith("remoteNotificationsRegistered", userListener);
+      expect(deviceEventEmitterListenerStub).to.have.been.calledWith('remoteNotificationsRegistered', userListener);
       expect(deviceEventEmitterListenerStub).to.have.been.calledOnce;
     });
 
-    it("should clear native event listener upon listener deregister", () => {
+    it('should clear native event listener upon listener deregister', () => {
       expect(deviceEventEmitterListenerStub).to.not.have.been.called;
       const userListener = () => {};
       const nativeListener = {
@@ -62,28 +62,28 @@ describe("Notifications-Android > ", () => {
       expect(nativeListener.remove).to.have.been.calledOnce;
     });
 
-    it("shouldn't fail if deregister without registering", () => {
+    it('shouldn`t fail if deregister without registering', () => {
       libUnderTest.NotificationsAndroid.clearRegistrationTokenUpdateListener();
 
       expect(deviceEventEmitterListenerStub).to.not.have.been.called;
     });
   });
 
-  describe("notification-opening API", () => {
-    it("should assign callback to native event upon registration", () => {
+  describe('notification-opening API', () => {
+    it('should assign callback to native event upon registration', () => {
       expect(deviceEventEmitterListenerStub).to.not.have.been.called;
       const userListenerStub = sinon.stub();
 
       libUnderTest.NotificationsAndroid.setNotificationOpenedListener(userListenerStub);
 
       expect(deviceEventEmitterListenerStub).to.have.been.calledOnce;
-      expect(deviceEventEmitterListenerStub).to.have.been.calledWith("notificationOpened", sinon.match.func);
+      expect(deviceEventEmitterListenerStub).to.have.been.calledWith('notificationOpened', sinon.match.func);
     });
 
-    it("should assign a wrapper-callback upon registration", () => {
+    it('should assign a wrapper-callback upon registration', () => {
       expect(deviceEventEmitterListenerStub).to.not.have.been.called;
       const userListenerStub = sinon.stub();
-      const notification = { foo: "bar" };
+      const notification = { foo: 'bar' };
 
       libUnderTest.NotificationsAndroid.setNotificationOpenedListener(userListenerStub);
 
@@ -93,7 +93,7 @@ describe("Notifications-Android > ", () => {
       expect(userListenerStub.args[0][0].getData()).to.equal(notification);
     });
 
-    it("should clear native event listener upon listener deregister", () => {
+    it('should clear native event listener upon listener deregister', () => {
       expect(deviceEventEmitterListenerStub).to.not.have.been.called;
       const userListener = () => {};
       const nativeListener = {
@@ -107,28 +107,28 @@ describe("Notifications-Android > ", () => {
       expect(nativeListener.remove).to.have.been.calledOnce;
     });
 
-    it("shouldn't fail if deregister without registering", () => {
+    it('shouldnt fail if deregister without registering', () => {
       libUnderTest.NotificationsAndroid.clearNotificationOpenedListener();
 
       expect(deviceEventEmitterListenerStub).to.not.have.been.called;
     });
   });
 
-  describe("notification-receive API", () => {
-    it("should assign callback to native event upon registration", () => {
+  describe('notification-receive API', () => {
+    it('should assign callback to native event upon registration', () => {
       expect(deviceEventEmitterListenerStub).to.not.have.been.called;
       const userListenerStub = sinon.stub();
 
       libUnderTest.NotificationsAndroid.setNotificationReceivedListener(userListenerStub);
 
       expect(deviceEventEmitterListenerStub).to.have.been.calledOnce;
-      expect(deviceEventEmitterListenerStub).to.have.been.calledWith("notificationReceived", sinon.match.func);
+      expect(deviceEventEmitterListenerStub).to.have.been.calledWith('notificationReceived', sinon.match.func);
     });
 
-    it("should assign a wrapper-callback upon registration", () => {
+    it('should assign a wrapper-callback upon registration', () => {
       expect(deviceEventEmitterListenerStub).to.not.have.been.called;
       const userListenerStub = sinon.stub();
-      const notification = { foo: "bar" };
+      const notification = { foo: 'bar' };
 
       libUnderTest.NotificationsAndroid.setNotificationReceivedListener(userListenerStub);
 
@@ -138,7 +138,7 @@ describe("Notifications-Android > ", () => {
       expect(userListenerStub.args[0][0].getData()).to.equal(notification);
     });
 
-    it("should clear native event listener upon listener deregister", () => {
+    it('should clear native event listener upon listener deregister', () => {
       expect(deviceEventEmitterListenerStub).to.not.have.been.called;
       const userListener = () => {};
       const nativeListener = {
@@ -152,25 +152,25 @@ describe("Notifications-Android > ", () => {
       expect(nativeListener.remove).to.have.been.calledOnce;
     });
 
-    it("shouldn't fail if deregister without registering", () => {
+    it('shouldn`t fail if deregister without registering', () => {
       libUnderTest.NotificationsAndroid.clearNotificationReceivedListener();
 
       expect(deviceEventEmitterListenerStub).to.not.have.been.called;
     });
   });
 
-  describe("Notification token", () => {
-    it("should refresh notification token upon refreshing request by the user", () => {
+  describe('Notification token', () => {
+    it('should refresh notification token upon refreshing request by the user', () => {
       expect(refreshTokenStub).to.not.have.been.called;
       libUnderTest.NotificationsAndroid.refreshToken();
       expect(refreshTokenStub).to.have.been.calledOnce;
     });
   });
 
-  describe("Initial notification API", () => {
-    it("should return initial notification data if available", (done) => {
+  describe('Initial notification API', () => {
+    it('should return initial notification data if available', (done) => {
       expect(getInitialNotificationStub).to.not.have.been.called;
-      const rawNotification = {foo: "bar"};
+      const rawNotification = {foo: 'bar'};
       getInitialNotificationStub.returns(Promise.resolve(rawNotification));
 
       libUnderTest.PendingNotifications.getInitialNotification()
@@ -181,7 +181,7 @@ describe("Notifications-Android > ", () => {
         .catch((err) => done(err));
     });
 
-    it("should return empty notification if not available", (done) => {
+    it('should return empty notification if not available', (done) => {
       expect(getInitialNotificationStub).to.not.have.been.called;
       getInitialNotificationStub.returns(Promise.resolve(null));
 
@@ -195,13 +195,13 @@ describe("Notifications-Android > ", () => {
 
   });
 
-  describe("Local notification", () => {
+  describe('Local notification', () => {
     const notification = {
-      title: "notification-title",
-      body: "notification-body"
+      title: 'notification-title',
+      body: 'notification-body'
     };
 
-    it("should get published when posted manually", () => {
+    it('should get published when posted manually', () => {
       expect(postLocalNotificationStub).to.not.have.been.called;
 
       const id = libUnderTest.NotificationsAndroid.localNotification(notification);
@@ -209,7 +209,7 @@ describe("Notifications-Android > ", () => {
       expect(postLocalNotificationStub).to.have.been.calledWith(notification, id);
     });
 
-    it("should be called with a unique ID", () => {
+    it('should be called with a unique ID', () => {
       expect(postLocalNotificationStub).to.not.have.been.called;
 
       const id = libUnderTest.NotificationsAndroid.localNotification(notification);
@@ -219,7 +219,7 @@ describe("Notifications-Android > ", () => {
       expect(id).to.not.equal(id2);
     });
 
-    it("should be cancellable with an ID", () => {
+    it('should be cancellable with an ID', () => {
       expect(cancelLocalNotificationStub).to.not.have.been.called;
 
       libUnderTest.NotificationsAndroid.cancelLocalNotification(666);
@@ -227,5 +227,4 @@ describe("Notifications-Android > ", () => {
       expect(cancelLocalNotificationStub).to.have.been.calledWith(666);
     });
   });
-
 });

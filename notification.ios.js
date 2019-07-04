@@ -11,8 +11,8 @@ export default class IOSNotification {
     this._data = {};
 
     if (notification.aps &&
-      notification.aps["content-available"] &&
-      notification.aps["content-available"] === 1 &&
+      notification.aps['content-available'] &&
+      notification.aps['content-available'] === 1 &&
       !notification.aps.alert &&
       !notification.aps.sound &&
       notification.managedAps) {
@@ -21,8 +21,8 @@ export default class IOSNotification {
       this._sound = notification.managedAps.sound;
       this._badge = notification.aps.badge;
       this._category = notification.managedAps.category;
-      this._type = "managed";
-      this._thread = notification.aps["thread-id"];
+      this._type = 'managed';
+      this._thread = notification.aps['thread-id'];
     } else if (
       notification.aps &&
       notification.aps.alert) {
@@ -31,11 +31,11 @@ export default class IOSNotification {
       this._sound = notification.aps.sound;
       this._badge = notification.aps.badge;
       this._category = notification.aps.category;
-      this._type = "regular";
-      this._thread = notification.aps["thread-id"];
+      this._type = 'regular';
+      this._thread = notification.aps['thread-id'];
     }
 
-    Object.keys(notification).filter(key => key !== "aps").forEach(key => {
+    Object.keys(notification).filter(key => key !== 'aps').forEach(key => {
       this._data[key] = notification[key];
     });
   }

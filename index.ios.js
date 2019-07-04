@@ -1,21 +1,21 @@
 /**
  * @flow
  */
-"use strict";
-import { NativeModules, DeviceEventEmitter, NativeAppEventEmitter } from "react-native";
-import Map from "core-js/library/es6/map";
-import uuid from "uuid";
+'use strict';
+import { NativeModules, DeviceEventEmitter, NativeAppEventEmitter } from 'react-native';
+import Map from 'core-js/library/es6/map';
+import uuid from 'uuid';
 const NativeRNNotifications = NativeModules.RNBridgeModule; // eslint-disable-line no-unused-vars
-import IOSNotification from "./notification.ios";
+import IOSNotification from './notification.ios';
 
-export const DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT = "remoteNotificationsRegistered";
-export const DEVICE_REMOTE_NOTIFICATIONS_REGISTRATION_FAILED_EVENT = "remoteNotificationsRegistrationFailed";
-export const DEVICE_PUSH_KIT_REGISTERED_EVENT = "pushKitRegistered";
-export const DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT = "notificationReceivedForeground";
-export const DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT = "notificationReceivedBackground";
-export const DEVICE_NOTIFICATION_OPENED_EVENT = "notificationOpened";
+export const DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT = 'remoteNotificationsRegistered';
+export const DEVICE_REMOTE_NOTIFICATIONS_REGISTRATION_FAILED_EVENT = 'remoteNotificationsRegistrationFailed';
+export const DEVICE_PUSH_KIT_REGISTERED_EVENT = 'pushKitRegistered';
+export const DEVICE_NOTIFICATION_RECEIVED_FOREGROUND_EVENT = 'notificationReceivedForeground';
+export const DEVICE_NOTIFICATION_RECEIVED_BACKGROUND_EVENT = 'notificationReceivedBackground';
+export const DEVICE_NOTIFICATION_OPENED_EVENT = 'notificationOpened';
 
-const DEVICE_NOTIFICATION_ACTION_RECEIVED = "notificationActionReceived";
+const DEVICE_NOTIFICATION_ACTION_RECEIVED = 'notificationActionReceived';
 
 const _exportedEvents = [
   DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT,
@@ -200,7 +200,7 @@ export default class NotificationsIOS {
    *
    * - `alertBody` : The message displayed in the notification alert.
    * - `alertTitle` : The message title displayed in the notification.
-   * - `alertAction` : The "action" displayed beneath an actionable notification. Defaults to "view";
+   * - `alertAction` : The 'action' displayed beneath an actionable notification. Defaults to 'view';
    * - `soundName` : The sound played when the notification is fired (optional).
    * - `silent`    : If true, the notification sound will be suppressed (optional).
    * - `category`  : The category of this notification, required for actionable notifications (optional).

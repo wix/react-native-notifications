@@ -1,18 +1,18 @@
-"use strict";
-let expect = require("chai").use(require("sinon-chai")).expect;
-import proxyquire from "proxyquire";
-import sinon from "sinon";
+'use strict';
+let expect = require('chai').use(require('sinon-chai')).expect;
+import proxyquire from 'proxyquire';
+import sinon from 'sinon';
 
 /* eslint-disable no-unused-vars */
 
-describe("NotificationsIOS", () => {
+describe('NotificationsIOS', () => {
   let deviceEvents = [
-    "pushKitRegistered",
-    "remoteNotificationsRegistered",
-    "remoteNotificationsRegistrationFailed",
-    "notificationReceivedForeground",
-    "notificationReceivedBackground",
-    "notificationOpened"
+    'pushKitRegistered',
+    'remoteNotificationsRegistered',
+    'remoteNotificationsRegistrationFailed',
+    'notificationReceivedForeground',
+    'notificationReceivedBackground',
+    'notificationOpened'
   ];
 
   /*eslint-disable indent*/
@@ -38,8 +38,8 @@ describe("NotificationsIOS", () => {
 
   let NotificationsIOS, NotificationAction, NotificationCategory;
   let someHandler = () => {};
-  let constantGuid = "some-random-uuid";
-  let identifiers = ["some-random-uuid", "other-random-uuid"];
+  let constantGuid = 'some-random-uuid';
+  let identifiers = ['some-random-uuid', 'other-random-uuid'];
   /*eslint-enable indent*/
 
   before(() => {
@@ -63,11 +63,11 @@ describe("NotificationsIOS", () => {
     nativeRemoveDeliveredNotifications = sinon.spy();
     nativeGetDeliveredNotifications = sinon.spy();
 
-    let libUnderTest = proxyquire("../index.ios", {
-      "uuid": {
+    let libUnderTest = proxyquire('../index.ios', {
+      'uuid': {
         v4: () => constantGuid
       },
-      "react-native": {
+      'react-native': {
         NativeModules: {
           RNBridgeModule: {
             requestPermissionsWithCategories: nativeRequestPermissionsWithCategories,
@@ -101,7 +101,7 @@ describe("NotificationsIOS", () => {
             return { remove: deviceRemoveEventListener };
           }
         },
-        "@noCallThru": true
+        '@noCallThru': true
       }
     });
 
@@ -154,7 +154,7 @@ describe("NotificationsIOS", () => {
     NotificationCategory = null;
   });
 
-  describe("Add Event Listener", () => {
+  describe('Add Event Listener', () => {
     deviceEvents.forEach(event => {
       it(`should subscribe the given handler to device event: ${event}`, () => {
         NotificationsIOS.addEventListener(event, someHandler);
@@ -163,14 +163,14 @@ describe("NotificationsIOS", () => {
       });
     });
 
-    it("should not subscribe to unknown device events", () => {
-      NotificationsIOS.addEventListener("someUnsupportedEvent", someHandler);
+    it('should not subscribe to unknown device events', () => {
+      NotificationsIOS.addEventListener('someUnsupportedEvent', someHandler);
 
       expect(deviceAddEventListener).to.not.have.been.called;
     });
   });
 
-  describe("Remove Event Listener", () => {
+  describe('Remove Event Listener', () => {
     deviceEvents.forEach(event => {
       it(`should unsubscribe the given handler from device event: ${event}`, () => {
         NotificationsIOS.addEventListener(event, someHandler);
@@ -180,8 +180,8 @@ describe("NotificationsIOS", () => {
       });
     });
 
-    it("should not unsubscribe to unknown device events", () => {
-      let someUnsupportedEvent = "someUnsupportedEvent";
+    it('should not unsubscribe to unknown device events', () => {
+      let someUnsupportedEvent = 'someUnsupportedEvent';
       NotificationsIOS.addEventListener(someUnsupportedEvent, someHandler);
       NotificationsIOS.removeEventListener(someUnsupportedEvent, someHandler);
 
@@ -189,61 +189,61 @@ describe("NotificationsIOS", () => {
     });
   });
 
-  describe("Notification actions handling", () => {
+  describe('Notification actions handling', () => {
     let someAction, someCategory;
 
     let actionOpts = {
-      activationMode: "foreground",
-      title: "someAction",
-      behavior: "default",
-      identifier: "SOME_ACTION"
+      activationMode: 'foreground',
+      title: 'someAction',
+      behavior: 'default',
+      identifier: 'SOME_ACTION'
     };
 
     beforeEach(() => {
       someAction = new NotificationAction(actionOpts, () => {});
 
       someCategory = new NotificationCategory({
-        identifier: "SOME_CATEGORY",
+        identifier: 'SOME_CATEGORY',
         actions: [someAction],
-        context: "default"
+        context: 'default'
       });
     });
 
-    describe("register push notifications", () => {
-      it("should call native request permissions with array of categories", () => {
+    describe('register push notifications', () => {
+      it('should call native request permissions with array of categories', () => {
         NotificationsIOS.requestPermissions([someCategory]);
 
         expect(nativeRequestPermissionsWithCategories).to.have.been.calledWith([{
-          identifier: "SOME_CATEGORY",
+          identifier: 'SOME_CATEGORY',
           actions: [actionOpts],
-          context: "default"
+          context: 'default'
         }]);
       });
 
-      it("should call native request permissions with empty array if no categories specified", () => {
+      it('should call native request permissions with empty array if no categories specified', () => {
         NotificationsIOS.requestPermissions();
 
         expect(nativeRequestPermissionsWithCategories).to.have.been.calledWith([]);
       });
 
-      it("should subscribe to 'notificationActionReceived' event once, with a single event handler", () => {
+      it('should subscribe to notificationActionReceived event once, with a single event handler', () => {
         NotificationsIOS.requestPermissions([someCategory]);
 
         expect(nativeAppAddEventListener).to.have.been.calledOnce;
-        expect(nativeAppAddEventListener).to.have.been.calledWith("notificationActionReceived", sinon.match.func);
+        expect(nativeAppAddEventListener).to.have.been.calledWith('notificationActionReceived', sinon.match.func);
       });
     });
 
-    describe("reset categories", () => {
-      it("should remove 'notificationActionReceived' event handler", () => {
+    describe('reset categories', () => {
+      it('should remove notificationActionReceived event handler', () => {
         NotificationsIOS.resetCategories();
 
         expect(nativeAppRemoveEventListener).to.have.been.calledOnce;
       });
     });
 
-    describe("get badges count", () => {
-      it("should call native getBadgesCount", () => {
+    describe('get badges count', () => {
+      it('should call native getBadgesCount', () => {
         const callback = (count) => console.log(count);
         NotificationsIOS.getBadgesCount(callback);
 
@@ -251,8 +251,8 @@ describe("NotificationsIOS", () => {
       });
     });
 
-    describe("set badges count", () => {
-      it("should call native setBadgesCount", () => {
+    describe('set badges count', () => {
+      it('should call native setBadgesCount', () => {
         NotificationsIOS.setBadgesCount(44);
 
         expect(nativeSetBadgesCount).to.have.been.calledWith(44);
@@ -261,24 +261,24 @@ describe("NotificationsIOS", () => {
 
   });
 
-  describe("register push kit for background notifications", function () {
-    it("should call native register push kit method", function () {
+  describe('register push kit for background notifications', function () {
+    it('should call native register push kit method', function () {
       NotificationsIOS.registerPushKit();
 
       expect(nativeRegisterPushKit).to.have.been.called;
     });
   });
 
-  describe("Abandon push notifications permissions", () => {
-    it("should call native abandon permissions method", () => {
+  describe('Abandon push notifications permissions', () => {
+    it('should call native abandon permissions method', () => {
       NotificationsIOS.abandonPermissions();
 
       expect(nativeAbandonPermissions).to.have.been.called;
     });
   });
 
-  describe("Get background remaining time", () => {
-    it("should call native background remaining time method", () => {
+  describe('Get background remaining time', () => {
+    it('should call native background remaining time method', () => {
       let someCallback = (time) => { };
 
       NotificationsIOS.backgroundTimeRemaining(someCallback);
@@ -287,20 +287,20 @@ describe("NotificationsIOS", () => {
     });
   });
 
-  describe("Dispatch local notification", () => {
-    it("should return generated notification guid", () => {
+  describe('Dispatch local notification', () => {
+    it('should return generated notification guid', () => {
       expect(NotificationsIOS.localNotification({})).to.equal(constantGuid);
     });
 
-    it("should call native local notification method with generated notification guid and notification object", () => {
+    it('should call native local notification method with generated notification guid and notification object', () => {
       let someLocalNotification = {
-        alertBody: "some body",
-        alertTitle: "some title",
-        alertAction: "some action",
-        soundName: "sound",
-        category: "SOME_CATEGORY",
+        alertBody: 'some body',
+        alertTitle: 'some title',
+        alertAction: 'some action',
+        soundName: 'sound',
+        category: 'SOME_CATEGORY',
         userInfo: {
-          "key": "value"
+          'key': 'value'
         }
       };
 
@@ -310,56 +310,56 @@ describe("NotificationsIOS", () => {
     });
   });
 
-  describe("Cancel local notification", () => {
-    it("should call native cancel local notification method", () => {
+  describe('Cancel local notification', () => {
+    it('should call native cancel local notification method', () => {
       NotificationsIOS.cancelLocalNotification(constantGuid);
 
       expect(nativeCancelLocalNotification).to.have.been.calledWith(constantGuid);
     });
   });
 
-  describe("Cancel all local notifications", () => {
-    it("should call native cancel all local notifications method", () => {
+  describe('Cancel all local notifications', () => {
+    it('should call native cancel all local notifications method', () => {
       NotificationsIOS.cancelAllLocalNotifications();
 
       expect(nativeCancelAllLocalNotifications).to.have.been.calledWith();
     });
   });
 
-  describe("Is registered for remote notifications ", () => {
-    it("should call native is registered for remote notifications", () => {
+  describe('Is registered for remote notifications ', () => {
+    it('should call native is registered for remote notifications', () => {
       NotificationsIOS.isRegisteredForRemoteNotifications();
       expect(nativeIsRegisteredForRemoteNotifications).to.have.been.calledWith();
 
     });
   });
 
-  describe("Check permissions ", () => {
-    it("should call native check permissions", () => {
+  describe('Check permissions ', () => {
+    it('should call native check permissions', () => {
       NotificationsIOS.checkPermissions();
       expect(nativeCheckPermissions).to.have.been.calledWith();
 
     });
   });
 
-  describe("Remove all delivered notifications", () => {
-    it("should call native remove all delivered notifications method", () => {
+  describe('Remove all delivered notifications', () => {
+    it('should call native remove all delivered notifications method', () => {
       NotificationsIOS.removeAllDeliveredNotifications();
 
       expect(nativeRemoveAllDeliveredNotifications).to.have.been.calledWith();
     });
   });
 
-  describe("Remove delivered notifications", () => {
-    it("should call native remove delivered notifications method", () => {
+  describe('Remove delivered notifications', () => {
+    it('should call native remove delivered notifications method', () => {
       NotificationsIOS.removeDeliveredNotifications(identifiers);
 
       expect(nativeRemoveDeliveredNotifications).to.have.been.calledWith(identifiers);
     });
   });
 
-  describe("Get delivered notifications", () => {
-    it("should call native get delivered notifications method", () => {
+  describe('Get delivered notifications', () => {
+    it('should call native get delivered notifications method', () => {
       const callback = (notifications) => console.log(notifications);
       NotificationsIOS.getDeliveredNotifications(callback);
 

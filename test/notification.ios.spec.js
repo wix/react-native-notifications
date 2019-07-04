@@ -1,44 +1,44 @@
-"use strict";
-import { expect } from "chai";
-import IOSNotification from "../notification.ios";
+'use strict';
+import { expect } from 'chai';
+import IOSNotification from '../notification.ios';
 
-describe("iOS Notification Object", () => {
+describe('iOS Notification Object', () => {
   let notification;
-  let someBadgeCount = 123, someSound = "someSound", someCategory = "some_notification_category", someThread = "thread-1";
+  let someBadgeCount = 123, someSound = 'someSound', someCategory = 'some_notification_category', someThread = 'thread-1';
 
-  describe("for a regular iOS push notification", () => {
+  describe('for a regular iOS push notification', () => {
     let regularNativeNotifications = [
       // basic example, without content-available = 1 (aka silent notification)
       {
         aps: {
           alert: {
-            title: "some title",
-            body: "some body"
+            title: 'some title',
+            body: 'some body'
           },
           badge: someBadgeCount,
           sound: someSound,
           category: someCategory,
-          "thread-id": someThread
+          'thread-id': someThread
         },
-        key1: "value1",
-        key2: "value2"
+        key1: 'value1',
+        key2: 'value2'
       },
 
       // another example, with content-available but also with alert object (should not be a silent notification)
       {
         aps: {
-          "content-available": 1,
+          'content-available': 1,
           alert: {
-            title: "some title",
-            body: "some body"
+            title: 'some title',
+            body: 'some body'
           },
           badge: someBadgeCount,
           sound: someSound,
           category: someCategory,
-          "thread-id": someThread
+          'thread-id': someThread
         },
-        key1: "value1",
-        key2: "value2"
+        key1: 'value1',
+        key2: 'value2'
       }
     ];
 
@@ -47,82 +47,82 @@ describe("iOS Notification Object", () => {
         notification = new IOSNotification(nativeNotification);
       });
 
-      it("should return 'regular' type", function () {
-        expect(notification.getType()).to.equal("regular");
+      it('should return regular type', function () {
+        expect(notification.getType()).to.equal('regular');
       });
 
-      it("should return the alert object", () => {
+      it('should return the alert object', () => {
         expect(notification.getMessage()).to.deep.equal(nativeNotification.aps.alert);
       });
 
-      it("should return the sound", () => {
+      it('should return the sound', () => {
         expect(notification.getSound()).to.equal(someSound);
       });
 
-      it("should return the badge count", () => {
+      it('should return the badge count', () => {
         expect(notification.getBadgeCount()).to.equal(someBadgeCount);
       });
 
-      it("should return the category", () => {
+      it('should return the category', () => {
         expect(notification.getCategory()).to.equal(someCategory);
       });
 
-      it("should return the thread", () => {
-        expect(notification.getThread()).to.equal("thread-1");
+      it('should return the thread', () => {
+        expect(notification.getThread()).to.equal('thread-1');
       });
 
-      it("should return the custom data", () => {
-        expect(notification.getData()).to.deep.equal({ key1: "value1", key2: "value2" });
+      it('should return the custom data', () => {
+        expect(notification.getData()).to.deep.equal({ key1: 'value1', key2: 'value2' });
       });
     });
   });
 
-  describe("for a managed iOS push notification (silent notification, with managedAps key and content-available = 1)", () => {
+  describe('for a managed iOS push notification (silent notification, with managedAps key and content-available = 1)', () => {
     let managedNativeNotification = {
       aps: {
-        "content-available": 1,
+        'content-available': 1,
         badge: someBadgeCount
       },
       managedAps: {
-        action: "CREATE",
-        notificationId: "1",
+        action: 'CREATE',
+        notificationId: '1',
         alert: {
-          title: "some title",
-          body: "some body"
+          title: 'some title',
+          body: 'some body'
         },
         sound: someSound,
         category: someCategory
       },
-      key1: "value1",
-      key2: "value2"
+      key1: 'value1',
+      key2: 'value2'
     };
 
     beforeEach(() => {
       notification = new IOSNotification(managedNativeNotification);
     });
 
-    it("should return 'managed' type", function () {
-      expect(notification.getType()).to.equal("managed");
+    it('should return managed type', function () {
+      expect(notification.getType()).to.equal('managed');
     });
 
-    it("should return the alert object", () => {
+    it('should return the alert object', () => {
       expect(notification.getMessage()).to.equal(managedNativeNotification.managedAps.alert);
     });
 
-    it("should return the sound", () => {
+    it('should return the sound', () => {
       expect(notification.getSound()).to.equal(someSound);
     });
 
-    it("should return the badge count", () => {
+    it('should return the badge count', () => {
       expect(notification.getBadgeCount()).to.equal(someBadgeCount);
     });
 
-    it("should return the category", () => {
+    it('should return the category', () => {
       expect(notification.getCategory()).to.equal(someCategory);
     });
 
-    it("should return the custom data", () => {
-      expect(notification.getData()).to.deep.equal({ managedAps: managedNativeNotification.managedAps, key1: "value1", key2: "value2" });
+    it('should return the custom data', () => {
+      expect(notification.getData()).to.deep.equal({ managedAps: managedNativeNotification.managedAps, key1: 'value1', key2: 'value2' });
     });
   });
 });
