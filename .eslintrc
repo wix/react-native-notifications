@@ -18,7 +18,7 @@
     "no-trailing-spaces": "error",
     "quotes": [
         "error",
-        "double"
+        "single"
     ],
     "semi": [
         "error",

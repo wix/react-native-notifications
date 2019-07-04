@@ -5,7 +5,7 @@
 import { NativeModules, DeviceEventEmitter, NativeAppEventEmitter } from "react-native";
 import Map from "core-js/library/es6/map";
 import uuid from "uuid";
-const NativeRNNotifications = NativeModules.RNNotifications; // eslint-disable-line no-unused-vars
+const NativeRNNotifications = NativeModules.RNBridgeModule; // eslint-disable-line no-unused-vars
 import IOSNotification from "./notification.ios";
 
 export const DEVICE_REMOTE_NOTIFICATIONS_REGISTERED_EVENT = "remoteNotificationsRegistered";
@@ -177,7 +177,7 @@ export default class NotificationsIOS {
   }
 
   static consumeBackgroundQueue() {
-    NativeRNNotifications.consumeBackgroundQueue();
+    // NativeRNNotifications.consumeBackgroundQueue();
   }
 
   static log(message: string) {

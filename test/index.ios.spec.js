@@ -69,7 +69,7 @@ describe("NotificationsIOS", () => {
       },
       "react-native": {
         NativeModules: {
-          RNNotifications: {
+          RNBridgeModule: {
             requestPermissionsWithCategories: nativeRequestPermissionsWithCategories,
             abandonPermissions: nativeAbandonPermissions,
             registerPushKit: nativeRegisterPushKit,
@@ -284,14 +284,6 @@ describe("NotificationsIOS", () => {
       NotificationsIOS.backgroundTimeRemaining(someCallback);
 
       expect(nativeBackgroundTimeRemaining).to.have.been.calledWith(someCallback);
-    });
-  });
-
-  describe("Consume background queue which holds background notificiations and actions until js thread is ready", () => {
-    it("should call native consume background queue method", () => {
-      NotificationsIOS.consumeBackgroundQueue();
-
-      expect(nativeConsumeBackgroundQueue).to.have.been.called;
     });
   });
 

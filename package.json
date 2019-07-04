@@ -19,6 +19,11 @@
     "actionable-notifications",
     "interactive-notifications"
   ],
+  "scripts": {
+    "pretest": "./node_modules/.bin/eslint *.js test",
+    "test": "./node_modules/.bin/mocha --compilers js:babel-register --reporter spec \"test/*.spec.js\"",
+    "start": "node ./scripts/start"
+  },
   "nativePackage": true,
   "dependencies": {
     "core-js": "^1.0.0",
@@ -38,12 +43,8 @@
     "mocha": "^2.5.3",
     "proxyquire": "^1.7.4",
     "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0"
-  },
-  "scripts": {
-    "pretest": "./node_modules/.bin/eslint *.js test",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-register --reporter spec \"test/*.spec.js\"",
-    "start": "npm run test --silent; ./node_modules/.bin/chokidar \"test/*.js\" \"*.js\" -c 'npm run test --silent' --silent"
+    "sinon-chai": "^2.8.0",
+    "shell-utils": "1.x.x"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
