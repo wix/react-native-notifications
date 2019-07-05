@@ -153,6 +153,10 @@ public class PushNotification implements IPushNotification {
         return getNotificationBuilder(intent).build();
     }
 
+    protected Uri getSoundUri() {
+        return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + mContext.getPackageName() + "/raw/notification");
+    }
+
     protected Notification.Builder getNotificationBuilder(PendingIntent intent) {
 
         String CHANNEL_ID = "channel_01";
@@ -167,14 +171,21 @@ public class PushNotification implements IPushNotification {
                 .setAutoCancel(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .build();
+
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
-                                                                  CHANNEL_NAME,
-                                                                  NotificationManager.IMPORTANCE_DEFAULT);
+                    CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setSound(getSoundUri(), audioAttributes);
+
             final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(channel);
             notification.setChannelId(CHANNEL_ID);
         }
-        
+
         return notification;
     }
 
