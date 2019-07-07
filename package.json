@@ -22,7 +22,7 @@
   "main": "lib/src/index",
   "scripts": {
     "pretest": "./node_modules/.bin/eslint *.js test",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-register --reporter spec \"test/*.spec.js\"",
+    "test": "jest",
     "start": "node ./scripts/start",
     "test-e2e-ios": "node ./scripts/test-e2e --ios"
   },
@@ -41,6 +41,7 @@
     "@types/react-test-renderer": "16.x.x",
     "@babel/plugin-proposal-export-default-from": "7.2.0",
     "@babel/plugin-proposal-export-namespace-from": "7.2.0",
+    "@babel/preset-env": "7.5.0",
     "typescript": "3.2.2",
     "babel-eslint": "9.0.0",
     "chai": "^3.5.0",
@@ -55,7 +56,8 @@
     "react": "16.8.6",
     "detox": "12.x.x",
     "jest": "24.8.0",
-    "metro-react-native-babel-preset": "0.55.x"
+    "metro-react-native-babel-preset": "0.55.x",
+    "@babel/register": "7.4.4"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -101,10 +103,11 @@
       "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
     },
     "roots": [
-      "<rootDir>/node_modules/"
+      "<rootDir>/node_modules/",
+      "<rootDir>/test/"
     ],
     "collectCoverageFrom": [
-      "lib/dist/**/*.js",
+      "lib/src/**/*.js",
       "integration/**/*.js",
       "!lib/dist/index.js",
       "!lib/dist/Navigation.js",

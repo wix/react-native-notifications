@@ -1,11 +1,5 @@
-'use strict';
-let expect = require('chai').use(require('sinon-chai')).expect;
-import proxyquire from 'proxyquire';
-import sinon from 'sinon';
 
-/* eslint-disable no-unused-vars */
-
-describe('NotificationsIOS', () => {
+describe.only('NotificationsIOS', () => {
   let deviceEvents = [
     'pushKitRegistered',
     'remoteNotificationsRegistered',
@@ -15,143 +9,73 @@ describe('NotificationsIOS', () => {
     'notificationOpened'
   ];
 
-  /*eslint-disable indent*/
-  let deviceAddEventListener,
-    deviceRemoveEventListener,
-    nativeAppAddEventListener,
-    nativeAppRemoveEventListener,
-    nativeRequestPermissionsWithCategories,
-    nativeAbandonPermissions,
-    nativeRegisterPushKit,
-    nativeBackgroundTimeRemaining,
-    nativeConsumeBackgroundQueue,
-    nativeLocalNotification,
-    nativeCancelLocalNotification,
-    nativeCancelAllLocalNotifications,
-    nativeGetBadgesCount,
-    nativeSetBadgesCount,
-    nativeIsRegisteredForRemoteNotifications,
-    nativeCheckPermissions,
-    nativeRemoveAllDeliveredNotifications,
-    nativeRemoveDeliveredNotifications,
-    nativeGetDeliveredNotifications;
-
   let NotificationsIOS, NotificationAction, NotificationCategory;
-  let someHandler = () => {};
   let constantGuid = 'some-random-uuid';
   let identifiers = ['some-random-uuid', 'other-random-uuid'];
-  /*eslint-enable indent*/
+  let someHandler = () => {};
+  let nativeAppAddEventListener;
+  let deviceAddEventListener;
+  let deviceRemoveEventListener;
+  let nativeAppRemoveEventListener;
+  let nativeModule;
 
-  before(() => {
-    deviceAddEventListener = sinon.spy();
-    deviceRemoveEventListener = sinon.spy();
-    nativeAppAddEventListener = sinon.spy();
-    nativeAppRemoveEventListener = sinon.spy();
-    nativeRequestPermissionsWithCategories = sinon.spy();
-    nativeAbandonPermissions = sinon.spy();
-    nativeRegisterPushKit = sinon.spy();
-    nativeBackgroundTimeRemaining = sinon.spy();
-    nativeConsumeBackgroundQueue = sinon.spy();
-    nativeLocalNotification = sinon.spy();
-    nativeCancelLocalNotification = sinon.spy();
-    nativeCancelAllLocalNotifications = sinon.spy();
-    nativeGetBadgesCount = sinon.spy();
-    nativeSetBadgesCount = sinon.spy();
-    nativeIsRegisteredForRemoteNotifications = sinon.spy();
-    nativeCheckPermissions = sinon.spy();
-    nativeRemoveAllDeliveredNotifications = sinon.spy();
-    nativeRemoveDeliveredNotifications = sinon.spy();
-    nativeGetDeliveredNotifications = sinon.spy();
-
-    let libUnderTest = proxyquire('../index.ios', {
-      'uuid': {
-        v4: () => constantGuid
-      },
-      'react-native': {
-        NativeModules: {
-          RNBridgeModule: {
-            requestPermissionsWithCategories: nativeRequestPermissionsWithCategories,
-            abandonPermissions: nativeAbandonPermissions,
-            registerPushKit: nativeRegisterPushKit,
-            backgroundTimeRemaining: nativeBackgroundTimeRemaining,
-            consumeBackgroundQueue: nativeConsumeBackgroundQueue,
-            localNotification: nativeLocalNotification,
-            cancelLocalNotification: nativeCancelLocalNotification,
-            cancelAllLocalNotifications: nativeCancelAllLocalNotifications,
-            getBadgesCount: nativeGetBadgesCount,
-            setBadgesCount: nativeSetBadgesCount,
-            isRegisteredForRemoteNotifications: nativeIsRegisteredForRemoteNotifications,
-            checkPermissions: nativeCheckPermissions,
-            removeAllDeliveredNotifications: nativeRemoveAllDeliveredNotifications,
-            removeDeliveredNotifications: nativeRemoveDeliveredNotifications,
-            getDeliveredNotifications: nativeGetDeliveredNotifications
-          }
-        },
-        NativeAppEventEmitter: {
-          addListener: (...args) => {
-            nativeAppAddEventListener(...args);
-
-            return { remove: nativeAppRemoveEventListener };
-          }
-        },
-        DeviceEventEmitter: {
-          addListener: (...args) => {
-            deviceAddEventListener(...args);
-
-            return { remove: deviceRemoveEventListener };
-          }
-        },
-        '@noCallThru': true
-      }
+  beforeEach(() => {
+    deviceRemoveEventListener = jest.fn();
+    nativeAppRemoveEventListener = jest.fn();
+    nativeAppAddEventListener = jest.fn(() => {
+      return {
+        remove: nativeAppRemoveEventListener
+      };
     });
 
+    deviceAddEventListener = jest.fn(() => {
+      return {
+        remove: deviceRemoveEventListener
+      };
+    });
+    const RNBridgeModule = {
+      requestPermissionsWithCategories: jest.fn(),
+      abandonPermissions: jest.fn(),
+      registerPushKit: jest.fn(),
+      backgroundTimeRemaining: jest.fn(),
+      consumeBackgroundQueue: jest.fn(),
+      localNotification: jest.fn(),
+      cancelLocalNotification: jest.fn(),
+      cancelAllLocalNotifications: jest.fn(),
+      getBadgesCount: jest.fn(),
+      setBadgesCount: jest.fn(),
+      isRegisteredForRemoteNotifications: jest.fn(),
+      checkPermissions: jest.fn(),
+      removeAllDeliveredNotifications: jest.fn(),
+      removeDeliveredNotifications: jest.fn(),
+      getDeliveredNotifications: jest.fn()
+    };
+
+    jest.mock('react-native', () => {
+      return {
+        NativeModules: {
+          RNBridgeModule
+        },
+        NativeAppEventEmitter: {
+          addListener: nativeAppAddEventListener
+        },
+        DeviceEventEmitter: {
+          addListener: deviceAddEventListener
+        }
+      };
+    });
+    nativeModule = RNBridgeModule;
+
+    jest.mock('uuid', () => {
+      return {
+        v4: () => constantGuid
+      };
+    });
+
+    let libUnderTest = require('../lib/src/index.ios');
     NotificationsIOS = libUnderTest.default;
     NotificationAction = libUnderTest.NotificationAction;
     NotificationCategory = libUnderTest.NotificationCategory;
-  });
-
-  afterEach(() => {
-    deviceAddEventListener.reset();
-    deviceRemoveEventListener.reset();
-    nativeAppAddEventListener.reset();
-    nativeAppRemoveEventListener.reset();
-    nativeRequestPermissionsWithCategories.reset();
-    nativeAbandonPermissions.reset();
-    nativeRegisterPushKit.reset();
-    nativeBackgroundTimeRemaining.reset();
-    nativeConsumeBackgroundQueue.reset();
-    nativeLocalNotification.reset();
-    nativeCancelLocalNotification.reset();
-    nativeCancelAllLocalNotifications.reset();
-    nativeIsRegisteredForRemoteNotifications.reset();
-    nativeCheckPermissions.reset();
-    nativeRemoveAllDeliveredNotifications.reset();
-    nativeRemoveDeliveredNotifications.reset();
-    nativeGetDeliveredNotifications.reset();
-  });
-
-  after(() => {
-    deviceAddEventListener = null;
-    deviceRemoveEventListener = null;
-    nativeAppAddEventListener = null;
-    nativeAppRemoveEventListener = null;
-    nativeRequestPermissionsWithCategories = null;
-    nativeAbandonPermissions = null;
-    nativeRegisterPushKit = null;
-    nativeBackgroundTimeRemaining = null;
-    nativeConsumeBackgroundQueue = null;
-    nativeLocalNotification = null;
-    nativeCancelLocalNotification = null;
-    nativeCancelAllLocalNotifications = null;
-    nativeIsRegisteredForRemoteNotifications = null;
-    nativeCheckPermissions = null;
-    nativeRemoveAllDeliveredNotifications = null;
-    nativeRemoveDeliveredNotifications = null;
-    nativeGetDeliveredNotifications = null;
-
-    NotificationsIOS = null;
-    NotificationAction = null;
-    NotificationCategory = null;
   });
 
   describe('Add Event Listener', () => {
@@ -159,14 +83,14 @@ describe('NotificationsIOS', () => {
       it(`should subscribe the given handler to device event: ${event}`, () => {
         NotificationsIOS.addEventListener(event, someHandler);
 
-        expect(deviceAddEventListener).to.have.been.calledWith(event, sinon.match.func);
+        expect(deviceAddEventListener).toHaveBeenCalledWith(event, expect.any(Function));
       });
     });
 
     it('should not subscribe to unknown device events', () => {
       NotificationsIOS.addEventListener('someUnsupportedEvent', someHandler);
 
-      expect(deviceAddEventListener).to.not.have.been.called;
+      expect(deviceAddEventListener).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -176,7 +100,7 @@ describe('NotificationsIOS', () => {
         NotificationsIOS.addEventListener(event, someHandler);
         NotificationsIOS.removeEventListener(event, someHandler);
 
-        expect(deviceRemoveEventListener).to.have.been.calledOnce;
+        expect(deviceRemoveEventListener).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -185,7 +109,7 @@ describe('NotificationsIOS', () => {
       NotificationsIOS.addEventListener(someUnsupportedEvent, someHandler);
       NotificationsIOS.removeEventListener(someUnsupportedEvent, someHandler);
 
-      expect(deviceRemoveEventListener).to.not.have.been.called;
+      expect(deviceRemoveEventListener).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -213,7 +137,7 @@ describe('NotificationsIOS', () => {
       it('should call native request permissions with array of categories', () => {
         NotificationsIOS.requestPermissions([someCategory]);
 
-        expect(nativeRequestPermissionsWithCategories).to.have.been.calledWith([{
+        expect(nativeModule.requestPermissionsWithCategories).toHaveBeenCalledWith([{
           identifier: 'SOME_CATEGORY',
           actions: [actionOpts],
           context: 'default'
@@ -223,22 +147,23 @@ describe('NotificationsIOS', () => {
       it('should call native request permissions with empty array if no categories specified', () => {
         NotificationsIOS.requestPermissions();
 
-        expect(nativeRequestPermissionsWithCategories).to.have.been.calledWith([]);
+        expect(nativeModule.requestPermissionsWithCategories).toHaveBeenCalledWith([]);
       });
 
       it('should subscribe to notificationActionReceived event once, with a single event handler', () => {
         NotificationsIOS.requestPermissions([someCategory]);
 
-        expect(nativeAppAddEventListener).to.have.been.calledOnce;
-        expect(nativeAppAddEventListener).to.have.been.calledWith('notificationActionReceived', sinon.match.func);
+        expect(nativeAppAddEventListener).toHaveBeenCalledTimes(1);
+        expect(nativeAppAddEventListener).toHaveBeenCalledWith('notificationActionReceived', expect.any(Function));
       });
     });
 
     describe('reset categories', () => {
       it('should remove notificationActionReceived event handler', () => {
+        NotificationsIOS.requestPermissions([someCategory]);
         NotificationsIOS.resetCategories();
 
-        expect(nativeAppRemoveEventListener).to.have.been.calledOnce;
+        expect(nativeAppRemoveEventListener).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -247,7 +172,7 @@ describe('NotificationsIOS', () => {
         const callback = (count) => console.log(count);
         NotificationsIOS.getBadgesCount(callback);
 
-        expect(nativeGetBadgesCount).to.have.been.calledWith(callback);
+        expect(nativeModule.getBadgesCount).toHaveBeenCalledWith(callback);
       });
     });
 
@@ -255,7 +180,7 @@ describe('NotificationsIOS', () => {
       it('should call native setBadgesCount', () => {
         NotificationsIOS.setBadgesCount(44);
 
-        expect(nativeSetBadgesCount).to.have.been.calledWith(44);
+        expect(nativeModule.setBadgesCount).toHaveBeenCalledWith(44);
       });
     });
 
@@ -265,7 +190,7 @@ describe('NotificationsIOS', () => {
     it('should call native register push kit method', function () {
       NotificationsIOS.registerPushKit();
 
-      expect(nativeRegisterPushKit).to.have.been.called;
+      expect(nativeModule.registerPushKit).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -273,23 +198,23 @@ describe('NotificationsIOS', () => {
     it('should call native abandon permissions method', () => {
       NotificationsIOS.abandonPermissions();
 
-      expect(nativeAbandonPermissions).to.have.been.called;
+      expect(nativeModule.abandonPermissions).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('Get background remaining time', () => {
     it('should call native background remaining time method', () => {
-      let someCallback = (time) => { };
+      let someCallback = () => {};
 
       NotificationsIOS.backgroundTimeRemaining(someCallback);
 
-      expect(nativeBackgroundTimeRemaining).to.have.been.calledWith(someCallback);
+      expect(nativeModule.backgroundTimeRemaining).toHaveBeenCalledWith(someCallback);
     });
   });
 
   describe('Dispatch local notification', () => {
     it('should return generated notification guid', () => {
-      expect(NotificationsIOS.localNotification({})).to.equal(constantGuid);
+      expect(NotificationsIOS.localNotification({})).toEqual(constantGuid);
     });
 
     it('should call native local notification method with generated notification guid and notification object', () => {
@@ -306,7 +231,7 @@ describe('NotificationsIOS', () => {
 
       NotificationsIOS.localNotification(someLocalNotification);
 
-      expect(nativeLocalNotification).to.have.been.calledWith(someLocalNotification, constantGuid);
+      expect(nativeModule.localNotification).toHaveBeenCalledWith(someLocalNotification, constantGuid);
     });
   });
 
@@ -314,7 +239,7 @@ describe('NotificationsIOS', () => {
     it('should call native cancel local notification method', () => {
       NotificationsIOS.cancelLocalNotification(constantGuid);
 
-      expect(nativeCancelLocalNotification).to.have.been.calledWith(constantGuid);
+      expect(nativeModule.cancelLocalNotification).toHaveBeenCalledWith(constantGuid);
     });
   });
 
@@ -322,14 +247,14 @@ describe('NotificationsIOS', () => {
     it('should call native cancel all local notifications method', () => {
       NotificationsIOS.cancelAllLocalNotifications();
 
-      expect(nativeCancelAllLocalNotifications).to.have.been.calledWith();
+      expect(nativeModule.cancelAllLocalNotifications).toHaveBeenCalledWith();
     });
   });
 
   describe('Is registered for remote notifications ', () => {
     it('should call native is registered for remote notifications', () => {
       NotificationsIOS.isRegisteredForRemoteNotifications();
-      expect(nativeIsRegisteredForRemoteNotifications).to.have.been.calledWith();
+      expect(nativeModule.isRegisteredForRemoteNotifications).toHaveBeenCalledWith();
 
     });
   });
@@ -337,7 +262,7 @@ describe('NotificationsIOS', () => {
   describe('Check permissions ', () => {
     it('should call native check permissions', () => {
       NotificationsIOS.checkPermissions();
-      expect(nativeCheckPermissions).to.have.been.calledWith();
+      expect(nativeModule.checkPermissions).toHaveBeenCalledWith();
 
     });
   });
@@ -346,7 +271,7 @@ describe('NotificationsIOS', () => {
     it('should call native remove all delivered notifications method', () => {
       NotificationsIOS.removeAllDeliveredNotifications();
 
-      expect(nativeRemoveAllDeliveredNotifications).to.have.been.calledWith();
+      expect(nativeModule.removeAllDeliveredNotifications).toHaveBeenCalledWith();
     });
   });
 
@@ -354,7 +279,7 @@ describe('NotificationsIOS', () => {
     it('should call native remove delivered notifications method', () => {
       NotificationsIOS.removeDeliveredNotifications(identifiers);
 
-      expect(nativeRemoveDeliveredNotifications).to.have.been.calledWith(identifiers);
+      expect(nativeModule.removeDeliveredNotifications).toHaveBeenCalledWith(identifiers);
     });
   });
 
@@ -363,7 +288,7 @@ describe('NotificationsIOS', () => {
       const callback = (notifications) => console.log(notifications);
       NotificationsIOS.getDeliveredNotifications(callback);
 
-      expect(nativeGetDeliveredNotifications).to.have.been.calledWith(callback);
+      expect(nativeModule.getDeliveredNotifications).toHaveBeenCalledWith(callback);
     });
   });
 });

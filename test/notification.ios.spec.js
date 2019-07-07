@@ -1,8 +1,6 @@
-'use strict';
-import { expect } from 'chai';
-import IOSNotification from '../notification.ios';
+import IOSNotification from '../lib/src/notification.ios';
 
-describe('iOS Notification Object', () => {
+describe.only('iOS Notification Object', () => {
   let notification;
   let someBadgeCount = 123, someSound = 'someSound', someCategory = 'some_notification_category', someThread = 'thread-1';
 
@@ -48,31 +46,31 @@ describe('iOS Notification Object', () => {
       });
 
       it('should return regular type', function () {
-        expect(notification.getType()).to.equal('regular');
+        expect(notification.getType()).toEqual('regular');
       });
 
       it('should return the alert object', () => {
-        expect(notification.getMessage()).to.deep.equal(nativeNotification.aps.alert);
+        expect(notification.getMessage()).toEqual(nativeNotification.aps.alert);
       });
 
       it('should return the sound', () => {
-        expect(notification.getSound()).to.equal(someSound);
+        expect(notification.getSound()).toEqual(someSound);
       });
 
       it('should return the badge count', () => {
-        expect(notification.getBadgeCount()).to.equal(someBadgeCount);
+        expect(notification.getBadgeCount()).toEqual(someBadgeCount);
       });
 
       it('should return the category', () => {
-        expect(notification.getCategory()).to.equal(someCategory);
+        expect(notification.getCategory()).toEqual(someCategory);
       });
 
       it('should return the thread', () => {
-        expect(notification.getThread()).to.equal('thread-1');
+        expect(notification.getThread()).toEqual('thread-1');
       });
 
       it('should return the custom data', () => {
-        expect(notification.getData()).to.deep.equal({ key1: 'value1', key2: 'value2' });
+        expect(notification.getData()).toEqual({ key1: 'value1', key2: 'value2' });
       });
     });
   });
@@ -102,27 +100,27 @@ describe('iOS Notification Object', () => {
     });
 
     it('should return managed type', function () {
-      expect(notification.getType()).to.equal('managed');
+      expect(notification.getType()).toEqual('managed');
     });
 
     it('should return the alert object', () => {
-      expect(notification.getMessage()).to.equal(managedNativeNotification.managedAps.alert);
+      expect(notification.getMessage()).toEqual(managedNativeNotification.managedAps.alert);
     });
 
     it('should return the sound', () => {
-      expect(notification.getSound()).to.equal(someSound);
+      expect(notification.getSound()).toEqual(someSound);
     });
 
     it('should return the badge count', () => {
-      expect(notification.getBadgeCount()).to.equal(someBadgeCount);
+      expect(notification.getBadgeCount()).toEqual(someBadgeCount);
     });
 
     it('should return the category', () => {
-      expect(notification.getCategory()).to.equal(someCategory);
+      expect(notification.getCategory()).toEqual(someCategory);
     });
 
     it('should return the custom data', () => {
-      expect(notification.getData()).to.deep.equal({ managedAps: managedNativeNotification.managedAps, key1: 'value1', key2: 'value2' });
+      expect(notification.getData()).toEqual({ managedAps: managedNativeNotification.managedAps, key1: 'value1', key2: 'value2' });
     });
   });
 });
