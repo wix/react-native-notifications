@@ -42,6 +42,7 @@ class NotificationsExampleApp extends Component {
     };
 
     NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
+    NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegisteredFailed.bind(this));
 
     NotificationsIOS.consumeBackgroundQueue();
 
@@ -54,6 +55,10 @@ class NotificationsExampleApp extends Component {
 
   onPushRegistered(deviceToken) {
     console.log('Device Token Received: ' + deviceToken);
+  }
+
+  onPushRegisteredFailed(error) {
+    console.log('Remote notifiction registration failed: ' + error);
   }
 
   onPushKitRegistered(deviceToken) {

@@ -69,8 +69,6 @@
 		50351F9422CD7FF1000713B3 /* RCTConvert+Notifications.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+Notifications.m"; sourceTree = "<group>"; };
 		50351F9622CD8604000713B3 /* RNCommandsHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNCommandsHandler.h; sourceTree = "<group>"; };
 		50351F9722CD8604000713B3 /* RNCommandsHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNCommandsHandler.m; sourceTree = "<group>"; };
-		508CE7BB22D12B0A00357815 /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
-		508CE7BD22D12B0A00357815 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		508CE7C822D12B2600357815 /* RNNotificationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RNNotificationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		508CE7CA22D12B2600357815 /* RNNotificationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNotificationsTests.m; sourceTree = "<group>"; };
 		508CE7CC22D12B2600357815 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -117,15 +115,6 @@
 				134814201AA4EA6300B7C361 /* libRNNotifications.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		508CE7BA22D12B0A00357815 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				508CE7BB22D12B0A00357815 /* Tests.m */,
-				508CE7BD22D12B0A00357815 /* Info.plist */,
-			);
-			path = Tests;
 			sourceTree = "<group>";
 		};
 		508CE7C922D12B2600357815 /* RNNotificationsTests */ = {
@@ -196,7 +185,6 @@
 				D8A2F7541CB57F1A002CC8F5 /* RNNotifications.m */,
 				50351F9622CD8604000713B3 /* RNCommandsHandler.h */,
 				50351F9722CD8604000713B3 /* RNCommandsHandler.m */,
-				508CE7BA22D12B0A00357815 /* Tests */,
 				508CE7C922D12B2600357815 /* RNNotificationsTests */,
 				134814211AA4EA7D00B7C361 /* Products */,
 				508CE7C822D12B2600357815 /* RNNotificationsTests.xctest */,

@@ -5,13 +5,6 @@
 
 @implementation RNCommandsHandler {
     RNPushKit* _pushKit;
-    RNNotificationsStore* _store;
-}
-
-- (instancetype)initWithStore:(RNNotificationsStore *)store {
-    self = [super init];
-    _store = store;
-    return self;
 }
 
 - (void)requestPermissionsWithCategories:(NSArray *)json {
@@ -45,11 +38,11 @@
 }
 
 - (void)getInitialNotification:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
-    resolve(_store.initialNotification);
+    resolve([[RNNotifications sharedInstance] initialNotification]);
 }
 
 - (void)completionHandler:(NSString *)completionKey {
-    [_store completeAction:completionKey];
+    [[RNNotifications sharedInstance] finishHandleNotificationKey:completionKey];
 }
 
 - (void)abandonPermissions {

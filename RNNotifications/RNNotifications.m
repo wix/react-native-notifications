@@ -8,6 +8,14 @@
 @implementation RNNotifications {
     RNNotificationCenterListener* _notificationCenterListener;
     RNNotificationEventHandler* _notificationEventHandler;
+    RNEventEmitter* _eventEmitter;
+    RNNotificationsStore* _store;
+}
+
+- (instancetype)init {
+    self = [super init];
+    _store = [RNNotificationsStore new];
+    return self;
 }
 
 + (instancetype)sharedInstance {
@@ -21,7 +29,7 @@
 }
 
 - (void)initialize {
-    _notificationEventHandler = [RNNotificationEventHandler new];
+    _notificationEventHandler = [[RNNotificationEventHandler alloc] initWithStore:_store];
     _notificationCenterListener = [[RNNotificationCenterListener alloc] initWithNotificationEventHandler:_notificationEventHandler];
 }
 
@@ -37,6 +45,14 @@
     if ([[notification objectForKey:@"aps"] objectForKey:@"badge"]){
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[[notification objectForKey:@"aps"] objectForKey:@"badge"] intValue]];
     }
+}
+
+- (void)setInitialNotification:(NSDictionary *)notification {
+    [_store setInitialNotification:notification];
+}
+
+- (void)finishHandleNotificationKey:(NSString *)notificationKey {
+    [_store completeAction:notificationKey];
 }
 
 @end

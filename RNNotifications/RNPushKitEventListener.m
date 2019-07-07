@@ -1,5 +1,4 @@
 #import "RNPushKitEventListener.h"
-#import "RNEventEmitter.h"
 #import "RNUtils.h"
 
 @implementation RNPushKitEventListener {

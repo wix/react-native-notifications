@@ -4,8 +4,6 @@
 
 @interface RNCommandsHandler : NSObject
 
-- (instancetype)initWithStore:(RNNotificationsStore *)store;
-
 - (void)requestPermissionsWithCategories:(NSArray *)json;
 
 - (void)getInitialNotification:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject;

@@ -14,30 +14,40 @@ RCT_EXPORT_MODULE();
              RNActionTriggered];
 }
 
+- (instancetype)init {
+    self = [super init];
+    for (NSString *event in [self supportedEvents]) {
+        [self addListener:event];
+    }
+    return self;
+}
+
 # pragma mark public
 
-+ (instancetype)sharedInstance {
-    static RNEventEmitter *sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[RNEventEmitter alloc] init];
-    });
-    return sharedInstance;
-}
-
 + (void)sendEvent:(NSString *)event body:(NSDictionary *)body {
-    [[self sharedInstance] send:event body:body];
+    [[NSNotificationCenter defaultCenter] postNotificationName:event
+                                                        object:self
+                                                      userInfo:body];
 }
-
 
 # pragma mark private
 
-- (void)send:(NSString *)eventName body:(id)body {
-    if (self.bridge == nil) {
-        return;
+- (void)startObserving {
+    for (NSString *event in [self supportedEvents]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleNotification:)
+                                                     name:event
+                                                   object:nil];
     }
-    [self sendEventWithName:eventName body:body];
 }
+
+- (void)stopObserving {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)handleNotification:(NSNotification *)notification {
+    [self sendEventWithName:notification.name body:notification.userInfo];
+}
+
 
 @end
