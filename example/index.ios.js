@@ -61,7 +61,6 @@ class NotificationsExampleApp extends Component {
   }
 
   onNotificationReceivedForeground(notification) {
-    alert(JSON.stringify(notification));
     console.log('Notification Received Foreground: ' + JSON.stringify(notification));
     this.setState({
       notifications: [...this.state.notifications, notification]

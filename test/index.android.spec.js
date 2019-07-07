@@ -35,7 +35,6 @@ describe('Notifications-Android', () => {
     it('should assign callback to native event upon listener registration', () => {
       expect(deviceEventEmitterListenerStub).toHaveBeenCalledTimes(0);
       const userListener = () => {};
-      console.log(libUnderTest);
       libUnderTest.NotificationsAndroid.setRegistrationTokenUpdateListener(userListener);
 
       expect(deviceEventEmitterListenerStub).toHaveBeenCalledWith('remoteNotificationsRegistered', userListener);
