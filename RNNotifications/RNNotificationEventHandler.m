@@ -1,5 +1,6 @@
 #import "RNNotificationEventHandler.h"
 #import "RNEventEmitter.h"
+#import "RNUtils.h"
 
 @implementation RNNotificationEventHandler {
     RNNotificationsStore* _store;
@@ -8,8 +9,16 @@
 - (instancetype)initWithStore:(RNNotificationsStore *)store {
     self = [super init];
     _store = store;
-    
     return self;
+}
+
+- (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken {
+    NSString *tokenRepresentation = [deviceToken isKindOfClass:[NSString class]] ? deviceToken : [RNUtils deviceTokenToString:deviceToken];
+    [RNEventEmitter sendEvent:RNRegistered body:@{@"deviceToken": tokenRepresentation}];
+}
+
+- (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    [RNEventEmitter sendEvent:RNRegistrationFailed body:@{@"code": [NSNumber numberWithInteger:error.code], @"domain": error.domain, @"localizedDescription": error.localizedDescription}];
 }
 
 - (void)didReceiveForegroundPayload:(NSDictionary *)payload {
