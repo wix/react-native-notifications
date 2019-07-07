@@ -41,7 +41,6 @@
     "@types/react-test-renderer": "16.x.x",
     "@babel/plugin-proposal-export-default-from": "7.2.0",
     "@babel/plugin-proposal-export-namespace-from": "7.2.0",
-    "@babel/preset-env": "7.5.0",
     "typescript": "3.2.2",
     "babel-eslint": "9.0.0",
     "chai": "^3.5.0",
