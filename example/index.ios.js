@@ -6,41 +6,41 @@
 import {
   AppRegistry,
   StyleSheet,
-  Text,
-  View
+  View,
+  Text
 } from 'react-native';
 import React, {Component} from 'react';
 
 import NotificationsIOS, { NotificationAction, NotificationCategory } from 'react-native-notifications';
 
 let upvoteAction = new NotificationAction({
-  activationMode: "background",
+  activationMode: 'background',
   title: String.fromCodePoint(0x1F44D),
-  identifier: "UPVOTE_ACTION"
+  identifier: 'UPVOTE_ACTION'
 }, (action, completed) => {
-  NotificationsIOS.log("ACTION RECEIVED");
+  NotificationsIOS.log('ACTION RECEIVED');
   NotificationsIOS.log(JSON.stringify(action));
 
   completed();
 });
 
 let replyAction = new NotificationAction({
-  activationMode: "background",
-  title: "Reply",
-  behavior: "textInput",
+  activationMode: 'background',
+  title: 'Reply',
+  behavior: 'textInput',
   authenticationRequired: true,
-  identifier: "REPLY_ACTION"
+  identifier: 'REPLY_ACTION'
 }, (action, completed) => {
-  console.log("ACTION RECEIVED");
+  console.log('ACTION RECEIVED');
   console.log(action);
 
   completed();
 });
 
 let cat = new NotificationCategory({
-  identifier: "SOME_CATEGORY",
+  identifier: 'SOME_CATEGORY',
   actions: [upvoteAction, replyAction],
-  context: "default"
+  context: 'default'
 });
 
 class NotificationsExampleApp extends Component {
@@ -61,26 +61,26 @@ class NotificationsExampleApp extends Component {
   }
 
   onPushRegistered(deviceToken) {
-    console.log("Device Token Received: " + deviceToken);
+    console.log('Device Token Received: ' + deviceToken);
   }
 
   onPushKitRegistered(deviceToken) {
-    console.log("PushKit Token Received: " + deviceToken);
+    console.log('PushKit Token Received: ' + deviceToken);
   }
 
   onNotificationReceivedForeground(notification) {
-    console.log("Notification Received Foreground: " + JSON.stringify(notification));
+    console.log('Notification Received Foreground: ' + JSON.stringify(notification));
   }
 
   onNotificationReceivedBackground(notification) {
-    NotificationsIOS.log("Notification Received Background: " + JSON.stringify(notification));
+    NotificationsIOS.log('Notification Received Background: ' + JSON.stringify(notification));
 
     let localNotification = NotificationsIOS.localNotification({
-      alertBody: "Received background notificiation!",
-      alertTitle: "Local Notification Title",
-      alertAction: "Click here to open",
-      soundName: "chime.aiff",
-      category: "SOME_CATEGORY",
+      alertBody: 'Received background notificiation!',
+      alertTitle: 'Local Notification Title',
+      alertAction: 'Click here to open',
+      soundName: 'chime.aiff',
+      category: 'SOME_CATEGORY',
       userInfo: notification.getData()
     });
 
@@ -88,13 +88,13 @@ class NotificationsExampleApp extends Component {
     // add the following line to the notification payload:
     //      fireDate: new Date(Date.now() + (10 * 1000)).toISOString()
 
-    // NotificationsIOS.backgroundTimeRemaining(time => NotificationsIOS.log("remaining background time: " + time));
+    // NotificationsIOS.backgroundTimeRemaining(time => NotificationsIOS.log('remaining background time: ' + time));
 
     // NotificationsIOS.cancelLocalNotification(localNotification);
   }
 
   onNotificationOpened(notification) {
-    console.log("Notification Opened: " + JSON.stringify(notification));
+    console.log('Notification Opened: ' + JSON.stringify(notification));
   }
 
   render() {

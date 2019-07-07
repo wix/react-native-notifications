@@ -2,8 +2,11 @@
 #import "RNNotifications.h"
 #import "RNNotificationsBridgeQueue.h"
 #import "RCTConvert+Notifications.h"
+#import "RNPushKit.h"
 
-@implementation RNCommandsHandler
+@implementation RNCommandsHandler {
+    RNPushKit* _pushKit;
+}
 
 - (instancetype)init {
     self = [super init];
@@ -15,30 +18,39 @@
 }
 
 - (void)onJavaScriptLoaded {
-    [RNNotificationsBridgeQueue sharedInstance].jsIsReady = YES;
+//    [RNNotificationsBridgeQueue sharedInstance].jsIsReady = YES;
 }
 
 - (void)requestPermissionsWithCategories:(NSArray *)json {
-    NSMutableSet* categories = nil;
+    NSMutableSet<UNNotificationCategory *>* categories = nil;
     
     if ([json count] > 0) {
         categories = [NSMutableSet new];
         for (NSDictionary* categoryJson in json) {
-            [categories addObject:[RCTConvert UIMutableUserNotificationCategory:categoryJson]];
+            [categories addObject:[RCTConvert UNMutableUserNotificationCategory:categoryJson]];
         }
     }
-    
-    [[RNNotifications sharedInstance] requestPermissionsWithCategories:categories];
+    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
+    UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert);
+    [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:authOptions completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (error) {
+            
+        } else {
+            if (granted) {
+                [UNUserNotificationCenter.currentNotificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+                    if (settings.authorizationStatus == UNAuthorizationStatusAuthorized) {
+                        [[UIApplication sharedApplication] registerForRemoteNotifications];
+                    }
+                }];
+            } else {
+                
+            }
+        }
+    }];
 }
 
 - (void)getInitialNotification:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
-    NSDictionary * notification = nil;
-    notification = [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification ?
-    [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification :
-    [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification;
-    [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification = nil;
-    [RNNotificationsBridgeQueue sharedInstance].openedLocalNotification = nil;
-    resolve(notification);
+    resolve([RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification);
 }
 
 - (void)completionHandler:(NSString *)completionKey {
@@ -50,7 +62,7 @@
 }
 
 - (void)registerPushKit {
-    [[RNNotifications sharedInstance] registerPushKit];
+    _pushKit = [[RNPushKit alloc] initWithPushKitEventListener:[RNPushKitEventListener new]];
 }
 
 - (void)getBadgesCount:(RCTResponseSenderBlock)callback {

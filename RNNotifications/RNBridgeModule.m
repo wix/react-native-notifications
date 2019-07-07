@@ -27,6 +27,11 @@ RCT_EXPORT_MODULE();
     return YES;
 }
 
+- (void)setBridge:(RCTBridge *)bridge {
+    _bridge = bridge;
+    [RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification = [_bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+}
+
 #pragma mark - JS interface
 
 RCT_EXPORT_METHOD(requestPermissionsWithCategories:(NSArray *)json) {

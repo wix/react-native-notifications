@@ -10,53 +10,55 @@ RCT_ENUM_CONVERTER(UIUserNotificationActivationMode, (@{
                                                         }), UIUserNotificationActivationModeForeground, integerValue)
 @end
 
-@implementation RCTConvert (UIUserNotificationActionContext)
-RCT_ENUM_CONVERTER(UIUserNotificationActionContext, (@{
-                                                       @"default": @(UIUserNotificationActionContextDefault),
-                                                       @"minimal": @(UIUserNotificationActionContextMinimal)
-                                                       }), UIUserNotificationActionContextDefault, integerValue)
+//@implementation RCTConvert (UIUserNotificationActionContext)
+//RCT_ENUM_CONVERTER(UIUserNotificationActionContext, (@{
+//                                                       @"default": @(UIUserNotificationActionContextDefault),
+//                                                       @"minimal": @(UIUserNotificationActionContextMinimal)
+//                                                       }), UIUserNotificationActionContextDefault, integerValue)
+//@end
+
+@implementation RCTConvert (UNNotificationActionOptions)
+
++ (UNNotificationActionOptions)UNUserNotificationActionOptions:(id)json {
+    UNNotificationActionOptions options = UNNotificationActionOptionNone;
+    if ([json[@"activationMode"] isEqualToString:@"foreground"]) {
+        options = options | UNNotificationActionOptionForeground;
+    }
+    if ([RCTConvert BOOL:json[@"authenticationRequired"]]) {
+        options = options | UNNotificationActionOptionAuthenticationRequired;
+    }
+    if ([RCTConvert BOOL:json[@"destructive"]]) {
+        options = options | UNNotificationActionOptionDestructive;
+    }
+    
+    return options;
+}
+
 @end
 
-@implementation RCTConvert (UIUserNotificationActionBehavior)
-/* iOS 9 only */
-RCT_ENUM_CONVERTER(UIUserNotificationActionBehavior, (@{
-                                                        @"default": @(UIUserNotificationActionBehaviorDefault),
-                                                        @"textInput": @(UIUserNotificationActionBehaviorTextInput)
-                                                        }), UIUserNotificationActionBehaviorDefault, integerValue)
-@end
-
-@implementation RCTConvert (UIMutableUserNotificationAction)
-+ (UIMutableUserNotificationAction *)UIMutableUserNotificationAction:(id)json
+@implementation RCTConvert (UNMutableUserNotificationAction)
++ (UNNotificationAction *)UNMutableUserNotificationAction:(id)json
 {
     NSDictionary<NSString *, id> *details = [self NSDictionary:json];
     
-    UIMutableUserNotificationAction* action =[UIMutableUserNotificationAction new];
-    action.activationMode = [RCTConvert UIUserNotificationActivationMode:details[@"activationMode"]];
-    action.behavior = [RCTConvert UIUserNotificationActionBehavior:details[@"behavior"]];
-    action.authenticationRequired = [RCTConvert BOOL:details[@"authenticationRequired"]];
-    action.destructive = [RCTConvert BOOL:details[@"destructive"]];
-    action.title = [RCTConvert NSString:details[@"title"]];
-    action.identifier = [RCTConvert NSString:details[@"identifier"]];
+    UNNotificationAction* action = [UNNotificationAction actionWithIdentifier:details[@"identifier"] title:details[@"title"] options:[RCTConvert UNUserNotificationActionOptions:details]];
+//    action.behavior = [RCTConvert UIUserNotificationActionBehavior:details[@"behavior"]];
     
     return action;
 }
 @end
 
-@implementation RCTConvert (UIMutableUserNotificationCategory)
-+ (UIMutableUserNotificationCategory *)UIMutableUserNotificationCategory:(id)json
+@implementation RCTConvert (UNMutableUserNotificationCategory)
++ (UNNotificationCategory *)UNMutableUserNotificationCategory:(id)json
 {
     NSDictionary<NSString *, id> *details = [self NSDictionary:json];
     
-    UIMutableUserNotificationCategory* category = [UIMutableUserNotificationCategory new];
-    category.identifier = details[@"identifier"];
-    
-    // category actions
     NSMutableArray* actions = [NSMutableArray new];
     for (NSDictionary* actionJson in [RCTConvert NSArray:details[@"actions"]]) {
-        [actions addObject:[RCTConvert UIMutableUserNotificationAction:actionJson]];
+        [actions addObject:[RCTConvert UNMutableUserNotificationAction:actionJson]];
     }
     
-    [category setActions:actions forContext:[RCTConvert UIUserNotificationActionContext:details[@"context"]]];
+    UNNotificationCategory* category = [UNNotificationCategory categoryWithIdentifier:details[@"identifier"] actions:actions intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
     
     return category;
 }

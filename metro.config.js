@@ -1,6 +1,14 @@
 module.exports = {
   projectRoot: `${__dirname}/example`,
   watchFolders: [
-    __dirname
-  ]
+    __dirname,
+  ],
+  transformer: {
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: false,
+      },
+    })
+  }
 };

@@ -42,8 +42,8 @@ static NSDictionary *RCTFormatUNNotification(UNNotification *notification)
 + (UIMutableUserNotificationAction *)UIMutableUserNotificationAction:(id)json;
 @end
 
-@interface RCTConvert (UIMutableUserNotificationCategory)
-+ (UIMutableUserNotificationCategory *)UIMutableUserNotificationCategory:(id)json;
+@interface RCTConvert (UNMutableUserNotificationCategory)
++ (UNNotificationCategory *)UNMutableUserNotificationCategory:(id)json;
 @end
 
 @interface RCTConvert (UILocalNotification)

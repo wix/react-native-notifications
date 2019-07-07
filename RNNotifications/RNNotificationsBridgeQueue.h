@@ -2,9 +2,7 @@
 
 @interface RNNotificationsBridgeQueue : NSObject
 
-@property BOOL jsIsReady;
 @property NSDictionary* openedRemoteNotification;
-@property NSDictionary* openedLocalNotification;
 
 + (nonnull instancetype)sharedInstance;
 
