@@ -1,6 +1,6 @@
 import IOSNotification from '../lib/src/notification.ios';
 
-describe.only('iOS Notification Object', () => {
+describe('iOS Notification Object', () => {
   let notification;
   let someBadgeCount = 123, someSound = 'someSound', someCategory = 'some_notification_category', someThread = 'thread-1';
 

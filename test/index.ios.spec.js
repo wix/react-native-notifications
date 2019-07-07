@@ -1,5 +1,4 @@
-
-describe.only('NotificationsIOS', () => {
+describe('NotificationsIOS', () => {
   let deviceEvents = [
     'pushKitRegistered',
     'remoteNotificationsRegistered',
