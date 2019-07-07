@@ -5,13 +5,13 @@
 RCT_EXPORT_MODULE();
 
 -(NSArray<NSString *> *)supportedEvents {
-    return @[Registered,
-             RegistrationFailed,
-             PushKitRegistered,
-             NotificationReceivedForeground,
-             NotificationReceivedBackground,
-             NotificationOpened,
-             NotificationActionReceived];
+    return @[RNRegistered,
+             RNRegistrationFailed,
+             RNPushKitRegistered,
+             RNNotificationReceivedForeground,
+             RNNotificationReceivedBackground,
+             RNNotificationOpened,
+             RNActionTriggered];
 }
 
 # pragma mark public

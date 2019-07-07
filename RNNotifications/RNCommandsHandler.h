@@ -1,7 +1,10 @@
 #import <Foundation/Foundation.h>
 #import <React/RCTBridge.h>
+#import "RNNotificationsStore.h"
 
 @interface RNCommandsHandler : NSObject
+
+- (instancetype)initWithStore:(RNNotificationsStore *)store;
 
 - (void)requestPermissionsWithCategories:(NSArray *)json;
 

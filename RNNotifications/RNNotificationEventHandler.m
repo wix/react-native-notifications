@@ -1,19 +1,23 @@
 #import "RNNotificationEventHandler.h"
-#import "RNNotificationsBridgeQueue.h"
 #import "RNEventEmitter.h"
 
-@implementation RNNotificationEventHandler
+@implementation RNNotificationEventHandler {
+    RNNotificationsStore* _store;
+}
+
+- (instancetype)initWithStore:(RNNotificationsStore *)store {
+    self = [super init];
+    _store = store;
+    
+    return self;
+}
 
 - (void)didReceiveForegroundPayload:(NSDictionary *)payload {
-//    if ([RNNotificationsBridgeQueue sharedInstance].jsIsReady == YES) {
-        [RNEventEmitter sendEvent:NotificationReceivedForeground body:payload];
-//    }
+    [RNEventEmitter sendEvent:RNNotificationReceivedForeground body:payload];
 }
 
 - (void)didOpenNotificationPayload:(NSDictionary *)payload {
-//    if ([RNNotificationsBridgeQueue sharedInstance].jsIsReady == YES) {
-        [RNEventEmitter sendEvent:NotificationOpened body:payload];
-//    }
+    [RNEventEmitter sendEvent:RNNotificationOpened body:payload];
 }
 
 - (void)handleActionWithIdentifier:(NSString *)identifier forPayload:(NSDictionary *)payload withResponse:(NSString *)response completionHandler:(void (^)())completionHandler {
@@ -33,12 +37,8 @@
         info[@"notification"] = userInfo;
     }
     
-    // Emit event to the queue (in order to store the completion handler). if JS thread is ready, post it also to the notification center (to the bridge).
-    [[RNNotificationsBridgeQueue sharedInstance] postAction:info withCompletionKey:completionKey andCompletionHandler:completionHandler];
-    
-    //    if ([RNNotificationsBridgeQueue sharedInstance].jsIsReady == YES) {
-    [RNEventEmitter sendEvent:NotificationActionReceived body:userInfo];
-    //    }
+    [_store setCompletionHandler:completionHandler withCompletionKey:identifier];
+    [RNEventEmitter sendEvent:RNActionTriggered body:userInfo];
 }
 
 @end

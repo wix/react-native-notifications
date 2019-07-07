@@ -13,7 +13,6 @@
 		50351F9822CD8604000713B3 /* RNCommandsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F9722CD8604000713B3 /* RNCommandsHandler.m */; };
 		507DCCF522CE3EBD005D4E0B /* RNNotifications.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8A2F7561CB57F28002CC8F5 /* RNNotifications.h */; };
 		507DCCF722CE3EF7005D4E0B /* RNBridgeModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F9022CD7DF4000713B3 /* RNBridgeModule.h */; };
-		507DCCF822CE3F04005D4E0B /* RNNotificationsBridgeQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = D85B37461CC05A1200DE9EB6 /* RNNotificationsBridgeQueue.h */; };
 		507DCCF922CE3F04005D4E0B /* RNNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = D8A2F7561CB57F28002CC8F5 /* RNNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		507DCCFA22CE3F04005D4E0B /* RNEventEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F8D22CD782F000713B3 /* RNEventEmitter.h */; };
 		507DCCFB22CE3F04005D4E0B /* RNCommandsHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F9622CD8604000713B3 /* RNCommandsHandler.h */; };
@@ -34,7 +33,6 @@
 		50AD1FCB22D13ADB00E12362 /* RNPushKitEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AD1FC922D13ADB00E12362 /* RNPushKitEventHandler.m */; };
 		50E49F0722D1E4E0007160C1 /* RNNotificationsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 50E49F0522D1E4E0007160C1 /* RNNotificationsStore.h */; };
 		50E49F0822D1E4E0007160C1 /* RNNotificationsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E49F0622D1E4E0007160C1 /* RNNotificationsStore.m */; };
-		D85B37451CC05A0900DE9EB6 /* RNNotificationsBridgeQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D85B37441CC05A0900DE9EB6 /* RNNotificationsBridgeQueue.m */; };
 		D8A2F7551CB57F1A002CC8F5 /* RNNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A2F7541CB57F1A002CC8F5 /* RNNotifications.m */; };
 /* End PBXBuildFile section */
 
@@ -90,8 +88,6 @@
 		50AD1FC922D13ADB00E12362 /* RNPushKitEventHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNPushKitEventHandler.m; sourceTree = "<group>"; };
 		50E49F0522D1E4E0007160C1 /* RNNotificationsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNNotificationsStore.h; sourceTree = "<group>"; };
 		50E49F0622D1E4E0007160C1 /* RNNotificationsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNotificationsStore.m; sourceTree = "<group>"; };
-		D85B37441CC05A0900DE9EB6 /* RNNotificationsBridgeQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNotificationsBridgeQueue.m; sourceTree = "<group>"; };
-		D85B37461CC05A1200DE9EB6 /* RNNotificationsBridgeQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNNotificationsBridgeQueue.h; sourceTree = "<group>"; };
 		D8A2F7541CB57F1A002CC8F5 /* RNNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNotifications.m; sourceTree = "<group>"; };
 		D8A2F7561CB57F28002CC8F5 /* RNNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNNotifications.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -188,8 +184,6 @@
 				D8A2F7541CB57F1A002CC8F5 /* RNNotifications.m */,
 				50E49F0522D1E4E0007160C1 /* RNNotificationsStore.h */,
 				50E49F0622D1E4E0007160C1 /* RNNotificationsStore.m */,
-				D85B37461CC05A1200DE9EB6 /* RNNotificationsBridgeQueue.h */,
-				D85B37441CC05A0900DE9EB6 /* RNNotificationsBridgeQueue.m */,
 				50351F8D22CD782F000713B3 /* RNEventEmitter.h */,
 				50351F8E22CD782F000713B3 /* RNEventEmitter.m */,
 				50351F9322CD7FF1000713B3 /* RCTConvert+Notifications.h */,
@@ -215,7 +209,6 @@
 				508CE81922D130B900357815 /* RNPushKitEventListener.h in Headers */,
 				50E49F0722D1E4E0007160C1 /* RNNotificationsStore.h in Headers */,
 				508CE81622D12FF600357815 /* RNNotificationCenterListener.h in Headers */,
-				507DCCF822CE3F04005D4E0B /* RNNotificationsBridgeQueue.h in Headers */,
 				508CE82222D1372E00357815 /* RNUtils.h in Headers */,
 				507DCCFA22CE3F04005D4E0B /* RNEventEmitter.h in Headers */,
 				507DCCFB22CE3F04005D4E0B /* RNCommandsHandler.h in Headers */,
@@ -328,7 +321,6 @@
 				508CE81A22D130B900357815 /* RNPushKitEventListener.m in Sources */,
 				50351F9222CD7DF4000713B3 /* RNBridgeModule.m in Sources */,
 				508CE81E22D1337200357815 /* RNPushKit.m in Sources */,
-				D85B37451CC05A0900DE9EB6 /* RNNotificationsBridgeQueue.m in Sources */,
 				508CE7D622D12CCA00357815 /* RNNotificationEventHandler.m in Sources */,
 				50E49F0822D1E4E0007160C1 /* RNNotificationsStore.m in Sources */,
 				508CE82322D1372E00357815 /* RNUtils.m in Sources */,

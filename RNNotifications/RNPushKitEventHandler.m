@@ -4,7 +4,7 @@
 @implementation RNPushKitEventHandler
 
 - (void)registeredWithToken:(NSString *)token {
-    [RNEventEmitter sendEvent:PushKitRegistered body:@{@"pushKitToken": token}];
+    [RNEventEmitter sendEvent:RNPushKitRegistered body:@{@"pushKitToken": token}];
 }
 
 @end

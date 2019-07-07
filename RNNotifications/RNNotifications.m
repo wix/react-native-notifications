@@ -6,17 +6,16 @@
 #import "RNNotifications.h"
 #import <React/RCTConvert.h>
 #import <React/RCTUtils.h>
-#import "RNNotificationsBridgeQueue.h"
 #import <UserNotifications/UserNotifications.h>
 #import "RNEventEmitter.h"
-#import "RNNotificationEventHandler.h"
+#import "RNNotificationCenterListener.h"
 #import "RNUtils.h"
 
 NSString* const RNNotificationCreateAction = @"CREATE";
 NSString* const RNNotificationClearAction = @"CLEAR";
 
 @implementation RNNotifications {
-    RNNotificationEventHandler* _notificationEventHandler;
+    RNNotificationCenterListener* _notificationCenterListener;
 }
 
 + (instancetype)sharedInstance {
@@ -30,16 +29,17 @@ NSString* const RNNotificationClearAction = @"CLEAR";
 }
 
 - (void)initialize {
-    _notificationEventHandler = [RNNotificationEventHandler new];
+    RNNotificationEventHandler* notificationEventHandler = [RNNotificationEventHandler new];
+    _notificationCenterListener = [[RNNotificationCenterListener alloc] initWithNotificationEventHandler:notificationEventHandler];
 }
 
 - (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken {
     NSString *tokenRepresentation = [deviceToken isKindOfClass:[NSString class]] ? deviceToken : [RNUtils deviceTokenToString:deviceToken];
-    [RNEventEmitter sendEvent:Registered body:@{@"deviceToken": tokenRepresentation}];
+    [RNEventEmitter sendEvent:RNRegistered body:@{@"deviceToken": tokenRepresentation}];
 }
 
 - (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    [RNEventEmitter sendEvent:RegistrationFailed body:@{@"code": [NSNumber numberWithInteger:error.code], @"domain": error.domain, @"localizedDescription": error.localizedDescription}];
+    [RNEventEmitter sendEvent:RNRegistrationFailed body:@{@"code": [NSNumber numberWithInteger:error.code], @"domain": error.domain, @"localizedDescription": error.localizedDescription}];
 }
 
 - (void)setBadgeForNotification:(NSDictionary *)notification {

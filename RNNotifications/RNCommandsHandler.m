@@ -1,24 +1,18 @@
 #import "RNCommandsHandler.h"
 #import "RNNotifications.h"
-#import "RNNotificationsBridgeQueue.h"
 #import "RCTConvert+Notifications.h"
 #import "RNPushKit.h"
 
 @implementation RNCommandsHandler {
     RNPushKit* _pushKit;
+    RNNotificationsStore* _store;
 }
 
-- (instancetype)init {
+- (instancetype)initWithStore:(RNNotificationsStore *)store {
     self = [super init];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onJavaScriptLoaded)
-                                                 name:RCTJavaScriptDidLoadNotification
-                                               object:nil];
+    _store = store;
+    
     return self;
-}
-
-- (void)onJavaScriptLoaded {
-//    [RNNotificationsBridgeQueue sharedInstance].jsIsReady = YES;
 }
 
 - (void)requestPermissionsWithCategories:(NSArray *)json {
@@ -39,7 +33,9 @@
             if (granted) {
                 [UNUserNotificationCenter.currentNotificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
                     if (settings.authorizationStatus == UNAuthorizationStatusAuthorized) {
-                        [[UIApplication sharedApplication] registerForRemoteNotifications];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [[UIApplication sharedApplication] registerForRemoteNotifications];
+                        });
                     }
                 }];
             } else {
@@ -50,11 +46,11 @@
 }
 
 - (void)getInitialNotification:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
-    resolve([RNNotificationsBridgeQueue sharedInstance].openedRemoteNotification);
+    resolve(_store.initialNotification);
 }
 
 - (void)completionHandler:(NSString *)completionKey {
-    [[RNNotificationsBridgeQueue sharedInstance] completeAction:completionKey];
+    [_store completeAction:completionKey];
 }
 
 - (void)abandonPermissions {
