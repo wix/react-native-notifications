@@ -65,4 +65,28 @@
     }];
 }
 
+- (void)cancelAllLocalNotifications {
+    [[UNUserNotificationCenter currentNotificationCenter] removeAllPendingNotificationRequests];
+}
+
+- (void)isRegisteredForRemoteNotifications:(RCTPromiseResolveBlock)resolve {
+    [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+        if (settings.alertSetting == UNNotificationSettingEnabled || settings.soundSetting == UNNotificationSettingEnabled || settings.badgeSetting == UNNotificationSettingEnabled) {
+            resolve(@(YES));
+        } else {
+            resolve(@(NO));
+        }
+    }];
+}
+
+- (void)checkPermissions:(RCTPromiseResolveBlock)resolve {
+    [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+        resolve(@{
+                  @"badge": @(settings.badgeSetting == UNNotificationSettingEnabled),
+                  @"sound": @(settings.soundSetting == UNNotificationSettingEnabled),
+                  @"alert": @(settings.alertSetting == UNNotificationSettingEnabled),
+                  });
+    }];
+}
+
 @end

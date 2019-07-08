@@ -54,21 +54,15 @@
 }
 
 - (void)cancelAllLocalNotifications {
-    [RCTSharedApplication() cancelAllLocalNotifications];
+    [_notificationCenter cancelAllLocalNotifications];
 }
 
 - (void)isRegisteredForRemoteNotifications:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
-    BOOL ans = [[[UIApplication sharedApplication] currentUserNotificationSettings] types] != 0;
-    resolve(@(ans));
+    [_notificationCenter isRegisteredForRemoteNotifications:resolve];
 }
 
 - (void)checkPermissions:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
-    UIUserNotificationSettings *currentSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
-    resolve(@{
-              @"badge": @((currentSettings.types & UIUserNotificationTypeBadge) > 0),
-              @"sound": @((currentSettings.types & UIUserNotificationTypeSound) > 0),
-              @"alert": @((currentSettings.types & UIUserNotificationTypeAlert) > 0),
-              });
+    [_notificationCenter checkPermissions:resolve];
 }
 
 - (void)removeAllDeliveredNotifications {

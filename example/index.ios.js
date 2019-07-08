@@ -13,11 +13,6 @@ let upvoteAction = new NotificationAction({
   activationMode: 'background',
   title: String.fromCodePoint(0x1F44D),
   identifier: 'UPVOTE_ACTION'
-}, (action, completed) => {
-  NotificationsIOS.log('ACTION RECEIVED');
-  NotificationsIOS.log(JSON.stringify(action));
-
-  completed();
 });
 
 let replyAction = new NotificationAction({
@@ -30,11 +25,6 @@ let replyAction = new NotificationAction({
     placeholder: 'Insert message'
   },
   identifier: 'REPLY_ACTION'
-}, (action, completed) => {
-  console.log('ACTION RECEIVED');
-  console.log(action);
-
-  completed();
 });
 
 class NotificationsExampleApp extends Component {
@@ -75,11 +65,12 @@ class NotificationsExampleApp extends Component {
       notifications: [...this.state.notifications, notification]
     });
 
-    completion({});
+    completion({alert: true, sound: false, badge: false});
   }
 
-  onNotificationOpened(notification) {
-    console.log('Notification Opened: ' + JSON.stringify(notification));
+  onNotificationOpened(notification, completion, action) {
+    console.log('Notification Opened: ' + JSON.stringify(notification) + JSON.stringify(action));
+    completion();
   }
 
   renderNotification(notification) {
@@ -97,6 +88,8 @@ class NotificationsExampleApp extends Component {
     return (
       <View style={styles.container}>
         <Button title={'Request permissions'} onPress={this.requestPermissions} testID={'requestPermissions'}/>
+        <Button title={'Send local notification'} onPress={this.sendLocalNotification} testID={'sendLocalNotification'}/>
+        <Button title={'Remove all delivered notifications'} onPress={this.removeAllDeliveredNotifications}/>
         {notifications}
       </View>
     );
@@ -111,23 +104,25 @@ class NotificationsExampleApp extends Component {
     NotificationsIOS.requestPermissions([cat]);
   }
 
+  sendLocalNotification() {
+    NotificationsIOS.localNotification({
+      body: 'Local notificiation!',
+      title: 'Local Notification Title',
+      sound: 'chime.aiff',
+      category: 'SOME_CATEGORY',
+      userInfo: { }
+    });
+  }
+
+  removeAllDeliveredNotifications() {
+    NotificationsIOS.removeAllDeliveredNotifications();
+  }
+
   componentWillUnmount() {
     NotificationsIOS.removeEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
     NotificationsIOS.removeEventListener('notificationOpened', this.onNotificationOpened.bind(this));
     NotificationsIOS.removeEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
     NotificationsIOS.removeEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
-    // NotificationsIOS.resetCategories();
-  }
-
-  _onNotification(notification) {
-    AlertIOS.alert(
-      'Notification Received',
-      'Alert message: ' + notification.getMessage(),
-      [{
-        text: 'Dismiss',
-        onPress: null,
-      }]
-    );
   }
 }
 

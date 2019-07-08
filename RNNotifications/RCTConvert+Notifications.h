@@ -1,28 +1,12 @@
 #import "RCTConvert.h"
 @import UserNotifications;
 
-@interface RCTConvert (UIUserNotificationActivationMode)
-
-@end
-
-@interface RCTConvert (UIUserNotificationActionContext)
-
-@end
-
-@interface RCTConvert (UIUserNotificationActionBehavior)
-
-@end
-
 @interface RCTConvert (UIMutableUserNotificationAction)
 + (UIMutableUserNotificationAction *)UIMutableUserNotificationAction:(id)json;
 @end
 
 @interface RCTConvert (UNMutableUserNotificationCategory)
 + (UNNotificationCategory *)UNMutableUserNotificationCategory:(id)json;
-@end
-
-@interface RCTConvert (UILocalNotification)
-+ (UILocalNotification *)UILocalNotification:(id)json;
 @end
 
 @interface RCTConvert (UNNotificationRequest)

@@ -218,10 +218,10 @@ describe('NotificationsIOS', () => {
 
     it('should call native local notification method with generated notification guid and notification object', () => {
       let someLocalNotification = {
-        alertBody: 'some body',
-        alertTitle: 'some title',
+        body: 'some body',
+        title: 'some title',
         alertAction: 'some action',
-        soundName: 'sound',
+        sound: 'sound',
         category: 'SOME_CATEGORY',
         userInfo: {
           'key': 'value'

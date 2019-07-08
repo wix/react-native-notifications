@@ -1,21 +1,12 @@
 #import "RCTConvert+Notifications.h"
 
-/*
- * Converters for Interactive Notifications
- */
+
 @implementation RCTConvert (UIUserNotificationActivationMode)
 RCT_ENUM_CONVERTER(UIUserNotificationActivationMode, (@{
                                                         @"foreground": @(UIUserNotificationActivationModeForeground),
                                                         @"background": @(UIUserNotificationActivationModeBackground)
                                                         }), UIUserNotificationActivationModeForeground, integerValue)
 @end
-
-//@implementation RCTConvert (UIUserNotificationActionContext)
-//RCT_ENUM_CONVERTER(UIUserNotificationActionContext, (@{
-//                                                       @"default": @(UIUserNotificationActionContextDefault),
-//                                                       @"minimal": @(UIUserNotificationActionContextMinimal)
-//                                                       }), UIUserNotificationActionContextDefault, integerValue)
-//@end
 
 @implementation RCTConvert (UNNotificationActionOptions)
 
@@ -37,8 +28,8 @@ RCT_ENUM_CONVERTER(UIUserNotificationActivationMode, (@{
 @end
 
 @implementation RCTConvert (UNMutableUserNotificationAction)
-+ (UNNotificationAction *)UNMutableUserNotificationAction:(id)json
-{
+
++ (UNNotificationAction *)UNMutableUserNotificationAction:(id)json {
     UNNotificationAction* action;
     NSDictionary<NSString *, id> *details = [self NSDictionary:json];
     
@@ -48,15 +39,14 @@ RCT_ENUM_CONVERTER(UIUserNotificationActivationMode, (@{
         action = [UNNotificationAction actionWithIdentifier:details[@"identifier"] title:details[@"title"] options:[RCTConvert UNUserNotificationActionOptions:details]];
     }
     
-//    action.behavior = [RCTConvert UIUserNotificationActionBehavior:details[@"behavior"]];
-    
     return action;
 }
+
 @end
 
 @implementation RCTConvert (UNMutableUserNotificationCategory)
-+ (UNNotificationCategory *)UNMutableUserNotificationCategory:(id)json
-{
+
++ (UNNotificationCategory *)UNMutableUserNotificationCategory:(id)json {
     NSDictionary<NSString *, id> *details = [self NSDictionary:json];
     
     NSMutableArray* actions = [NSMutableArray new];
@@ -68,39 +58,20 @@ RCT_ENUM_CONVERTER(UIUserNotificationActivationMode, (@{
     
     return category;
 }
-@end
 
-@implementation RCTConvert (UILocalNotification)
-+ (UILocalNotification *)UILocalNotification:(id)json
-{
-    NSDictionary<NSString *, id> *details = [self NSDictionary:json];
-    
-    UILocalNotification* notification = [UILocalNotification new];
-    notification.fireDate = [RCTConvert NSDate:details[@"fireDate"]];
-    notification.alertBody = [RCTConvert NSString:details[@"alertBody"]];
-    notification.alertTitle = [RCTConvert NSString:details[@"alertTitle"]];
-    notification.alertAction = [RCTConvert NSString:details[@"alertAction"]];
-    notification.soundName = [RCTConvert NSString:details[@"soundName"]] ?: UILocalNotificationDefaultSoundName;
-    if ([RCTConvert BOOL:details[@"silent"]]) {
-        notification.soundName = nil;
-    }
-    notification.userInfo = [RCTConvert NSDictionary:details[@"userInfo"]] ?: @{};
-    notification.category = [RCTConvert NSString:details[@"category"]];
-    
-    return notification;
-}
 @end
 
 @implementation RCTConvert (UNNotificationRequest)
+
 + (UNNotificationRequest *)UNNotificationRequest:(id)json withId:(NSString*)notificationId
 {
     NSDictionary<NSString *, id> *details = [self NSDictionary:json];
     
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
-    content.body = [RCTConvert NSString:details[@"alertBody"]];
-    content.title = [RCTConvert NSString:details[@"alertTitle"]];
-    content.sound = [RCTConvert NSString:details[@"soundName"]]
-    ? [UNNotificationSound soundNamed:[RCTConvert NSString:details[@"soundName"]]]
+    content.body = [RCTConvert NSString:details[@"body"]];
+    content.title = [RCTConvert NSString:details[@"title"]];
+    content.sound = [RCTConvert NSString:details[@"sound"]]
+    ? [UNNotificationSound soundNamed:[RCTConvert NSString:details[@"sound"]]]
     : [UNNotificationSound defaultSound];
     if ([RCTConvert BOOL:details[@"silent"]]) {
         content.sound = nil;
@@ -124,9 +95,11 @@ RCT_ENUM_CONVERTER(UIUserNotificationActivationMode, (@{
     return [UNNotificationRequest requestWithIdentifier:notificationId
                                                 content:content trigger:trigger];
 }
+
 @end
 
 @implementation RCTConvert (UNNotification)
+
 + (NSDictionary *)UNNotificationPayload:(UNNotification *)notification {
     NSMutableDictionary *formattedNotification = [NSMutableDictionary dictionary];
     UNNotificationContent *content = notification.request.content;

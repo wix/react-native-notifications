@@ -4,7 +4,6 @@ static NSString* const RNRegistered                     = @"remoteNotificationsR
 static NSString* const RNRegistrationFailed             = @"remoteNotificationsRegistrationFailed";
 static NSString* const RNPushKitRegistered              = @"pushKitRegistered";
 static NSString* const RNNotificationReceivedForeground = @"notificationReceivedForeground";
-static NSString* const RNNotificationReceivedBackground = @"notificationReceivedBackground";
 static NSString* const RNNotificationOpened             = @"notificationOpened";
 
 
