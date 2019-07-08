@@ -10,8 +10,7 @@ RCT_EXPORT_MODULE();
              RNPushKitRegistered,
              RNNotificationReceivedForeground,
              RNNotificationReceivedBackground,
-             RNNotificationOpened,
-             RNActionTriggered];
+             RNNotificationOpened];
 }
 
 - (instancetype)init {
@@ -20,6 +19,10 @@ RCT_EXPORT_MODULE();
         [self addListener:event];
     }
     return self;
+}
+
++ (BOOL)requiresMainQueueSetup {
+    return YES;
 }
 
 # pragma mark public

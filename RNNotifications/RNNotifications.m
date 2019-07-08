@@ -4,10 +4,13 @@
 #import <React/RCTBridge.h>
 #import "RNNotifications.h"
 #import "RNNotificationCenterListener.h"
+#import "RNPushKit.h"
 
 @implementation RNNotifications {
+    RNPushKit* _pushKit;
     RNNotificationCenterListener* _notificationCenterListener;
     RNNotificationEventHandler* _notificationEventHandler;
+    RNPushKitEventHandler* _pushKitEventHandler;
     RNEventEmitter* _eventEmitter;
     RNNotificationsStore* _store;
 }
@@ -33,6 +36,11 @@
     _notificationCenterListener = [[RNNotificationCenterListener alloc] initWithNotificationEventHandler:_notificationEventHandler];
 }
 
+- (void)initializePushKit {
+    _pushKitEventHandler = [RNPushKitEventHandler new];
+    _pushKit = [[RNPushKit alloc] initWithEventHandler:_pushKitEventHandler];
+}
+
 - (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken {
     [_notificationEventHandler didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
@@ -51,8 +59,12 @@
     [_store setInitialNotification:notification];
 }
 
-- (void)finishHandleNotificationKey:(NSString *)notificationKey {
-    [_store completeAction:notificationKey];
+- (void)finishHandleActionKey:(NSString *)actionKey {
+    [_store completeAction:actionKey];
+}
+
+- (void)finishHandleNotificationKey:(NSString *)notificationKey presentingOptions:(UNNotificationPresentationOptions)presentingOptions {
+    [_store completePresentation:notificationKey withPresentationOptions:presentingOptions];
 }
 
 @end

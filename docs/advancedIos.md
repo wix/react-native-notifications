@@ -182,7 +182,11 @@ import NotificationsIOS, { NotificationAction, NotificationCategory } from 'reac
 let upvoteAction = new NotificationAction({
   activationMode: "background",
   title: String.fromCodePoint(0x1F44D),
-  identifier: "UPVOTE_ACTION"
+  identifier: "UPVOTE_ACTION",
+  textInput: {
+    buttonTitle: 'title',
+    placeholder: 'placeholder text'
+  }
 }, (action, completed) => {
   console.log("ACTION RECEIVED");
   console.log(JSON.stringify(action));

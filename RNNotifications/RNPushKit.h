@@ -4,6 +4,6 @@
 
 @interface RNPushKit : NSObject
 
-- (instancetype)initWithPushKitEventListener:(RNPushKitEventListener *)pushKitEventListener;
+- (instancetype)initWithEventHandler:(RNPushKitEventHandler *)pushKitEventHandler;
 
 @end

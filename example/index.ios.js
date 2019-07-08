@@ -25,6 +25,10 @@ let replyAction = new NotificationAction({
   title: 'Reply',
   behavior: 'textInput',
   authenticationRequired: true,
+  textInput: {
+    buttonTitle: 'Reply now',
+    placeholder: 'Insert message'
+  },
   identifier: 'REPLY_ACTION'
 }, (action, completed) => {
   console.log('ACTION RECEIVED');
@@ -65,11 +69,13 @@ class NotificationsExampleApp extends Component {
     console.log('PushKit Token Received: ' + deviceToken);
   }
 
-  onNotificationReceivedForeground(notification) {
+  onNotificationReceivedForeground(notification, completion) {
     console.log('Notification Received Foreground: ' + JSON.stringify(notification));
     this.setState({
       notifications: [...this.state.notifications, notification]
     });
+
+    completion({});
   }
 
   onNotificationOpened(notification) {

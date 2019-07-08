@@ -1,4 +1,5 @@
 #import "RNNotificationCenterListener.h"
+#import "RCTConvert+Notifications.h"
 
 @implementation RNNotificationCenterListener {
     RNNotificationEventHandler* _notificationEventHandler;
@@ -13,18 +14,11 @@
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
-    [_notificationEventHandler didReceiveForegroundPayload:notification.request.content.userInfo];
+    [_notificationEventHandler didReceiveForegroundNotification:notification withCompletionHandler:completionHandler];
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
-    if ([response.actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
-        [_notificationEventHandler didOpenNotificationPayload:response.notification.request.content.userInfo];
-    } else if ([response.actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
-        
-    } else {
-        NSString* responseText = [response isKindOfClass:[UNTextInputNotificationResponse class]] ? ((UNTextInputNotificationResponse *)response).userText : nil;
-        [_notificationEventHandler handleActionWithIdentifier:response.actionIdentifier forPayload:response.notification.request.content.userInfo withResponse:responseText completionHandler:completionHandler];
-    }
+    [_notificationEventHandler didReceiveNotificationResponse:response completionHandler:completionHandler];
 }
 
 @end

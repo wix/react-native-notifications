@@ -1,48 +1,31 @@
 #import "RNCommandsHandler.h"
 #import "RNNotifications.h"
 #import "RCTConvert+Notifications.h"
-#import "RNPushKit.h"
 
 @implementation RNCommandsHandler {
-    RNPushKit* _pushKit;
+    RNNotificationCenter* _notificationCenter;
+}
+
+- (instancetype)init {
+    self = [super init];
+    _notificationCenter = [RNNotificationCenter new];
+    return self;
 }
 
 - (void)requestPermissionsWithCategories:(NSArray *)json {
-    NSMutableSet<UNNotificationCategory *>* categories = nil;
-    
-    if ([json count] > 0) {
-        categories = [NSMutableSet new];
-        for (NSDictionary* categoryJson in json) {
-            [categories addObject:[RCTConvert UNMutableUserNotificationCategory:categoryJson]];
-        }
-    }
-    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
-    UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert);
-    [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:authOptions completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        if (error) {
-            
-        } else {
-            if (granted) {
-                [UNUserNotificationCenter.currentNotificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-                    if (settings.authorizationStatus == UNAuthorizationStatusAuthorized) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [[UIApplication sharedApplication] registerForRemoteNotifications];
-                        });
-                    }
-                }];
-            } else {
-                
-            }
-        }
-    }];
+    [_notificationCenter requestPermissionsWithCategories:json];
 }
 
 - (void)getInitialNotification:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
     resolve([[RNNotifications sharedInstance] initialNotification]);
 }
 
-- (void)completionHandler:(NSString *)completionKey {
-    [[RNNotifications sharedInstance] finishHandleNotificationKey:completionKey];
+- (void)finishHandlingAction:(NSString *)completionKey {
+    [[RNNotifications sharedInstance] finishHandleActionKey:completionKey];
+}
+
+- (void)finishPresentingNotification:(NSString *)completionKey presentingOptions:(NSDictionary *)presentingOptions {
+    [[RNNotifications sharedInstance] finishHandleNotificationKey:completionKey presentingOptions:[RCTConvert UNNotificationPresentationOptions:presentingOptions]];
 }
 
 - (void)abandonPermissions {
@@ -50,7 +33,7 @@
 }
 
 - (void)registerPushKit {
-    _pushKit = [[RNPushKit alloc] initWithPushKitEventListener:[RNPushKitEventListener new]];
+    [[RNNotifications sharedInstance] initializePushKit];
 }
 
 - (void)getBadgesCount:(RCTResponseSenderBlock)callback {
@@ -62,14 +45,12 @@
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
 }
 
-- (void)localNotification:(NSDictionary *)notification withId:(NSString *)notificationId {
-    UNNotificationRequest* localNotification = [RCTConvert UNNotificationRequest:notification withId:notificationId];
-    [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:localNotification withCompletionHandler:nil];
+- (void)sendLocalNotification:(NSDictionary *)notification withId:(NSString *)notificationId {
+    [_notificationCenter sendLocalNotification:notification withId:notificationId];
 }
 
 - (void)cancelLocalNotification:(NSString *)notificationId {
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    [center removePendingNotificationRequestsWithIdentifiers:@[notificationId]];
+    [_notificationCenter cancelLocalNotification:notificationId];
 }
 
 - (void)cancelAllLocalNotifications {
@@ -91,25 +72,15 @@
 }
 
 - (void)removeAllDeliveredNotifications {
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    [center removeAllDeliveredNotifications];
+    [_notificationCenter removeAllDeliveredNotifications];
 }
 
 - (void)removeDeliveredNotifications:(NSArray<NSString *> *)identifiers {
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    [center removeDeliveredNotificationsWithIdentifiers:identifiers];
+    [_notificationCenter removeDeliveredNotifications:identifiers];
 }
 
 - (void)getDeliveredNotifications:(RCTResponseSenderBlock)callback {
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    [center getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> * _Nonnull notifications) {
-        NSMutableArray<NSDictionary *> *formattedNotifications = [NSMutableArray new];
-        
-        for (UNNotification *notification in notifications) {
-            [formattedNotifications addObject:RCTFormatUNNotification(notification)];
-        }
-        callback(@[formattedNotifications]);
-    }];
+    [_notificationCenter getDeliveredNotifications:callback];
 }
 
 @end

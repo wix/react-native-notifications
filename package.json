@@ -53,7 +53,7 @@
     "shell-utils": "1.x.x",
     "react-native": "0.60.0",
     "react": "16.8.6",
-    "detox": "12.x.x",
+    "detox": "13.x.x",
     "jest": "24.8.0",
     "metro-react-native-babel-preset": "0.55.x",
     "@babel/register": "7.4.4"

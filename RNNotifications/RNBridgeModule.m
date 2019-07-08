@@ -18,10 +18,6 @@ RCT_EXPORT_MODULE();
     return self;
 }
 
-- (dispatch_queue_t)methodQueue {
-    return dispatch_get_main_queue();
-}
-
 + (BOOL)requiresMainQueueSetup {
     return YES;
 }
@@ -41,8 +37,12 @@ RCT_EXPORT_METHOD(getInitialNotification:(RCTPromiseResolveBlock)resolve reject:
     [_commandsHandler getInitialNotification:resolve reject:reject];
 }
 
-RCT_EXPORT_METHOD(completionHandler:(NSString *)completionKey) {
-    [_commandsHandler completionHandler:completionKey];
+RCT_EXPORT_METHOD(finishHandlingAction:(NSString *)completionKey) {
+    [_commandsHandler finishHandlingAction:completionKey];
+}
+
+RCT_EXPORT_METHOD(finishPresentingNotification:(NSString *)completionKey presentingOptions:(NSDictionary *)presentingOptions) {
+    [_commandsHandler finishPresentingNotification:completionKey presentingOptions:presentingOptions];
 }
 
 RCT_EXPORT_METHOD(abandonPermissions) {
@@ -62,7 +62,7 @@ RCT_EXPORT_METHOD(setBadgesCount:(int)count) {
 }
 
 RCT_EXPORT_METHOD(localNotification:(NSDictionary *)notification withId:(NSString *)notificationId) {
-    [_commandsHandler localNotification:notification withId:notificationId];
+    [_commandsHandler sendLocalNotification:notification withId:notificationId];
 }
 
 RCT_EXPORT_METHOD(cancelLocalNotification:(NSString *)notificationId) {

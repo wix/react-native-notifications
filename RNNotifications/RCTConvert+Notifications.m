@@ -39,9 +39,15 @@ RCT_ENUM_CONVERTER(UIUserNotificationActivationMode, (@{
 @implementation RCTConvert (UNMutableUserNotificationAction)
 + (UNNotificationAction *)UNMutableUserNotificationAction:(id)json
 {
+    UNNotificationAction* action;
     NSDictionary<NSString *, id> *details = [self NSDictionary:json];
     
-    UNNotificationAction* action = [UNNotificationAction actionWithIdentifier:details[@"identifier"] title:details[@"title"] options:[RCTConvert UNUserNotificationActionOptions:details]];
+    if (details[@"textInput"]) {
+        action = [UNTextInputNotificationAction actionWithIdentifier:details[@"identifier"] title:details[@"title"] options:[RCTConvert UNUserNotificationActionOptions:details] textInputButtonTitle:details[@"textInput"][@"buttonTitle"] textInputPlaceholder:details[@"textInput"][@"placeholder"]];
+    } else {
+        action = [UNNotificationAction actionWithIdentifier:details[@"identifier"] title:details[@"title"] options:[RCTConvert UNUserNotificationActionOptions:details]];
+    }
+    
 //    action.behavior = [RCTConvert UIUserNotificationActionBehavior:details[@"behavior"]];
     
     return action;
@@ -118,4 +124,48 @@ RCT_ENUM_CONVERTER(UIUserNotificationActivationMode, (@{
     return [UNNotificationRequest requestWithIdentifier:notificationId
                                                 content:content trigger:trigger];
 }
+@end
+
+@implementation RCTConvert (UNNotification)
++ (NSDictionary *)UNNotificationPayload:(UNNotification *)notification {
+    NSMutableDictionary *formattedNotification = [NSMutableDictionary dictionary];
+    UNNotificationContent *content = notification.request.content;
+    
+    formattedNotification[@"identifier"] = notification.request.identifier;
+    
+    if (notification.date) {
+        NSDateFormatter *formatter = [NSDateFormatter new];
+        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"];
+        NSString *dateString = [formatter stringFromDate:notification.date];
+        formattedNotification[@"date"] = dateString;
+    }
+    
+    formattedNotification[@"title"] = RCTNullIfNil(content.title);
+    formattedNotification[@"body"] = RCTNullIfNil(content.body);
+    formattedNotification[@"category"] = RCTNullIfNil(content.categoryIdentifier);
+    formattedNotification[@"thread"] = RCTNullIfNil(content.threadIdentifier);
+    formattedNotification[@"userInfo"] = RCTNullIfNil(RCTJSONClean(content.userInfo));
+    
+    return formattedNotification;
+}
+
+@end
+
+@implementation RCTConvert (UNNotificationPresentationOptions)
+
++ (UNNotificationPresentationOptions)UNNotificationPresentationOptions:(id)json {
+    UNNotificationPresentationOptions options = UNNotificationPresentationOptionNone;
+    if ([RCTConvert BOOL:json[@"alert"]]) {
+        options = options | UNNotificationPresentationOptionAlert;
+    }
+    if ([RCTConvert BOOL:json[@"badge"]]) {
+        options = options | UNNotificationPresentationOptionBadge;
+    }
+    if ([RCTConvert BOOL:json[@"sound"]]) {
+        options = options | UNNotificationPresentationOptionSound;
+    }
+    
+    return options;
+}
+
 @end

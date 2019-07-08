@@ -10,8 +10,7 @@
 - (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken;
 - (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
 
-- (void)didReceiveForegroundPayload:(NSDictionary *)payload;
-- (void)didOpenNotificationPayload:(NSDictionary *)payload;
-- (void)handleActionWithIdentifier:(NSString *)identifier forPayload:(NSDictionary *)payload withResponse:(NSString *)response completionHandler:(void (^)())completionHandler;
+- (void)didReceiveForegroundNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler;
+- (void)didReceiveNotificationResponse:(UNNotificationResponse *)notificationResponse completionHandler:(void (^)())completionHandler;
 
 @end

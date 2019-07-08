@@ -4,13 +4,13 @@
     RNPushKitEventListener* _pushKitEventListener;
 }
 
-- (instancetype)initWithPushKitEventListener:(RNPushKitEventListener *)pushKitEventListener {
+- (instancetype)initWithEventHandler:(RNPushKitEventHandler *)pushKitEventHandler {
     self = [super init];
     
-    _pushKitEventListener = pushKitEventListener;
+    _pushKitEventListener = [[RNPushKitEventListener alloc] initWithPushKitEventHandler:pushKitEventHandler];
     
     PKPushRegistry* pushKitRegistry = [[PKPushRegistry alloc] initWithQueue:dispatch_get_main_queue()];
-    pushKitRegistry.delegate = pushKitEventListener;
+    pushKitRegistry.delegate = _pushKitEventListener;
     pushKitRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
     
     return self;

@@ -1,14 +1,18 @@
 #import <Foundation/Foundation.h>
 #import <React/RCTBridge.h>
-#import "RNNotificationsStore.h"
+#import "RNNotificationCenter.h"
 
 @interface RNCommandsHandler : NSObject
+
+- (instancetype)init;
 
 - (void)requestPermissionsWithCategories:(NSArray *)json;
 
 - (void)getInitialNotification:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject;
 
-- (void)completionHandler:(NSString *)completionKey;
+- (void)finishHandlingAction:(NSString *)completionKey;
+
+- (void)finishPresentingNotification:(NSString *)completionKey presentingOptions:(NSDictionary *)presentingOptions;
 
 - (void)abandonPermissions;
 
@@ -18,7 +22,7 @@
 
 - (void)setBadgesCount:(int)count;
 
-- (void)localNotification:(NSDictionary *)notification withId:(NSString *)notificationId;
+- (void)sendLocalNotification:(NSDictionary *)notification withId:(NSString *)notificationId;
 
 - (void)cancelLocalNotification:(NSString *)notificationId;
 
