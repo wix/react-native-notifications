@@ -16,7 +16,7 @@ describe('iOS Notification Object', () => {
           badge: someBadgeCount,
           sound: someSound,
           category: someCategory,
-          'thread-id': someThread
+          thread: someThread
         },
         key1: 'value1',
         key2: 'value2'
@@ -33,7 +33,7 @@ describe('iOS Notification Object', () => {
           badge: someBadgeCount,
           sound: someSound,
           category: someCategory,
-          'thread-id': someThread
+          thread: someThread
         },
         key1: 'value1',
         key2: 'value2'

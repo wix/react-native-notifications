@@ -37,8 +37,6 @@ class NotificationsExampleApp extends Component {
     NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
     NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegisteredFailed.bind(this));
 
-    NotificationsIOS.consumeBackgroundQueue();
-
     NotificationsIOS.addEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
     NotificationsIOS.registerPushKit();
 

@@ -1,33 +1,28 @@
 describe('Notifications-Android', () => {
-  let refreshTokenStub;
-  let getInitialNotificationStub;
-  let postLocalNotificationStub;
-  let cancelLocalNotificationStub;
-  let deviceEventEmitterListenerStub;
   let libUnderTest;
+  let deviceEventEmitterListenerStub;
+  let WixRNNotifications;
 
   beforeEach(() => {
-    refreshTokenStub = jest.fn();
-    getInitialNotificationStub = jest.fn();
-    postLocalNotificationStub = jest.fn();
-    cancelLocalNotificationStub = jest.fn();
-    deviceEventEmitterListenerStub = jest.fn();
-
     jest.mock('react-native', () => {
       return {
         NativeModules: {
           WixRNNotifications: {
-            refreshToken: refreshTokenStub,
-            getInitialNotification: getInitialNotificationStub,
-            postLocalNotification: postLocalNotificationStub,
-            cancelLocalNotification: cancelLocalNotificationStub
+            refreshToken: jest.fn(),
+            getInitialNotification: jest.fn(),
+            postLocalNotification: jest.fn(),
+            cancelLocalNotification: jest.fn()
           }
         },
         DeviceEventEmitter: {
-          addListener: deviceEventEmitterListenerStub
+          addListener: jest.fn()
         }
       };
     });
+
+    deviceEventEmitterListenerStub = require('react-native').DeviceEventEmitter.addListener;
+    WixRNNotifications = require('react-native').NativeModules.WixRNNotifications;
+
     libUnderTest = require('../lib/src/index.android');
   });
 
@@ -154,17 +149,17 @@ describe('Notifications-Android', () => {
 
   describe('Notification token', () => {
     it('should refresh notification token upon refreshing request by the user', () => {
-      expect(refreshTokenStub).toHaveBeenCalledTimes(0);
+      expect(WixRNNotifications.refreshToken).toHaveBeenCalledTimes(0);
       libUnderTest.NotificationsAndroid.refreshToken();
-      expect(refreshTokenStub).toHaveBeenCalledTimes(1);
+      expect(WixRNNotifications.refreshToken).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('Initial notification API', () => {
     it('should return initial notification data if available', (done) => {
-      expect(getInitialNotificationStub).toHaveBeenCalledTimes(0);
+      expect(WixRNNotifications.getInitialNotification).toHaveBeenCalledTimes(0);
       const rawNotification = {foo: 'bar'};
-      getInitialNotificationStub.mockReturnValueOnce(Promise.resolve(rawNotification));
+      WixRNNotifications.getInitialNotification.mockReturnValueOnce(Promise.resolve(rawNotification));
 
       libUnderTest.PendingNotifications.getInitialNotification()
         .then((notification) => {
@@ -175,8 +170,8 @@ describe('Notifications-Android', () => {
     });
 
     it('should return empty notification if not available', (done) => {
-      expect(getInitialNotificationStub).toHaveBeenCalledTimes(0);
-      getInitialNotificationStub.mockReturnValueOnce(Promise.resolve(null));
+      expect(WixRNNotifications.getInitialNotification).toHaveBeenCalledTimes(0);
+      WixRNNotifications.getInitialNotification.mockReturnValueOnce(Promise.resolve(null));
 
       libUnderTest.PendingNotifications.getInitialNotification()
         .then((notification) => {
@@ -195,15 +190,15 @@ describe('Notifications-Android', () => {
     };
 
     it('should get published when posted manually', () => {
-      expect(postLocalNotificationStub).toHaveBeenCalledTimes(0);
+      expect(WixRNNotifications.postLocalNotification).toHaveBeenCalledTimes(0);
 
       const id = libUnderTest.NotificationsAndroid.localNotification(notification);
       expect(id).toBeDefined();
-      expect(postLocalNotificationStub).toHaveBeenCalledWith(notification, id);
+      expect(WixRNNotifications.postLocalNotification).toHaveBeenCalledWith(notification, id);
     });
 
     it('should be called with a unique ID', () => {
-      expect(postLocalNotificationStub).toHaveBeenCalledTimes(0);
+      expect(WixRNNotifications.postLocalNotification).toHaveBeenCalledTimes(0);
 
       const id = libUnderTest.NotificationsAndroid.localNotification(notification);
       const id2 = libUnderTest.NotificationsAndroid.localNotification(notification);
@@ -213,11 +208,11 @@ describe('Notifications-Android', () => {
     });
 
     it('should be cancellable with an ID', () => {
-      expect(cancelLocalNotificationStub).toHaveBeenCalledTimes(0);
+      expect(WixRNNotifications.cancelLocalNotification).toHaveBeenCalledTimes(0);
 
       libUnderTest.NotificationsAndroid.cancelLocalNotification(666);
 
-      expect(cancelLocalNotificationStub).toHaveBeenCalledWith(666);
+      expect(WixRNNotifications.cancelLocalNotification).toHaveBeenCalledWith(666);
     });
   });
 });

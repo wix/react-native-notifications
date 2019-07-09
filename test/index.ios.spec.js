@@ -4,7 +4,6 @@ describe('NotificationsIOS', () => {
     'remoteNotificationsRegistered',
     'remoteNotificationsRegistrationFailed',
     'notificationReceivedForeground',
-    'notificationReceivedBackground',
     'notificationOpened'
   ];
 
@@ -12,62 +11,56 @@ describe('NotificationsIOS', () => {
   let constantGuid = 'some-random-uuid';
   let identifiers = ['some-random-uuid', 'other-random-uuid'];
   let someHandler = () => {};
-  let nativeAppAddEventListener;
-  let deviceAddEventListener;
-  let deviceRemoveEventListener;
-  let nativeAppRemoveEventListener;
   let nativeModule;
+  let NativeAppEventEmitter;
+  let DeviceEventEmitter;
 
   beforeEach(() => {
-    deviceRemoveEventListener = jest.fn();
-    nativeAppRemoveEventListener = jest.fn();
-    nativeAppAddEventListener = jest.fn(() => {
-      return {
-        remove: nativeAppRemoveEventListener
-      };
-    });
-
-    deviceAddEventListener = jest.fn(() => {
-      return {
-        remove: deviceRemoveEventListener
-      };
-    });
-    const RNBridgeModule = {
-      requestPermissionsWithCategories: jest.fn(),
-      abandonPermissions: jest.fn(),
-      registerPushKit: jest.fn(),
-      backgroundTimeRemaining: jest.fn(),
-      consumeBackgroundQueue: jest.fn(),
-      localNotification: jest.fn(),
-      cancelLocalNotification: jest.fn(),
-      cancelAllLocalNotifications: jest.fn(),
-      getBadgesCount: jest.fn(),
-      setBadgesCount: jest.fn(),
-      isRegisteredForRemoteNotifications: jest.fn(),
-      checkPermissions: jest.fn(),
-      removeAllDeliveredNotifications: jest.fn(),
-      removeDeliveredNotifications: jest.fn(),
-      getDeliveredNotifications: jest.fn()
-    };
-
     jest.mock('react-native', () => {
+      const RNBridgeModule = {
+        requestPermissionsWithCategories: jest.fn(),
+        abandonPermissions: jest.fn(),
+        registerPushKit: jest.fn(),
+        backgroundTimeRemaining: jest.fn(),
+        consumeBackgroundQueue: jest.fn(),
+        localNotification: jest.fn(),
+        cancelLocalNotification: jest.fn(),
+        cancelAllLocalNotifications: jest.fn(),
+        getBadgesCount: jest.fn(),
+        setBadgesCount: jest.fn(),
+        isRegisteredForRemoteNotifications: jest.fn(),
+        checkPermissions: jest.fn(),
+        removeAllDeliveredNotifications: jest.fn(),
+        removeDeliveredNotifications: jest.fn(),
+        getDeliveredNotifications: jest.fn()
+      };
       return {
         NativeModules: {
           RNBridgeModule
         },
         NativeAppEventEmitter: {
-          addListener: nativeAppAddEventListener
+          addListener: jest.fn(() => {
+            return {
+              remove: jest.fn()
+            };
+          })
         },
         DeviceEventEmitter: {
-          addListener: deviceAddEventListener
+          addListener: jest.fn(() => {
+            return {
+              remove: jest.fn()
+            };
+          })
         }
       };
     });
-    nativeModule = RNBridgeModule;
 
+    nativeModule = require('react-native').NativeModules.RNBridgeModule;
+    NativeAppEventEmitter = require('react-native').NativeAppEventEmitter;
+    DeviceEventEmitter = require('react-native').DeviceEventEmitter;
     jest.mock('uuid', () => {
       return {
-        v4: () => constantGuid
+        v4: () => 'some-random-uuid'
       };
     });
 
@@ -81,34 +74,42 @@ describe('NotificationsIOS', () => {
     deviceEvents.forEach(event => {
       it(`should subscribe the given handler to device event: ${event}`, () => {
         NotificationsIOS.addEventListener(event, someHandler);
-
-        expect(deviceAddEventListener).toHaveBeenCalledWith(event, expect.any(Function));
+        expect(DeviceEventEmitter.addListener).toHaveBeenCalledWith(event, expect.any(Function));
       });
     });
 
     it('should not subscribe to unknown device events', () => {
       NotificationsIOS.addEventListener('someUnsupportedEvent', someHandler);
 
-      expect(deviceAddEventListener).toHaveBeenCalledTimes(0);
+      expect(DeviceEventEmitter.addListener).toHaveBeenCalledTimes(0);
     });
   });
 
   describe('Remove Event Listener', () => {
     deviceEvents.forEach(event => {
       it(`should unsubscribe the given handler from device event: ${event}`, () => {
+        const removeCallback = jest.fn();
+        DeviceEventEmitter.addListener.mockReturnValueOnce({
+          remove: removeCallback
+        });
         NotificationsIOS.addEventListener(event, someHandler);
         NotificationsIOS.removeEventListener(event, someHandler);
 
-        expect(deviceRemoveEventListener).toHaveBeenCalledTimes(1);
+        expect(removeCallback).toHaveBeenCalledTimes(1);
       });
     });
 
     it('should not unsubscribe to unknown device events', () => {
       let someUnsupportedEvent = 'someUnsupportedEvent';
+      const removeCallback = jest.fn();
+      DeviceEventEmitter.addListener.mockReturnValueOnce({
+        remove: removeCallback
+      });
+
       NotificationsIOS.addEventListener(someUnsupportedEvent, someHandler);
       NotificationsIOS.removeEventListener(someUnsupportedEvent, someHandler);
 
-      expect(deviceRemoveEventListener).toHaveBeenCalledTimes(0);
+      expect(removeCallback).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -147,22 +148,6 @@ describe('NotificationsIOS', () => {
         NotificationsIOS.requestPermissions();
 
         expect(nativeModule.requestPermissionsWithCategories).toHaveBeenCalledWith([]);
-      });
-
-      it('should subscribe to notificationActionReceived event once, with a single event handler', () => {
-        NotificationsIOS.requestPermissions([someCategory]);
-
-        expect(nativeAppAddEventListener).toHaveBeenCalledTimes(1);
-        expect(nativeAppAddEventListener).toHaveBeenCalledWith('notificationActionReceived', expect.any(Function));
-      });
-    });
-
-    describe('reset categories', () => {
-      it('should remove notificationActionReceived event handler', () => {
-        NotificationsIOS.requestPermissions([someCategory]);
-        NotificationsIOS.resetCategories();
-
-        expect(nativeAppRemoveEventListener).toHaveBeenCalledTimes(1);
       });
     });
 
