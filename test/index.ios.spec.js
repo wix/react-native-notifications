@@ -12,7 +12,6 @@ describe('NotificationsIOS', () => {
   let identifiers = ['some-random-uuid', 'other-random-uuid'];
   let someHandler = () => {};
   let nativeModule;
-  let NativeAppEventEmitter;
   let DeviceEventEmitter;
 
   beforeEach(() => {
@@ -38,13 +37,6 @@ describe('NotificationsIOS', () => {
         NativeModules: {
           RNBridgeModule
         },
-        NativeAppEventEmitter: {
-          addListener: jest.fn(() => {
-            return {
-              remove: jest.fn()
-            };
-          })
-        },
         DeviceEventEmitter: {
           addListener: jest.fn(() => {
             return {
@@ -56,7 +48,6 @@ describe('NotificationsIOS', () => {
     });
 
     nativeModule = require('react-native').NativeModules.RNBridgeModule;
-    NativeAppEventEmitter = require('react-native').NativeAppEventEmitter;
     DeviceEventEmitter = require('react-native').DeviceEventEmitter;
     jest.mock('uuid', () => {
       return {
