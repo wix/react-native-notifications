@@ -91,27 +91,12 @@ After [preparing your app to receive VoIP push notifications](https://developer.
 #import <PushKit/PushKit.h>
 ``` 
 
-And the following methods:
-
-```objective-c
-// PushKit API Support
-- (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(NSString *)type
-{
-  [RNNotifications didUpdatePushCredentials:credentials forType:type];
-}
-
-- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(NSString *)type
-{
-  [RNNotifications didReceiveRemoteNotification:payload.dictionaryPayload];
-}
-```
-
 In your ReactNative code, add event handler for `pushKitRegistered` event and call to `registerPushKit()`:
 
 ```javascript
 constructor() {
 	NotificationsIOS.addEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
-    NotificationsIOS.registerPushKit();
+  NotificationsIOS.registerPushKit();
 }
 
 onPushKitRegistered(deviceToken) {
