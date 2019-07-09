@@ -33,7 +33,7 @@
 }
 
 - (void)registerPushKit {
-    [[RNNotifications sharedInstance] initializePushKit];
+    [RNNotifications startMonitorPushKitNotifications];
 }
 
 - (void)getBadgesCount:(RCTResponseSenderBlock)callback {

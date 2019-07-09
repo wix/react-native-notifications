@@ -18,6 +18,7 @@
 - (instancetype)init {
     self = [super init];
     _store = [RNNotificationsStore new];
+    _notificationEventHandler = [[RNNotificationEventHandler alloc] initWithStore:_store];
     return self;
 }
 
@@ -31,12 +32,27 @@
     return sharedInstance;
 }
 
-- (void)initialize {
-    _notificationEventHandler = [[RNNotificationEventHandler alloc] initWithStore:_store];
++ (void)startMonitorNotifications {
+    [[self sharedInstance] startMonitorNotifications];
+}
+
++ (void)startMonitorPushKitNotifications {
+    [[self sharedInstance] startMonitorPushKitNotifications];
+}
+
++ (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken {
+    [[self sharedInstance] didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+
++ (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    [[self sharedInstance] didFailToRegisterForRemoteNotificationsWithError:error];
+}
+
+- (void)startMonitorNotifications {
     _notificationCenterListener = [[RNNotificationCenterListener alloc] initWithNotificationEventHandler:_notificationEventHandler];
 }
 
-- (void)initializePushKit {
+- (void)startMonitorPushKitNotifications {
     _pushKitEventHandler = [RNPushKitEventHandler new];
     _pushKit = [[RNPushKit alloc] initWithEventHandler:_pushKitEventHandler];
 }
@@ -47,12 +63,6 @@
 
 - (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     [_notificationEventHandler didFailToRegisterForRemoteNotificationsWithError:error];
-}
-
-- (void)setBadgeForNotification:(NSDictionary *)notification {
-    if ([[notification objectForKey:@"aps"] objectForKey:@"badge"]){
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[[notification objectForKey:@"aps"] objectForKey:@"badge"] intValue]];
-    }
 }
 
 - (void)setInitialNotification:(NSDictionary *)notification {

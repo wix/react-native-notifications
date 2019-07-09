@@ -20,7 +20,7 @@
 }
 
 - (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(NSString *)type {
-//    [_pushKitEventHandler didOpenNotificationPayload:payload.dictionaryPayload];
+    [_pushKitEventHandler didReceiveIncomingPushWithPayload:payload.dictionaryPayload];
 }
 
 @end

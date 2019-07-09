@@ -5,4 +5,6 @@
 
 - (void)registeredWithToken:(NSString *)token;
 
+- (void)didReceiveIncomingPushWithPayload:(NSDictionary *)payload;
+
 @end

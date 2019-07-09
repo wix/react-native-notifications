@@ -8,14 +8,14 @@
 
 + (instancetype)sharedInstance;
 
-- (void)initialize;
-- (void)initializePushKit;
++ (void)startMonitorNotifications;
++ (void)startMonitorPushKitNotifications;
 
-- (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken;
-- (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
++ (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken;
++ (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
+
 - (void)finishHandleNotificationKey:(NSString *)notificationKey presentingOptions:(UNNotificationPresentationOptions)presentingOptions;
 - (void)finishHandleActionKey:(NSString *)actionKey;
 
-//- (void)setBadgeForNotification:(NSDictionary *)notification;
 
 @end

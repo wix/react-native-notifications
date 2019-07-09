@@ -7,4 +7,8 @@
     [RNEventEmitter sendEvent:RNPushKitRegistered body:@{@"pushKitToken": token}];
 }
 
+- (void)didReceiveIncomingPushWithPayload:(NSDictionary *)payload {
+    [RNEventEmitter sendEvent:RNPushKitNotificationReceived body:payload];
+}
+
 @end

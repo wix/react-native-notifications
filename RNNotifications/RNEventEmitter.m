@@ -9,7 +9,8 @@ RCT_EXPORT_MODULE();
              RNRegistrationFailed,
              RNPushKitRegistered,
              RNNotificationReceivedForeground,
-             RNNotificationOpened];
+             RNNotificationOpened,
+             RNPushKitNotificationReceived];
 }
 
 - (instancetype)init {

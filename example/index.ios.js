@@ -18,7 +18,6 @@ let upvoteAction = new NotificationAction({
 let replyAction = new NotificationAction({
   activationMode: 'background',
   title: 'Reply',
-  behavior: 'textInput',
   authenticationRequired: true,
   textInput: {
     buttonTitle: 'Reply now',
@@ -45,6 +44,7 @@ class NotificationsExampleApp extends Component {
 
     NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
     NotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
+    NotificationsIOS.addEventListener('pushKitNotificationReceived', this.onPushKitNotificationReceived.bind(this));
   }
 
   onPushRegistered(deviceToken) {
@@ -57,6 +57,10 @@ class NotificationsExampleApp extends Component {
 
   onPushKitRegistered(deviceToken) {
     console.log('PushKit Token Received: ' + deviceToken);
+  }
+
+  onPushKitNotificationReceived(notification) {
+    console.log('PushKit notification Received: ' + JSON.stringify(notification));
   }
 
   onNotificationReceivedForeground(notification, completion) {
@@ -98,8 +102,7 @@ class NotificationsExampleApp extends Component {
   requestPermissions() {
     let cat = new NotificationCategory({
       identifier: 'SOME_CATEGORY',
-      actions: [upvoteAction, replyAction],
-      context: 'default'
+      actions: [upvoteAction, replyAction]
     });
     NotificationsIOS.requestPermissions([cat]);
   }

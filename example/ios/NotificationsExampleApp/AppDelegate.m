@@ -25,22 +25,17 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   
-  [[RNNotifications sharedInstance] initialize];
+  [RNNotifications startMonitorNotifications];
   
   return YES;
 }
 
-// Required to register for notifications
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-//  [[RNNotifications sharedInstance] didRegisterUserNotificationSettings:notificationSettings];
-}
-
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-  [[RNNotifications sharedInstance] didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+  [RNNotifications didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-  [[RNNotifications sharedInstance] didFailToRegisterForRemoteNotificationsWithError:error];
+  [RNNotifications didFailToRegisterForRemoteNotificationsWithError:error];
 }
 
 @end

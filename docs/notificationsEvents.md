@@ -6,7 +6,6 @@
 When a push notification is received by the device, the application can be in one of the following states:
 
 1. **Forground:** When the app is running and is used by the user right now; in this case, a `notificationReceivedForeground` event will be fired.
-2. **Background:** When the app is running in a background state; in this case, a `notificationReceivedBackground` event will be fired.
 
 Finally, when a notification is _opened_ by the device user (i.e. tapped-on), a `notificationOpened` event is fired.
 
