@@ -117,7 +117,7 @@ RCT_ENUM_CONVERTER(UIUserNotificationActivationMode, (@{
     formattedNotification[@"body"] = RCTNullIfNil(content.body);
     formattedNotification[@"category"] = RCTNullIfNil(content.categoryIdentifier);
     formattedNotification[@"thread"] = RCTNullIfNil(content.threadIdentifier);
-    formattedNotification[@"userInfo"] = RCTNullIfNil(RCTJSONClean(content.userInfo));
+    [formattedNotification addEntriesFromDictionary:RCTNullIfNil(RCTJSONClean(content.userInfo))];
     
     return formattedNotification;
 }
