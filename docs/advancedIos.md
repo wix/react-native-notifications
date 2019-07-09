@@ -91,16 +91,29 @@ After [preparing your app to receive VoIP push notifications](https://developer.
 #import <PushKit/PushKit.h>
 ``` 
 
+### Listen to PushKit notifications
+On receiving PushKit notification, a `pushKitNotificationReceived` event will be fired with the notification payload.
+
+```objective-c
+#import "RNNotifications.h"
+#import <PushKit/PushKit.h>
+``` 
+
 In your ReactNative code, add event handler for `pushKitRegistered` event and call to `registerPushKit()`:
 
 ```javascript
 constructor() {
-	NotificationsIOS.addEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
+  NotificationsIOS.addEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
+  NotificationsIOS.addEventListener('pushKitNotificationReceived', this.onPushKitNotificationReceived.bind(this));
   NotificationsIOS.registerPushKit();
 }
 
 onPushKitRegistered(deviceToken) {
 	console.log("PushKit Token Received: " + deviceToken);
+}
+
+onPushKitNotificationReceived(notification) {
+    console.log('PushKit notification Received: ' + JSON.stringify(notification));
 }
 
 componentWillUnmount() {
