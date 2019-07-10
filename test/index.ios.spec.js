@@ -21,7 +21,6 @@ describe('NotificationsIOS', () => {
         abandonPermissions: jest.fn(),
         registerPushKit: jest.fn(),
         backgroundTimeRemaining: jest.fn(),
-        consumeBackgroundQueue: jest.fn(),
         localNotification: jest.fn(),
         cancelLocalNotification: jest.fn(),
         cancelAllLocalNotifications: jest.fn(),
