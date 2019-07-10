@@ -1,5 +1,5 @@
 const Utils = require('./Utils');
-const { elementByLabel, elementById } = Utils;
+const { elementByLabel } = Utils;
 
 describe('Notifications', () => {
   describe('Foreground', () => {
@@ -48,7 +48,6 @@ function createNotification({link, showAlert}) {
     body: 'Body',
     badge: 1,
     payload: {
-      appId: '14517e1a-3ff0-af98-408e-2bd6953c36a2',
       link,
       showAlert
     }
