@@ -1,5 +1,6 @@
 #import "RNCommandsHandler.h"
 #import "RNNotifications.h"
+#import "RNNotificationsStore.h"
 #import "RCTConvert+Notifications.h"
 
 @implementation RNCommandsHandler {
@@ -17,15 +18,15 @@
 }
 
 - (void)getInitialNotification:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
-    resolve([[RNNotifications sharedInstance] initialNotification]);
+    resolve([[RNNotificationsStore sharedInstance] initialNotification]);
 }
 
 - (void)finishHandlingAction:(NSString *)completionKey {
-    [[RNNotifications sharedInstance] finishHandleActionKey:completionKey];
+    [[RNNotificationsStore sharedInstance] completeAction:completionKey];
 }
 
 - (void)finishPresentingNotification:(NSString *)completionKey presentingOptions:(NSDictionary *)presentingOptions {
-    [[RNNotifications sharedInstance] finishHandleNotificationKey:completionKey presentingOptions:[RCTConvert UNNotificationPresentationOptions:presentingOptions]];
+    [[RNNotificationsStore sharedInstance] completePresentation:completionKey withPresentationOptions:[RCTConvert UNNotificationPresentationOptions:presentingOptions]];
 }
 
 - (void)abandonPermissions {

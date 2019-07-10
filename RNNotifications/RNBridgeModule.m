@@ -1,7 +1,7 @@
 #import "RNBridgeModule.h"
 #import "RNCommandsHandler.h"
 #import "RCTConvert+Notifications.h"
-#import "RNNotifications.h"
+#import "RNNotificationsStore.h"
 #import <React/RCTBridgeDelegate.h>
 
 @implementation RNBridgeModule {
@@ -24,7 +24,9 @@ RCT_EXPORT_MODULE();
 
 - (void)setBridge:(RCTBridge *)bridge {
     _bridge = bridge;
-    [[RNNotifications sharedInstance] setInitialNotification:[_bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
+    if ([_bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]) {
+        [[RNNotificationsStore sharedInstance] setInitialNotification:[_bridge.launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
+    }
 }
 
 #pragma mark - JS interface

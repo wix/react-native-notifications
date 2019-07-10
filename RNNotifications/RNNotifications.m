@@ -12,13 +12,11 @@
     RNNotificationEventHandler* _notificationEventHandler;
     RNPushKitEventHandler* _pushKitEventHandler;
     RNEventEmitter* _eventEmitter;
-    RNNotificationsStore* _store;
 }
 
 - (instancetype)init {
     self = [super init];
-    _store = [RNNotificationsStore new];
-    _notificationEventHandler = [[RNNotificationEventHandler alloc] initWithStore:_store];
+    _notificationEventHandler = [[RNNotificationEventHandler alloc] initWithStore:[RNNotificationsStore new]];
     return self;
 }
 
@@ -63,18 +61,6 @@
 
 - (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     [_notificationEventHandler didFailToRegisterForRemoteNotificationsWithError:error];
-}
-
-- (void)setInitialNotification:(NSDictionary *)notification {
-    [_store setInitialNotification:notification];
-}
-
-- (void)finishHandleActionKey:(NSString *)actionKey {
-    [_store completeAction:actionKey];
-}
-
-- (void)finishHandleNotificationKey:(NSString *)notificationKey presentingOptions:(UNNotificationPresentationOptions)presentingOptions {
-    [_store completePresentation:notificationKey withPresentationOptions:presentingOptions];
 }
 
 @end

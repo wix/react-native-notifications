@@ -2,20 +2,43 @@ const Utils = require('./Utils');
 const { elementByLabel, elementById } = Utils;
 
 describe('Notifications', () => {
-  beforeEach(async () => {
-    await device.relaunchApp({permissions: {notifications: 'YES'}});
+  describe('Foreground', () => {
+    beforeEach(async () => {
+      await device.relaunchApp({permissions: {notifications: 'YES'}});
+    });
+
+    it('Receive notification', async () => {
+      await device.sendUserNotification(createNotification({link: 'foreground/notification'}));
+      await expect(elementByLabel('foreground/notification')).toBeVisible();
+    });
+
+    it.only('Click notification', async () => {
+      await device.sendUserNotification(createNotification({link: 'foreground/notification/click', showAlert: true}));
+      await expect(elementByLabel('Notification Clicked: foreground/notification/click')).toBeVisible();
+    });
   });
 
-  it('Receive foreground notification', async () => {
-    await device.sendUserNotification(getNotification('explicit/external/link/test_parameter'));
-    // await device.launchApp({newInstance: true, userNotification: getNotification('unknown/link', 'test/category', {parameter: 'test_body_param'})});
-    // await elementById(TestIDs.SWITCH_TAB_BY_INDEX_BTN).tap();
-    // await expect(elementByLabel('First Tab')).toBeNotVisible();
-    // await expect(elementByLabel('Second Tab')).toBeVisible();
+  describe('Background', () => {
+    beforeEach(async () => {
+      await device.relaunchApp({permissions: {notifications: 'YES'}});
+    });
+
+    it('Receive notification', async () => {
+      device.sendToHome();
+      device.launchApp({newInstance: false, userNotification: createNotification({link: 'background/notification'})});
+      await expect(elementByLabel('background/notification')).toBeVisible();
+    });
+  });
+
+  describe('Dead state', () => {
+    it('Receive notification', async () => {
+      await device.launchApp({newInstance: true, userNotification: createNotification({link: 'deadState/notification'})});
+      await expect(elementByLabel('deadState/notification')).toBeVisible();
+    });
   });
 });
 
-function getNotification(link, category = 'com.example.category', params = {}) {
+function createNotification({link, showAlert}) {
   return {
     trigger: {
       type: 'push'
@@ -26,14 +49,8 @@ function getNotification(link, category = 'com.example.category', params = {}) {
     badge: 1,
     payload: {
       appId: '14517e1a-3ff0-af98-408e-2bd6953c36a2',
-      aps: {
-        alert: 'this is alert',
-        sound: 'chime.aiff'
-      },
-      category,
-      link, ...params
-    },
-    'content-available': 0,
-    'action-identifier': 'default'
+      link,
+      showAlert
+    }
   };
 }

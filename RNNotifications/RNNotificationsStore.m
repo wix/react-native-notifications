@@ -1,8 +1,17 @@
 #import "RNNotificationsStore.h"
 
-@implementation RNNotificationsStore {
-    NSMutableDictionary* _actionCompletionHandlers;
-    NSMutableDictionary* _presentationCompletionHandlers;
+@implementation RNNotificationsStore
+NSMutableDictionary* _actionCompletionHandlers;
+NSMutableDictionary* _presentationCompletionHandlers;
+
++ (instancetype)sharedInstance {
+    static RNNotificationsStore *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[RNNotificationsStore alloc] init];
+    });
+    return sharedInstance;
 }
 
 - (instancetype)init {

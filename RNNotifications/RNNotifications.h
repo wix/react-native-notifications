@@ -4,8 +4,6 @@
 
 @interface RNNotifications : NSObject
 
-@property (nonatomic, retain) NSDictionary* initialNotification;
-
 + (instancetype)sharedInstance;
 
 + (void)startMonitorNotifications;
@@ -13,9 +11,5 @@
 
 + (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken;
 + (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
-
-- (void)finishHandleNotificationKey:(NSString *)notificationKey presentingOptions:(UNNotificationPresentationOptions)presentingOptions;
-- (void)finishHandleActionKey:(NSString *)actionKey;
-
 
 @end

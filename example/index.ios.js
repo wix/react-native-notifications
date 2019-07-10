@@ -45,6 +45,14 @@ class NotificationsExampleApp extends Component {
     NotificationsIOS.addEventListener('pushKitNotificationReceived', this.onPushKitNotificationReceived.bind(this));
   }
 
+  async componentDidMount() {
+    const initialNotification = await NotificationsIOS.getInitialNotification();
+    if (initialNotification) {
+      this.setState({notifications: [initialNotification.getData().link, ...this.state.notifications]});
+    }
+
+  }
+
   onPushRegistered(deviceToken) {
     console.log('Device Token Received: ' + deviceToken);
   }
@@ -62,21 +70,24 @@ class NotificationsExampleApp extends Component {
   }
 
   onNotificationReceivedForeground(notification, completion) {
-    console.log('Notification Received Foreground: ' + JSON.stringify(notification));
+    console.log('Notification Received Foreground with title: ' + JSON.stringify(notification));
     this.setState({
-      notifications: [...this.state.notifications, notification]
+      notifications: [...this.state.notifications, notification.getData().link]
     });
 
-    completion({alert: true, sound: false, badge: false});
+    completion({alert: notification.getData().showAlert, sound: false, badge: false});
   }
 
   onNotificationOpened(notification, completion, action) {
     console.log('Notification Opened: ' + JSON.stringify(notification) + JSON.stringify(action));
+    this.setState({
+      notifications: [...this.state.notifications, `Notification Clicked: ${notification.getData().link}`]
+    });
     completion();
   }
 
   renderNotification(notification) {
-    return <Text>{`${''} | ${JSON.stringify(notification)}`}</Text>;
+    return <Text>{`${notification}`}</Text>;
   }
 
   render() {

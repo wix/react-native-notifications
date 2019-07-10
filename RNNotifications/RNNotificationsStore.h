@@ -3,7 +3,9 @@
 
 @interface RNNotificationsStore : NSObject
 
-@property NSDictionary* initialNotification;
+@property (nonatomic, retain) NSDictionary* initialNotification;
+
++ (instancetype)sharedInstance;
 
 - (void)completeAction:(NSString *)completionKey;
 - (void)completePresentation:(NSString *)completionKey withPresentationOptions:(UNNotificationPresentationOptions)presentationOptions;
