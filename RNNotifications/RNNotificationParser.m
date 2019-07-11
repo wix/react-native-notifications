@@ -1,5 +1,5 @@
 #import "RNNotificationParser.h"
-#import "RCTConvert+Notifications.h"
+#import "RCTConvert+RNNotifications.h"
 
 @implementation RNNotificationParser
 

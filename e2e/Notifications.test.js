@@ -12,7 +12,7 @@ describe('Notifications', () => {
       await expect(elementByLabel('foreground/notification')).toBeVisible();
     });
 
-    it.only('Click notification', async () => {
+    it('Click notification', async () => {
       await device.sendUserNotification(createNotification({link: 'foreground/notification/click', showAlert: true}));
       await expect(elementByLabel('Notification Clicked: foreground/notification/click')).toBeVisible();
     });
@@ -20,7 +20,7 @@ describe('Notifications', () => {
 
   describe('Background', () => {
     beforeEach(async () => {
-      await device.relaunchApp({permissions: {notifications: 'YES'}});
+      await device.launchApp({newInstance: true, permissions: {notifications: 'YES'}});
     });
 
     it('Receive notification', async () => {

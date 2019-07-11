@@ -1,5 +1,5 @@
 #import "RNNotificationCenterListener.h"
-#import "RCTConvert+Notifications.h"
+#import "RCTConvert+RNNotifications.h"
 
 @implementation RNNotificationCenterListener {
     RNNotificationEventHandler* _notificationEventHandler;

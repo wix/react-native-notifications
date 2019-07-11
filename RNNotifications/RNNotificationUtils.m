@@ -1,6 +1,6 @@
-#import "RNUtils.h"
+#import "RNNotificationUtils.h"
 
-@implementation RNUtils
+@implementation RNNotificationUtils
 
 + (NSString *)deviceTokenToString:(NSData *)deviceToken {
     NSMutableString *result = [NSMutableString string];

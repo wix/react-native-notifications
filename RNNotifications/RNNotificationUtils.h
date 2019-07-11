@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@interface RNUtils : NSObject
+@interface RNNotificationUtils : NSObject
 
 + (NSString *)deviceTokenToString:(NSData *)deviceToken;
 

@@ -1,7 +1,7 @@
 #import "RNNotificationEventHandler.h"
 #import "RNEventEmitter.h"
-#import "RNUtils.h"
-#import "RCTConvert+Notifications.h"
+#import "RNNotificationUtils.h"
+#import "RCTConvert+RNNotifications.h"
 #import "RNNotificationParser.h"
 
 @implementation RNNotificationEventHandler {
@@ -15,7 +15,7 @@
 }
 
 - (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken {
-    NSString *tokenRepresentation = [deviceToken isKindOfClass:[NSString class]] ? deviceToken : [RNUtils deviceTokenToString:deviceToken];
+    NSString *tokenRepresentation = [deviceToken isKindOfClass:[NSString class]] ? deviceToken : [RNNotificationUtils deviceTokenToString:deviceToken];
     [RNEventEmitter sendEvent:RNRegistered body:@{@"deviceToken": tokenRepresentation}];
 }
 

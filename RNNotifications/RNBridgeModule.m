@@ -1,6 +1,6 @@
 #import "RNBridgeModule.h"
 #import "RNCommandsHandler.h"
-#import "RCTConvert+Notifications.h"
+#import "RCTConvert+RNNotifications.h"
 #import "RNNotificationsStore.h"
 #import <React/RCTBridgeDelegate.h>
 

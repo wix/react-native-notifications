@@ -1,7 +1,7 @@
 #import "RNCommandsHandler.h"
 #import "RNNotifications.h"
 #import "RNNotificationsStore.h"
-#import "RCTConvert+Notifications.h"
+#import "RCTConvert+RNNotifications.h"
 
 @implementation RNCommandsHandler {
     RNNotificationCenter* _notificationCenter;

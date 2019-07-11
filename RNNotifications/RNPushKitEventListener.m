@@ -1,5 +1,5 @@
 #import "RNPushKitEventListener.h"
-#import "RNUtils.h"
+#import "RNNotificationUtils.h"
 
 @implementation RNPushKitEventListener {
     PKPushRegistry* _pushRegistry;
@@ -16,7 +16,7 @@
 }
 
 - (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(NSString *)type {
-    [_pushKitEventHandler registeredWithToken:[RNUtils deviceTokenToString:credentials.token]];
+    [_pushKitEventHandler registeredWithToken:[RNNotificationUtils deviceTokenToString:credentials.token]];
 }
 
 - (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(NSString *)type {
