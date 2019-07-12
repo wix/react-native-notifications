@@ -30,6 +30,7 @@ public class PushNotification implements IPushNotification {
     final protected AppLaunchHelper mAppLaunchHelper;
     final protected JsIOHelper mJsIOHelper;
     final protected PushNotificationProps mNotificationProps;
+    private static Notification.Builder notification;
     final protected AppVisibilityListener mAppVisibilityListener = new AppVisibilityListener() {
         @Override
         public void onAppVisible() {
@@ -55,11 +56,27 @@ public class PushNotification implements IPushNotification {
     }
 
     protected PushNotification(Context context, Bundle bundle, AppLifecycleFacade appLifecycleFacade, AppLaunchHelper appLaunchHelper, JsIOHelper JsIOHelper) {
+        final String CHANNEL_ID = "channel_01";
+        final String CHANNEL_NAME = "Channel Name";
         mContext = context;
         mAppLifecycleFacade = appLifecycleFacade;
         mAppLaunchHelper = appLaunchHelper;
         mJsIOHelper = JsIOHelper;
         mNotificationProps = createProps(bundle);
+        notification = new Notification.Builder(mContext)
+                .setSmallIcon(mContext.getApplicationInfo().icon)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setOnlyAlertOnce(true)
+                .setAutoCancel(true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                    CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(channel);
+            notification.setChannelId(CHANNEL_ID);
+        }
     }
 
     private static boolean verifyNotificationBundle(Bundle bundle) {
@@ -87,7 +104,7 @@ public class PushNotification implements IPushNotification {
 
     @Override
     public int onPostRequest(Integer notificationId) {
-        return postNotification(notificationId);
+        return postNotification(mNotificationProps.getId() != null ? Integer.parseInt(mNotificationProps.getId()) : notificationId);
     }
 
     @Override
@@ -154,27 +171,11 @@ public class PushNotification implements IPushNotification {
     }
 
     protected Notification.Builder getNotificationBuilder(PendingIntent intent) {
-
-        String CHANNEL_ID = "channel_01";
-        String CHANNEL_NAME = "Channel Name";
-
-        final Notification.Builder notification = new Notification.Builder(mContext)
+        notification
                 .setContentTitle(mNotificationProps.getTitle())
                 .setContentText(mNotificationProps.getBody())
-                .setSmallIcon(mContext.getApplicationInfo().icon)
-                .setContentIntent(intent)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setAutoCancel(true);
+                .setContentIntent(intent);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
-                                                                  CHANNEL_NAME,
-                                                                  NotificationManager.IMPORTANCE_DEFAULT);
-            final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(channel);
-            notification.setChannelId(CHANNEL_ID);
-        }
-        
         return notification;
     }
 
