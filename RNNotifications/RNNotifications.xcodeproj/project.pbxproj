@@ -13,7 +13,7 @@
 		50351F9822CD8604000713B3 /* RNCommandsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F9722CD8604000713B3 /* RNCommandsHandler.m */; };
 		507DCCF522CE3EBD005D4E0B /* RNNotifications.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8A2F7561CB57F28002CC8F5 /* RNNotifications.h */; };
 		507DCCF722CE3EF7005D4E0B /* RNBridgeModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F9022CD7DF4000713B3 /* RNBridgeModule.h */; };
-		507DCCF922CE3F04005D4E0B /* RNNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = D8A2F7561CB57F28002CC8F5 /* RNNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		507DCCF922CE3F04005D4E0B /* RNNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = D8A2F7561CB57F28002CC8F5 /* RNNotifications.h */; };
 		507DCCFA22CE3F04005D4E0B /* RNEventEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F8D22CD782F000713B3 /* RNEventEmitter.h */; };
 		507DCCFB22CE3F04005D4E0B /* RNCommandsHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F9622CD8604000713B3 /* RNCommandsHandler.h */; };
 		507DCCFC22CE3F04005D4E0B /* RCTConvert+RNNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F9322CD7FF1000713B3 /* RCTConvert+RNNotifications.h */; };
@@ -212,12 +212,12 @@
 			files = (
 				508CE81D22D1337200357815 /* RNPushKit.h in Headers */,
 				50AD1FCA22D13ADB00E12362 /* RNPushKitEventHandler.h in Headers */,
-				507DCCF922CE3F04005D4E0B /* RNNotifications.h in Headers */,
 				508CE7D522D12CCA00357815 /* RNNotificationEventHandler.h in Headers */,
 				50FED76622D3E06500DDD516 /* RNNotificationCenter.h in Headers */,
 				508CE81922D130B900357815 /* RNPushKitEventListener.h in Headers */,
 				50E49F0722D1E4E0007160C1 /* RNNotificationsStore.h in Headers */,
 				508CE81622D12FF600357815 /* RNNotificationCenterListener.h in Headers */,
+				507DCCF922CE3F04005D4E0B /* RNNotifications.h in Headers */,
 				508CE82222D1372E00357815 /* RNNotificationUtils.h in Headers */,
 				50FED76E22D3EBA800DDD516 /* RNNotificationParser.h in Headers */,
 				507DCCFA22CE3F04005D4E0B /* RNEventEmitter.h in Headers */,
