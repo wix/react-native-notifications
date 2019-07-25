@@ -11,6 +11,6 @@
 - (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
 
 - (void)didReceiveForegroundNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler;
-- (void)didReceiveNotificationResponse:(UNNotificationResponse *)notificationResponse completionHandler:(void (^)())completionHandler;
+- (void)didReceiveNotificationResponse:(UNNotificationResponse *)notificationResponse completionHandler:(void (^)(void))completionHandler;
 
 @end

@@ -1,5 +1,4 @@
 #import <Foundation/Foundation.h>
-#import <React/RCTBridge.h>
 #import "RNNotificationCenter.h"
 
 @interface RNCommandsHandler : NSObject

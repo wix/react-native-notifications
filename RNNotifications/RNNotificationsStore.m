@@ -21,12 +21,20 @@ NSMutableDictionary* _presentationCompletionHandlers;
     return self;
 }
 
-- (void)setActionCompletionHandler:(void (^)())completionHandler withCompletionKey:(NSString *)completionKey {
+- (void)setActionCompletionHandler:(void (^)(void))completionHandler withCompletionKey:(NSString *)completionKey {
     _actionCompletionHandlers[completionKey] = completionHandler;
 }
 
 - (void)setPresentationCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler withCompletionKey:(NSString *)completionKey {
     _presentationCompletionHandlers[completionKey] = completionHandler;
+}
+
+- (void (^)(void))getActionCompletionHandler:(NSString *)key {
+    return _actionCompletionHandlers[key];
+}
+
+- (void (^)(UNNotificationPresentationOptions))getPresentationCompletionHandler:(NSString *)key {
+    return _presentationCompletionHandlers[key];
 }
 
 - (void)completeAction:(NSString *)completionKey {
@@ -41,7 +49,7 @@ NSMutableDictionary* _presentationCompletionHandlers;
     void (^completionHandler)() = (void (^)(UNNotificationPresentationOptions))[_presentationCompletionHandlers valueForKey:completionKey];
     if (completionHandler) {
         completionHandler(presentationOptions);
-        [_actionCompletionHandlers removeObjectForKey:completionKey];
+        [_presentationCompletionHandlers removeObjectForKey:completionKey];
     }
 }
 

@@ -3,6 +3,7 @@
 #import "RCTConvert+RNNotifications.h"
 #import "RNNotificationsStore.h"
 #import <React/RCTBridgeDelegate.h>
+#import <React/RCTBridge.h>
 
 @implementation RNBridgeModule {
     RNCommandsHandler* _commandsHandler;

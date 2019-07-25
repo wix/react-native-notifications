@@ -1,7 +1,6 @@
 
 #import <UIKit/UIKit.h>
 #import <PushKit/PushKit.h>
-#import <React/RCTBridge.h>
 #import "RNNotifications.h"
 #import "RNNotificationCenterListener.h"
 #import "RNPushKit.h"

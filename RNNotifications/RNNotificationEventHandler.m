@@ -28,7 +28,7 @@
     [RNEventEmitter sendEvent:RNNotificationReceivedForeground body:[RNNotificationParser parseNotification:notification]];
 }
 
-- (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)())completionHandler {
+- (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(void))completionHandler {
     [_store setActionCompletionHandler:completionHandler withCompletionKey:response.notification.request.identifier];
     [RNEventEmitter sendEvent:RNNotificationOpened body:[RNNotificationParser parseNotificationResponse:response]];
 }

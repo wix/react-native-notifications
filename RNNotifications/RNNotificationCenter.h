@@ -1,5 +1,9 @@
 #import <Foundation/Foundation.h>
-#import <React/RCTBridge.h>
+
+typedef void (^RCTPromiseResolveBlock)(id result);
+typedef void (^RCTResponseSenderBlock)(NSArray *response);
+typedef void (^RCTPromiseRejectBlock)(NSString *code, NSString *message, NSError *error);
+
 @import UserNotifications;
 
 @interface RNNotificationCenter : NSObject

@@ -7,18 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50002A4D22E88266008F6742 /* RNCommandsHandlerIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 50002A4C22E88266008F6742 /* RNCommandsHandlerIntegrationTest.m */; };
+		50002A8022E8885A008F6742 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50002A7F22E8885A008F6742 /* libOCMock.a */; };
+		50002AC822E9D5EA008F6742 /* RNNotificationsStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50002AC722E9D5EA008F6742 /* RNNotificationsStoreTests.m */; };
+		50002ACA22E9DB8A008F6742 /* RNNotificationEventHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50002AC922E9DB8A008F6742 /* RNNotificationEventHandlerTests.m */; };
 		50351F8F22CD782F000713B3 /* RNEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F8E22CD782F000713B3 /* RNEventEmitter.m */; };
 		50351F9222CD7DF4000713B3 /* RNBridgeModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F9122CD7DF4000713B3 /* RNBridgeModule.m */; };
 		50351F9522CD7FF1000713B3 /* RCTConvert+RNNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F9422CD7FF1000713B3 /* RCTConvert+RNNotifications.m */; };
 		50351F9822CD8604000713B3 /* RNCommandsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F9722CD8604000713B3 /* RNCommandsHandler.m */; };
+		504D54BE22E4B8660088F2E4 /* RNBridgeModuleIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 504D54BD22E4B8660088F2E4 /* RNBridgeModuleIntegrationTest.m */; };
 		507DCCF522CE3EBD005D4E0B /* RNNotifications.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8A2F7561CB57F28002CC8F5 /* RNNotifications.h */; };
 		507DCCF722CE3EF7005D4E0B /* RNBridgeModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F9022CD7DF4000713B3 /* RNBridgeModule.h */; };
 		507DCCF922CE3F04005D4E0B /* RNNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = D8A2F7561CB57F28002CC8F5 /* RNNotifications.h */; };
 		507DCCFA22CE3F04005D4E0B /* RNEventEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F8D22CD782F000713B3 /* RNEventEmitter.h */; };
 		507DCCFB22CE3F04005D4E0B /* RNCommandsHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F9622CD8604000713B3 /* RNCommandsHandler.h */; };
 		507DCCFC22CE3F04005D4E0B /* RCTConvert+RNNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F9322CD7FF1000713B3 /* RCTConvert+RNNotifications.h */; };
+		50858B7822E87767008272FE /* libyoga.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50858B7722E87767008272FE /* libyoga.a */; };
+		50858B7922E8777C008272FE /* libRNNotifications.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 134814201AA4EA6300B7C361 /* libRNNotifications.a */; };
+		50858B7B22E87FBA008272FE /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50858B7A22E87FBA008272FE /* libRCTActionSheet.a */; };
+		50858B7D22E87FBA008272FE /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50858B7C22E87FBA008272FE /* libRCTImage.a */; };
+		50858B7F22E87FBA008272FE /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50858B7E22E87FBA008272FE /* libRCTLinking.a */; };
+		50858B8122E87FBA008272FE /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50858B8022E87FBA008272FE /* libRCTNetwork.a */; };
+		50858B8322E87FBA008272FE /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50858B8222E87FBA008272FE /* libRCTSettings.a */; };
+		50858B8522E87FBA008272FE /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50858B8422E87FBA008272FE /* libRCTText.a */; };
+		50858B8722E87FBA008272FE /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50858B8622E87FBA008272FE /* libRCTVibration.a */; };
+		50858B8922E87FBA008272FE /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50858B8822E87FBA008272FE /* libRCTWebSocket.a */; };
 		508CE7CB22D12B2600357815 /* RNNotificationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 508CE7CA22D12B2600357815 /* RNNotificationsTests.m */; };
-		508CE7CD22D12B2600357815 /* libRNNotifications.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 134814201AA4EA6300B7C361 /* libRNNotifications.a */; };
 		508CE7D522D12CCA00357815 /* RNNotificationEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 508CE7D322D12CCA00357815 /* RNNotificationEventHandler.h */; };
 		508CE7D622D12CCA00357815 /* RNNotificationEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 508CE7D422D12CCA00357815 /* RNNotificationEventHandler.m */; };
 		508CE81422D12FC700357815 /* RNNotificationCenterListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 508CE81322D12FC600357815 /* RNNotificationCenterListener.m */; };
@@ -31,6 +45,9 @@
 		508CE82322D1372E00357815 /* RNNotificationUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 508CE82122D1372E00357815 /* RNNotificationUtils.m */; };
 		50AD1FCA22D13ADB00E12362 /* RNPushKitEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 50AD1FC822D13ADB00E12362 /* RNPushKitEventHandler.h */; };
 		50AD1FCB22D13ADB00E12362 /* RNPushKitEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AD1FC922D13ADB00E12362 /* RNPushKitEventHandler.m */; };
+		50E4164822E4CA500048367F /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50E4164722E4CA500048367F /* libReact.a */; };
+		50E4164A22E4CA5A0048367F /* libcxxreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50E4164922E4CA5A0048367F /* libcxxreact.a */; };
+		50E4164D22E4CA750048367F /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 504D54E422E4BCE00088F2E4 /* JavaScriptCore.framework */; };
 		50E49F0722D1E4E0007160C1 /* RNNotificationsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 50E49F0522D1E4E0007160C1 /* RNNotificationsStore.h */; };
 		50E49F0822D1E4E0007160C1 /* RNNotificationsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E49F0622D1E4E0007160C1 /* RNNotificationsStore.m */; };
 		50FED76622D3E06500DDD516 /* RNNotificationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 50FED76422D3E06500DDD516 /* RNNotificationCenter.h */; };
@@ -65,6 +82,10 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNNotifications.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNNotifications.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		50002A4C22E88266008F6742 /* RNCommandsHandlerIntegrationTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNCommandsHandlerIntegrationTest.m; sourceTree = "<group>"; };
+		50002A7F22E8885A008F6742 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
+		50002AC722E9D5EA008F6742 /* RNNotificationsStoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNotificationsStoreTests.m; sourceTree = "<group>"; };
+		50002AC922E9DB8A008F6742 /* RNNotificationEventHandlerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNotificationEventHandlerTests.m; sourceTree = "<group>"; };
 		50351F8D22CD782F000713B3 /* RNEventEmitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNEventEmitter.h; sourceTree = "<group>"; };
 		50351F8E22CD782F000713B3 /* RNEventEmitter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNEventEmitter.m; sourceTree = "<group>"; };
 		50351F9022CD7DF4000713B3 /* RNBridgeModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNBridgeModule.h; sourceTree = "<group>"; };
@@ -73,7 +94,36 @@
 		50351F9422CD7FF1000713B3 /* RCTConvert+RNNotifications.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+RNNotifications.m"; sourceTree = "<group>"; };
 		50351F9622CD8604000713B3 /* RNCommandsHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNCommandsHandler.h; sourceTree = "<group>"; };
 		50351F9722CD8604000713B3 /* RNCommandsHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNCommandsHandler.m; sourceTree = "<group>"; };
-		508CE7C822D12B2600357815 /* RNNotificationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RNNotificationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54BD22E4B8660088F2E4 /* RNBridgeModuleIntegrationTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNBridgeModuleIntegrationTest.m; sourceTree = "<group>"; };
+		504D54CC22E4BCB80088F2E4 /* libcxxreact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcxxreact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54CE22E4BCB80088F2E4 /* libdouble-conversion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libdouble-conversion.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54D022E4BCB80088F2E4 /* libfishhook.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfishhook.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54D222E4BCB80088F2E4 /* libRCTImage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTImage.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54D422E4BCB80088F2E4 /* libRCTLinking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTLinking.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54D622E4BCB80088F2E4 /* libRCTNetwork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTNetwork.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54D822E4BCB80088F2E4 /* libRCTSettings.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTSettings.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54DA22E4BCB80088F2E4 /* libRCTText.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTText.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54DC22E4BCB80088F2E4 /* libRCTVibration.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTVibration.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54DE22E4BCB80088F2E4 /* libRCTWebSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTWebSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54E022E4BCB80088F2E4 /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54E222E4BCB80088F2E4 /* libyoga.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libyoga.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54E422E4BCE00088F2E4 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		504D54E622E4BDD10088F2E4 /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54E822E4BE2C0088F2E4 /* libjsi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjsi.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54EA22E4BE3A0088F2E4 /* libdouble-conversion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libdouble-conversion.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54EC22E4BE470088F2E4 /* libjsiexecutor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjsiexecutor.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54EE22E4BE470088F2E4 /* libjsinspector.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjsinspector.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54F022E4BE470088F2E4 /* libRCTActionSheet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTActionSheet.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		504D54F222E4BE470088F2E4 /* libthird-party.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libthird-party.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		50858B7722E87767008272FE /* libyoga.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libyoga.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		50858B7A22E87FBA008272FE /* libRCTActionSheet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTActionSheet.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		50858B7C22E87FBA008272FE /* libRCTImage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTImage.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		50858B7E22E87FBA008272FE /* libRCTLinking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTLinking.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		50858B8022E87FBA008272FE /* libRCTNetwork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTNetwork.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		50858B8222E87FBA008272FE /* libRCTSettings.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTSettings.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		50858B8422E87FBA008272FE /* libRCTText.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTText.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		50858B8622E87FBA008272FE /* libRCTVibration.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTVibration.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		50858B8822E87FBA008272FE /* libRCTWebSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTWebSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		508CE7CA22D12B2600357815 /* RNNotificationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNotificationsTests.m; sourceTree = "<group>"; };
 		508CE7CC22D12B2600357815 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		508CE7D322D12CCA00357815 /* RNNotificationEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNNotificationEventHandler.h; sourceTree = "<group>"; };
@@ -88,6 +138,10 @@
 		508CE82122D1372E00357815 /* RNNotificationUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNotificationUtils.m; sourceTree = "<group>"; };
 		50AD1FC822D13ADB00E12362 /* RNPushKitEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNPushKitEventHandler.h; sourceTree = "<group>"; };
 		50AD1FC922D13ADB00E12362 /* RNPushKitEventHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNPushKitEventHandler.m; sourceTree = "<group>"; };
+		50E4164622E4C98B0048367F /* RNNotificationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RNNotificationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		50E4164722E4CA500048367F /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		50E4164922E4CA5A0048367F /* libcxxreact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcxxreact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		50E4164B22E4CA6A0048367F /* libjsi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjsi.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		50E49F0522D1E4E0007160C1 /* RNNotificationsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNNotificationsStore.h; sourceTree = "<group>"; };
 		50E49F0622D1E4E0007160C1 /* RNNotificationsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNotificationsStore.m; sourceTree = "<group>"; };
 		50FED76422D3E06500DDD516 /* RNNotificationCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNNotificationCenter.h; sourceTree = "<group>"; };
@@ -103,7 +157,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				508CE7CD22D12B2600357815 /* libRNNotifications.a in Frameworks */,
+				50E4164D22E4CA750048367F /* JavaScriptCore.framework in Frameworks */,
+				50E4164A22E4CA5A0048367F /* libcxxreact.a in Frameworks */,
+				50858B7B22E87FBA008272FE /* libRCTActionSheet.a in Frameworks */,
+				50858B7D22E87FBA008272FE /* libRCTImage.a in Frameworks */,
+				50858B7F22E87FBA008272FE /* libRCTLinking.a in Frameworks */,
+				50858B8122E87FBA008272FE /* libRCTNetwork.a in Frameworks */,
+				50858B8322E87FBA008272FE /* libRCTSettings.a in Frameworks */,
+				50858B8522E87FBA008272FE /* libRCTText.a in Frameworks */,
+				50858B8722E87FBA008272FE /* libRCTVibration.a in Frameworks */,
+				50858B8922E87FBA008272FE /* libRCTWebSocket.a in Frameworks */,
+				50858B7822E87767008272FE /* libyoga.a in Frameworks */,
+				50E4164822E4CA500048367F /* libReact.a in Frameworks */,
+				50858B7922E8777C008272FE /* libRNNotifications.a in Frameworks */,
+				50002A8022E8885A008F6742 /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,10 +192,70 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		50002A7222E8874F008F6742 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		504D54BC22E4B83E0088F2E4 /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				50002A7222E8874F008F6742 /* Utils */,
+				504D54BD22E4B8660088F2E4 /* RNBridgeModuleIntegrationTest.m */,
+				50002A4C22E88266008F6742 /* RNCommandsHandlerIntegrationTest.m */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		504D54CB22E4BCB80088F2E4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				50002A7F22E8885A008F6742 /* libOCMock.a */,
+				50858B7A22E87FBA008272FE /* libRCTActionSheet.a */,
+				50858B7C22E87FBA008272FE /* libRCTImage.a */,
+				50858B7E22E87FBA008272FE /* libRCTLinking.a */,
+				50858B8022E87FBA008272FE /* libRCTNetwork.a */,
+				50858B8222E87FBA008272FE /* libRCTSettings.a */,
+				50858B8422E87FBA008272FE /* libRCTText.a */,
+				50858B8622E87FBA008272FE /* libRCTVibration.a */,
+				50858B8822E87FBA008272FE /* libRCTWebSocket.a */,
+				50858B7722E87767008272FE /* libyoga.a */,
+				50E4164B22E4CA6A0048367F /* libjsi.a */,
+				50E4164922E4CA5A0048367F /* libcxxreact.a */,
+				50E4164722E4CA500048367F /* libReact.a */,
+				504D54EC22E4BE470088F2E4 /* libjsiexecutor.a */,
+				504D54EE22E4BE470088F2E4 /* libjsinspector.a */,
+				504D54F022E4BE470088F2E4 /* libRCTActionSheet.a */,
+				504D54F222E4BE470088F2E4 /* libthird-party.a */,
+				504D54EA22E4BE3A0088F2E4 /* libdouble-conversion.a */,
+				504D54E822E4BE2C0088F2E4 /* libjsi.a */,
+				504D54E622E4BDD10088F2E4 /* libReact.a */,
+				504D54E422E4BCE00088F2E4 /* JavaScriptCore.framework */,
+				504D54CC22E4BCB80088F2E4 /* libcxxreact.a */,
+				504D54CE22E4BCB80088F2E4 /* libdouble-conversion.a */,
+				504D54D022E4BCB80088F2E4 /* libfishhook.a */,
+				504D54D222E4BCB80088F2E4 /* libRCTImage.a */,
+				504D54D422E4BCB80088F2E4 /* libRCTLinking.a */,
+				504D54D622E4BCB80088F2E4 /* libRCTNetwork.a */,
+				504D54D822E4BCB80088F2E4 /* libRCTSettings.a */,
+				504D54DA22E4BCB80088F2E4 /* libRCTText.a */,
+				504D54DC22E4BCB80088F2E4 /* libRCTVibration.a */,
+				504D54DE22E4BCB80088F2E4 /* libRCTWebSocket.a */,
+				504D54E022E4BCB80088F2E4 /* libReact.a */,
+				504D54E222E4BCB80088F2E4 /* libyoga.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		508CE7C922D12B2600357815 /* RNNotificationsTests */ = {
 			isa = PBXGroup;
 			children = (
+				504D54BC22E4B83E0088F2E4 /* Integration */,
 				508CE7CA22D12B2600357815 /* RNNotificationsTests.m */,
+				50002AC722E9D5EA008F6742 /* RNNotificationsStoreTests.m */,
+				50002AC922E9DB8A008F6742 /* RNNotificationEventHandlerTests.m */,
 				508CE7CC22D12B2600357815 /* Info.plist */,
 			);
 			path = RNNotificationsTests;
@@ -199,7 +326,8 @@
 				50351F9722CD8604000713B3 /* RNCommandsHandler.m */,
 				508CE7C922D12B2600357815 /* RNNotificationsTests */,
 				134814211AA4EA7D00B7C361 /* Products */,
-				508CE7C822D12B2600357815 /* RNNotificationsTests.xctest */,
+				504D54CB22E4BCB80088F2E4 /* Frameworks */,
+				50E4164622E4C98B0048367F /* RNNotificationsTests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -245,7 +373,7 @@
 			);
 			name = RNNotificationsTests;
 			productName = RNNotificationsTests;
-			productReference = 508CE7C822D12B2600357815 /* RNNotificationsTests.xctest */;
+			productReference = 50E4164622E4C98B0048367F /* RNNotificationsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		58B511DA1A9E6C8500147676 /* RNNotifications */ = {
@@ -317,7 +445,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50002AC822E9D5EA008F6742 /* RNNotificationsStoreTests.m in Sources */,
 				508CE7CB22D12B2600357815 /* RNNotificationsTests.m in Sources */,
+				504D54BE22E4B8660088F2E4 /* RNBridgeModuleIntegrationTest.m in Sources */,
+				50002A4D22E88266008F6742 /* RNCommandsHandlerIntegrationTest.m in Sources */,
+				50002ACA22E9DB8A008F6742 /* RNNotificationEventHandlerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,13 +508,30 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/RNNotificationsTests/OCMock",
+				);
 				INFOPLIST_FILE = RNNotificationsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-l\"c++\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -412,12 +561,29 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/RNNotificationsTests/OCMock",
+				);
 				INFOPLIST_FILE = RNNotificationsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-l\"c++\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

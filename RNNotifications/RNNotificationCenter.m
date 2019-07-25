@@ -15,20 +15,14 @@
     [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
     UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert);
     [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:authOptions completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        if (error) {
-            
-        } else {
-            if (granted) {
-                [UNUserNotificationCenter.currentNotificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-                    if (settings.authorizationStatus == UNAuthorizationStatusAuthorized) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [[UIApplication sharedApplication] registerForRemoteNotifications];
-                        });
-                    }
-                }];
-            } else {
-                
-            }
+        if (!error && granted) {
+            [UNUserNotificationCenter.currentNotificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+                if (settings.authorizationStatus == UNAuthorizationStatusAuthorized) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[UIApplication sharedApplication] registerForRemoteNotifications];
+                    });
+                }
+            }];
         }
     }];
 }
