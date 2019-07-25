@@ -9,9 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import <PushKit/PushKit.h>
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate, PKPushRegistryDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 

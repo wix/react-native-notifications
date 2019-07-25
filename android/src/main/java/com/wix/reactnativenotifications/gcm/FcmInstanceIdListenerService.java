@@ -3,16 +3,25 @@ package com.wix.reactnativenotifications.gcm;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.android.gms.gcm.GcmListenerService;
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
 import com.wix.reactnativenotifications.core.notification.IPushNotification;
 import com.wix.reactnativenotifications.core.notification.PushNotification;
 
+import java.util.Map;
+
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
 
-public class GcmMessageHandlerService extends GcmListenerService {
+/**
+ * Instance-ID + token refreshing handling service. Contacts the GCM to fetch the updated token.
+ *
+ * @author amitd
+ */
+public class FcmInstanceIdListenerService extends FirebaseMessagingService {
 
     @Override
-    public void onMessageReceived(String s, Bundle bundle) {
+    public void onMessageReceived(RemoteMessage message){
+        Bundle bundle = message.toIntent().getExtras();
         Log.d(LOGTAG, "New message from GCM: " + bundle);
 
         try {

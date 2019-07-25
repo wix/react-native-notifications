@@ -21,6 +21,7 @@ import com.wix.reactnativenotifications.core.ProxyService;
 
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_OPENED_EVENT_NAME;
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_EVENT_NAME;
+import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_FOREGROUND_EVENT_NAME;
 
 public class PushNotification implements IPushNotification {
 
@@ -42,6 +43,10 @@ public class PushNotification implements IPushNotification {
     };
 
     public static IPushNotification get(Context context, Bundle bundle) {
+        if (verifyNotificationBundle(bundle) == false) {
+            return null;
+        }
+
         Context appContext = context.getApplicationContext();
         if (appContext instanceof INotificationsApplication) {
             return ((INotificationsApplication) appContext).getPushNotification(context, bundle, AppLifecycleFacadeHolder.get(), new AppLaunchHelper());
@@ -57,10 +62,21 @@ public class PushNotification implements IPushNotification {
         mNotificationProps = createProps(bundle);
     }
 
+    private static boolean verifyNotificationBundle(Bundle bundle) {
+        if (bundle.getString("google.message_id") != null) {
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
     public void onReceived() throws InvalidNotificationException {
         postNotification(null);
         notifyReceivedToJS();
+        if (mAppLifecycleFacade.isAppVisible()) {
+            notifiyReceivedForegroundNotificationToJS();
+        }
     }
 
     @Override
@@ -184,6 +200,10 @@ public class PushNotification implements IPushNotification {
 
     private void notifyReceivedToJS() {
         mJsIOHelper.sendEventToJS(NOTIFICATION_RECEIVED_EVENT_NAME, mNotificationProps.asBundle(), mAppLifecycleFacade.getRunningReactContext());
+    }
+
+    private void notifiyReceivedForegroundNotificationToJS() {
+        mJsIOHelper.sendEventToJS(NOTIFICATION_RECEIVED_FOREGROUND_EVENT_NAME, mNotificationProps.asBundle(), mAppLifecycleFacade.getRunningReactContext());
     }
 
     private void notifyOpenedToJS() {
