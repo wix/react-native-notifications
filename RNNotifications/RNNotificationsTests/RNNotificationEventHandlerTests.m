@@ -48,5 +48,37 @@
     [_mockedNotificationCenter verify];
 }
 
+- (void)testDidReceiveForegroundNotification_ShouldSaveCompletionBlockToStore {
+    UNNotification* notification = [self createNotificationWithIdentifier:@"id" andUserInfo:@{}];
+    void (^testBlock)(UNNotificationPresentationOptions) = ^void(UNNotificationPresentationOptions options) {};
+    
+    [_uut didReceiveForegroundNotification:notification withCompletionHandler:testBlock];
+    XCTAssertEqual([_store getPresentationCompletionHandler:@"id"], testBlock);
+}
+
+- (void)testDidReceiveForegroundNotification_ShouldEmitEvent {
+    UNNotification* notification = [self createNotificationWithIdentifier:@"id" andUserInfo:@{@"extraKey": @"extraValue"}];
+    void (^testBlock)(UNNotificationPresentationOptions) = ^void(UNNotificationPresentationOptions options) {};
+    
+    [[_mockedNotificationCenter expect] postNotificationName:RNNotificationReceivedForeground object:[OCMArg any] userInfo:[OCMArg checkWithBlock:^BOOL(id obj) {
+        return ([[obj valueForKey:@"identifier"] isEqualToString:@"id"] &&
+                [[[obj valueForKey:@"payload"] valueForKey:@"extraKey"] isEqualToString:@"extraValue"]);
+    }]];
+    [_uut didReceiveForegroundNotification:notification withCompletionHandler:testBlock];
+    [_mockedNotificationCenter verify];
+}
+
+- (UNNotification *)createNotificationWithIdentifier:(NSString *)identifier andUserInfo:(NSDictionary *)userInfo {
+    UNNotification* notification = [OCMockObject niceMockForClass:[UNNotification class]];
+    UNNotificationContent* content = [OCMockObject niceMockForClass:[UNNotificationContent class]];
+    OCMStub([content userInfo]).andReturn(userInfo);
+    UNNotificationRequest* request = [OCMockObject partialMockForObject:[UNNotificationRequest requestWithIdentifier:identifier content:content trigger:nil]];
+    OCMStub(notification.request).andReturn(request);
+    OCMStub(request.content).andReturn(content);
+    
+    return notification;
+}
+
+
 
 @end
