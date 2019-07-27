@@ -9,6 +9,7 @@
         android:name=".MainApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <meta-data

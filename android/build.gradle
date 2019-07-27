@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '28.0.3'
+    buildToolsVersion '28.0.0'
 
     defaultConfig {
         minSdkVersion 19
@@ -18,13 +18,12 @@ android {
     }
 }
 
-dependencies {
-    // Google's GCM.
-//    compile 'com.google.android.gms:play-services-gcm:15.0.1'
-    compile "com.google.firebase:firebase-messaging:17.3.0"
-    compile 'com.facebook.react:react-native:+'
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.+'
-    testCompile 'org.robolectric:robolectric:3.1.4'
+dependencies {
+    implementation "com.google.firebase:firebase-messaging:17.3.0"
+    implementation 'com.facebook.react:react-native:+'
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.+'
+    testImplementation 'org.robolectric:robolectric:3.1.4'
 }
