@@ -1,4 +1,3 @@
-const exec = require('shell-utils').exec;
 
 module.exports = {
   elementByLabel: (label) => {
