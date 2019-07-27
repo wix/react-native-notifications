@@ -122,7 +122,7 @@ class NotificationsExampleApp extends Component {
       title: 'Local Notification Title',
       sound: 'chime.aiff',
       category: 'SOME_CATEGORY',
-      userInfo: { }
+      userInfo: { link: 'localNotificationLink' },
     });
   }
 
