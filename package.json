@@ -24,7 +24,10 @@
     "pretest": "./node_modules/.bin/eslint *.js test",
     "test": "jest",
     "start": "node ./scripts/start",
-    "test-e2e-ios": "node ./scripts/test-e2e --ios"
+    "test-e2e-ios": "node ./scripts/test-e2e --ios",
+    "test-unit-ios": "node ./scripts/test-unit --ios",
+    "test-unit-android": "node ./scripts/test-unit --android",
+    "test-js": "node ./scripts/test-js"
   },
   "nativePackage": true,
   "dependencies": {

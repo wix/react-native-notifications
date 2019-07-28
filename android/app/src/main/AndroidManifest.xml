@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wix.reactnativenotifications">
+
+    <!--
+     Permissions required for enabling GCM.
+     -->
+    <permission
+        android:name="${applicationId}.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
+
+    <!-- Ref: http://stackoverflow.com/questions/13602190/java-lang-securityexception-requires-vibrate-permission-on-jelly-bean-4-2 -->
+    <uses-permission android:name="android.permission.VIBRATE" android:maxSdkVersion="18" />
+
+    <application>
+
+        <!--
+         A proxy-service that gives the library an opportunity to do some work before launching/resuming the actual application task.
+         -->
+        <service android:name=".core.ProxyService"/>
+
+        <service
+            android:name=".gcm.FcmInstanceIdListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".gcm.FcmInstanceIdRefreshHandlerService"
+            android:exported="false" />
+    </application>
+
+</manifest>
