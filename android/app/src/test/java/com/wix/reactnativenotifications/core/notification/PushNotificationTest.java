@@ -6,6 +6,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import com.facebook.react.bridge.ReactContext;
@@ -54,6 +56,8 @@ public class PushNotificationTest {
     @Mock private AppLifecycleFacade mAppLifecycleFacade;
     @Mock private AppLaunchHelper mAppLaunchHelper;
     @Mock private JsIOHelper mJsIOHelper;
+    @Mock private Resources mResources;
+    @Mock private PackageManager mPackageManager;
 
     @Before
     public void setup() throws Exception {
@@ -68,7 +72,8 @@ public class PushNotificationTest {
 
         ApplicationInfo ai = mock(ApplicationInfo.class);
         when(mContext.getApplicationInfo()).thenReturn(ai);
-
+        when(mContext.getResources()).thenReturn(mResources);
+        when(mContext.getPackageManager()).thenReturn(mPackageManager);
         when(mContext.getSystemService(Context.NOTIFICATION_SERVICE)).thenReturn(mNotificationManager);
     }
 

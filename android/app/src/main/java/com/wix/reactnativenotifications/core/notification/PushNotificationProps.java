@@ -21,11 +21,11 @@ public class PushNotificationProps {
     }
 
     public String getTitle() {
-        return mBundle.getString("title", "");
+        return mBundle.getString("title");
     }
 
     public String getBody() {
-        return mBundle.getString("body", "");
+        return mBundle.getString("body");
     }
 
     public Bundle asBundle() {
