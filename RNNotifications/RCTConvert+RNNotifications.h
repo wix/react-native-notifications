@@ -1,4 +1,4 @@
-#import "RCTConvert.h"
+#import <React/RCTConvert.h>
 @import UserNotifications;
 
 @interface RCTConvert (UIMutableUserNotificationAction)
