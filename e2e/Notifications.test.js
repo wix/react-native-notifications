@@ -2,11 +2,11 @@ const Utils = require('./Utils');
 const {elementByLabel} = Utils;
 
 describe('Notifications', () => {
-  describe('Foreground', () => {
-    beforeEach(async () => {
-      await device.relaunchApp({permissions: {notifications: 'YES'}});
-    });
+  beforeEach(async () => {
+    await device.relaunchApp({delete: true, permissions: {notifications: 'YES'}});
+  });
 
+  describe('Foreground', () => {
     it('Receive notification', async () => {
       await device.sendUserNotification(createNotification({link: 'foreground/notification'}));
       await expect(elementByLabel('foreground/notification')).toBeVisible();
@@ -19,10 +19,6 @@ describe('Notifications', () => {
   });
 
   describe('Background', () => {
-    beforeEach(async () => {
-      await device.launchApp({newInstance: true, permissions: {notifications: 'YES'}});
-    });
-
     it('Receive notification', async () => {
       device.sendToHome();
       await expect(elementByLabel('background/notification')).toBeNotVisible();
@@ -33,7 +29,7 @@ describe('Notifications', () => {
 
   describe('Dead state', () => {
     it('Receive notification', async () => {
-      await device.launchApp({delete: true, newInstance: true, userNotification: createNotification({link: 'deadState/notification'})});
+      await device.launchApp({newInstance: true, userNotification: createNotification({link: 'deadState/notification'})});
       await expect(elementByLabel('deadState/notification')).toBeVisible();
     });
   });
