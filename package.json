@@ -22,7 +22,7 @@
   "main": "lib/src/index",
   "scripts": {
     "pretest": "./node_modules/.bin/eslint *.js test",
-    "test": "jest",
+    "test": "node scripts/test",
     "start": "node ./scripts/start",
     "test-e2e-ios": "node ./scripts/test-e2e --ios",
     "test-unit-ios": "node ./scripts/test-unit --ios",
