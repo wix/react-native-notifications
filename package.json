@@ -93,7 +93,7 @@
         "name": "iPhone X"
       },
       "ios.sim.release": {
-        "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Release-iphonesimulator/playground.app",
+        "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Release-iphonesimulator/NotificationsExampleApp.app",
         "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp_release -project example/ios/NotificationsExampleApp.xcodeproj -sdk iphonesimulator -configuration Release -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
         "type": "ios.simulator",
         "name": "iPhone X"
