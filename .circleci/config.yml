@@ -1,5 +1,5 @@
 
-version: 1
+version: 2
 jobs:
   build:  
     macos:
@@ -29,9 +29,8 @@ jobs:
       - run:
           name: Detox iOS CI
           command: 'npm run test-e2e-ios-release'
-
 workflows:
-  version: 1
+  version: 2
   build_and_test:
     jobs:
       - build
