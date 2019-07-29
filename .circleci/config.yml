@@ -13,5 +13,11 @@ jobs:
           name: npm install
           command: npm install
       - run:
+          name: iOS unit tests
+          command: 'npm run test-unit-ios'
+      - run:
+          name: Android unit tests
+          command: 'npm run test-unit-android'
+      - run:
           name: Detox iOS CI
           command: 'npm run test-e2e-ios-release'
