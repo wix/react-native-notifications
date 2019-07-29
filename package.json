@@ -25,8 +25,8 @@
     "test": "node scripts/test",
     "start": "node ./scripts/start",
     "test-e2e-ios": "node ./scripts/test-e2e --ios",
+    "test-e2e-ios-release": "node ./scripts/test-e2e --ios --release",
     "test-unit-ios": "node ./scripts/test-unit --ios",
-    "test-unit-ios-release": "node ./scripts/test-unit --ios --release",
     "test-unit-android": "node ./scripts/test-unit --android",
     "test-js": "node ./scripts/test-js"
   },
