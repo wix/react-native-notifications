@@ -1,8 +1,8 @@
 
 version: 1
-macos:
-xcode: "10.2.1"
 jobs:
+  macos:
+    xcode: "10.2.1"
   build:  
     steps:
       - checkout
