@@ -10,6 +10,9 @@ jobs:
           name: Install Dependencies
           command: scripts/install.ios.sh
       - run:
+          name: Install Android
+          command: scripts/install.android.sh
+      - run:
           name: npm install
           command: npm install
       - run:
