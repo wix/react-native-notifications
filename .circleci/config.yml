@@ -1,9 +1,9 @@
 
 version: 1
 jobs:
-  macos:
+  build:
+    macos:
     xcode: "10.2.1"
-  build:  
     steps:
       - checkout
       - run:
