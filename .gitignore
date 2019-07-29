@@ -182,3 +182,7 @@ jspm_packages
 coverage/
 
 package-lock.json
+
+.history
+android/.idea
+android/build
