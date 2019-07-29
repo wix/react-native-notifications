@@ -18,6 +18,7 @@ jobs:
   test:
     macos:
       xcode: "10.2.1"
+      parallelism: 3
     steps:
       - run:
           name: iOS unit tests
@@ -28,3 +29,10 @@ jobs:
       - run:
           name: Detox iOS CI
           command: 'npm run test-e2e-ios-release'
+
+workflows:
+  version: 1
+  build_and_test:
+    jobs:
+      - build
+      - test
