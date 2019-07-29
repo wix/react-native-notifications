@@ -1,5 +1,5 @@
 const Utils = require('./Utils');
-const { elementByLabel } = Utils;
+const {elementByLabel} = Utils;
 
 describe('Notifications', () => {
   describe('Foreground', () => {
@@ -33,7 +33,7 @@ describe('Notifications', () => {
 
   describe('Dead state', () => {
     it('Receive notification', async () => {
-      await device.launchApp({newInstance: true, userNotification: createNotification({link: 'deadState/notification'})});
+      await device.launchApp({delete: true, newInstance: true, userNotification: createNotification({link: 'deadState/notification'})});
       await expect(elementByLabel('deadState/notification')).toBeVisible();
     });
   });
