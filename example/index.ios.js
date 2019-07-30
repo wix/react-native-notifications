@@ -7,24 +7,24 @@ import {
 } from 'react-native';
 import React, {Component} from 'react';
 
-import NotificationsIOS, { NotificationAction, NotificationCategory } from 'react-native-notifications';
+import { Notifications } from '../lib/dist/index';
 
-let upvoteAction = new NotificationAction({
-  activationMode: 'background',
-  title: String.fromCodePoint(0x1F44D),
-  identifier: 'UPVOTE_ACTION'
-});
+// let upvoteAction = new NotificationAction({
+//   activationMode: 'background',
+//   title: String.fromCodePoint(0x1F44D),
+//   identifier: 'UPVOTE_ACTION'
+// });
 
-let replyAction = new NotificationAction({
-  activationMode: 'background',
-  title: 'Reply',
-  authenticationRequired: true,
-  textInput: {
-    buttonTitle: 'Reply now',
-    placeholder: 'Insert message'
-  },
-  identifier: 'REPLY_ACTION'
-});
+// let replyAction = new NotificationAction({
+//   activationMode: 'background',
+//   title: 'Reply',
+//   authenticationRequired: true,
+//   textInput: {
+//     buttonTitle: 'Reply now',
+//     placeholder: 'Insert message'
+//   },
+//   identifier: 'REPLY_ACTION'
+// });
 
 class NotificationsExampleApp extends Component {
 
@@ -34,23 +34,25 @@ class NotificationsExampleApp extends Component {
       notifications: []
     };
 
-    NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
-    NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegisteredFailed.bind(this));
+    Notifications.events().registerNotificationsReceived((notification) => {
+      alert(JSON.stringify(notification));
+    })
+    // NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
+    // NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegisteredFailed.bind(this));
 
-    NotificationsIOS.addEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
-    NotificationsIOS.registerPushKit();
+    // NotificationsIOS.addEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
+    // NotificationsIOS.registerPushKit();
 
-    NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
-    NotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
-    NotificationsIOS.addEventListener('pushKitNotificationReceived', this.onPushKitNotificationReceived.bind(this));
+    // NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
+    // NotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
+    // NotificationsIOS.addEventListener('pushKitNotificationReceived', this.onPushKitNotificationReceived.bind(this));
   }
 
   async componentDidMount() {
-    const initialNotification = await NotificationsIOS.getInitialNotification();
+    const initialNotification = await Notifications.getInitialNotification();
     if (initialNotification) {
       this.setState({notifications: [initialNotification.getData().link, ...this.state.notifications]});
     }
-
   }
 
   onPushRegistered(deviceToken) {
@@ -109,15 +111,15 @@ class NotificationsExampleApp extends Component {
   }
 
   requestPermissions() {
-    let cat = new NotificationCategory({
-      identifier: 'SOME_CATEGORY',
-      actions: [upvoteAction, replyAction]
-    });
-    NotificationsIOS.requestPermissions([cat]);
+    // let cat = new NotificationCategory({
+    //   identifier: 'SOME_CATEGORY',
+    //   actions: [upvoteAction, replyAction]
+    // });
+    Notifications.requestPermissions(/*[cat]*/);
   }
 
   sendLocalNotification() {
-    NotificationsIOS.localNotification({
+    Notifications.localNotification({
       body: 'Local notificiation!',
       title: 'Local Notification Title',
       sound: 'chime.aiff',
@@ -127,14 +129,14 @@ class NotificationsExampleApp extends Component {
   }
 
   removeAllDeliveredNotifications() {
-    NotificationsIOS.removeAllDeliveredNotifications();
+    // NotificationsIOS.removeAllDeliveredNotifications();
   }
 
   componentWillUnmount() {
-    NotificationsIOS.removeEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
-    NotificationsIOS.removeEventListener('notificationOpened', this.onNotificationOpened.bind(this));
-    NotificationsIOS.removeEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
-    NotificationsIOS.removeEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
+    // NotificationsIOS.removeEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
+    // NotificationsIOS.removeEventListener('notificationOpened', this.onNotificationOpened.bind(this));
+    // NotificationsIOS.removeEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
+    // NotificationsIOS.removeEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
   }
 }
 

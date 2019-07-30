@@ -189,4 +189,8 @@ package-lock.json
 .history
 android/.idea
 android/build
+
+# Typescript build
+lib/dist/
+
 android/.gradle

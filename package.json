@@ -19,8 +19,11 @@
     "actionable-notifications",
     "interactive-notifications"
   ],
-  "main": "lib/src/index",
+  "main": "lib/dist/index.js",
+  "typings": "lib/dist/index.d.ts",
   "scripts": {
+    "build": "rm -rf ./lib/dist && tsc",
+    "prestart": "npm run build",
     "pretest": "./node_modules/.bin/eslint *.js test",
     "test": "node scripts/test",
     "start": "node ./scripts/start",
@@ -45,11 +48,13 @@
     "@types/react-test-renderer": "16.x.x",
     "@babel/plugin-proposal-export-default-from": "7.2.0",
     "@babel/plugin-proposal-export-namespace-from": "7.2.0",
+    "@types/jest": "23.x.x",
+    "@types/lodash": "4.x.x",
     "typescript": "3.2.2",
     "babel-eslint": "9.0.0",
     "chai": "^3.5.0",
     "chokidar-cli": "^1.2.0",
-    "eslint": "6.0.1",
+    "tslint": "5.x.x",
     "mocha": "^2.5.3",
     "proxyquire": "^1.7.4",
     "sinon": "^1.17.3",
@@ -60,7 +65,8 @@
     "detox": "13.x.x",
     "jsc-android": "236355.x.x",
     "jest": "24.8.0",
-    "metro-react-native-babel-preset": "0.55.x"
+    "metro-react-native-babel-preset": "0.55.x",
+    "react-native-typescript-transformer": "1.2.12"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
