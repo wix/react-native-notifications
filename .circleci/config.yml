@@ -1,0 +1,26 @@
+
+version: 2
+jobs:
+  build:  
+    macos:
+      xcode: "10.2.1"
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: scripts/install.ios.sh
+      - run:
+          name: Install Android
+          command: scripts/install.android.sh
+      - run:
+          name: npm install
+          command: npm install
+      - run:
+          name: iOS unit tests
+          command: 'npm run test-unit-ios'
+      - run:
+          name: Android unit tests
+          command: 'npm run test-unit-android'
+      - run:
+          name: Detox iOS e2e tests
+          command: 'npm run test-e2e-ios-release'
