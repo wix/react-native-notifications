@@ -20,9 +20,9 @@ describe('Notifications', () => {
 
   describe('Background', () => {
     it('Receive notification', async () => {
-      device.sendToHome();
+      await device.sendToHome();
       await expect(elementByLabel('background/notification')).toBeNotVisible();
-      device.launchApp({newInstance: false, userNotification: createNotification({link: 'background/notification'})});
+      await device.launchApp({newInstance: false, userNotification: createNotification({link: 'background/notification'})});
       await expect(elementByLabel('background/notification')).toBeVisible();
     });
   });
