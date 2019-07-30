@@ -1,7 +1,7 @@
 
 version: 2
 jobs:
-  build:  
+  test:  
     macos:
       xcode: "10.2.1"
     steps:
@@ -15,9 +15,6 @@ jobs:
       - run:
           name: npm install
           command: npm install
-  test:
-    parallelism: 3
-    steps:
       - run:
           name: iOS unit tests
           command: 'npm run test-unit-ios'
@@ -27,11 +24,3 @@ jobs:
       - run:
           name: Detox iOS CI
           command: 'npm run test-e2e-ios-release'
-workflows:
-  version: 2
-  build-and-test:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
