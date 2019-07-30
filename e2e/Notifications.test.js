@@ -7,28 +7,28 @@ describe('Notifications', () => {
   });
 
   describe('Foreground', () => {
-    it('Receive notification', async () => {
+    it('Should receive notification', async () => {
       await device.sendUserNotification(createNotification({link: 'foreground/notification'}));
       await expect(elementByLabel('foreground/notification')).toBeVisible();
     });
 
-    it('Click notification', async () => {
+    it('Should open notification', async () => {
       await device.sendUserNotification(createNotification({link: 'foreground/notification/click', showAlert: true}));
       await expect(elementByLabel('Notification Clicked: foreground/notification/click')).toBeVisible();
     });
   });
 
   describe('Background', () => {
-    it('Receive notification', async () => {
+    it('Should open notification', async () => {
       await device.sendToHome();
-      await expect(elementByLabel('background/notification')).toBeNotVisible();
+      await expect(elementByLabel('Notification Clicked: background/notification')).toBeNotVisible();
       await device.launchApp({newInstance: false, userNotification: createNotification({link: 'background/notification'})});
-      await expect(elementByLabel('background/notification')).toBeVisible();
+      await expect(elementByLabel('Notification Clicked: background/notification')).toBeVisible();
     });
   });
 
   describe('Dead state', () => {
-    it('Receive notification', async () => {
+    it('Should receive notification', async () => {
       await device.launchApp({newInstance: true, userNotification: createNotification({link: 'deadState/notification'})});
       await expect(elementByLabel('deadState/notification')).toBeVisible();
     });
