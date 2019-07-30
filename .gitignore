@@ -179,6 +179,9 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+# Intellij
+*.iml
+
 coverage/
 
 package-lock.json
