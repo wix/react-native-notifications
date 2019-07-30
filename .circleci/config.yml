@@ -22,5 +22,5 @@ jobs:
           name: Android unit tests
           command: 'npm run test-unit-android'
       - run:
-          name: Detox iOS CI
+          name: Detox iOS e2e tests
           command: 'npm run test-e2e-ios-release'
