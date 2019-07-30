@@ -21,23 +21,19 @@ jobs:
       parallelism: 3
     steps:
       - run:
-          requires:
-            - build
           name: iOS unit tests
           command: 'npm run test-unit-ios'
       - run:
-          requires:
-            - build
           name: Android unit tests
           command: 'npm run test-unit-android'
       - run:
-          requires:
-            - build
           name: Detox iOS CI
           command: 'npm run test-e2e-ios-release'
 workflows:
   version: 2
-  build_and_test:
+  build-and-test:
     jobs:
       - build
-      - test
+      - test:
+          requires:
+            - build
