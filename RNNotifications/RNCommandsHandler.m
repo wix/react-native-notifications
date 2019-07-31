@@ -13,8 +13,12 @@
     return self;
 }
 
-- (void)requestPermissionsWithCategories:(NSArray *)json {
-    [_notificationCenter requestPermissionsWithCategories:json];
+- (void)requestPermissions {
+    [_notificationCenter requestPermissions];
+}
+
+- (void)setCategories:(NSArray *)categories {
+    [_notificationCenter setCategories:categories];
 }
 
 - (void)getInitialNotification:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {

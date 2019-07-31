@@ -5,7 +5,9 @@
 
 - (instancetype)init;
 
-- (void)requestPermissionsWithCategories:(NSArray *)json;
+- (void)requestPermissions;
+
+- (void)setCategories:(NSArray *)categories;
 
 - (void)getInitialNotification:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject;
 

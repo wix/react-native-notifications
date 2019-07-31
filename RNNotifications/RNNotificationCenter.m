@@ -3,16 +3,7 @@
 
 @implementation RNNotificationCenter
 
-- (void)requestPermissionsWithCategories:(NSArray *)json {
-    NSMutableSet<UNNotificationCategory *>* categories = nil;
-    
-    if ([json count] > 0) {
-        categories = [NSMutableSet new];
-        for (NSDictionary* categoryJson in json) {
-            [categories addObject:[RCTConvert UNMutableUserNotificationCategory:categoryJson]];
-        }
-    }
-    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
+- (void)requestPermissions {
     UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert);
     [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:authOptions completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (!error && granted) {
@@ -25,6 +16,18 @@
             }];
         }
     }];
+}
+
+- (void)setCategories:(NSArray *)json {
+    NSMutableSet<UNNotificationCategory *>* categories = nil;
+    
+    if ([json count] > 0) {
+        categories = [NSMutableSet new];
+        for (NSDictionary* categoryJson in json) {
+            [categories addObject:[RCTConvert UNMutableUserNotificationCategory:categoryJson]];
+        }
+    }
+    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
 }
 
 - (void)sendLocalNotification:(NSDictionary *)notification withId:(NSString *)notificationId {

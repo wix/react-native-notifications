@@ -2,7 +2,7 @@ import { NativeCommandsSender } from './adapters/NativeCommandsSender';
 import { NativeEventsReceiver } from './adapters/NativeEventsReceiver';
 import { Commands } from './commands/Commands';
 import { EventsRegistry } from './events/EventsRegistry';
-import { Notification } from './interfaces/Notification';
+import { Notification, NotificationCategory } from './interfaces/Notification';
 
 export class NotificationsRoot {
   private readonly nativeEventsReceiver: NativeEventsReceiver;
@@ -22,14 +22,21 @@ export class NotificationsRoot {
   /**
   * Request permissions to send remote notifications - iOS only
   */
-  public requestPermissions(): Promise<any> {
+  public requestPermissions() {
     return this.commands.requestPermissions();
   }
 
   /**
+   * registerPushKit
+   */
+  public registerPushKit() {
+    return this.commands.registerPushKit();
+  }
+  
+  /**
    * Reset the app to a new layout
    */
-  public localNotification(notification: Notification): Promise<any> {
+  public localNotification(notification: Notification) {
     return this.commands.sendLocalNotification(notification);
   }
 
@@ -38,6 +45,71 @@ export class NotificationsRoot {
    */
   public getInitialNotification(): Promise<Notification> {
     return this.commands.getInitialNotification();
+  }
+
+  /**
+   * setCategories
+   */
+  public setCategories(categories: [NotificationCategory?]) {
+    this.commands.setCategories(categories);
+  }
+
+  /**
+   * getBadgesCount
+   */
+  public getBadgeCount(): Promise<number> {
+    return this.commands.getBadgeCount();
+  }
+
+  /**
+   * setBadgeCount
+   * @param count number of the new badge count
+   */
+  public setBadgeCount(count: number) {
+    return this.commands.setBadgeCount(count);
+  }
+
+  /**
+   * cancelLocalNotification
+  */
+  public cancelLocalNotification(notificationId: string) {
+    return this.commands.cancelLocalNotification(notificationId);
+  }
+
+  /**
+   * cancelAllLocalNotifications
+   */
+  public cancelAllLocalNotifications() {
+    this.commands.cancelAllLocalNotifications();
+  }
+
+  /**
+   * isRegisteredForRemoteNotifications
+   */
+  public isRegisteredForRemoteNotifications(): Promise<any> {
+    this.commands.isRegisteredForRemoteNotifications();
+  }
+
+  /**
+   * checkPermissions
+   */
+  public checkPermissions() {
+    return this.commands.checkPermissions();
+  }
+
+  /**
+   * removeAllDeliveredNotifications
+   */
+  public removeAllDeliveredNotifications() {
+    return this.commands.removeAllDeliveredNotifications();
+  }
+
+  /**
+   * removeDeliveredNotifications
+   * @param identifiers Array of notification identifiers
+   */
+  public removeDeliveredNotifications(identifiers: Array<string>) {
+    return this.commands.removeDeliveredNotifications(identifiers);
   }
 
   /**

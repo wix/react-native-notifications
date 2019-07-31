@@ -25,33 +25,43 @@
     _notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
 }
 
-- (void)testRequestPermissionsWithCategories_userAuthorizedPermissions {
-    NSArray* json = @[@{@"identifier": @"identifier"}];
+- (void)testRequestPermissions_userAuthorizedPermissions {
     UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert);
     UNNotificationSettings* settings = [UNNotificationSettings new];
     [settings setValue:@(UNAuthorizationStatusAuthorized) forKey:@"authorizationStatus"];
 
-    [[_notificationCenter expect] setNotificationCategories:[OCMArg any]];
     [[_notificationCenter expect] requestAuthorizationWithOptions:authOptions completionHandler:[OCMArg invokeBlockWithArgs:@(YES), [NSNull null], nil]];
     [[_notificationCenter expect] getNotificationSettingsWithCompletionHandler:[OCMArg invokeBlockWithArgs:settings, nil]];
     [[(id)[UIApplication sharedApplication] expect] registerForRemoteNotifications];
     
-    [_uut requestPermissionsWithCategories:json];
+    [_uut requestPermissions];
     [_notificationCenter verify];
 }
 
-- (void)testRequestPermissionsWithCategories_userDeniedPermissions {
-    NSArray* json = @[@{@"identifier": @"identifier"}];
+- (void)testRequestPermissions_userDeniedPermissions {
     UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert);
     UNNotificationSettings* settings = [UNNotificationSettings new];
     [settings setValue:@(UNAuthorizationStatusDenied) forKey:@"authorizationStatus"];
     
-    [[_notificationCenter expect] setNotificationCategories:[OCMArg any]];
     [[_notificationCenter expect] requestAuthorizationWithOptions:authOptions completionHandler:[OCMArg invokeBlockWithArgs:@(YES), [NSNull null], nil]];
     [[_notificationCenter expect] getNotificationSettingsWithCompletionHandler:[OCMArg invokeBlockWithArgs:settings, nil]];
     [[(id)[UIApplication sharedApplication] reject] registerForRemoteNotifications];
     
-    [_uut requestPermissionsWithCategories:json];
+    [_uut requestPermissions];
+    [_notificationCenter verify];
+}
+
+- (void)testSetCategories_shouldSetCategories {
+    NSArray* json = @[@{@"identifier": @"categoryId", @"actions": @[@{@"identifier" : @"actionId", @"activationMode": @"foreground"}]}];
+    [[_notificationCenter expect] setNotificationCategories:[OCMArg checkWithBlock:^BOOL(NSMutableSet<UNNotificationCategory *>* categories) {
+        UNNotificationCategory* category = categories.allObjects.firstObject;
+        UNNotificationAction* action = category.actions.firstObject;
+        return ([category.identifier isEqualToString:@"categoryId"] &&
+                [action.identifier isEqualToString:@"actionId"] &&
+                action.options == UNNotificationActionOptionForeground);
+    }]];
+    
+    [_uut setCategories:json];
     [_notificationCenter verify];
 }
 

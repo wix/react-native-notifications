@@ -32,8 +32,12 @@ RCT_EXPORT_MODULE();
 
 #pragma mark - JS interface
 
-RCT_EXPORT_METHOD(requestPermissionsWithCategories:(NSArray *)json) {
-    [_commandsHandler requestPermissionsWithCategories:json];
+RCT_EXPORT_METHOD(requestPermissions) {
+    [_commandsHandler requestPermissions];
+}
+
+RCT_EXPORT_METHOD(setCategories:(NSArray *)categories) {
+    [_commandsHandler setCategories:categories];
 }
 
 RCT_EXPORT_METHOD(getInitialNotification:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {

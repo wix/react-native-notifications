@@ -1,13 +1,5 @@
 #import "RCTConvert+RNNotifications.h"
 
-
-@implementation RCTConvert (UIUserNotificationActivationMode)
-RCT_ENUM_CONVERTER(UIUserNotificationActivationMode, (@{
-                                                        @"foreground": @(UIUserNotificationActivationModeForeground),
-                                                        @"background": @(UIUserNotificationActivationModeBackground)
-                                                        }), UIUserNotificationActivationModeForeground, integerValue)
-@end
-
 @implementation RCTConvert (UNNotificationActionOptions)
 
 + (UNNotificationActionOptions)UNUserNotificationActionOptions:(id)json {
