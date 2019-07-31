@@ -62,7 +62,7 @@
     
     [[_mockedNotificationCenter expect] postNotificationName:RNNotificationReceivedForeground object:[OCMArg any] userInfo:[OCMArg checkWithBlock:^BOOL(id obj) {
         return ([[obj valueForKey:@"identifier"] isEqualToString:@"id"] &&
-                [[[obj valueForKey:@"payload"] valueForKey:@"extraKey"] isEqualToString:@"extraValue"]);
+                [[[obj valueForKey:@"data"] valueForKey:@"extraKey"] isEqualToString:@"extraValue"]);
     }]];
     [_uut didReceiveForegroundNotification:notification withCompletionHandler:testBlock];
     [_mockedNotificationCenter verify];
