@@ -18,7 +18,7 @@ jobs:
       - run:
           name: iOS unit tests
           command: 'npm run test-unit-ios'
-  android_unit:
+  android:
     macos:
       xcode: "10.2.1"
     steps:
@@ -34,7 +34,7 @@ jobs:
           command: 'npm run test-unit-android'
 workflows:
   version: 2	
-  test_all:
+  test:
     jobs:
       - ios	
-      - android_unit
+      - android
