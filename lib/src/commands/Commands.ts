@@ -22,4 +22,9 @@ export class Commands {
     const result = this.nativeCommandsSender.requestPermissions();
     return result;
   }
+
+  public abandonPermissions() {
+    const result = this.nativeCommandsSender.abandonPermissions();
+    return result;
+  }
 }

@@ -12,7 +12,7 @@ export class EventsRegistry {
     return this.nativeEventsReceiver.registerRemoteNotificationsRegistered(callback);
   }
 
-  public registerNotificationsReceived(callback: (event: NotificationReceived) => void): EmitterSubscription {
-    return this.nativeEventsReceiver.registerRemoteNotificationsReceived(callback);
+  public registerNotificationReceived(callback: (event: NotificationReceived) => void): EmitterSubscription {
+    return this.nativeEventsReceiver.registerRemoteNotificationReceived(callback);
   }
 }

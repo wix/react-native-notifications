@@ -13,7 +13,7 @@ export class NativeEventsReceiver {
     return this.emitter.addListener('remoteNotificationsRegistered', callback);
   }
 
-  public registerRemoteNotificationsReceived(callback: (event: NotificationReceived) => void): EmitterSubscription {
+  public registerRemoteNotificationReceived(callback: (event: NotificationReceived) => void): EmitterSubscription {
     return this.emitter.addListener('notificationReceivedForeground', callback);
   }
 }

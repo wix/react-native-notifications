@@ -1,8 +1,8 @@
 export interface Notification {
-  data: any;
+  data: object;
   alert: string
-  sound: string;
-  badge: number;
-  type: string;
-  thread: string;
+  sound?: string;
+  badge?: number;
+  type?: string;
+  thread?: string;
 }

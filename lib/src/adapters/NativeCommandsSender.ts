@@ -5,6 +5,7 @@ interface NativeCommandsModule {
   getInitialNotification(): Promise<any>;
   localNotification(notification: Notification, id: string): Promise<Notification>;
   requestPermissionsWithCategories(categories: any): Promise<any>;
+  abandonPermissions(): Promise<any>;
 }
 
 export class NativeCommandsSender {
@@ -23,5 +24,9 @@ export class NativeCommandsSender {
   
   requestPermissions() {
     return this.nativeCommandsModule.requestPermissionsWithCategories([]);
+  }
+
+  abandonPermissions() {
+    return this.nativeCommandsModule.abandonPermissions();
   }
 }
