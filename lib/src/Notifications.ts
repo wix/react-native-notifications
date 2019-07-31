@@ -3,18 +3,22 @@ import { NativeEventsReceiver } from './adapters/NativeEventsReceiver';
 import { Commands } from './commands/Commands';
 import { EventsRegistry } from './events/EventsRegistry';
 import { Notification, NotificationCategory } from './interfaces/Notification';
+import { UniqueIdProvider } from './adapters/UniqueIdProvider';
 
 export class NotificationsRoot {
   private readonly nativeEventsReceiver: NativeEventsReceiver;
   private readonly nativeCommandsSender: NativeCommandsSender;
   private readonly commands: Commands;
   private readonly eventsRegistry: EventsRegistry;
+  private readonly uniqueIdProvider: UniqueIdProvider;
 
   constructor() {
     this.nativeEventsReceiver = new NativeEventsReceiver();
     this.nativeCommandsSender = new NativeCommandsSender();
+    this.uniqueIdProvider = new UniqueIdProvider();
     this.commands = new Commands(
-      this.nativeCommandsSender
+      this.nativeCommandsSender,
+      this.uniqueIdProvider
     );
     this.eventsRegistry = new EventsRegistry(this.nativeEventsReceiver);
   }
@@ -36,8 +40,8 @@ export class NotificationsRoot {
   /**
    * Reset the app to a new layout
    */
-  public localNotification(notification: Notification) {
-    return this.commands.sendLocalNotification(notification);
+  public localNotification(notification: Notification, id: string) {
+    return this.commands.sendLocalNotification(notification, id);
   }
 
   /**
@@ -86,8 +90,8 @@ export class NotificationsRoot {
   /**
    * isRegisteredForRemoteNotifications
    */
-  public isRegisteredForRemoteNotifications(): Promise<any> {
-    this.commands.isRegisteredForRemoteNotifications();
+  public isRegisteredForRemoteNotifications(): Promise<boolean> {
+    return this.commands.isRegisteredForRemoteNotifications();
   }
 
   /**

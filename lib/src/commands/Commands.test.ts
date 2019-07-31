@@ -4,16 +4,20 @@ import { mock, verify, instance, deepEqual, when, anything, anyString } from 'ts
 import { Commands } from './Commands';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
 import { Notification, NotificationCategory, NotificationPermissions } from '../interfaces/Notification';
+import { UniqueIdProvider } from '../adapters/UniqueIdProvider';
 
 describe('Commands', () => {
   let uut: Commands;
   let mockedNativeCommandsSender: NativeCommandsSender;
-
+  let mockedUniqueIdProvider: UniqueIdProvider;
+  
   beforeEach(() => {
     mockedNativeCommandsSender = mock(NativeCommandsSender);
-
+    mockedUniqueIdProvider = mock(UniqueIdProvider);
+    when(mockedUniqueIdProvider.generate(anything())).thenCall((prefix) => `${prefix}+UNIQUE_ID`);
     uut = new Commands(
-      instance(mockedNativeCommandsSender)
+      instance(mockedNativeCommandsSender),
+      instance(mockedUniqueIdProvider)
     );
   });
 
@@ -24,11 +28,12 @@ describe('Commands', () => {
     });
 
     it('returns a promise with the initial notification', async () => {
+      const expectedNotification: Notification = {data: {}, alert: 'alert'};
       when(mockedNativeCommandsSender.getInitialNotification()).thenResolve(
-        {data: {}}
+        expectedNotification
       );
       const result = await uut.getInitialNotification();
-      expect(result).toEqual({data: {}});
+      expect(result).toEqual(expectedNotification);
     });
   });
 
@@ -72,7 +77,20 @@ describe('Commands', () => {
     it('sends to native', () => {
       const notification: Notification = {data: {}, alert: 'alert'};
       uut.sendLocalNotification(notification);
-      verify(mockedNativeCommandsSender.sendLocalNotification(notification, 'id')).called();
+      verify(mockedNativeCommandsSender.sendLocalNotification(notification, anyString())).called();
+    });
+
+    it('generates unique identifier', () => {
+      const notification: Notification = {data: {}, alert: 'alert'};
+      uut.sendLocalNotification(notification);
+      verify(mockedNativeCommandsSender.sendLocalNotification(notification, `Notification_+UNIQUE_ID`)).called();
+    });
+
+    it('use passed notification id', () => {
+      const notification: Notification = {data: {}, alert: 'alert'};
+      const passedId: string = "passedId";
+      uut.sendLocalNotification(notification, passedId);
+      verify(mockedNativeCommandsSender.sendLocalNotification(notification, passedId)).called();
     });
   });
   

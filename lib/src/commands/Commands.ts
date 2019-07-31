@@ -1,14 +1,16 @@
 import * as _ from 'lodash';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
 import { Notification, NotificationCategory, NotificationPermissions } from '../interfaces/Notification';
+import { UniqueIdProvider } from '../adapters/UniqueIdProvider';
 
 export class Commands {
   constructor(
-    private readonly nativeCommandsSender: NativeCommandsSender
+    private readonly nativeCommandsSender: NativeCommandsSender,
+    private readonly uniqueIdProvider: UniqueIdProvider
   ) {}
 
-  public sendLocalNotification(notification: Notification) {
-    const notificationId = 'id';
+  public sendLocalNotification(notification: Notification, id?: string) {
+    const notificationId = id ? id : this.uniqueIdProvider.generate('Notification_');
     const result = this.nativeCommandsSender.sendLocalNotification(notification, notificationId);
     return result;
   }
