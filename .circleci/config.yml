@@ -1,7 +1,7 @@
 
 version: 2
 jobs:
-  build:  
+  ios_e2e:
     macos:
       xcode: "10.2.1"
     steps:
@@ -10,17 +10,40 @@ jobs:
           name: Install Dependencies
           command: scripts/install.ios.sh
       - run:
+          name: npm install
+          command: npm install
+      - run:
+          name: Detox iOS e2e tests
+          command: 'npm run test-e2e-ios-release'
+  android_unit:
+    macos:
+      xcode: "10.2.1"
+    steps:
+      - checkout
+      - run:
           name: Install Android
           command: scripts/install.android.sh
       - run:
           name: npm install
           command: npm install
       - run:
-          name: iOS unit tests
-          command: 'npm run test-unit-ios'
-      - run:
           name: Android unit tests
           command: 'npm run test-unit-android'
+  ios_unit:
+    macos:
+      xcode: "10.2.1"
+    steps:
+      - checkout
       - run:
-          name: Detox iOS e2e tests
-          command: 'npm run test-e2e-ios-release'
+          name: npm install
+          command: npm install
+      - run:
+          name: iOS unit tests
+          command: 'npm run test-unit-ios'
+workflows:
+  version: 2	
+  test_all:
+    jobs:
+      - ios_e2e	
+      - android_unit
+      - ios_unit
