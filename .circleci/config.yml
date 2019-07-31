@@ -36,6 +36,5 @@ workflows:
   version: 2	
   test_all:
     jobs:
-      - ios_e2e	
+      - ios	
       - android_unit
-      - ios_unit
