@@ -4,6 +4,7 @@ import { Commands } from './commands/Commands';
 import { EventsRegistry } from './events/EventsRegistry';
 import { Notification, NotificationCategory } from './interfaces/Notification';
 import { UniqueIdProvider } from './adapters/UniqueIdProvider';
+import { CompletionCallbackWrapper } from './adapters/CompletionCallbackWrapper';
 
 export class NotificationsRoot {
   private readonly nativeEventsReceiver: NativeEventsReceiver;
@@ -11,16 +12,18 @@ export class NotificationsRoot {
   private readonly commands: Commands;
   private readonly eventsRegistry: EventsRegistry;
   private readonly uniqueIdProvider: UniqueIdProvider;
+  private readonly completionCallbackWrapper: CompletionCallbackWrapper;
 
   constructor() {
     this.nativeEventsReceiver = new NativeEventsReceiver();
     this.nativeCommandsSender = new NativeCommandsSender();
+    this.completionCallbackWrapper = new CompletionCallbackWrapper(this.nativeCommandsSender);
     this.uniqueIdProvider = new UniqueIdProvider();
     this.commands = new Commands(
       this.nativeCommandsSender,
       this.uniqueIdProvider
     );
-    this.eventsRegistry = new EventsRegistry(this.nativeEventsReceiver);
+    this.eventsRegistry = new EventsRegistry(this.nativeEventsReceiver, this.completionCallbackWrapper);
   }
 
   /**
@@ -45,7 +48,7 @@ export class NotificationsRoot {
   }
 
   /**
-   * 
+   * getInitialNotification
    */
   public getInitialNotification(): Promise<Notification> {
     return this.commands.getInitialNotification();

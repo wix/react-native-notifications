@@ -1,5 +1,5 @@
 import { NativeModules } from 'react-native';
-import { Notification, NotificationCategory, NotificationPermissions } from '../interfaces/Notification';
+import { Notification, NotificationCategory, NotificationPermissions, NotificationCompletion } from '../interfaces/Notification';
 
 interface NativeCommandsModule {
   getInitialNotification(): Promise<Notification>;
@@ -16,6 +16,8 @@ interface NativeCommandsModule {
   removeDeliveredNotifications(identifiers: Array<string>): void;
   removeAllDeliveredNotifications(): void;
   setCategories(categories: [NotificationCategory?]): void;
+  finishPresentingNotification(notificationId: string, callback: NotificationCompletion): void;
+  finishHandlingAction(notificationId: string): void;
 }
 
 export class NativeCommandsSender {
@@ -28,7 +30,7 @@ export class NativeCommandsSender {
     return this.nativeCommandsModule.localNotification(notification, id);
   }
 
-  getInitialNotification() {
+  getInitialNotification(): Promise<Notification> {
     return this.nativeCommandsModule.getInitialNotification();
   }
   
@@ -78,5 +80,13 @@ export class NativeCommandsSender {
 
   removeDeliveredNotifications(identifiers: Array<string>) {
     return this.nativeCommandsModule.removeDeliveredNotifications(identifiers);
+  }
+
+  finishPresentingNotification(notificationId: string, notificationCompletion: NotificationCompletion): void {
+    this.nativeCommandsModule.finishPresentingNotification(notificationId, notificationCompletion);
+  }
+
+  finishHandlingAction(notificationId: string): void {
+    this.nativeCommandsModule.finishHandlingAction(notificationId);
   }
 }

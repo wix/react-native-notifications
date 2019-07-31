@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { mock, verify, instance, deepEqual, when, anything, anyString } from 'ts-mockito';
+import { mock, verify, instance, when, anything, anyString } from 'ts-mockito';
 
 import { Commands } from './Commands';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
@@ -28,7 +28,7 @@ describe('Commands', () => {
     });
 
     it('returns a promise with the initial notification', async () => {
-      const expectedNotification: Notification = {data: {}, alert: 'alert'};
+      const expectedNotification: Notification = {identifier: 'id', data: {}, alert: 'alert'};
       when(mockedNativeCommandsSender.getInitialNotification()).thenResolve(
         expectedNotification
       );
@@ -75,19 +75,19 @@ describe('Commands', () => {
 
   describe('sendLocalNotification', () => {
     it('sends to native', () => {
-      const notification: Notification = {data: {}, alert: 'alert'};
+      const notification: Notification = {identifier: 'id', alert: 'alert', data: {}};
       uut.sendLocalNotification(notification);
       verify(mockedNativeCommandsSender.sendLocalNotification(notification, anyString())).called();
     });
 
     it('generates unique identifier', () => {
-      const notification: Notification = {data: {}, alert: 'alert'};
+      const notification: Notification = {identifier: 'id', data: {}, alert: 'alert'};
       uut.sendLocalNotification(notification);
       verify(mockedNativeCommandsSender.sendLocalNotification(notification, `Notification_+UNIQUE_ID`)).called();
     });
 
     it('use passed notification id', () => {
-      const notification: Notification = {data: {}, alert: 'alert'};
+      const notification: Notification = {identifier: 'id', data: {}, alert: 'alert'};
       const passedId: string = "passedId";
       uut.sendLocalNotification(notification, passedId);
       verify(mockedNativeCommandsSender.sendLocalNotification(notification, passedId)).called();

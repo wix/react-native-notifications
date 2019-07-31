@@ -15,7 +15,7 @@ export class Commands {
     return result;
   }
 
-  public getInitialNotification() {
+  public getInitialNotification(): Promise<Notification> {
     const result = this.nativeCommandsSender.getInitialNotification();
     return result;
   }

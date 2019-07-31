@@ -1,4 +1,5 @@
 export interface Notification {
+  identifier: string;
   data: object;
   alert: string
   sound?: string;
@@ -30,4 +31,15 @@ export interface NotificationAction {
   title: string;
   authenticationRequired: boolean;
   textInput: NotificationTextInput
+}
+
+export interface NotificationActionResponse {
+  identifier: string;
+  text: string;
+}
+
+export interface NotificationCompletion {
+  badge?: boolean;
+  alert?: boolean;
+  sound?: boolean;
 }

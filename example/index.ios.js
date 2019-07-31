@@ -6,90 +6,92 @@ import {
   Button
 } from 'react-native';
 import React, {Component} from 'react';
-
 import { Notifications } from '../lib/dist/index';
 
-// let upvoteAction = new NotificationAction({
-//   activationMode: 'background',
-//   title: String.fromCodePoint(0x1F44D),
-//   identifier: 'UPVOTE_ACTION'
-// });
-
-// let replyAction = new NotificationAction({
-//   activationMode: 'background',
-//   title: 'Reply',
-//   authenticationRequired: true,
-//   textInput: {
-//     buttonTitle: 'Reply now',
-//     placeholder: 'Insert message'
-//   },
-//   identifier: 'REPLY_ACTION'
-// });
-
 class NotificationsExampleApp extends Component {
-
   constructor() {
     super();
     this.state = {
       notifications: []
     };
 
-    Notifications.events().registerNotificationsReceived((notification) => {
-      alert(JSON.stringify(notification));
-    })
-    // NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
-    // NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegisteredFailed.bind(this));
+    this.registerNotificationEvents();
+  }
 
-    // NotificationsIOS.addEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
-    // NotificationsIOS.registerPushKit();
+  registerNotificationEvents() {
+    Notifications.events().registerNotificationReceived((notification, completion) => {
+      this.setState({
+        notifications: [...this.state.notifications, notification.data.link]
+      });
 
-    // NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
-    // NotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
-    // NotificationsIOS.addEventListener('pushKitNotificationReceived', this.onPushKitNotificationReceived.bind(this));
+      completion({alert: true, sound: false, badge: false});
+    });
+
+    Notifications.events().registerRemoteNotificationOpened((response, completion) => {
+      this.setState({
+        notifications: [...this.state.notifications, `Notification Clicked: ${response.notification.data.link}`]
+      });
+  
+      completion();
+    });
+  }
+
+  renderNotification(notification) {
+    return <Text>{`${notification}`}</Text>;
+  }
+
+  requestPermissions() {
+    Notifications.requestPermissions();
+  }
+
+  setCategories() {
+    const upvoteAction = {
+      activationMode: 'background',
+      title: String.fromCodePoint(0x1F44D),
+      identifier: 'UPVOTE_ACTION'
+    };
+    
+    const replyAction = {
+      activationMode: 'background',
+      title: 'Reply',
+      authenticationRequired: true,
+      textInput: {
+        buttonTitle: 'Reply now',
+        placeholder: 'Insert message'
+      },
+      identifier: 'REPLY_ACTION'
+    };
+    
+    const category = {
+      identifier: 'SOME_CATEGORY',
+      actions: [upvoteAction, replyAction]
+    };
+
+    Notifications.setCategories([category]);
+  }
+
+  sendLocalNotification() {
+    Notifications.localNotification({
+      body: 'Local notificiation!',
+      title: 'Local Notification Title',
+      sound: 'chime.aiff',
+      category: 'SOME_CATEGORY',
+      userInfo: { link: 'localNotificationLink' },
+    });
+  }
+
+  removeAllDeliveredNotifications() {
+    Notifications.removeAllDeliveredNotifications();
   }
 
   async componentDidMount() {
     const initialNotification = await Notifications.getInitialNotification();
     if (initialNotification) {
-      this.setState({notifications: [initialNotification.getData().link, ...this.state.notifications]});
+      this.setState({notifications: [initialNotification.data.link, ...this.state.notifications]});
     }
   }
 
-  onPushRegistered(deviceToken) {
-    console.log('Device Token Received: ' + deviceToken);
-  }
-
-  onPushRegisteredFailed(error) {
-    console.log('Remote notifiction registration failed: ' + error);
-  }
-
-  onPushKitRegistered(deviceToken) {
-    console.log('PushKit Token Received: ' + deviceToken);
-  }
-
-  onPushKitNotificationReceived(notification) {
-    console.log('PushKit notification Received: ' + JSON.stringify(notification));
-  }
-
-  onNotificationReceivedForeground(notification, completion) {
-    console.log('Notification Received Foreground with title: ' + JSON.stringify(notification));
-    this.setState({
-      notifications: [...this.state.notifications, notification.getData().link]
-    });
-
-    completion({alert: notification.getData().showAlert, sound: false, badge: false});
-  }
-
-  onNotificationOpened(notification, completion, action) {
-    console.log('Notification Opened: ' + JSON.stringify(notification) + JSON.stringify(action));
-    this.setState({
-      notifications: [...this.state.notifications, `Notification Clicked: ${notification.getData().link}`]
-    });
-    completion();
-  }
-
-  renderNotification(notification) {
-    return <Text>{`${notification}`}</Text>;
+  componentWillUnmount() {
   }
 
   render() {
@@ -108,35 +110,6 @@ class NotificationsExampleApp extends Component {
         {notifications}
       </View>
     );
-  }
-
-  requestPermissions() {
-    // let cat = new NotificationCategory({
-    //   identifier: 'SOME_CATEGORY',
-    //   actions: [upvoteAction, replyAction]
-    // });
-    Notifications.requestPermissions(/*[cat]*/);
-  }
-
-  sendLocalNotification() {
-    Notifications.localNotification({
-      body: 'Local notificiation!',
-      title: 'Local Notification Title',
-      sound: 'chime.aiff',
-      category: 'SOME_CATEGORY',
-      userInfo: { link: 'localNotificationLink' },
-    });
-  }
-
-  removeAllDeliveredNotifications() {
-    // NotificationsIOS.removeAllDeliveredNotifications();
-  }
-
-  componentWillUnmount() {
-    // NotificationsIOS.removeEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
-    // NotificationsIOS.removeEventListener('notificationOpened', this.onNotificationOpened.bind(this));
-    // NotificationsIOS.removeEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
-    // NotificationsIOS.removeEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
   }
 }
 
