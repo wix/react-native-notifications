@@ -27,6 +27,7 @@
     "pretest": "./node_modules/.bin/eslint *.js test",
     "test": "node scripts/test",
     "start": "node ./scripts/start",
+    "pretest-e2e-ios": "npm run build",
     "test-e2e-ios": "node ./scripts/test-e2e --ios",
     "test-e2e-ios-release": "node ./scripts/test-e2e --ios --release",
     "test-unit-ios": "node ./scripts/test-unit --ios",
