@@ -6,7 +6,7 @@ import {
   Button
 } from 'react-native';
 import React, {Component} from 'react';
-import { Notifications } from '../lib/dist/index';
+import { Notifications } from 'react-native-notifications';
 
 class NotificationsExampleApp extends Component {
   constructor() {
