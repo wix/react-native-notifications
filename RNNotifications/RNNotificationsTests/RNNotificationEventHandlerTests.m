@@ -68,6 +68,28 @@
     [_mockedNotificationCenter verify];
 }
 
+- (void)testDidReceiveNotificationResponse_ShouldEmitEvent {
+    UNNotification* notification = [self createNotificationWithIdentifier:@"id" andUserInfo:@{@"extraKey": @"extraValue"}];
+    UNNotificationResponse* response = [self createNotificationResponseWithIdentifier:@"id" andNotification:notification];
+    void (^testBlock)(void) = ^void() {};
+    
+    [[_mockedNotificationCenter expect] postNotificationName:RNNotificationOpened object:[OCMArg any] userInfo:[OCMArg checkWithBlock:^BOOL(id obj) {
+        return ([[obj valueForKey:@"identifier"] isEqualToString:@"id"] &&
+                [[[obj valueForKey:@"payload"] valueForKey:@"extraKey"] isEqualToString:@"extraValue"]);
+    }]];
+    [_uut didReceiveNotificationResponse:response completionHandler:testBlock];
+    [_mockedNotificationCenter verify];
+}
+
+- (void)testDidReceiveNotificationResponse_ShouldSaveCompletionBlockToStore {
+    UNNotification* notification = [self createNotificationWithIdentifier:@"id" andUserInfo:@{@"extraKey": @"extraValue"}];
+    UNNotificationResponse* response = [self createNotificationResponseWithIdentifier:@"id" andNotification:notification];
+    void (^testBlock)(void) = ^void() {};
+    
+    [_uut didReceiveNotificationResponse:response completionHandler:testBlock];
+    XCTAssertEqual([_store getActionCompletionHandler:@"id"], testBlock);
+}
+
 - (UNNotification *)createNotificationWithIdentifier:(NSString *)identifier andUserInfo:(NSDictionary *)userInfo {
     UNNotification* notification = [OCMockObject niceMockForClass:[UNNotification class]];
     UNNotificationContent* content = [OCMockObject niceMockForClass:[UNNotificationContent class]];
@@ -77,6 +99,14 @@
     OCMStub(request.content).andReturn(content);
     
     return notification;
+}
+
+- (UNNotificationResponse *)createNotificationResponseWithIdentifier:(NSString *)identifier andNotification:(UNNotification *)notification {
+    UNNotificationResponse* notificationResponse = [OCMockObject niceMockForClass:[UNNotificationResponse class]];
+    OCMStub(notificationResponse.actionIdentifier).andReturn(identifier);
+    OCMStub(notificationResponse.notification).andReturn(notification);
+    
+    return notificationResponse;
 }
 
 

@@ -192,17 +192,9 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		50002A7222E8874F008F6742 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		504D54BC22E4B83E0088F2E4 /* Integration */ = {
 			isa = PBXGroup;
 			children = (
-				50002A7222E8874F008F6742 /* Utils */,
 				504D54BD22E4B8660088F2E4 /* RNBridgeModuleIntegrationTest.m */,
 				50002A4C22E88266008F6742 /* RNCommandsHandlerIntegrationTest.m */,
 			);
