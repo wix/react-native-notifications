@@ -16,12 +16,13 @@ class NotificationsExampleApp extends Component {
     };
 
     this.registerNotificationEvents();
+    this.setCategories();
   }
 
   registerNotificationEvents() {
     Notifications.events().registerNotificationReceived((notification, completion) => {
       this.setState({
-        notifications: [...this.state.notifications, notification.data.link]
+        notifications: [...this.state.notifications, notification.link]
       });
 
       completion({alert: true, sound: false, badge: false});
@@ -29,7 +30,7 @@ class NotificationsExampleApp extends Component {
 
     Notifications.events().registerRemoteNotificationOpened((response, completion) => {
       this.setState({
-        notifications: [...this.state.notifications, `Notification Clicked: ${response.notification.data.link}`]
+        notifications: [...this.state.notifications, `Notification Clicked: ${response.notification.link}`]
       });
   
       completion();
@@ -87,7 +88,7 @@ class NotificationsExampleApp extends Component {
   async componentDidMount() {
     const initialNotification = await Notifications.getInitialNotification();
     if (initialNotification) {
-      this.setState({notifications: [initialNotification.data.link, ...this.state.notifications]});
+      this.setState({notifications: [initialNotification.link, ...this.state.notifications]});
     }
   }
 

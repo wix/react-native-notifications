@@ -109,7 +109,8 @@
     formattedNotification[@"body"] = RCTNullIfNil(content.body);
     formattedNotification[@"category"] = RCTNullIfNil(content.categoryIdentifier);
     formattedNotification[@"thread"] = RCTNullIfNil(content.threadIdentifier);
-    formattedNotification[@"data"] = [NSDictionary dictionaryWithDictionary:RCTNullIfNil(RCTJSONClean(content.userInfo))];
+    
+    [formattedNotification addEntriesFromDictionary:[NSDictionary dictionaryWithDictionary:RCTNullIfNil(RCTJSONClean(content.userInfo))]];
     
     return formattedNotification;
 }
