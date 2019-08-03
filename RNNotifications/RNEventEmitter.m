@@ -8,7 +8,7 @@ RCT_EXPORT_MODULE();
     return @[RNRegistered,
              RNRegistrationFailed,
              RNPushKitRegistered,
-             RNNotificationReceivedForeground,
+             RNNotificationReceived,
              RNNotificationOpened,
              RNPushKitNotificationReceived];
 }

@@ -34,17 +34,17 @@ export class NotificationsRoot {
   }
 
   /**
-   * registerPushKit
+   * registerPushKit - iOS only
    */
   public registerPushKit() {
     return this.commands.registerPushKit();
   }
   
   /**
-   * Reset the app to a new layout
+   * postLocalNotification
    */
-  public localNotification(notification: Notification, id: string) {
-    return this.commands.sendLocalNotification(notification, id);
+  public postLocalNotification(notification: Notification, id: number) {
+    return this.commands.postLocalNotification(notification, id);
   }
 
   /**
@@ -124,5 +124,12 @@ export class NotificationsRoot {
    */
   public events(): EventsRegistry {
     return this.eventsRegistry;
+  }
+
+  /**
+   * getDeliveredNotifications
+   */
+  public getDeliveredNotifications(): Array<Notification> {
+    return this.commands.getDeliveredNotifications();
   }
 }

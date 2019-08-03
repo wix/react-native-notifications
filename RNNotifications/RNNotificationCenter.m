@@ -30,7 +30,7 @@
     [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
 }
 
-- (void)sendLocalNotification:(NSDictionary *)notification withId:(NSString *)notificationId {
+- (void)postLocalNotification:(NSDictionary *)notification withId:(NSNumber *)notificationId {
     UNNotificationRequest* localNotification = [RCTConvert UNNotificationRequest:notification withId:notificationId];
     [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:localNotification withCompletionHandler:nil];
 }

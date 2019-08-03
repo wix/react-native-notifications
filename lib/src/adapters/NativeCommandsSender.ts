@@ -3,7 +3,7 @@ import { Notification, NotificationCategory, NotificationPermissions, Notificati
 
 interface NativeCommandsModule {
   getInitialNotification(): Promise<Notification>;
-  localNotification(notification: Notification, id: string): void;
+  postLocalNotification(notification: Notification, id: number): void;
   requestPermissions(): void;
   abandonPermissions(): void;
   registerPushKit(): void;
@@ -15,6 +15,7 @@ interface NativeCommandsModule {
   checkPermissions(): Promise<NotificationPermissions>;
   removeDeliveredNotifications(identifiers: Array<string>): void;
   removeAllDeliveredNotifications(): void;
+  getDeliveredNotifications(): Array<Notification>;
   setCategories(categories: [NotificationCategory?]): void;
   finishPresentingNotification(notificationId: string, callback: NotificationCompletion): void;
   finishHandlingAction(notificationId: string): void;
@@ -26,8 +27,8 @@ export class NativeCommandsSender {
     this.nativeCommandsModule = NativeModules.RNBridgeModule;
   }
 
-  sendLocalNotification(notification: Notification, id: string) {
-    return this.nativeCommandsModule.localNotification(notification, id);
+  postLocalNotification(notification: Notification, id: number) {
+    return this.nativeCommandsModule.postLocalNotification(notification, id);
   }
 
   getInitialNotification(): Promise<Notification> {
@@ -80,6 +81,10 @@ export class NativeCommandsSender {
 
   removeDeliveredNotifications(identifiers: Array<string>) {
     return this.nativeCommandsModule.removeDeliveredNotifications(identifiers);
+  }
+
+  public getDeliveredNotifications(): Array<Notification> {
+    return this.nativeCommandsModule.getDeliveredNotifications();
   }
 
   finishPresentingNotification(notificationId: string, notificationCompletion: NotificationCompletion): void {

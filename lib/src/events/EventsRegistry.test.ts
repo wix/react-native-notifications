@@ -4,6 +4,7 @@ import { NotificationCompletion, Notification } from '../interfaces/Notification
 import { CompletionCallbackWrapper } from '../adapters/CompletionCallbackWrapper';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender.mock';
 import { NotificationResponse } from '../interfaces/NotificationEvents';
+import { Platform } from 'react-native';
 
 describe('EventsRegistry', () => {
   let uut: EventsRegistry;
@@ -47,7 +48,7 @@ describe('EventsRegistry', () => {
       call(expectedNotification);
     });
 
-    it('calling completion should invoke finishPresentingNotification', () => {
+    it('should invoke finishPresentingNotification', () => {
       const notification: Notification  = {identifier: 'notificationId', data: {}, alert: 'alert'}
       const response: NotificationCompletion  = {alert: true}
       
@@ -58,6 +59,20 @@ describe('EventsRegistry', () => {
       });
       const call = mockNativeEventsReceiver.registerRemoteNotificationReceived.mock.calls[0][0];
       call(notification);
+    });
+
+    it('should not invoke finishPresentingNotification on Android', () => {
+      Platform.OS = 'android';
+      const expectedNotification: Notification  = {identifier: 'notificationId', data: {}, alert: 'alert'}
+      const response: NotificationCompletion  = {alert: true}
+      
+      uut.registerNotificationReceived((notification, completion) => {
+        completion(response);
+        expect(expectedNotification).toEqual(notification);
+        expect(mockNativeCommandsSender.finishPresentingNotification).toBeCalledTimes(0);
+      });
+      const call = mockNativeEventsReceiver.registerRemoteNotificationReceived.mock.calls[0][0];
+      call(expectedNotification);
     });
   });
 
@@ -96,17 +111,30 @@ describe('EventsRegistry', () => {
     });
 
     it('calling completion should invoke finishHandlingAction', () => {
-      const notification: Notification  = {identifier: 'notificationId', data: {}, alert: 'alert'}
-      const expectedResponse: NotificationResponse = {identifier: 'responseId', notification};
+      const expectedNotification: Notification  = {identifier: 'notificationId', data: {}, alert: 'alert'}
       
-      uut.registerRemoteNotificationOpened((response, completion) => {
+      uut.registerRemoteNotificationOpened((notification, completion) => {
         completion();
         
-        expect(response).toEqual(expectedResponse);
+        expect(expectedNotification).toEqual(notification);
         expect(mockNativeCommandsSender.finishHandlingAction).toBeCalledWith(notification.identifier);
       });
       const call = mockNativeEventsReceiver.registerRemoteNotificationOpened.mock.calls[0][0];
-      call(expectedResponse);
+      call(expectedNotification);
+    });
+
+    it('should not invoke finishHandlingAction on Android', () => {
+      Platform.OS = 'android';
+      const expectedNotification: Notification  = {identifier: 'notificationId', data: {}, alert: 'alert'}
+      
+      uut.registerRemoteNotificationOpened((notification, completion) => {
+        completion();
+        
+        expect(expectedNotification).toEqual(notification);
+        expect(mockNativeCommandsSender.finishHandlingAction).toBeCalledTimes(0);
+      });
+      const call = mockNativeEventsReceiver.registerRemoteNotificationOpened.mock.calls[0][0];
+      call(expectedNotification);
     });
   });
 

@@ -10,7 +10,7 @@
 @end
 
 @interface RCTConvert (UNNotificationRequest)
-+ (UNNotificationRequest *)UNNotificationRequest:(id)json withId:(NSString*)notificationId;
++ (UNNotificationRequest *)UNNotificationRequest:(id)json withId:(NSNumber*)notificationId;
 @end
 
 @interface RCTConvert (UNNotification)

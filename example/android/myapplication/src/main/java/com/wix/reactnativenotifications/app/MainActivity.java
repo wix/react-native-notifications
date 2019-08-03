@@ -35,6 +35,6 @@ public class MainActivity extends ReactActivity {
     }
 
     private void startReactApplication() {
-        mReactRootView.startReactApplication(getReactInstanceManager(), "WixRNNotifications", null);
+        mReactRootView.startReactApplication(getReactInstanceManager(), "NotificationsExampleApp", null);
     }
 }

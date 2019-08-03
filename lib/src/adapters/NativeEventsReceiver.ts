@@ -1,6 +1,6 @@
 import { NativeModules, NativeEventEmitter, EventEmitter, EmitterSubscription } from 'react-native';
 import {
-  Registered, RegistrationError, RegisteredPushKit, NotificationResponse
+  Registered, RegistrationError, RegisteredPushKit
 } from '../interfaces/NotificationEvents';
 import { Notification } from '../interfaces/Notification';
 
@@ -19,14 +19,14 @@ export class NativeEventsReceiver {
   }
 
   public registerRemoteNotificationReceived(callback: (notification: Notification) => void): EmitterSubscription {
-    return this.emitter.addListener('notificationReceivedForeground', callback);
+    return this.emitter.addListener('notificationReceived', callback);
   }
 
   public registerPushKitNotificationReceived(callback: (event: object) => void): EmitterSubscription {
-    return this.emitter.addListener('notificationReceivedForeground', callback);
+    return this.emitter.addListener('pushKitNotificationReceived', callback);
   }
 
-  public registerRemoteNotificationOpened(callback: (response: NotificationResponse, completion: () => void) => void): EmitterSubscription {
+  public registerRemoteNotificationOpened(callback: (response: Notification, completion: () => void) => void): EmitterSubscription {
     return this.emitter.addListener('notificationOpened', callback);
   }
 

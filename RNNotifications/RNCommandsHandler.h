@@ -23,7 +23,7 @@
 
 - (void)setBadgesCount:(int)count;
 
-- (void)sendLocalNotification:(NSDictionary *)notification withId:(NSString *)notificationId;
+- (void)postLocalNotification:(NSDictionary *)notification withId:(NSNumber *)notificationId;
 
 - (void)cancelLocalNotification:(NSString *)notificationId;
 

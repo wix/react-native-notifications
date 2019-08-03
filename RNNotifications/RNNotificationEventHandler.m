@@ -25,12 +25,12 @@
 
 - (void)didReceiveForegroundNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
     [_store setPresentationCompletionHandler:completionHandler withCompletionKey:notification.request.identifier];
-    [RNEventEmitter sendEvent:RNNotificationReceivedForeground body:[RNNotificationParser parseNotification:notification]];
+    [RNEventEmitter sendEvent:RNNotificationReceived body:[RNNotificationParser parseNotification:notification]];
 }
 
 - (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(void))completionHandler {
     [_store setActionCompletionHandler:completionHandler withCompletionKey:response.notification.request.identifier];
-    [RNEventEmitter sendEvent:RNNotificationOpened body:[RNNotificationParser parseNotificationResponse:response]];
+    [RNEventEmitter sendEvent:RNNotificationOpened body:[RNNotificationParser parseNotification:response.notification]];
 }
 
 @end

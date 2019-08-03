@@ -14,6 +14,7 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.wix.reactnativenotifications.core.AppLifecycleFacadeHolder;
 import com.wix.reactnativenotifications.core.InitialNotificationHolder;
@@ -41,7 +42,7 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
 
     @Override
     public String getName() {
-        return "WixRNNotifications";
+        return "RNBridgeModule";
     }
 
     @Override
@@ -104,6 +105,11 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     public void cancelLocalNotification(int notificationId) {
         IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
         notificationsDrawer.onNotificationClearRequest(notificationId);
+    }
+
+    @ReactMethod
+    public void setCategories(ReadableArray categories) {
+
     }
 
     @ReactMethod

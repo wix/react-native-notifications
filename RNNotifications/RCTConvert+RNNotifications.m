@@ -55,7 +55,7 @@
 
 @implementation RCTConvert (UNNotificationRequest)
 
-+ (UNNotificationRequest *)UNNotificationRequest:(id)json withId:(NSString*)notificationId
++ (UNNotificationRequest *)UNNotificationRequest:(id)json withId:(NSNumber*)notificationId
 {
     NSDictionary<NSString *, id> *details = [self NSDictionary:json];
     
@@ -68,7 +68,7 @@
     if ([RCTConvert BOOL:details[@"silent"]]) {
         content.sound = nil;
     }
-    content.userInfo = [RCTConvert NSDictionary:details[@"userInfo"]] ?: @{};
+    content.userInfo = [RCTConvert NSDictionary:details] ?: @{};
     content.categoryIdentifier = [RCTConvert NSString:details[@"category"]];
     
     NSDate *triggerDate = [RCTConvert NSDate:details[@"fireDate"]];
@@ -84,7 +84,7 @@
                                                                            repeats:NO];
     }
     
-    return [UNNotificationRequest requestWithIdentifier:notificationId
+    return [UNNotificationRequest requestWithIdentifier:[NSString stringWithFormat:@"%@", notificationId]
                                                 content:content trigger:trigger];
 }
 

@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { mock, verify, instance, when, anything, anyString } from 'ts-mockito';
+import { mock, verify, instance, when, anyNumber } from 'ts-mockito';
 
 import { Commands } from './Commands';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
@@ -14,7 +14,7 @@ describe('Commands', () => {
   beforeEach(() => {
     mockedNativeCommandsSender = mock(NativeCommandsSender);
     mockedUniqueIdProvider = mock(UniqueIdProvider);
-    when(mockedUniqueIdProvider.generate(anything())).thenCall((prefix) => `${prefix}+UNIQUE_ID`);
+    when(mockedUniqueIdProvider.generate()).thenCall(() => 12);
     uut = new Commands(
       instance(mockedNativeCommandsSender),
       instance(mockedUniqueIdProvider)
@@ -73,24 +73,24 @@ describe('Commands', () => {
     });
   });
 
-  describe('sendLocalNotification', () => {
+  describe('postLocalNotification', () => {
     it('sends to native', () => {
       const notification: Notification = {identifier: 'id', alert: 'alert', data: {}};
-      uut.sendLocalNotification(notification);
-      verify(mockedNativeCommandsSender.sendLocalNotification(notification, anyString())).called();
+      uut.postLocalNotification(notification);
+      verify(mockedNativeCommandsSender.postLocalNotification(notification, anyNumber())).called();
     });
 
     it('generates unique identifier', () => {
       const notification: Notification = {identifier: 'id', data: {}, alert: 'alert'};
-      uut.sendLocalNotification(notification);
-      verify(mockedNativeCommandsSender.sendLocalNotification(notification, `Notification_+UNIQUE_ID`)).called();
+      uut.postLocalNotification(notification);
+      verify(mockedNativeCommandsSender.postLocalNotification(notification, anyNumber())).called();
     });
 
     it('use passed notification id', () => {
       const notification: Notification = {identifier: 'id', data: {}, alert: 'alert'};
-      const passedId: string = "passedId";
-      uut.sendLocalNotification(notification, passedId);
-      verify(mockedNativeCommandsSender.sendLocalNotification(notification, passedId)).called();
+      const passedId: number = 2;
+      uut.postLocalNotification(notification, passedId);
+      verify(mockedNativeCommandsSender.postLocalNotification(notification, passedId)).called();
     });
   });
   
@@ -174,6 +174,13 @@ describe('Commands', () => {
       const identifiers: Array<string> = ["id1", "id2"];
       uut.removeDeliveredNotifications(identifiers);
       verify(mockedNativeCommandsSender.removeDeliveredNotifications(identifiers)).called();
+    });
+  });
+
+  describe('getDeliveredNotifications', () => {
+    it('sends to native', () => {
+      uut.getDeliveredNotifications();
+      verify(mockedNativeCommandsSender.getDeliveredNotifications()).called();
     });
   });
 });

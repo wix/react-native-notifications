@@ -3,7 +3,7 @@ apply plugin: "com.android.application"
 project.ext.react = [
         root     : "../../../",
         entryFile: "index.js",
-        bundleAssetName: "index.android.bundle",
+        bundleAssetName: "index.bundle",
         bundleInAlpha: true,
         bundleInBeta: true
 ]

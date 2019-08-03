@@ -50,8 +50,8 @@
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
 }
 
-- (void)sendLocalNotification:(NSDictionary *)notification withId:(NSString *)notificationId {
-    [_notificationCenter sendLocalNotification:notification withId:notificationId];
+- (void)postLocalNotification:(NSDictionary *)notification withId:(NSNumber *)notificationId {
+    [_notificationCenter postLocalNotification:notification withId:notificationId];
 }
 
 - (void)cancelLocalNotification:(NSString *)notificationId {

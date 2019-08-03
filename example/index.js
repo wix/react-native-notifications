@@ -28,9 +28,9 @@ class NotificationsExampleApp extends Component {
       completion({alert: true, sound: false, badge: false});
     });
 
-    Notifications.events().registerRemoteNotificationOpened((response, completion) => {
+    Notifications.events().registerRemoteNotificationOpened((notification, completion) => {
       this.setState({
-        notifications: [...this.state.notifications, `Notification Clicked: ${response.notification.link}`]
+        notifications: [...this.state.notifications, `Notification Clicked: ${notification.link}`]
       });
   
       completion();
@@ -72,12 +72,12 @@ class NotificationsExampleApp extends Component {
   }
 
   sendLocalNotification() {
-    Notifications.localNotification({
+    Notifications.postLocalNotification({
       body: 'Local notificiation!',
       title: 'Local Notification Title',
       sound: 'chime.aiff',
       category: 'SOME_CATEGORY',
-      userInfo: { link: 'localNotificationLink' },
+      link: 'localNotificationLink',
     });
   }
 

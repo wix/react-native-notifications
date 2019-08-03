@@ -16,7 +16,7 @@ typedef void (^RCTPromiseRejectBlock)(NSString *code, NSString *message, NSError
 
 - (void)checkPermissions:(RCTPromiseResolveBlock)resolve;
 
-- (void)sendLocalNotification:(NSDictionary *)notification withId:(NSString *)notificationId;
+- (void)postLocalNotification:(NSDictionary *)notification withId:(NSNumber *)notificationId;
 
 - (void)cancelLocalNotification:(NSString *)notificationId;
 

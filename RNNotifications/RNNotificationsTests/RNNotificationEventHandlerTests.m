@@ -60,9 +60,9 @@
     UNNotification* notification = [self createNotificationWithIdentifier:@"id" andUserInfo:@{@"extraKey": @"extraValue"}];
     void (^testBlock)(UNNotificationPresentationOptions) = ^void(UNNotificationPresentationOptions options) {};
     
-    [[_mockedNotificationCenter expect] postNotificationName:RNNotificationReceivedForeground object:[OCMArg any] userInfo:[OCMArg checkWithBlock:^BOOL(id obj) {
+    [[_mockedNotificationCenter expect] postNotificationName:RNNotificationReceived object:[OCMArg any] userInfo:[OCMArg checkWithBlock:^BOOL(id obj) {
         return ([[obj valueForKey:@"identifier"] isEqualToString:@"id"] &&
-                [[[obj valueForKey:@"data"] valueForKey:@"extraKey"] isEqualToString:@"extraValue"]);
+                [[obj valueForKey:@"extraKey"] isEqualToString:@"extraValue"]);
     }]];
     [_uut didReceiveForegroundNotification:notification withCompletionHandler:testBlock];
     [_mockedNotificationCenter verify];

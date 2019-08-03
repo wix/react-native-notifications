@@ -9,9 +9,9 @@ export class Commands {
     private readonly uniqueIdProvider: UniqueIdProvider
   ) {}
 
-  public sendLocalNotification(notification: Notification, id?: string) {
-    const notificationId = id ? id : this.uniqueIdProvider.generate('Notification_');
-    const result = this.nativeCommandsSender.sendLocalNotification(notification, notificationId);
+  public postLocalNotification(notification: Notification, id?: number) {
+    const notificationId: number = id ? id : this.uniqueIdProvider.generate();
+    const result = this.nativeCommandsSender.postLocalNotification(notification, notificationId);
     return result;
   }
 
@@ -68,5 +68,9 @@ export class Commands {
 
   public removeDeliveredNotifications(identifiers: Array<string>) {
     return this.nativeCommandsSender.removeDeliveredNotifications(identifiers);
+  }
+
+  public getDeliveredNotifications(): Array<Notification> {
+    return this.nativeCommandsSender.getDeliveredNotifications();
   }
 }
