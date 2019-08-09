@@ -5,3 +5,9 @@ node_modules/
 
 .eslintrc
 *.yml
+coverage/
+.history
+android/.idea
+android/build/
+.idea
+.history/
