@@ -7,7 +7,7 @@ The 2nd is to do some platform specific setup so as to be able to work with Appl
 Start by running this:
 
 ```
-$ npm install react-native-notifications --save
+$ npm install react-native-notifications@^2.0.6 --save
 ```
 
 ## <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/2000px-Apple_logo_black.svg.png" width=30/> iOS
