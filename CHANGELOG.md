@@ -1,4 +1,20 @@
 # Changelog
+# 2.0.6
+## Fixed
+### Android
+* Resolve intent by extra key and not by `google.message_id` string, Addresses #296.  [#5056657](https://github.com/wix/react-native-notifications/pull/358/commits/5056657a6b3041b0c272357afcded42e59b83433) by [yogevbd](https://github.com/yogevbd)
+
+# 2.0.5
+## Fixed
+### Android
+* Reverted #349, This caused our e2e tests to fail, therefor we reverted this PR and will resolve this issue in the next version [#0b70828](https://github.com/wix/react-native-notifications/pull/357/commits/0b70828ca3e1f4e00817a32d6327381b4605c75c) by [yogevbd](https://github.com/yogevbd)
+
+# 2.0.4
+## Fixed
+* Fix missing badge in silent notification payload with no aps.alert [#21c684d](https://github.com/wix/react-native-notifications/commit/21c684dbb7f632644747fa884c1b3f2bfd87f0a5) by [yogevbd](https://github.com/yogevbd)
+
+Moved our builds to CircleCI and added iOS unit and e2e tests coverage.
+
 # 2.0.3
 
 ## Fixed
