@@ -189,3 +189,4 @@ package-lock.json
 .history
 android/.idea
 android/build
+android/.gradle
