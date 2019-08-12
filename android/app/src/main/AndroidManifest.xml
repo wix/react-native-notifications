@@ -4,7 +4,7 @@
     package="com.wix.reactnativenotifications">
 
     <!--
-     Permissions required for enabling GCM.
+     Permissions required for enabling FCM.
      -->
     <permission
         android:name="${applicationId}.permission.C2D_MESSAGE"
@@ -22,7 +22,7 @@
         <service android:name=".core.ProxyService"/>
 
         <service
-            android:name=".gcm.FcmInstanceIdListenerService">
+            android:name=".fcm.FcmInstanceIdListenerService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -30,7 +30,7 @@
         </service>
 
         <service
-            android:name=".gcm.FcmInstanceIdRefreshHandlerService"
+            android:name=".fcm.FcmInstanceIdRefreshHandlerService"
             android:exported="false" />
     </application>
 

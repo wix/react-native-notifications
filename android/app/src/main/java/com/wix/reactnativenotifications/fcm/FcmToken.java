@@ -1,4 +1,4 @@
-package com.wix.reactnativenotifications.gcm;
+package com.wix.reactnativenotifications.fcm;
 
 import android.content.Context;
 import android.util.Log;
@@ -29,8 +29,8 @@ public class FcmToken implements IFcmToken {
 
     public static IFcmToken get(Context context) {
         Context appContext = context.getApplicationContext();
-        if (appContext instanceof INotificationsGcmApplication) {
-            return ((INotificationsGcmApplication) appContext).getFcmToken(context);
+        if (appContext instanceof INotificationsFcmApplication) {
+            return ((INotificationsFcmApplication) appContext).getFcmToken(context);
         }
         return new FcmToken(appContext);
     }

@@ -15,7 +15,6 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
-import com.wix.reactnativenotifications.core.AppLifecycleFacade;
 import com.wix.reactnativenotifications.core.AppLifecycleFacadeHolder;
 import com.wix.reactnativenotifications.core.InitialNotificationHolder;
 import com.wix.reactnativenotifications.core.NotificationIntentAdapter;
@@ -25,9 +24,7 @@ import com.wix.reactnativenotifications.core.notification.PushNotification;
 import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
 import com.wix.reactnativenotifications.core.notificationdrawer.IPushNotificationsDrawer;
 import com.wix.reactnativenotifications.core.notificationdrawer.PushNotificationsDrawer;
-import com.wix.reactnativenotifications.gcm.FcmInstanceIdRefreshHandlerService;
-
-import com.google.firebase.FirebaseApp;
+import com.wix.reactnativenotifications.fcm.FcmInstanceIdRefreshHandlerService;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
 
@@ -50,7 +47,7 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     @Override
     public void initialize() {
         Log.d(LOGTAG, "Native module init");
-        startGcmIntentService(FcmInstanceIdRefreshHandlerService.EXTRA_IS_APP_INIT);
+        startFcmIntentService(FcmInstanceIdRefreshHandlerService.EXTRA_IS_APP_INIT);
 
         final IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
         notificationsDrawer.onAppInit();
@@ -75,7 +72,7 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     @ReactMethod
     public void refreshToken() {
         Log.d(LOGTAG, "Native method invocation: refreshToken()");
-        startGcmIntentService(FcmInstanceIdRefreshHandlerService.EXTRA_MANUAL_REFRESH);
+        startFcmIntentService(FcmInstanceIdRefreshHandlerService.EXTRA_MANUAL_REFRESH);
     }
 
     @ReactMethod
@@ -115,7 +112,7 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
         promise.resolve(new Boolean(hasPermission));
     }
 
-    protected void startGcmIntentService(String extraFlag) {
+    protected void startFcmIntentService(String extraFlag) {
         final Context appContext = getReactApplicationContext().getApplicationContext();
         final Intent tokenFetchIntent = new Intent(appContext, FcmInstanceIdRefreshHandlerService.class);
         tokenFetchIntent.putExtra(extraFlag, true);

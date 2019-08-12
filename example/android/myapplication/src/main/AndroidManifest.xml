@@ -12,9 +12,6 @@
         android:usesCleartextTraffic="true"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.wix.reactnativenotifications.gcmSenderId"
-            android:value="434691868895\0"/>
 
         <activity
             android:name=".MainActivity"

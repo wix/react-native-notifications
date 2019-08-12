@@ -1,4 +1,4 @@
-package com.wix.reactnativenotifications.gcm;
+package com.wix.reactnativenotifications.fcm;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -14,17 +14,17 @@ public class FcmInstanceIdRefreshHandlerService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        IFcmToken gcmToken = FcmToken.get(this);
-        if (gcmToken == null) {
+        IFcmToken fcmToken = FcmToken.get(this);
+        if (fcmToken == null) {
             return;
         }
 
         if (intent.getBooleanExtra(EXTRA_IS_APP_INIT, false)) {
-            gcmToken.onAppReady();
+            fcmToken.onAppReady();
         } else if (intent.getBooleanExtra(EXTRA_MANUAL_REFRESH, false)) {
-            gcmToken.onManualRefresh();
+            fcmToken.onManualRefresh();
         } else {
-            gcmToken.onNewTokenReady();
+            fcmToken.onNewTokenReady();
         }
     }
 }
