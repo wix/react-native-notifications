@@ -1,4 +1,4 @@
-package com.wix.reactnativenotifications.gcm;
+package com.wix.reactnativenotifications.fcm;
 
 public interface IFcmToken {
 
