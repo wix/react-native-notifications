@@ -18,4 +18,15 @@ public class NotificationIntentAdapter {
     public static Bundle extractPendingNotificationDataFromIntent(Intent intent) {
         return intent.getBundleExtra(PUSH_NOTIFICATION_EXTRA_NAME);
     }
+
+    public static boolean canHandleIntent(Intent intent) {
+        if (intent != null) {
+            Bundle notificationData = intent.getExtras();
+            if (notificationData != null && intent.hasExtra(PUSH_NOTIFICATION_EXTRA_NAME)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

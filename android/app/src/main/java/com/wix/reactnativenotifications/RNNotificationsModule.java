@@ -18,6 +18,7 @@ import com.facebook.react.bridge.ReadableMap;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade;
 import com.wix.reactnativenotifications.core.AppLifecycleFacadeHolder;
 import com.wix.reactnativenotifications.core.InitialNotificationHolder;
+import com.wix.reactnativenotifications.core.NotificationIntentAdapter;
 import com.wix.reactnativenotifications.core.ReactAppLifecycleFacade;
 import com.wix.reactnativenotifications.core.notification.IPushNotification;
 import com.wix.reactnativenotifications.core.notification.PushNotification;
@@ -62,8 +63,8 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
 
     @Override
     public void onNewIntent(Intent intent) {
-        Bundle notificationData = intent.getExtras();
-        if (notificationData != null) {
+        if (NotificationIntentAdapter.canHandleIntent(intent)) {
+            Bundle notificationData = intent.getExtras();
             final IPushNotification notification = PushNotification.get(getReactApplicationContext().getApplicationContext(), notificationData);
             if (notification != null) {
                 notification.onOpened();
