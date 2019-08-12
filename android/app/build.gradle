@@ -17,6 +17,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.all { t ->
+            reports {
+                html.enabled true
+            }
+            testLogging {
+                events "PASSED", "SKIPPED", "FAILED", "standardOut", "standardError"
+            }
+            afterSuite { desc, result ->
+                if (!desc.parent) { // will match the outermost suite
+                    def output = "      ${result.resultType} (${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)     "
+                    def repeatLength = output.length()
+                    println '\n\n' + ('-' * repeatLength) + '\n' + output + '\n' + ('-' * repeatLength) + '\n'
+
+                    println "see report at file://${t.reports.html.destination}/index.html"
+                }
+            }
+        }
+    }
 }
 
 dependencies {
