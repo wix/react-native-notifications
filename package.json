@@ -30,7 +30,6 @@
     "test-unit-ios": "node ./scripts/test-unit --ios",
     "test-unit-android": "node ./scripts/test-unit --android",
     "test-js": "node ./scripts/test-js",
-    "prerelease": "npm run build",
     "release": "node ./scripts/release"
   },
   "nativePackage": true,
