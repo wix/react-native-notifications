@@ -54,7 +54,7 @@ Add a reference to the library's native code in your global `settings.gradle`:
 
 ```gradle
 include ':reactnativenotifications'
-project(':reactnativenotifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android/app')
+project(':reactnativenotifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/lib/android/app')
 ```
 
 Declare the library as a dependency in your **app-project's** `build.gradle`:

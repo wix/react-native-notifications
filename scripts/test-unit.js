@@ -19,7 +19,7 @@ function runAndroidUnitTests() {
     exec.execSync(`yes | ${sdkmanager} --licenses`);
     // exec.execSync(`echo y | ${sdkmanager} --update && echo y | ${sdkmanager} --licenses`);
   }
-  exec.execSync(`cd android && ./gradlew ${conf}`);
+  exec.execSync(`cd lib/android && ./gradlew ${conf}`);
 }
 
 function runIosUnitTests() {

@@ -32,7 +32,8 @@
     "test-e2e-ios-release": "node ./scripts/test-e2e --ios --release",
     "test-unit-ios": "node ./scripts/test-unit --ios",
     "test-unit-android": "node ./scripts/test-unit --android",
-    "test-js": "node ./scripts/test-js"
+    "test-js": "node ./scripts/test-js",
+    "xcode": "open example/ios/NotificationsExampleApp.xcodeproj"
   },
   "nativePackage": true,
   "dependencies": {
