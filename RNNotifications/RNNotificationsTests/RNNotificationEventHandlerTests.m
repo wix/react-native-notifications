@@ -75,7 +75,7 @@
     
     [[_mockedNotificationCenter expect] postNotificationName:RNNotificationOpened object:[OCMArg any] userInfo:[OCMArg checkWithBlock:^BOOL(id obj) {
         return ([[obj valueForKey:@"identifier"] isEqualToString:@"id"] &&
-                [[[obj valueForKey:@"payload"] valueForKey:@"extraKey"] isEqualToString:@"extraValue"]);
+                [[obj valueForKey:@"extraKey"] isEqualToString:@"extraValue"]);
     }]];
     [_uut didReceiveNotificationResponse:response completionHandler:testBlock];
     [_mockedNotificationCenter verify];
