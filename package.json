@@ -21,6 +21,7 @@
   ],
   "main": "lib/src/index",
   "scripts": {
+    "build": ":",
     "pretest": "./node_modules/.bin/eslint *.js test",
     "test": "node scripts/test",
     "start": "node ./scripts/start",
