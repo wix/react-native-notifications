@@ -7,7 +7,7 @@ The 2nd is to do some platform specific setup so as to be able to work with Appl
 Start by running this:
 
 ```
-$ npm install react-native-notifications --save
+$ npm install react-native-notifications@^2.0.6 --save
 ```
 
 ## <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/2000px-Apple_logo_black.svg.png" width=30/> iOS
@@ -20,17 +20,24 @@ Then, to enable notifications support add the following line at the top of your 
 #import "RNNotifications.h"
 ```
 
-And the following methods to support registration and receiving notifications:
+Start monitor notifications in: `application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions`
 
 ```objective-c
-// Required to register for notifications
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
-{
-  [RNNotifications didRegisterUserNotificationSettings:notificationSettings];
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	[RNNotifications startMonitorNotifications]; // -> Add this line
+
+	return YES;
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
+```
+
+
+And add the following methods to support registration:
+
+```objective-c
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
   [RNNotifications didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
@@ -38,16 +45,6 @@ And the following methods to support registration and receiving notifications:
   [RNNotifications didFailToRegisterForRemoteNotificationsWithError:error];
 }
 
-// Required for the notification event.
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification {
-  [RNNotifications didReceiveRemoteNotification:notification];
-}
-
-// Required for the localNotification event.
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
-{
-  [RNNotifications didReceiveLocalNotification:notification];
-}
 ```
 
 ## <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/APK_format_icon.png/768px-APK_format_icon.png" width=30/> Android
@@ -57,7 +54,7 @@ Add a reference to the library's native code in your global `settings.gradle`:
 
 ```gradle
 include ':reactnativenotifications'
-project(':reactnativenotifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android')
+project(':reactnativenotifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android/app')
 ```
 
 Declare the library as a dependency in your **app-project's** `build.gradle`:
@@ -91,27 +88,34 @@ import com.wix.reactnativenotifications.RNNotificationsPackage;
 
 > Note: This section is only necessary in case you wish to be able to **receive** push notifications in your React-Native app.
 
-Push notifications on Android are managed and dispatched using [Google's GCM service](https://developers.google.com/cloud-messaging/gcm) (now integrated into Firebase). The following installation steps are a TL;DR of [Google's GCM setup guide](https://developers.google.com/cloud-messaging/android/client). You can follow them to get GCM integrated quickly, but we recommend that you will in the very least have a peek at the guide's overview.
+Push notifications on Android are managed and dispatched using [Google's FCM service](https://firebase.google.com/docs/cloud-messaging). The following installation steps are a TL;DR of [Google's FCM setup guide](https://firebase.google.com/docs/cloud-messaging/android/client). You can follow them to get FCM integrated quickly, but we recommend that you will in the very least have a peek at the guide's overview.
 
-#### Step #1: Subscribe to Google's GCM
+#### Step #1: Subscribe to Google's FCM
 
-To set GCM in your app, you must first create a Google API-project and obtain a **Sender ID** and a **Server API Key**. If you have no existing API project yet, the easiest way to go about in creating one is using [this step-by-step installation process](https://developers.google.com/mobile/add); Use [this tutorial](https://code.tutsplus.com/tutorials/how-to-get-started-with-push-notifications-on-android--cms-25870) for insturctions.
+To set FCM in your app, you must first create a google-services.json file. If you have no existing API project yet, the easiest way to go about in creating one is using [this step-by-step installation process](https://firebase.google.com/docs/android/setup);
 
-Alternatively, follow [Google's complete guide](https://developers.google.com/cloud-messaging/android/client#create-an-api-project).
 
-#### Step #2: Add Sender ID to Manifest File
+#### Step #2: Copy google-services.json
 
-Once obtained, bundle the Sender ID onto your main `manifest.xml` file:
+After creating google-services.json, copy it into your project's android/app folder.
 
+#### Step #3: Add google-services package to Project/build.gradle
 ```gradle
-<manifest>
-...
-	<application>
-	...
-		// Replace '1234567890' with your sender ID.
-		// IMPORTANT: Leave the trailing \0 intact!!!
-	    <meta-data android:name="com.wix.reactnativenotifications.gcmSenderId" android:value="1234567890\0"/>
-	</application>
-</manifest>
+buildscript {
+    ...
+    dependencies {
+        ...
+        classpath 'com.google.gms:google-services:4.0.0'
+    }
+}
+```
 
+#### Step #4: Add firebase-core package and apply google-services plugin in Project/app/build.gradle
+```gradle
+dependencies {
+    ...
+    implementation 'com.google.firebase:firebase-core:16.0.0'
+}
+
+apply plugin: 'com.google.gms.google-services'
 ```
