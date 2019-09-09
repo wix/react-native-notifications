@@ -4,37 +4,21 @@ title: iOS
 sidebar_label: iOS specific
 ---
 
-## getInitialNotification
-Return the notification that caused the app to launch from dead state.
+## registerPushKitRegistered
+registerPushKitRegistered
 
 ```js
-const notification: Notification = await getInitialNotification();
+Notifications.events().registerPushKitRegistered((event: RegisteredPushKit) => {
+  console.log(event.pushKitToken);
+});
 ```
 
-## postLocalNotification(notification, id?)
-Posts local notification to the device notification center.
+## registerPushKitNotificationReceived
+registerPushKitNotificationReceived
 
 ```js
-Notifications.postLocalNotification({
-  body: 'Local notificiation!',
-  title: 'Local Notification Title',
-  sound: 'chime.aiff',
-  category: 'SOME_CATEGORY',
-  link: 'localNotificationLink',
-  fireDate: new Date()
-}, id);
+Notifications.events().registerPushKitNotificationReceived((event: object) => {
+  console.log(JSON.stringify(event));
+});
 ```
 
-## cancelLocalNotification(id)
-Relevant for notifications sent with `fireDate`.
-
-```js
-Notifications.cancelLocalNotification(id);
-```
-
-## isRegisteredForRemoteNotifications()
-Check if the app has permissions to send remote notifications.
-
-```js
-const hasPermissions: boolean = await getInitialNotification();
-```

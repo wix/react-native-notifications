@@ -6,7 +6,7 @@
     "Advanced API - iOS": ["doc3"]
   },
   "api": {
-    "Api": ["general-api", "ios-api", "android-api"],
-    "Events": ["general-events", "ios-events", "android-events"]
+    "Commands": ["general-api", "ios-api", "android-api"],
+    "Events": ["general-events", "ios-events"]
   }
 }

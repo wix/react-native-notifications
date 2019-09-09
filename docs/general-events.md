@@ -1,40 +1,44 @@
 ---
 id: general-events
-title: Events subscription
-sidebar_label: Events subscription
+title: General
+sidebar_label: General
 ---
 
-## getInitialNotification
-Return the notification that caused the app to launch from dead state.
+## registerRemoteNotificationsRegistered
+registerRemoteNotificationsRegistered
 
 ```js
-const notification: Notification = await getInitialNotification();
+Notifications.events().registerRemoteNotificationsRegistered((event: Registered) => {
+  console.log(event.deviceToken);
+});
 ```
 
-## postLocalNotification(notification, id?)
-Posts local notification to the device notification center.
+## registerNotificationReceived
+registerNotificationReceived
 
 ```js
-Notifications.postLocalNotification({
-  body: 'Local notificiation!',
-  title: 'Local Notification Title',
-  sound: 'chime.aiff',
-  category: 'SOME_CATEGORY',
-  link: 'localNotificationLink',
-  fireDate: new Date()
-}, id);
+Notifications.events().registerNotificationReceived((notification: Notification, completion: (response: NotificationCompletion) => void) => {
+  console.log(JSON.stringify(notification.data));
+
+  // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
+  completion({alert: true, sound: true, badge: false});
+});
 ```
 
-## cancelLocalNotification(id)
-Relevant for notifications sent with `fireDate`.
+## registerRemoteNotificationOpened
+registerRemoteNotificationOpened
 
 ```js
-Notifications.cancelLocalNotification(id);
+Notifications.events().registerRemoteNotificationOpened((notification: Notification) => {
+  console.log(JSON.stringify(notification.data));
+});
 ```
 
-## isRegisteredForRemoteNotifications()
-Check if the app has permissions to send remote notifications.
+## registerRemoteNotificationsRegistrationFailed
+registerRemoteNotificationsRegistrationFailed
 
 ```js
-const hasPermissions: boolean = await getInitialNotification();
+Notifications.events().registerRemoteNotificationsRegistrationFailed(() => {
+  
+});
 ```

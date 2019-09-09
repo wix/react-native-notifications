@@ -6,12 +6,8 @@
     "tagline": "Documentation",
     "docs": {
       "android-api": {
-        "title": "Android specific",
+        "title": "Android Specific Commands",
         "sidebar_label": "Android specific"
-      },
-      "android-events": {
-        "title": "Android",
-        "sidebar_label": "Android"
       },
       "doc2": {
         "title": "document number 2"
@@ -26,12 +22,12 @@
         "title": "Fifth Document"
       },
       "general-api": {
-        "title": "General API",
-        "sidebar_label": "General API"
+        "title": "General Commands",
+        "sidebar_label": "General"
       },
       "general-events": {
-        "title": "Events subscription",
-        "sidebar_label": "Events subscription"
+        "title": "General",
+        "sidebar_label": "General"
       },
       "installation-android": {
         "title": "Android Installation",
@@ -42,7 +38,7 @@
         "sidebar_label": "iOS Installation"
       },
       "ios-api": {
-        "title": "iOS Specific API",
+        "title": "iOS Specific Commands",
         "sidebar_label": "iOS specific"
       },
       "ios-events": {
@@ -61,7 +57,7 @@
       "Subscription": "Subscription",
       "Notification Events": "Notification Events",
       "Advanced API - iOS": "Advanced API - iOS",
-      "Api": "Api",
+      "Commands": "Commands",
       "Events": "Events"
     }
   },

@@ -1,7 +1,7 @@
 ---
 id: general-api
-title: General API
-sidebar_label: General API
+title: General Commands
+sidebar_label: General
 ---
 
 ## getInitialNotification
