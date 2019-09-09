@@ -48,7 +48,7 @@ class NotificationsExampleApp extends Component {
   }
 
   requestPermissions() {
-    Notifications.requestPermissions();
+    Notifications.ios.requestPermissions();
   }
 
   setCategories() {

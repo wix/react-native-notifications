@@ -8,7 +8,7 @@ sidebar_label: General
 Return the notification that caused the app to launch from dead state.
 
 ```js
-const notification: Notification = await getInitialNotification();
+const notification: Notification = await Notifications.getInitialNotification();
 ```
 
 ## postLocalNotification(notification, id?)
@@ -36,5 +36,5 @@ Notifications.cancelLocalNotification(id);
 Check if the app has permissions to send remote notifications.
 
 ```js
-const hasPermissions: boolean = await getInitialNotification();
+const hasPermissions: boolean = await Notifications.getInitialNotification();
 ```

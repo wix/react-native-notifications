@@ -8,5 +8,5 @@ sidebar_label: Android specific
 refreshToken
 
 ```js
-Notifications.refreshToken();
+Notifications.android.refreshToken();
 ```

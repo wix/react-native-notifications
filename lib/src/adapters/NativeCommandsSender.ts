@@ -9,6 +9,7 @@ interface NativeCommandsModule {
   postLocalNotification(notification: Notification, id: number): void;
   requestPermissions(): void;
   abandonPermissions(): void;
+  refreshToken(): void;
   registerPushKit(): void;
   getBadgeCount(): Promise<number>;
   setBadgeCount(count: number): void;
@@ -44,6 +45,10 @@ export class NativeCommandsSender {
 
   abandonPermissions() {
     return this.nativeCommandsModule.abandonPermissions();
+  }
+
+  refreshToken() {
+    return this.nativeCommandsModule.refreshToken();
   }
 
   registerPushKit() {

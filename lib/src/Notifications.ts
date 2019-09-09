@@ -6,8 +6,13 @@ import { Notification } from './DTO/Notification';
 import { UniqueIdProvider } from './adapters/UniqueIdProvider';
 import { CompletionCallbackWrapper } from './adapters/CompletionCallbackWrapper';
 import { NotificationCategory } from './interfaces/NotificationCategory';
+import { NotificationsIOS } from './NotificationsIOS';
+import { NotificationsAndroid } from './NotificationsAndroid';
 
 export class NotificationsRoot {
+  public readonly ios: NotificationsIOS;
+  public readonly android: NotificationsAndroid;
+
   private readonly nativeEventsReceiver: NativeEventsReceiver;
   private readonly nativeCommandsSender: NativeCommandsSender;
   private readonly commands: Commands;
@@ -25,22 +30,11 @@ export class NotificationsRoot {
       this.uniqueIdProvider
     );
     this.eventsRegistry = new EventsRegistry(this.nativeEventsReceiver, this.completionCallbackWrapper);
+
+    this.ios = new NotificationsIOS(this.commands);
+    this.android = new NotificationsAndroid(this.commands);
   }
 
-  /**
-  * Request permissions to send remote notifications - iOS only
-  */
-  public requestPermissions() {
-    return this.commands.requestPermissions();
-  }
-
-  /**
-   * registerPushKit - iOS only
-   */
-  public registerPushKit() {
-    return this.commands.registerPushKit();
-  }
-  
   /**
    * postLocalNotification
    */
@@ -63,32 +57,10 @@ export class NotificationsRoot {
   }
 
   /**
-   * getBadgesCount
-   */
-  public getBadgeCount(): Promise<number> {
-    return this.commands.getBadgeCount();
-  }
-
-  /**
-   * setBadgeCount
-   * @param count number of the new badge count
-   */
-  public setBadgeCount(count: number) {
-    return this.commands.setBadgeCount(count);
-  }
-
-  /**
    * cancelLocalNotification
   */
   public cancelLocalNotification(notificationId: string) {
     return this.commands.cancelLocalNotification(notificationId);
-  }
-
-  /**
-   * cancelAllLocalNotifications
-   */
-  public cancelAllLocalNotifications() {
-    this.commands.cancelAllLocalNotifications();
   }
 
   /**
@@ -99,38 +71,9 @@ export class NotificationsRoot {
   }
 
   /**
-   * checkPermissions
-   */
-  public checkPermissions() {
-    return this.commands.checkPermissions();
-  }
-
-  /**
-   * removeAllDeliveredNotifications
-   */
-  public removeAllDeliveredNotifications() {
-    return this.commands.removeAllDeliveredNotifications();
-  }
-
-  /**
-   * removeDeliveredNotifications
-   * @param identifiers Array of notification identifiers
-   */
-  public removeDeliveredNotifications(identifiers: Array<string>) {
-    return this.commands.removeDeliveredNotifications(identifiers);
-  }
-
-  /**
    * Obtain the events registry instance
    */
   public events(): EventsRegistry {
     return this.eventsRegistry;
-  }
-
-  /**
-   * getDeliveredNotifications
-   */
-  public getDeliveredNotifications(): Array<Notification> {
-    return this.commands.getDeliveredNotifications();
   }
 }

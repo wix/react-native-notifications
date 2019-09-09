@@ -75,4 +75,8 @@ export class Commands {
   public getDeliveredNotifications(): Array<Notification> {
     return this.nativeCommandsSender.getDeliveredNotifications();
   }
+
+  public refreshToken() {
+    return this.nativeCommandsSender.refreshToken();
+  }
 }
