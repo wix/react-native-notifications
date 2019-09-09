@@ -1,4 +1,4 @@
-import { Notification } from './Notification';
+import { Notification } from '../DTO/Notification';
 import { NotificationActionResponse } from './NotificationActionResponse';
 
 export interface Registered {

@@ -3,7 +3,7 @@ import { mock, verify, instance, when, anyNumber } from 'ts-mockito';
 
 import { Commands } from './Commands';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
-import { Notification } from '../interfaces/Notification';
+import { Notification } from '../DTO/Notification';
 import { UniqueIdProvider } from '../adapters/UniqueIdProvider';
 import { NotificationCategory } from '../interfaces/NotificationCategory';
 import { NotificationPermissions } from '../interfaces/NotificationPermissions';

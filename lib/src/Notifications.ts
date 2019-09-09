@@ -2,7 +2,7 @@ import { NativeCommandsSender } from './adapters/NativeCommandsSender';
 import { NativeEventsReceiver } from './adapters/NativeEventsReceiver';
 import { Commands } from './commands/Commands';
 import { EventsRegistry } from './events/EventsRegistry';
-import { Notification } from './interfaces/Notification';
+import { Notification } from './DTO/Notification';
 import { UniqueIdProvider } from './adapters/UniqueIdProvider';
 import { CompletionCallbackWrapper } from './adapters/CompletionCallbackWrapper';
 import { NotificationCategory } from './interfaces/NotificationCategory';

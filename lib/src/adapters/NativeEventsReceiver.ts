@@ -2,7 +2,7 @@ import { NativeModules, NativeEventEmitter, EventEmitter, EmitterSubscription } 
 import {
   Registered, RegistrationError, RegisteredPushKit
 } from '../interfaces/NotificationEvents';
-import { Notification } from '../interfaces/Notification';
+import { Notification } from '../DTO/Notification';
 
 export class NativeEventsReceiver {
   private emitter: EventEmitter;

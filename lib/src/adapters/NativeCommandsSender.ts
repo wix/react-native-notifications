@@ -1,5 +1,5 @@
 import { NativeModules } from 'react-native';
-import { Notification } from '../interfaces/Notification';
+import { Notification } from '../DTO/Notification';
 import { NotificationCompletion } from '../interfaces/NotificationCompletion';
 import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 import { NotificationCategory } from '../interfaces/NotificationCategory';

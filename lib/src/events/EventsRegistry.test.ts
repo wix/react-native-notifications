@@ -1,6 +1,6 @@
 import { EventsRegistry } from './EventsRegistry';
 import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver.mock';
-import { Notification } from '../interfaces/Notification';
+import { Notification } from '../DTO/Notification';
 import { CompletionCallbackWrapper } from '../adapters/CompletionCallbackWrapper';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender.mock';
 import { NotificationResponse } from '../interfaces/NotificationEvents';
