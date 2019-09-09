@@ -1,10 +1,11 @@
 import { EventsRegistry } from './EventsRegistry';
 import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver.mock';
-import { NotificationCompletion, Notification } from '../interfaces/Notification';
+import { Notification } from '../interfaces/Notification';
 import { CompletionCallbackWrapper } from '../adapters/CompletionCallbackWrapper';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender.mock';
 import { NotificationResponse } from '../interfaces/NotificationEvents';
 import { Platform } from 'react-native';
+import { NotificationCompletion } from '../interfaces/NotificationCompletion';
 
 describe('EventsRegistry', () => {
   let uut: EventsRegistry;
@@ -28,7 +29,7 @@ describe('EventsRegistry', () => {
   
     it('should wrap callback with completion block', () => {
       const wrappedCallback = jest.fn();
-      const notification: Notification  = {identifier: 'identifier', data: {}, alert: 'alert'}
+      const notification: Notification  = new Notification({identifier: 'identifier'});
       
       uut.registerNotificationReceived(wrappedCallback);
       const call = mockNativeEventsReceiver.registerRemoteNotificationReceived.mock.calls[0][0];
@@ -39,7 +40,7 @@ describe('EventsRegistry', () => {
     });
 
     it('should wrap callback with completion block', () => {
-      const expectedNotification: Notification  = {identifier: 'identifier', data: {}, alert: 'alert'}
+      const expectedNotification: Notification  = new Notification({identifier: 'identifier'});
       
       uut.registerNotificationReceived((notification) => {
         expect(notification).toEqual(expectedNotification);
@@ -49,7 +50,7 @@ describe('EventsRegistry', () => {
     });
 
     it('should invoke finishPresentingNotification', () => {
-      const notification: Notification  = {identifier: 'notificationId', data: {}, alert: 'alert'}
+      const notification: Notification  = new Notification({identifier: 'notificationId'});
       const response: NotificationCompletion  = {alert: true}
       
       uut.registerNotificationReceived((notification, completion) => {
@@ -63,7 +64,7 @@ describe('EventsRegistry', () => {
 
     it('should not invoke finishPresentingNotification on Android', () => {
       Platform.OS = 'android';
-      const expectedNotification: Notification  = {identifier: 'notificationId', data: {}, alert: 'alert'}
+      const expectedNotification: Notification  = new Notification({identifier: 'notificationId'});
       const response: NotificationCompletion  = {alert: true}
       
       uut.registerNotificationReceived((notification, completion) => {
@@ -88,7 +89,7 @@ describe('EventsRegistry', () => {
   
     it('should wrap callback with completion block', () => {
       const wrappedCallback = jest.fn();
-      const notification: Notification  = {identifier: 'identifier', data: {}, alert: 'alert'};
+      const notification: Notification  = new Notification({identifier: 'identifier'});
       const response: NotificationResponse = {notification, identifier: 'responseId'};
 
       uut.registerRemoteNotificationOpened(wrappedCallback);
@@ -100,7 +101,7 @@ describe('EventsRegistry', () => {
     });
 
     it('should wrap callback with completion block', () => {
-      const notification: Notification  = {identifier: 'identifier', data: {}, alert: 'alert'}
+      const notification: Notification  = new Notification({identifier: 'identifier'});
       const expectedResponse: NotificationResponse = {notification, identifier: 'responseId'}
       
       uut.registerRemoteNotificationOpened((response) => {
@@ -111,7 +112,7 @@ describe('EventsRegistry', () => {
     });
 
     it('calling completion should invoke finishHandlingAction', () => {
-      const expectedNotification: Notification  = {identifier: 'notificationId', data: {}, alert: 'alert'}
+      const expectedNotification: Notification  = new Notification({identifier: 'notificationId'});
       
       uut.registerRemoteNotificationOpened((notification, completion) => {
         completion();
@@ -125,7 +126,7 @@ describe('EventsRegistry', () => {
 
     it('should not invoke finishHandlingAction on Android', () => {
       Platform.OS = 'android';
-      const expectedNotification: Notification  = {identifier: 'notificationId', data: {}, alert: 'alert'}
+      const expectedNotification: Notification  = new Notification({identifier: 'notificationId'});
       
       uut.registerRemoteNotificationOpened((notification, completion) => {
         completion();

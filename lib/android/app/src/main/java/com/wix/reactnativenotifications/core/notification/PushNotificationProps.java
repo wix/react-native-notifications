@@ -6,16 +6,6 @@ public class PushNotificationProps {
 
     protected Bundle mBundle;
 
-    public PushNotificationProps() {
-        mBundle = new Bundle();
-    }
-
-    public PushNotificationProps(String title, String body) {
-        mBundle = new Bundle();
-        mBundle.putString("title", title);
-        mBundle.putString("body", body);
-    }
-
     public PushNotificationProps(Bundle bundle) {
         mBundle = bundle;
     }

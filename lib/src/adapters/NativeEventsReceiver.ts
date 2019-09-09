@@ -19,7 +19,9 @@ export class NativeEventsReceiver {
   }
 
   public registerRemoteNotificationReceived(callback: (notification: Notification) => void): EmitterSubscription {
-    return this.emitter.addListener('notificationReceived', callback);
+    return this.emitter.addListener('notificationReceived', (payload) => {
+      callback(new Notification(payload));
+    });
   }
 
   public registerPushKitNotificationReceived(callback: (event: object) => void): EmitterSubscription {
@@ -27,7 +29,9 @@ export class NativeEventsReceiver {
   }
 
   public registerRemoteNotificationOpened(callback: (response: Notification, completion: () => void) => void): EmitterSubscription {
-    return this.emitter.addListener('notificationOpened', callback);
+    return this.emitter.addListener('notificationOpened', (payload, completion) => {
+      callback(new Notification(payload), completion);
+    });
   }
 
   public registerRemoteNotificationsRegistrationFailed(callback: (event: RegistrationError) => void): EmitterSubscription {

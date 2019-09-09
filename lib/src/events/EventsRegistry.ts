@@ -7,7 +7,8 @@ import {
   NotificationResponse
 } from '../interfaces/NotificationEvents';
 import { CompletionCallbackWrapper } from '../adapters/CompletionCallbackWrapper';
-import { NotificationCompletion, Notification } from '../interfaces/Notification';
+import { Notification } from '../interfaces/Notification';
+import { NotificationCompletion } from '../interfaces/NotificationCompletion';
 
 export class EventsRegistry {
   constructor(

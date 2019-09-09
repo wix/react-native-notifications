@@ -1,5 +1,7 @@
 import { NativeCommandsSender } from './NativeCommandsSender';
-import { NotificationCompletion, Notification } from '../interfaces/Notification';
+import { Notification } from '../interfaces/Notification';
+import { NotificationCompletion } from '../interfaces/NotificationCompletion';
+
 import { Platform } from 'react-native';
 export class CompletionCallbackWrapper {
   constructor(

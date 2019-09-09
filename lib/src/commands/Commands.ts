@@ -1,6 +1,8 @@
 import * as _ from 'lodash';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
-import { Notification, NotificationCategory, NotificationPermissions } from '../interfaces/Notification';
+import { Notification } from '../interfaces/Notification';
+import { NotificationCategory } from '../interfaces/NotificationCategory';
+import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 import { UniqueIdProvider } from '../adapters/UniqueIdProvider';
 
 export class Commands {

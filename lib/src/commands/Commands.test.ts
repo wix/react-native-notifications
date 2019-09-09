@@ -3,8 +3,10 @@ import { mock, verify, instance, when, anyNumber } from 'ts-mockito';
 
 import { Commands } from './Commands';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
-import { Notification, NotificationCategory, NotificationPermissions } from '../interfaces/Notification';
+import { Notification } from '../interfaces/Notification';
 import { UniqueIdProvider } from '../adapters/UniqueIdProvider';
+import { NotificationCategory } from '../interfaces/NotificationCategory';
+import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 
 describe('Commands', () => {
   let uut: Commands;
@@ -28,7 +30,7 @@ describe('Commands', () => {
     });
 
     it('returns a promise with the initial notification', async () => {
-      const expectedNotification: Notification = {identifier: 'id', data: {}, alert: 'alert'};
+      const expectedNotification: Notification = new Notification({identifier: 'id'});
       when(mockedNativeCommandsSender.getInitialNotification()).thenResolve(
         expectedNotification
       );
@@ -75,19 +77,19 @@ describe('Commands', () => {
 
   describe('postLocalNotification', () => {
     it('sends to native', () => {
-      const notification: Notification = {identifier: 'id', alert: 'alert', data: {}};
+      const notification: Notification = new Notification({identifier: 'id'});
       uut.postLocalNotification(notification);
       verify(mockedNativeCommandsSender.postLocalNotification(notification, anyNumber())).called();
     });
 
     it('generates unique identifier', () => {
-      const notification: Notification = {identifier: 'id', data: {}, alert: 'alert'};
+      const notification: Notification = new Notification({identifier: 'id'});
       uut.postLocalNotification(notification);
       verify(mockedNativeCommandsSender.postLocalNotification(notification, anyNumber())).called();
     });
 
     it('use passed notification id', () => {
-      const notification: Notification = {identifier: 'id', data: {}, alert: 'alert'};
+      const notification: Notification = new Notification({identifier: 'id'});
       const passedId: number = 2;
       uut.postLocalNotification(notification, passedId);
       verify(mockedNativeCommandsSender.postLocalNotification(notification, passedId)).called();

@@ -33,7 +33,8 @@
     "test-unit-ios": "node ./scripts/test-unit --ios",
     "test-unit-android": "node ./scripts/test-unit --android",
     "test-js": "node ./scripts/test-js",
-    "xcode": "open example/ios/NotificationsExampleApp.xcodeproj"
+    "xcode": "open example/ios/NotificationsExampleApp.xcodeproj",
+    "androidStudio": "open -a /Applications/Android\\ Studio.app ./example/android"
   },
   "nativePackage": true,
   "dependencies": {

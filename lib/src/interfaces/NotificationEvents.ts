@@ -1,4 +1,5 @@
-import { Notification, NotificationActionResponse } from './Notification';
+import { Notification } from './Notification';
+import { NotificationActionResponse } from './NotificationActionResponse';
 
 export interface Registered {
   deviceToken: string;

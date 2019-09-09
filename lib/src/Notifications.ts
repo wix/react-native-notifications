@@ -2,9 +2,10 @@ import { NativeCommandsSender } from './adapters/NativeCommandsSender';
 import { NativeEventsReceiver } from './adapters/NativeEventsReceiver';
 import { Commands } from './commands/Commands';
 import { EventsRegistry } from './events/EventsRegistry';
-import { Notification, NotificationCategory } from './interfaces/Notification';
+import { Notification } from './interfaces/Notification';
 import { UniqueIdProvider } from './adapters/UniqueIdProvider';
 import { CompletionCallbackWrapper } from './adapters/CompletionCallbackWrapper';
+import { NotificationCategory } from './interfaces/NotificationCategory';
 
 export class NotificationsRoot {
   private readonly nativeEventsReceiver: NativeEventsReceiver;

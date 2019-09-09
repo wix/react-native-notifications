@@ -6,7 +6,7 @@ import {
   Button
 } from 'react-native';
 import React, {Component} from 'react';
-import { Notifications } from 'react-native-notifications';
+import {Notifications} from 'react-native-notifications';
 
 class NotificationsExampleApp extends Component {
   constructor() {
@@ -22,7 +22,7 @@ class NotificationsExampleApp extends Component {
   registerNotificationEvents() {
     Notifications.events().registerNotificationReceived((notification, completion) => {
       this.setState({
-        notifications: [...this.state.notifications, notification.link]
+        notifications: [...this.state.notifications, notification]
       });
 
       completion({alert: true, sound: false, badge: false});
@@ -30,15 +30,21 @@ class NotificationsExampleApp extends Component {
 
     Notifications.events().registerRemoteNotificationOpened((notification, completion) => {
       this.setState({
-        notifications: [...this.state.notifications, `Notification Clicked: ${notification.link}`]
+        notifications: [...this.state.notifications, notification]
       });
-  
+
       completion();
     });
   }
 
   renderNotification(notification) {
-    return <Text>{`${notification}`}</Text>;
+    return (
+      <View style={{backgroundColor: 'lightgray', margin: 10}}>
+        <Text>{`Title: ${notification.title}`}</Text>
+        <Text>{`Body: ${notification.body}`}</Text>
+        <Text>{`Extra Link Param: ${notification.data.link}`}</Text>
+      </View>
+    );
   }
 
   requestPermissions() {
@@ -51,7 +57,7 @@ class NotificationsExampleApp extends Component {
       title: String.fromCodePoint(0x1F44D),
       identifier: 'UPVOTE_ACTION'
     };
-    
+
     const replyAction = {
       activationMode: 'background',
       title: 'Reply',
@@ -62,7 +68,7 @@ class NotificationsExampleApp extends Component {
       },
       identifier: 'REPLY_ACTION'
     };
-    
+
     const category = {
       identifier: 'SOME_CATEGORY',
       actions: [upvoteAction, replyAction]
@@ -88,11 +94,8 @@ class NotificationsExampleApp extends Component {
   async componentDidMount() {
     const initialNotification = await Notifications.getInitialNotification();
     if (initialNotification) {
-      this.setState({notifications: [initialNotification.link, ...this.state.notifications]});
+      this.setState({notifications: [initialNotification, ...this.state.notifications]});
     }
-  }
-
-  componentWillUnmount() {
   }
 
   render() {
@@ -105,9 +108,9 @@ class NotificationsExampleApp extends Component {
 
     return (
       <View style={styles.container}>
-        <Button title={'Request permissions'} onPress={this.requestPermissions} testID={'requestPermissions'}/>
-        <Button title={'Send local notification'} onPress={this.sendLocalNotification} testID={'sendLocalNotification'}/>
-        <Button title={'Remove all delivered notifications'} onPress={this.removeAllDeliveredNotifications}/>
+        <Button title={'Request permissions'} onPress={this.requestPermissions} testID={'requestPermissions'} />
+        <Button title={'Send local notification'} onPress={this.sendLocalNotification} testID={'sendLocalNotification'} />
+        <Button title={'Remove all delivered notifications'} onPress={this.removeAllDeliveredNotifications} />
         {notifications}
       </View>
     );

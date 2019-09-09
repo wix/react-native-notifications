@@ -1,5 +1,8 @@
 import { NativeModules } from 'react-native';
-import { Notification, NotificationCategory, NotificationPermissions, NotificationCompletion } from '../interfaces/Notification';
+import { Notification } from '../interfaces/Notification';
+import { NotificationCompletion } from '../interfaces/NotificationCompletion';
+import { NotificationPermissions } from '../interfaces/NotificationPermissions';
+import { NotificationCategory } from '../interfaces/NotificationCategory';
 
 interface NativeCommandsModule {
   getInitialNotification(): Promise<Notification>;
