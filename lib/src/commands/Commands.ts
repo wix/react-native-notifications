@@ -17,11 +17,12 @@ export class Commands {
     return result;
   }
 
-  public getInitialNotification(): Promise<Notification> {
-    const result = this.nativeCommandsSender.getInitialNotification();
-    return result;
+  public async getInitialNotification(): Promise<Notification> {
+    return this.nativeCommandsSender.getInitialNotification().then((payload) => {
+      return new Notification(payload);
+    });
   }
-  
+
   public requestPermissions() {
     const result = this.nativeCommandsSender.requestPermissions();
     return result;

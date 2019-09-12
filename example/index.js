@@ -12,7 +12,8 @@ class NotificationsExampleApp extends Component {
   constructor() {
     super();
     this.state = {
-      notifications: []
+      notifications: [],
+      openedNotifications: [],
     };
 
     this.registerNotificationEvents();
@@ -25,26 +26,16 @@ class NotificationsExampleApp extends Component {
         notifications: [...this.state.notifications, notification]
       });
 
-      completion({alert: true, sound: false, badge: false});
+      completion({alert: notification.data.showAlert, sound: false, badge: false});
     });
 
     Notifications.events().registerRemoteNotificationOpened((notification, completion) => {
       this.setState({
-        notifications: [...this.state.notifications, notification]
+        openedNotifications: [...this.state.openedNotifications, notification]
       });
 
       completion();
     });
-  }
-
-  renderNotification(notification) {
-    return (
-      <View style={{backgroundColor: 'lightgray', margin: 10}}>
-        <Text>{`Title: ${notification.title}`}</Text>
-        <Text>{`Body: ${notification.body}`}</Text>
-        <Text>{`Extra Link Param: ${notification.data.link}`}</Text>
-      </View>
-    );
   }
 
   requestPermissions() {
@@ -98,6 +89,26 @@ class NotificationsExampleApp extends Component {
     }
   }
 
+  renderNotification(notification) {
+    return (
+      <View style={{backgroundColor: 'lightgray', margin: 10}}>
+        <Text>{`Title: ${notification.title}`}</Text>
+        <Text>{`Body: ${notification.body}`}</Text>
+        <Text>{`Extra Link Param: ${notification.data.link}`}</Text>
+      </View>
+    );
+  }
+
+  renderOpenedNotification(notification) {
+    return (
+      <View style={{backgroundColor: 'lightgray', margin: 10}}>
+        <Text>{`Title: ${notification.title}`}</Text>
+        <Text>{`Body: ${notification.body}`}</Text>
+        <Text>{`Notification Clicked: ${notification.data.link}`}</Text>
+      </View>
+    );
+  }
+
   render() {
     const notifications = this.state.notifications.map((notification, idx) =>
       (
@@ -105,13 +116,19 @@ class NotificationsExampleApp extends Component {
           {this.renderNotification(notification)}
         </View>
       ));
-
+      const openedNotifications = this.state.openedNotifications.map((notification, idx) =>
+      (
+        <View key={`notification_${idx}`}>
+          {this.renderOpenedNotification(notification)}
+        </View>
+      ));
     return (
       <View style={styles.container}>
         <Button title={'Request permissions'} onPress={this.requestPermissions} testID={'requestPermissions'} />
         <Button title={'Send local notification'} onPress={this.sendLocalNotification} testID={'sendLocalNotification'} />
         <Button title={'Remove all delivered notifications'} onPress={this.removeAllDeliveredNotifications} />
         {notifications}
+        {openedNotifications}
       </View>
     );
   }

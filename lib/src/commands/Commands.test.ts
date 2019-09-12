@@ -32,7 +32,7 @@ describe('Commands', () => {
     it('returns a promise with the initial notification', async () => {
       const expectedNotification: Notification = new Notification({identifier: 'id'});
       when(mockedNativeCommandsSender.getInitialNotification()).thenResolve(
-        expectedNotification
+        {identifier: 'id'}
       );
       const result = await uut.getInitialNotification();
       expect(result).toEqual(expectedNotification);

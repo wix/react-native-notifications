@@ -5,7 +5,7 @@ import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 import { NotificationCategory } from '../interfaces/NotificationCategory';
 
 interface NativeCommandsModule {
-  getInitialNotification(): Promise<Notification>;
+  getInitialNotification(): Promise<Object>;
   postLocalNotification(notification: Notification, id: number): void;
   requestPermissions(): void;
   abandonPermissions(): void;
@@ -35,7 +35,7 @@ export class NativeCommandsSender {
     return this.nativeCommandsModule.postLocalNotification(notification, id);
   }
 
-  getInitialNotification(): Promise<Notification> {
+  getInitialNotification(): Promise<Object> {
     return this.nativeCommandsModule.getInitialNotification();
   }
   
