@@ -1,4 +1,7 @@
-# React Native Notifications [![CircleCI](https://circleci.com/gh/wix/react-native-notifications/tree/master.svg?style=svg)](https://circleci.com/gh/wix/react-native-notifications/tree/master)
+# React Native Notifications
+![npm](https://img.shields.io/npm/dw/react-native-notifications.svg)
+[![Build Status](https://img.shields.io/jenkins/s/http/jenkins-oss.wixpress.com:8080/job/multi-react-native-notifications-master.svg)](https://jenkins-oss.wixpress.com/job/multi-react-native-notifications-master/)
+[![npm (tag)](https://img.shields.io/npm/v/react-native-notifications/snapshot.svg)](https://github.com/wix/react-native-navigation/tree/master)
 
 Handle all the aspects of push notifications for your app, including remote and local notifications, interactive notifications, silent notifications, and more.
 
@@ -27,14 +30,8 @@ _For information regarding proper integration with [react-native-navigation](htt
 _Upcoming: local notifications, background-state Rx queue (iOS equivalent)_
 
 
-# Table of Content
-
-- [Installation and setup](./docs/installation.md) - Setting up the library in your app
-- [Subscription](./docs/subscription.md) - Signing in to push notifications vendors (e.g. GCM)
-- [Notification Events (notfications core)](./docs/notificationsEvents.md) - Handling push notification arrival, notification opening by users
-- [Local notifications](./docs/localNotifications.md) - Manually triggering notifications (i.e. not via push)
-- [Advanced iOS topics](./docs/advancedIos.md) - e.g. managed notifications, PushKit API, Notifications actions
-- [Notifications layout control - Android (wiki page)](https://github.com/wix/react-native-notifications/wiki/Android:-Layout-Customization) - Learn how to fully customize your notifications layout on Android!
+# Quick Links
+- [Documentation](https://wix.github.io/react-native-notifications/)
 
 # License
 The MIT License.

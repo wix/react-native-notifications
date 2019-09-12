@@ -1,10 +1,11 @@
 example/
 test/
-RNNotifications/DerivedData
 node_modules/
 website/
 docs/
 docs_old/
+scripts/
+e2e/
 
 .eslintrc
 *.yml
