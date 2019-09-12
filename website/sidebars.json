@@ -1,9 +1,6 @@
 {
   "docs": {
-    "Installation": ["installation-ios", "installation-android"],
-    "Subscription": ["doc2"],
-    "Notification Events": ["doc3"],
-    "Advanced API - iOS": ["doc3"]
+    "Installation": ["installation-ios", "installation-android"]
   },
   "api": {
     "Commands": ["general-api", "ios-api", "android-api"],

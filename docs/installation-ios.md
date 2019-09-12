@@ -14,11 +14,11 @@ Start by running this:
 $ npm install react-native-notifications --save
 ```
 
-## <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/2000px-Apple_logo_black.svg.png" width=30/> iOS
 
-First, [Manually link](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking) the library to your Xcode project.
+Then, [Manually link](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking) the library to your Xcode project.
 
-Then, to enable notifications support add the following line at the top of your `AppDelegate.m`
+
+To enable notifications support add the following line at the top of your `AppDelegate.m`
 
 ```objective-c
 #import "RNNotifications.h"

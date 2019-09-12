@@ -48,15 +48,10 @@
     },
     "links": {
       "Docs": "Docs",
-      "API": "API",
-      "Help": "Help",
-      "Blog": "Blog"
+      "API": "API"
     },
     "categories": {
       "Installation": "Installation",
-      "Subscription": "Subscription",
-      "Notification Events": "Notification Events",
-      "Advanced API - iOS": "Advanced API - iOS",
       "Commands": "Commands",
       "Events": "Events"
     }
