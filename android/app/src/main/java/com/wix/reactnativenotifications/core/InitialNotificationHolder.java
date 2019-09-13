@@ -1,6 +1,5 @@
 package com.wix.reactnativenotifications.core;
 
-import android.support.annotation.Nullable;
 
 import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
 
@@ -32,7 +31,6 @@ public class InitialNotificationHolder {
         mNotification = null;
     }
 
-    @Nullable
     public PushNotificationProps get() {
         return mNotification;
     }

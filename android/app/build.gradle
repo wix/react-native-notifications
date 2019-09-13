@@ -16,6 +16,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            debuggable true
+        }
     }
     testOptions {
         unitTests.all { t ->
@@ -34,6 +37,16 @@ android {
                     println "see report at file://${t.reports.html.destination}/index.html"
                 }
             }
+        }
+    }
+
+    flavorDimensions "RNNotifications.reactNativeVersion"
+    productFlavors {
+        reactNative57 {
+            dimension "RNNotifications.reactNativeVersion"
+        }
+        reactNative60 {
+            dimension "RNNotifications.reactNativeVersion"
         }
     }
 }
