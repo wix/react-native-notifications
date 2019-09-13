@@ -42,7 +42,7 @@ android {
 
     flavorDimensions "RNNotifications.reactNativeVersion"
     productFlavors {
-        reactNative57 {
+        reactNative59 {
             dimension "RNNotifications.reactNativeVersion"
         }
         reactNative60 {
