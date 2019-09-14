@@ -119,3 +119,68 @@ dependencies {
 
 apply plugin: 'com.google.gms.google-services'
 ```
+
+#### Step #5: RNNotifications and React Native version
+<B>This step is required only for `react-native-notifications` version `2.1.0` and above.</B> <Br>
+
+react-native-notifications supports multiple React Native versions. Target the React Native version required by your project by specifying the RNN build flavor in `android/app/build.gradle`.
+
+```diff
+android {
+    ...
+    defaultConfig {
+        applicationId "com.yourproject"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
++        missingDimensionStrategy "RNNotifications.reactNativeVersion", "reactNative60" // See note below!
+        versionCode 1
+        versionName "1.0"
+        ...
+    }
+    ...
+}
+```
+
+!>Important note about `missingDimensionStrategy`<Br>
+>`reactNative59` - RN 0.59.x and below<Br>
+>`reactNative60` - RN 0.60.0 and above
+
+Now we need to instruct gradle how to build that flavor. To do so here two solutions:
+
+#### 5.1 Build app with gradle command
+
+**prefered solution** The RNNotification flavor you would like to build is specified in `app/build.gradle`. Therefore in order to compile only that flavor, instead of building your entire project using `./gradlew assembleDebug`, you should instruct gradle to build the app module: `./gradlew app:assembleDebug`. The easiest way is to add a package.json command to build and install your debug Android APK .
+
+```
+"scripts": {
+  ...
+  "android": "cd ./android && ./gradlew app:assembleDebug && ./gradlew installDebug"
+}
+```
+
+Now run `npm run android` to build your application
+
+#### 5.2 Ignore other RNN flavors
+
+If you don't want to run `npm run android` and want to keep the default `react-native run-android` command, you need to specify to graddle to ignore the other flavors RNNotifications provides.
+
+To do so edit `android/build.gradle` and add:
+
+```diff
++subprojects { subproject ->
++    afterEvaluate {
++        if ((subproject.plugins.hasPlugin('android') || subproject.plugins.hasPlugin('android-library'))) {
++            android {
++                variantFilter { variant ->
++                    def names = variant.flavors*.name
++                    if (names.contains("reactNative59")) {
++                        setIgnore(true)
++                    }
++                }
++            }
++        }
++    }
++}
+```
+
+**Note**: As more build variants come available in the future, you will need to adjust the list (`names.contains("reactNative59")`). This is why we recommend the first solution.

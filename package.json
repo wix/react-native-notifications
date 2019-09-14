@@ -28,13 +28,15 @@
     "test": "node scripts/test",
     "start": "node ./scripts/start",
     "pretest-e2e-ios-release": "npm run build",
+    "clean": "node ./scripts/clean",
     "test-e2e-ios": "node ./scripts/test-e2e --ios",
     "test-e2e-ios-release": "node ./scripts/test-e2e --ios --release",
     "test-unit-ios": "node ./scripts/test-unit --ios",
     "test-unit-android": "node ./scripts/test-unit --android",
     "test-js": "node ./scripts/test-js",
     "xcode": "open example/ios/NotificationsExampleApp.xcodeproj",
-    "androidStudio": "open -a /Applications/Android\\ Studio.app ./example/android"
+    "androidStudio": "open -a /Applications/Android\\ Studio.app ./example/android",
+    "release": "node ./scripts/release"
   },
   "nativePackage": true,
   "peerDependencies": {
@@ -55,7 +57,7 @@
     "ts-mockito": "^2.3.1",
     "mocha": "^2.5.3",
     "shell-utils": "1.x.x",
-    "react-native": "0.59.5",
+    "react-native": "0.60.5",
     "react": "16.8.6",
     "detox": "13.x.x",
     "jsc-android": "236355.x.x",
