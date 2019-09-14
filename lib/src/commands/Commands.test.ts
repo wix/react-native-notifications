@@ -185,4 +185,11 @@ describe('Commands', () => {
       verify(mockedNativeCommandsSender.getDeliveredNotifications()).called();
     });
   });
+
+  describe('refreshToken', () => {
+    it('sends to native', () => {
+      uut.refreshToken();
+      verify(mockedNativeCommandsSender.refreshToken()).called();
+    });
+  });
 });

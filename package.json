@@ -24,7 +24,7 @@
   "scripts": {
     "build": "rm -rf ./lib/dist && tsc",
     "prestart": "npm run build",
-    "pretest": "./node_modules/.bin/eslint *.js test",
+    "pretest-js": "npm run build",
     "test": "node scripts/test",
     "start": "node ./scripts/start",
     "pretest-e2e-ios-release": "npm run build",
@@ -108,13 +108,16 @@
     },
     "roots": [
       "<rootDir>/node_modules/",
-      "<rootDir>/test/"
+      "<rootDir>/lib/dist/"
     ],
     "collectCoverageFrom": [
+      "lib/dist/**/*.js",
       "lib/src/**/*.js",
       "integration/**/*.js",
       "!lib/dist/index.js",
       "!lib/dist/Notifications.js",
+      "!lib/dist/NotificationsIOS.js",
+      "!lib/dist/NotificationsAndroid.js",
       "!lib/dist/adapters/**/*",
       "!lib/dist/interfaces/**/*",
       "!lib/dist/**/*.test.*",

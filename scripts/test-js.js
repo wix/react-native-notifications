@@ -5,10 +5,8 @@ const fix = _.includes(process.argv, '--fix') ? '--fix' : '';
 
 const dirs = [
   'lib',
-  'integration',
-  'e2e',
   'scripts',
-  'playground/src'
+  'example/src'
 ];
 
 run();
