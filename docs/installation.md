@@ -121,7 +121,7 @@ apply plugin: 'com.google.gms.google-services'
 ```
 
 #### Step #5: RNNotifications and React Native version
-<B>This step is required only for `react-native-notifications` version `3.1.0` and above.</B> <Br>
+<B>This step is required only for `react-native-notifications` version `2.1.0` and above.</B> <Br>
 
 react-native-notifications supports multiple React Native versions. Target the React Native version required by your project by specifying the RNN build flavor in `android/app/build.gradle`.
 
