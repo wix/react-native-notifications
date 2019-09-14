@@ -24,6 +24,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        missingDimensionStrategy "RNNotifications.reactNativeVersion", "reactNative60"
     }
     buildTypes {
         release {
@@ -35,16 +36,12 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
-}
-
-configurations.all {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        def requested = details.requested
-        if (requested.group == 'com.android.support') {
-            details.useVersion "28.0.0"
-        }
+    packagingOptions {
+        pickFirst '**/libjsc.so'
+        pickFirst '**/libc++_shared.so'
     }
 }
+
 
 configurations.all {
     resolutionStrategy {
@@ -53,12 +50,12 @@ configurations.all {
 }
 
 dependencies {
-//    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.google.firebase:firebase-core:16.0.0'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.facebook.react:react-native:+'
+    implementation 'org.webkit:android-jsc-intl:+'
     implementation project(':react-native-notifications')
 
     testImplementation'junit:junit:4.12'
