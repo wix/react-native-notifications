@@ -8,7 +8,7 @@ const path = require('path');
 // Workaround JS
 const isRelease = process.env.RELEASE_BUILD === 'true';
 
-const BRANCH = process.env.GIT_BRANCH;
+const BRANCH = process.env.BRANCH;
 const VERSION_TAG = isRelease ? 'latest' : 'snapshot';
 const VERSION_INC = 'patch';
 
@@ -30,11 +30,6 @@ function validateEnv() {
         console.log(`not publishing on a different build`);
         return false;
     }
-
-    // if (process.env.GIT_BRANCH !== BRANCH) {
-    //     console.log(`not publishing on branch ${process.env.GIT_BRANCH}`);
-    //     return false;
-    // }
 
     return true;
 }
