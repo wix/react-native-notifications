@@ -25,6 +25,8 @@
     "build": "rm -rf ./lib/dist && tsc",
     "prestart": "npm run build",
     "pretest-js": "npm run build",
+    "pretest-unit-ios": "npm run build",
+    "pretest-unit-android": "npm run build",
     "test": "node scripts/test",
     "start": "node ./scripts/start",
     "pretest-e2e-ios-release": "npm run build",
