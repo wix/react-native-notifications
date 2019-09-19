@@ -156,7 +156,7 @@ public class PushNotification implements IPushNotification {
                 .setAutoCancel(true);
 
 
-             int resourceID = mContext.getResources().getIdentifier("notificationIcon", "drawable", mContext.getPackageName());
+             int resourceID = mContext.getResources().getIdentifier("notification_icon", "drawable", mContext.getPackageName());
                 if (resourceID != 0) {
                     notification.setSmallIcon(resourceID);
                 } else {
