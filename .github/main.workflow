@@ -4,7 +4,7 @@ workflow "Verify labels" {
 }
 
 action "VerifyLabels" {
-  uses = "yogevbd/enforce-label-action@test"
+  uses = "yogevbd/enforce-label-action@1.0.0"
   secrets = ["GITHUB_TOKEN"]
   env = {
     VALID_LABELS = "bug,enhancement,feature"
