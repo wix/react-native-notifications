@@ -2,7 +2,7 @@ name: Require PR label
 
 on:
   pull_request:
-    types: [label]
+    types: [labeled, unlabeled]
 
 jobs:
   require-label:
