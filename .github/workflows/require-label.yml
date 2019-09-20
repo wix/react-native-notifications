@@ -1,6 +1,8 @@
 name: Require PR label
 
-on: [pull_request]
+on:
+  pull_request:
+    types: [label]
 
 jobs:
   require-label:
