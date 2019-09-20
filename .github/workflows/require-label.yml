@@ -6,9 +6,9 @@ on:
 
 jobs:
   require-label:
+    id: requirelabel
     runs-on: ubuntu-latest
     steps:
     - uses: yogevbd/require-label-action@master
       with:
         valid-labels: "bug,enhancement,feature"
-      id: requirelabel
