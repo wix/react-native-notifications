@@ -4,7 +4,7 @@
 * react-native 0.60 Support
 
 ### Breaking Change
-This version requires an additional installation step in order to identify the correct build flavor on android, as described in our [Installation docs](https://github.com/wix/react-native-notifications/blob/master/docs/installation.md#step-5-rnnotifications-and-react-native-version).
+This version requires an additional installation step in order to identify the correct build flavor on android, as described in our [Installation doc](https://github.com/wix/react-native-notifications/blob/master/docs/installation.md#step-5-rnnotifications-and-react-native-version).
 
 # 2.0.6
 ## Fixed

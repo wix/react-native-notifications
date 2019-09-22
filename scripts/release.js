@@ -3,7 +3,7 @@ const exec = require('shell-utils').exec;
 const semver = require('semver');
 const fs = require('fs');
 const _ = require('lodash');
-const path = require('path');
+const grenrc = require('../.grenrc');
 
 // Workaround JS
 const isRelease = process.env.RELEASE_BUILD === 'true';
@@ -99,7 +99,7 @@ function tagAndPublish(newVersion) {
     exec.execSync(`git tag -a ${newVersion} -m "${newVersion}"`);
     exec.execSyncSilent(`git push deploy ${newVersion} || true`);
     if (isRelease) {
-      updatePackageJsonGit(newVersion);
+        updateGit(newVersion);
     }
 }
 
@@ -115,14 +115,24 @@ function readPackageJson() {
     return JSON.parse(fs.readFileSync(getPackageJsonPath()));
 }
 
-function updatePackageJsonGit(version) {
+function updateGit(version) {
     exec.execSync(`git checkout ${BRANCH}`);
+    updatePackageJson(version);
+    generateChangelog();
+    exec.execSync(`git commit -m "Update package.json version to ${version} and generate CHANGELOG.gren.md [ci skip]"`);
+    exec.execSync(`git push deploy ${BRANCH}`);
+}
+
+function updatePackageJson(version) {
     const packageJson = readPackageJson();
     packageJson.version = version;
     writePackageJson(packageJson);
     exec.execSync(`git add package.json`);
-    exec.execSync(`git commit -m"Update package.json version to ${version} [ci skip]"`);
-    exec.execSync(`git push deploy ${BRANCH}`);
+}
+
+function generateChangelog() {
+    exec.execSync('gren changelog');
+    exec.execSync(`git add ${grenrc.changelogFileName}`);
 }
 
 run();

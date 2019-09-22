@@ -65,7 +65,8 @@
     "jsc-android": "236355.x.x",
     "jest": "24.8.0",
     "metro-react-native-babel-preset": "0.55.x",
-    "react-native-typescript-transformer": "1.2.12"
+    "react-native-typescript-transformer": "1.2.12",
+    "github-release-notes": "0.17.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
