@@ -131,7 +131,7 @@ function updatePackageJson(version) {
 }
 
 function generateChangelog() {
-    exec.execSync('gren changelog');
+    exec.execSync('npm run generate-changelog');
     exec.execSync(`git add ${grenrc.changelogFileName}`);
 }
 

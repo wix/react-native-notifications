@@ -21,7 +21,7 @@ module.exports = {
     "snapshot"
   ],
   dataSource: "prs",
-  changelogFileName: "CHANGELOG.gren.md",
+  changelogFilename: "CHANGELOG.gren.md",
   tags: "all",
   override: true,
   generate: true

@@ -31,7 +31,8 @@
     "test-unit-ios": "node ./scripts/test-unit --ios",
     "test-unit-android": "node ./scripts/test-unit --android",
     "test-js": "node ./scripts/test-js",
-    "release": "node ./scripts/release"
+    "release": "node ./scripts/release",
+    "generate-changelog": "gren changelog"
   },
   "nativePackage": true,
   "dependencies": {
