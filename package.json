@@ -63,7 +63,8 @@
     "detox": "13.x.x",
     "jsc-android": "236355.x.x",
     "jest": "24.8.0",
-    "metro-react-native-babel-preset": "0.55.x"
+    "metro-react-native-babel-preset": "0.55.x",
+    "github-release-notes": "0.17.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
