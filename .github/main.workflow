@@ -1,9 +1,9 @@
 workflow "Verify labels" {
   on = "pull_request"
-  resolves = "VerifyLabels"
+  resolves = "Enforce PR label"
 }
 
-action "VerifyLabels" {
+action "Enforce PR label" {
   uses = "yogevbd/enforce-label-action@1.0.0"
   secrets = ["GITHUB_TOKEN"]
   env = {
