@@ -151,10 +151,17 @@ public class PushNotification implements IPushNotification {
         final Notification.Builder notification = new Notification.Builder(mContext)
                 .setContentTitle(mNotificationProps.getTitle())
                 .setContentText(mNotificationProps.getBody())
-                .setSmallIcon(mContext.getApplicationInfo().icon)
                 .setContentIntent(intent)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true);
+
+
+             int resourceID = mContext.getResources().getIdentifier("notification_icon", "drawable", mContext.getPackageName());
+                if (resourceID != 0) {
+                    notification.setSmallIcon(resourceID);
+                } else {
+                    notification.setSmallIcon(mContext.getApplicationInfo().icon);
+                }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,

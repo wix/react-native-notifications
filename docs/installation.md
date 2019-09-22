@@ -184,3 +184,12 @@ To do so edit `android/build.gradle` and add:
 ```
 
 **Note**: As more build variants come available in the future, you will need to adjust the list (`names.contains("reactNative59")`). This is why we recommend the first solution.
+
+#### Step #6: Set your notification Icon.
+
+By default, the package will use your native application icon. If your icon is not notification friendly, you may have to set and use a different icon. To do this, create a notification_icon.png and add it to your drawable folders. Once that is done add the following line to your AndroidManifest.xml
+
+```diff
++<meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable notification_icon" />
+```
+
