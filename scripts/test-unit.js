@@ -44,7 +44,7 @@ function runIosUnitTests() {
             -project NotificationsExampleApp.xcodeproj
             -sdk iphonesimulator
             -configuration ${conf}
-            -destination 'platform=iOS Simulator,name=iPhone X'
+            -destination 'platform=iOS Simulator,name=iPhone 11'
             -derivedDataPath ./example/ios/DerivedData/NotificationsExampleApp
             ONLY_ACTIVE_ARCH=YES`);
 }
