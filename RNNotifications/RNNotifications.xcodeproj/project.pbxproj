@@ -15,7 +15,6 @@
 		50351F9222CD7DF4000713B3 /* RNBridgeModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F9122CD7DF4000713B3 /* RNBridgeModule.m */; };
 		50351F9522CD7FF1000713B3 /* RCTConvert+RNNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F9422CD7FF1000713B3 /* RCTConvert+RNNotifications.m */; };
 		50351F9822CD8604000713B3 /* RNCommandsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F9722CD8604000713B3 /* RNCommandsHandler.m */; };
-		503BCA54233B67AF00D8384F /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503BCA53233B67AF00D8384F /* CallKit.framework */; };
 		504D54BE22E4B8660088F2E4 /* RNBridgeModuleIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 504D54BD22E4B8660088F2E4 /* RNBridgeModuleIntegrationTest.m */; };
 		507DCCF522CE3EBD005D4E0B /* RNNotifications.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8A2F7561CB57F28002CC8F5 /* RNNotifications.h */; };
 		507DCCF722CE3EF7005D4E0B /* RNBridgeModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F9022CD7DF4000713B3 /* RNBridgeModule.h */; };
@@ -95,7 +94,6 @@
 		50351F9422CD7FF1000713B3 /* RCTConvert+RNNotifications.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+RNNotifications.m"; sourceTree = "<group>"; };
 		50351F9622CD8604000713B3 /* RNCommandsHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNCommandsHandler.h; sourceTree = "<group>"; };
 		50351F9722CD8604000713B3 /* RNCommandsHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNCommandsHandler.m; sourceTree = "<group>"; };
-		503BCA53233B67AF00D8384F /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		504D54BD22E4B8660088F2E4 /* RNBridgeModuleIntegrationTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNBridgeModuleIntegrationTest.m; sourceTree = "<group>"; };
 		504D54CC22E4BCB80088F2E4 /* libcxxreact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcxxreact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		504D54CE22E4BCB80088F2E4 /* libdouble-conversion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libdouble-conversion.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -180,7 +178,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				503BCA54233B67AF00D8384F /* CallKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,7 +204,6 @@
 		504D54CB22E4BCB80088F2E4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				503BCA53233B67AF00D8384F /* CallKit.framework */,
 				50002A7F22E8885A008F6742 /* libOCMock.a */,
 				50858B7A22E87FBA008272FE /* libRCTActionSheet.a */,
 				50858B7C22E87FBA008272FE /* libRCTImage.a */,
@@ -413,6 +409,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 58B511D21A9E6C8500147676;
