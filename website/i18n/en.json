@@ -45,6 +45,10 @@
         "title": "Notification object",
         "sidebar_label": "Notification"
       },
+      "notifications-events": {
+        "title": "Handling Notification Events",
+        "sidebar_label": "Events"
+      },
       "subscription": {
         "title": "Push Notifications Subscription",
         "sidebar_label": "Subscription"

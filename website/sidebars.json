@@ -1,7 +1,7 @@
 {
   "docs": {
     "Installation": ["installation-ios", "installation-android"],
-    "Guides": ["subscription", "localNotifications"],
+    "Guides": ["subscription", "notifications-events", "localNotifications"],
     "Advanced": ["advanced-ios"]
   },
   "api": {

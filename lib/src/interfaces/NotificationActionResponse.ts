@@ -1,4 +1,9 @@
-export interface NotificationActionResponse {
+export class NotificationActionResponse {
   identifier: string;
-  text: string;
+  text?: string;
+
+  constructor(response: any) {
+    this.identifier = response.identifier;
+    this.text = response.text;
+  }
 }

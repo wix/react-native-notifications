@@ -56,7 +56,7 @@ export class NotificationsRoot {
   /**
    * getInitialNotification
    */
-  public getInitialNotification(): Promise<Notification> {
+  public getInitialNotification(): Promise<Notification | undefined> {
     return this.commands.getInitialNotification();
   }
 

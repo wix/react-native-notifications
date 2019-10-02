@@ -3,6 +3,7 @@ import {
   Registered, RegistrationError, RegisteredPushKit
 } from '../interfaces/NotificationEvents';
 import { Notification } from '../DTO/Notification';
+import { NotificationActionResponse } from '../interfaces/NotificationActionResponse';
 
 export class NativeEventsReceiver {
   private emitter: EventEmitter;
@@ -28,9 +29,10 @@ export class NativeEventsReceiver {
     return this.emitter.addListener('pushKitNotificationReceived', callback);
   }
 
-  public registerRemoteNotificationOpened(callback: (response: Notification, completion: () => void) => void): EmitterSubscription {
-    return this.emitter.addListener('notificationOpened', (payload, completion) => {
-      callback(new Notification(payload), completion);
+  public registerRemoteNotificationOpened(callback: (notification: Notification, completion: () => void, actionResponse?: NotificationActionResponse) => void): EmitterSubscription {
+    return this.emitter.addListener('notificationOpened', (response, completion) => {
+      const action = response.action ? new NotificationActionResponse(response.action) : undefined
+      callback(new Notification(response.notification), completion, action);
     });
   }
 

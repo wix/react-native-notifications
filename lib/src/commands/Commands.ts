@@ -9,7 +9,7 @@ export class Commands {
   constructor(
     private readonly nativeCommandsSender: NativeCommandsSender,
     private readonly uniqueIdProvider: UniqueIdProvider
-  ) {}
+  ) { }
 
   public postLocalNotification(notification: Notification, id?: number) {
     const notificationId: number = id ? id : this.uniqueIdProvider.generate();
@@ -17,9 +17,13 @@ export class Commands {
     return result;
   }
 
-  public async getInitialNotification(): Promise<Notification> {
+  public async getInitialNotification(): Promise<Notification | undefined> {
     return this.nativeCommandsSender.getInitialNotification().then((payload) => {
-      return new Notification(payload);
+      if (payload) {
+        return new Notification(payload);
+      }
+
+      return undefined;
     });
   }
 
