@@ -12,7 +12,7 @@
     <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
 
     <!-- Ref: http://stackoverflow.com/questions/13602190/java-lang-securityexception-requires-vibrate-permission-on-jelly-bean-4-2 -->
-    <uses-permission android:name="android.permission.VIBRATE" android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application>
 

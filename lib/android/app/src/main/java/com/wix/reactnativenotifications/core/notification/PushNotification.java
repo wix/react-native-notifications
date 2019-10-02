@@ -23,7 +23,7 @@ import com.wix.reactnativenotifications.core.ProxyService;
 
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_OPENED_EVENT_NAME;
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_EVENT_NAME;
-
+import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_FOREGROUND_EVENT_NAME;
 
 public class PushNotification implements IPushNotification {
 
@@ -64,6 +64,9 @@ public class PushNotification implements IPushNotification {
     public void onReceived() throws InvalidNotificationException {
         postNotification(null);
         notifyReceivedToJS();
+        if (mAppLifecycleFacade.isAppVisible()) {
+            notifiyReceivedForegroundNotificationToJS();
+        }
     }
 
     @Override
@@ -148,10 +151,17 @@ public class PushNotification implements IPushNotification {
         final Notification.Builder notification = new Notification.Builder(mContext)
                 .setContentTitle(mNotificationProps.getTitle())
                 .setContentText(mNotificationProps.getBody())
-                .setSmallIcon(mContext.getApplicationInfo().icon)
                 .setContentIntent(intent)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true);
+
+
+             int resourceID = mContext.getResources().getIdentifier("notification_icon", "drawable", mContext.getPackageName());
+                if (resourceID != 0) {
+                    notification.setSmallIcon(resourceID);
+                } else {
+                    notification.setSmallIcon(mContext.getApplicationInfo().icon);
+                }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
@@ -187,6 +197,10 @@ public class PushNotification implements IPushNotification {
 
     private void notifyReceivedToJS() {
         mJsIOHelper.sendEventToJS(NOTIFICATION_RECEIVED_EVENT_NAME, mNotificationProps.asBundle(), mAppLifecycleFacade.getRunningReactContext());
+    }
+
+    private void notifiyReceivedForegroundNotificationToJS() {
+        mJsIOHelper.sendEventToJS(NOTIFICATION_RECEIVED_FOREGROUND_EVENT_NAME, mNotificationProps.asBundle(), mAppLifecycleFacade.getRunningReactContext());
     }
 
     private void notifyOpenedToJS() {

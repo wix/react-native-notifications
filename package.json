@@ -1,6 +1,6 @@
 {
   "name": "react-native-notifications",
-  "version": "2.1.0",
+  "version": "2.1.3",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
   "author": "Lidan Hifi <lidan.hifi@gmail.com>",
   "license": "MIT",
@@ -38,7 +38,8 @@
     "test-js": "node ./scripts/test-js",
     "xcode": "open example/ios/NotificationsExampleApp.xcodeproj",
     "androidStudio": "open -a /Applications/Android\\ Studio.app ./example/android",
-    "release": "node ./scripts/release"
+    "release": "node ./scripts/release",
+    "generate-changelog": "gren changelog"
   },
   "nativePackage": true,
   "peerDependencies": {
@@ -61,7 +62,7 @@
     "shell-utils": "1.x.x",
     "react-native": "0.60.5",
     "react": "16.8.6",
-    "detox": "13.x.x",
+    "detox": "14.x.x",
     "jsc-android": "236355.x.x",
     "jest": "24.8.0",
     "metro-react-native-babel-preset": "0.55.x",
@@ -86,7 +87,7 @@
       "ios.none": {
         "binaryPath": "playground/ios/DerivedData/playground/Build/Products/Debug-iphonesimulator/playground.app",
         "type": "ios.none",
-        "name": "iPhone X",
+        "name": "iPhone 11",
         "session": {
           "server": "ws://localhost:8099",
           "sessionId": "playground"
@@ -96,13 +97,13 @@
         "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Debug-iphonesimulator/NotificationsExampleApp.app",
         "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp -project example/ios/NotificationsExampleApp.xcodeproj -sdk iphonesimulator -configuration Debug -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
         "type": "ios.simulator",
-        "name": "iPhone X"
+        "name": "iPhone 11"
       },
       "ios.sim.release": {
         "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Release-iphonesimulator/NotificationsExampleApp.app",
         "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp_release -project example/ios/NotificationsExampleApp.xcodeproj -sdk iphonesimulator -configuration Release -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
         "type": "ios.simulator",
-        "name": "iPhone X"
+        "name": "iPhone 11"
       }
     }
   },
