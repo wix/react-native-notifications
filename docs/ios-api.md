@@ -4,71 +4,73 @@ title: iOS Specific Commands
 sidebar_label: iOS specific
 ---
 
-## requestPermissions
-request permissions
+## requestPermissions()
+Requests notification permissions from iOS, prompting the user's dialog box.
 
 ```js
 Notifications.ios.requestPermissions();
 ```
 
-## checkPermissions
-checkPermissions
+## checkPermissions()
+See what push permissions are currently enabled.
 
 ```js
 Notifications.ios.checkPermissions();
 ```
 
-## abandonPermissions
-Unregister for all remote notifications received via Apple Push Notification service
+## abandonPermissions()
+Unregister for all remote notifications received via Apple Push Notification service.
+
+You should call this method in rare circumstances only, such as when a new version of the app removes support for all types of remote notifications. Users can temporarily prevent apps from receiving remote notifications through the Notifications section of the Settings app. Apps unregistered through this method can always re-register.
 
 ```js
 Notifications.ios.abandonPermissions();
 ```
 
-## registerPushKit
-registerPushKit
+## registerPushKit()
+Register for PushKit notifications
 
 ```js
 Notifications.ios.registerPushKit();
 ```
 
-## cancelAllLocalNotifications
-cancelAllLocalNotifications
+## cancelAllLocalNotifications()
+Cancels all scheduled localNotifications
 
 ```js
 Notifications.ios.cancelAllLocalNotifications();
 ```
 
-## getDeliveredNotifications
-getDeliveredNotifications
+## getDeliveredNotifications()
+Provides you with a list of the app’s notifications that are still displayed in Notification Center
 
 ```js
 Notifications.ios.getDeliveredNotifications();
 ```
 
-## removeAllDeliveredNotifications
-removeAllDeliveredNotifications
+## removeAllDeliveredNotifications()
+Remove all delivered notifications from Notification Center
 
 ```js
 Notifications.ios.removeAllDeliveredNotifications();
 ```
 
-## removeDeliveredNotifications
-removeDeliveredNotifications
+## removeDeliveredNotifications()
+Removes the specified notifications from Notification Center
 
 ```js
-Notifications.ios.removeDeliveredNotifications();
+Notifications.ios.removeDeliveredNotifications(identifiers);
 ```
 
-## getBadgeCount
-getBadgeCount
+## getBadgeCount()
+Gets the badge count number from the aps object
 
 ```js
 Notifications.ios.getBadgeCount();
 ```
 
-## setBadgeCount
-setBadgeCount
+## setBadgeCount()
+Sets the badge number for the app icon on the home screen
 
 ```js
 Notifications.ios.setBadgeCount(1);

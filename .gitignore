@@ -20,6 +20,7 @@ lib/android/*.iml
 lib/android/.idea
 lib/android/build
 lib/android/.gradle
+*.gradle
 
 #####
 # OS X temporary files that should never be committed

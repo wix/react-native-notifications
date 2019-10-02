@@ -4,8 +4,16 @@ title: General Commands
 sidebar_label: General
 ---
 
-## getInitialNotification
-Return the notification that caused the app to launch from dead state.
+## registerRemoteNotifications()
+Requests remote notification permissions, prompting the user's dialog box on iOS and request a token on Android.
+If the user accept the remote notifications permissions, `RemoteNotificationsRegistered` event will get called with the device token.
+
+```js
+Notifications.registerRemoteNotifications();
+```
+
+## getInitialNotification()
+This method returns a promise. If the app was launched by a push notification, this promise resolves to an object of type Notification. Otherwise, it resolves to undefined.
 
 ```js
 const notification: Notification = await Notifications.getInitialNotification();
