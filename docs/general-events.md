@@ -4,8 +4,8 @@ title: General
 sidebar_label: General
 ---
 
-## registerRemoteNotificationsRegistered
-registerRemoteNotificationsRegistered
+## registerRemoteNotificationsRegistered()
+Fired when the user registers for remote notifications. The handler will be invoked with an event holding the hex string representing the `deviceToken`
 
 ```js
 Notifications.events().registerRemoteNotificationsRegistered((event: Registered) => {
@@ -13,8 +13,9 @@ Notifications.events().registerRemoteNotificationsRegistered((event: Registered)
 });
 ```
 
-## registerNotificationReceived
-registerNotificationReceived
+## registerNotificationReceived()
+Fired when a remote notification is received in foreground state. The handler will be invoked with an instance of `Notification`.
+Should call completion function on iOS, will be ignored on Android.
 
 ```js
 Notifications.events().registerNotificationReceived((notification: Notification, completion: (response: NotificationCompletion) => void) => {
@@ -25,20 +26,22 @@ Notifications.events().registerNotificationReceived((notification: Notification,
 });
 ```
 
-## registerRemoteNotificationOpened
-registerRemoteNotificationOpened
+## registerRemoteNotificationOpened()
+Fired when a remote notification is opened from dead or background state. The handler will be invoked with an instance of `Notification`.
+Should call completion function on iOS, will be ignored on Android.
 
 ```js
-Notifications.events().registerRemoteNotificationOpened((notification: Notification) => {
+Notifications.events().registerRemoteNotificationOpened((notification: Notification, completion: () => void) => {
   console.log(JSON.stringify(notification.data));
+  completion();
 });
 ```
 
-## registerRemoteNotificationsRegistrationFailed
-registerRemoteNotificationsRegistrationFailed
+## registerRemoteNotificationsRegistrationFailed()
+Fired when the user fails to register for remote notifications. Typically occurs when APNS is having issues, or the device is a simulator. The handler will be invoked with {localizedDescription: string, code: string, domain: string}.
 
 ```js
-Notifications.events().registerRemoteNotificationsRegistrationFailed(() => {
-  
+Notifications.events().registerRemoteNotificationsRegistrationFailed((event: RegistrationError) => {
+  console.log(event.code, event.localizedDescription, event.domain);
 });
 ```
