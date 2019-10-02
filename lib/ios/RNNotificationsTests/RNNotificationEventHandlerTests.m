@@ -70,12 +70,14 @@
 
 - (void)testDidReceiveNotificationResponse_ShouldEmitEvent {
     UNNotification* notification = [self createNotificationWithIdentifier:@"id" andUserInfo:@{@"extraKey": @"extraValue"}];
-    UNNotificationResponse* response = [self createNotificationResponseWithIdentifier:@"id" andNotification:notification];
+    UNNotificationResponse* response = [self createNotificationResponseWithIdentifier:@"actionId" andNotification:notification];
     void (^testBlock)(void) = ^void() {};
     
-    [[_mockedNotificationCenter expect] postNotificationName:RNNotificationOpened object:[OCMArg any] userInfo:[OCMArg checkWithBlock:^BOOL(id obj) {
-        return ([[obj valueForKey:@"identifier"] isEqualToString:@"id"] &&
-                [[obj valueForKey:@"extraKey"] isEqualToString:@"extraValue"]);
+    [[_mockedNotificationCenter expect] postNotificationName:RNNotificationOpened object:[OCMArg any] userInfo:[OCMArg checkWithBlock:^BOOL(id response) {
+        NSDictionary* notification = response[@"notification"];
+        NSDictionary* action = response[@"action"];
+        return ([[notification valueForKey:@"identifier"] isEqualToString:@"id"] &&
+                [[notification valueForKey:@"extraKey"] isEqualToString:@"extraValue"] && [action[@"identifier"] isEqualToString:@"actionId"]);
     }]];
     [_uut didReceiveNotificationResponse:response completionHandler:testBlock];
     [_mockedNotificationCenter verify];
