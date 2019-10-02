@@ -36,6 +36,14 @@ export class NotificationsRoot {
   }
 
   /**
+   * registerRemoteNotifications
+   */
+  public registerRemoteNotifications() {
+    this.ios.registerRemoteNotifications();
+    this.android.registerRemoteNotifications();
+  }
+
+  /**
    * postLocalNotification
    */
   public postLocalNotification(notification: Notification, id: number) {

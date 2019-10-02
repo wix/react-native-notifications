@@ -48,7 +48,7 @@ export class NativeCommandsSender {
   }
 
   refreshToken() {
-    return this.nativeCommandsModule.refreshToken();
+    this.nativeCommandsModule.refreshToken();
   }
 
   registerPushKit() {

@@ -78,6 +78,6 @@ export class Commands {
   }
 
   public refreshToken() {
-    return this.nativeCommandsSender.refreshToken();
+    this.nativeCommandsSender.refreshToken();
   }
 }

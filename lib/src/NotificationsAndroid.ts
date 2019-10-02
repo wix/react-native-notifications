@@ -17,7 +17,7 @@ export class NotificationsAndroid {
   /**
   * Refresh FCM token
   */
-  public refreshToken() {
-    return this.commands.refreshToken();
+  public registerRemoteNotifications() {
+    this.commands.refreshToken();
   }
 }
