@@ -4,8 +4,6 @@ title: Handling Notification Events
 sidebar_label: Events
 ---
 
-## <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/2000px-Apple_logo_black.svg.png" width=30/> iOS
-
 When a push notification is received by the device, the application can be in one of the following states:
 
 1. **Forground:** When the app is running and is used by the user right now; in this case, a `notificationReceived` event will be fired, do not forget to invoke `completion()` callback.
