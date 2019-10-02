@@ -5,7 +5,7 @@ apply from: '../prepare-robolectric.gradle'
 
 String resolveFlavor() {
     def packageSlurper = new JsonSlurper()
-    def reactNativePackageJson = packageSlurper.parse file('../../node_modules/react-native/package.json')
+    def reactNativePackageJson = packageSlurper.parse file('../../../node_modules/react-native/package.json')
     def reactNativeVersion = reactNativePackageJson.version
 
     List versionComponents = reactNativeVersion.tokenize('.')
