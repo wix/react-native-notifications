@@ -37,6 +37,10 @@
         "title": "iOS",
         "sidebar_label": "iOS specific"
       },
+      "localNotifications": {
+        "title": "Local Notifications",
+        "sidebar_label": "Local Notifications"
+      },
       "notification-object": {
         "title": "Notification object",
         "sidebar_label": "Notification"
