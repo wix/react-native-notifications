@@ -28,20 +28,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		50CBD3A822F2556900142352 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 50CBD3A222F2556900142352 /* RCTAnimation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RCTAnimation;
-		};
-		50CBD3AA22F2556900142352 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 50CBD3A222F2556900142352 /* RCTAnimation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2D2A28201D9B03D100D4039D;
-			remoteInfo = "RCTAnimation-tvOS";
-		};
 		50E49F4022D1F06C007160C1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -298,7 +284,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50CBD3CD22F2558C00142352 /* libRCTAnimation.a in Frameworks */,
 				50F1F0D722CE3C1E00FD5829 /* libcxxreact.a in Frameworks */,
 				50F1F0D622CE3C0F00FD5829 /* libyoga.a in Frameworks */,
 				50F1F0CD22CE3B6300FD5829 /* libRCTActionSheet.a in Frameworks */,
@@ -348,15 +333,6 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = NotificationsExampleApp;
-			sourceTree = "<group>";
-		};
-		50CBD3A322F2556900142352 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				50CBD3A922F2556900142352 /* libRCTAnimation.a */,
-				50CBD3AB22F2556900142352 /* libRCTAnimation.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		50F1F04D22CE3A6100FD5829 /* Products */ = {
@@ -605,20 +581,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		50CBD3A922F2556900142352 /* libRCTAnimation.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTAnimation.a;
-			remoteRef = 50CBD3A822F2556900142352 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		50CBD3AB22F2556900142352 /* libRCTAnimation.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTAnimation.a;
-			remoteRef = 50CBD3AA22F2556900142352 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		50E49F4122D1F06C007160C1 /* libjsi.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
