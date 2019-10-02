@@ -1,6 +1,7 @@
 {
   "docs": {
     "Installation": ["installation-ios", "installation-android"],
+    "Guides": ["subscription"],
     "Advanced": ["advanced-ios"]
   },
   "api": {

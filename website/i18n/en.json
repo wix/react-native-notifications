@@ -40,6 +40,10 @@
       "notification-object": {
         "title": "Notification object",
         "sidebar_label": "Notification"
+      },
+      "subscription": {
+        "title": "Push Notifications Subscription",
+        "sidebar_label": "Subscription"
       }
     },
     "links": {
@@ -48,6 +52,7 @@
     },
     "categories": {
       "Installation": "Installation",
+      "Guides": "Guides",
       "Advanced": "Advanced",
       "Commands": "Commands",
       "Events": "Events",
