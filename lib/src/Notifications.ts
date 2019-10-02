@@ -2,6 +2,7 @@ import { NativeCommandsSender } from './adapters/NativeCommandsSender';
 import { NativeEventsReceiver } from './adapters/NativeEventsReceiver';
 import { Commands } from './commands/Commands';
 import { EventsRegistry } from './events/EventsRegistry';
+import { EventsRegistryIOS } from './events/EventsRegistryIOS';
 import { Notification } from './DTO/Notification';
 import { UniqueIdProvider } from './adapters/UniqueIdProvider';
 import { CompletionCallbackWrapper } from './adapters/CompletionCallbackWrapper';
@@ -17,6 +18,7 @@ export class NotificationsRoot {
   private readonly nativeCommandsSender: NativeCommandsSender;
   private readonly commands: Commands;
   private readonly eventsRegistry: EventsRegistry;
+  private readonly eventsRegistryIOS: EventsRegistryIOS;
   private readonly uniqueIdProvider: UniqueIdProvider;
   private readonly completionCallbackWrapper: CompletionCallbackWrapper;
 
@@ -30,8 +32,9 @@ export class NotificationsRoot {
       this.uniqueIdProvider
     );
     this.eventsRegistry = new EventsRegistry(this.nativeEventsReceiver, this.completionCallbackWrapper);
+    this.eventsRegistryIOS = new EventsRegistryIOS(this.nativeEventsReceiver);
 
-    this.ios = new NotificationsIOS(this.commands);
+    this.ios = new NotificationsIOS(this.commands, this.eventsRegistryIOS);
     this.android = new NotificationsAndroid(this.commands);
   }
 

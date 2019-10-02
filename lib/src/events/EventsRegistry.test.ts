@@ -146,20 +146,6 @@ describe('EventsRegistry', () => {
     expect(mockNativeEventsReceiver.registerRemoteNotificationsRegistered).toHaveBeenCalledWith(cb);
   });
 
-  it('delegates registerPushKitRegistered to nativeEventsReceiver', () => {
-    const cb = jest.fn();
-    uut.registerPushKitRegistered(cb);
-    expect(mockNativeEventsReceiver.registerPushKitRegistered).toHaveBeenCalledTimes(1);
-    expect(mockNativeEventsReceiver.registerPushKitRegistered).toHaveBeenCalledWith(cb);
-  });
-
-  it('delegates registerPushKitNotificationReceived to nativeEventsReceiver', () => {
-    const cb = jest.fn();
-    uut.registerPushKitNotificationReceived(cb);
-    expect(mockNativeEventsReceiver.registerPushKitNotificationReceived).toHaveBeenCalledTimes(1);
-    expect(mockNativeEventsReceiver.registerPushKitNotificationReceived).toHaveBeenCalledWith(cb);
-  });
-
   it('delegates registerRemoteNotificationsRegistrationFailed to nativeEventsReceiver', () => {
     const cb = jest.fn();
     uut.registerRemoteNotificationsRegistrationFailed(cb);

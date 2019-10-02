@@ -13,7 +13,7 @@ Notifications.registerRemoteNotifications();
 ```
 
 ## getInitialNotification()
-This method returns a promise. If the app was launched by a push notification, this promise resolves to an object of type Notification. Otherwise, it resolves to undefined.
+This method returns a promise. If the app was launched by a push notification, this promise resolves to an object of type [Notification](http://localhost:3000/react-native-notifications/docs/notification-object). Otherwise, it resolves to undefined.
 
 ```js
 const notification: Notification = await Notifications.getInitialNotification();

@@ -5,21 +5,13 @@
     "previous": "Previous",
     "tagline": "Documentation",
     "docs": {
+      "advanced-ios": {
+        "title": "iOS Advanced API",
+        "sidebar_label": "iOS"
+      },
       "android-api": {
         "title": "Android Specific Commands",
         "sidebar_label": "Android specific"
-      },
-      "doc2": {
-        "title": "document number 2"
-      },
-      "doc3": {
-        "title": "This is document number 3"
-      },
-      "doc4": {
-        "title": "Other Document"
-      },
-      "doc5": {
-        "title": "Fifth Document"
       },
       "general-api": {
         "title": "General Commands",
@@ -44,6 +36,10 @@
       "ios-events": {
         "title": "iOS",
         "sidebar_label": "iOS specific"
+      },
+      "notification-object": {
+        "title": "Notification object",
+        "sidebar_label": "Notification"
       }
     },
     "links": {
@@ -52,8 +48,10 @@
     },
     "categories": {
       "Installation": "Installation",
+      "Advanced": "Advanced",
       "Commands": "Commands",
-      "Events": "Events"
+      "Events": "Events",
+      "Objects": "Objects"
     }
   },
   "pages-strings": {

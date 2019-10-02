@@ -1,9 +1,11 @@
 {
   "docs": {
-    "Installation": ["installation-ios", "installation-android"]
+    "Installation": ["installation-ios", "installation-android"],
+    "Advanced": ["advanced-ios"]
   },
   "api": {
     "Commands": ["general-api", "ios-api", "android-api"],
-    "Events": ["general-events", "ios-events"]
+    "Events": ["general-events", "ios-events"],
+    "Objects": ["notification-object"]
   }
 }

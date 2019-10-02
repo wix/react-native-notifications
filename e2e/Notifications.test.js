@@ -28,18 +28,16 @@ describe('Notifications', () => {
   });
 
   describe('Dead state', () => {
-    it.only('Should receive notification', async () => {
+    it('Should receive notification', async () => {
       await device.launchApp({newInstance: true, userNotification: createNotification({link: 'deadState/notification'})});
       await linkShouldBeVisible('deadState/notification');
     });
   });
 
-
   async function linkShouldBeVisible(link) {
     return await expect(elementByLabel(`Extra Link Param: ${link}`)).toBeVisible();
   }
 });
-
 
 function createNotification({link, showAlert}) {
   return {

@@ -1,9 +1,10 @@
 import { Notification } from './DTO/Notification';
 import { Commands } from './commands/Commands';
 import { Platform } from 'react-native';
+import { EventsRegistryIOS } from './events/EventsRegistryIOS';
 
 export class NotificationsIOS {
-  constructor(private readonly commands: Commands) {
+  constructor(private readonly commands: Commands, private readonly eventsRegistry: EventsRegistryIOS) {
     return new Proxy(this, {
       get(target, name) {
         if (Platform.OS === 'ios') {
@@ -85,5 +86,12 @@ export class NotificationsIOS {
    */
   public getDeliveredNotifications(): Array<Notification> {
     return this.commands.getDeliveredNotifications();
+  }
+
+  /**
+   * Obtain the events registry instance
+   */
+  public events(): EventsRegistryIOS {
+    return this.eventsRegistry;
   }
 }

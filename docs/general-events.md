@@ -14,7 +14,7 @@ Notifications.events().registerRemoteNotificationsRegistered((event: Registered)
 ```
 
 ## registerNotificationReceived()
-Fired when a remote notification is received in foreground state. The handler will be invoked with an instance of `Notification`.
+Fired when a remote notification is received in foreground state. The handler will be invoked with an instance of [Notification](http://localhost:3000/react-native-notifications/docs/notification-object).
 Should call completion function on iOS, will be ignored on Android.
 
 ```js
@@ -27,7 +27,7 @@ Notifications.events().registerNotificationReceived((notification: Notification,
 ```
 
 ## registerRemoteNotificationOpened()
-Fired when a remote notification is opened from dead or background state. The handler will be invoked with an instance of `Notification`.
+Fired when a remote notification is opened from dead or background state. The handler will be invoked with an instance of [Notification](http://localhost:3000/react-native-notifications/docs/notification-object).
 Should call completion function on iOS, will be ignored on Android.
 
 ```js

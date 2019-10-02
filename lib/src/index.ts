@@ -6,3 +6,4 @@ export const Notifications = notificationsSingleton;
 export * from './interfaces/EventSubscription';
 export * from './DTO/Notification';
 export * from './interfaces/NotificationEvents';
+export * from './interfaces/NotificationCategory';

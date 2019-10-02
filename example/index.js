@@ -6,7 +6,7 @@ import {
   Button
 } from 'react-native';
 import React, {Component} from 'react';
-import {Notifications} from 'react-native-notifications';
+import {Notifications, NotificationAction, NotificationCategory} from 'react-native-notifications';
 
 class NotificationsExampleApp extends Component {
   constructor() {
@@ -43,13 +43,13 @@ class NotificationsExampleApp extends Component {
   }
 
   setCategories() {
-    const upvoteAction = {
+    const upvoteAction = new NotificationAction({
       activationMode: 'background',
       title: String.fromCodePoint(0x1F44D),
       identifier: 'UPVOTE_ACTION'
-    };
+    });
 
-    const replyAction = {
+    const replyAction = new NotificationAction({
       activationMode: 'background',
       title: 'Reply',
       authenticationRequired: true,
@@ -58,12 +58,13 @@ class NotificationsExampleApp extends Component {
         placeholder: 'Insert message'
       },
       identifier: 'REPLY_ACTION'
-    };
+    });
 
-    const category = {
+
+    const category = new NotificationCategory({
       identifier: 'SOME_CATEGORY',
       actions: [upvoteAction, replyAction]
-    };
+    });
 
     Notifications.setCategories([category]);
   }
