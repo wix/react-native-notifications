@@ -44,5 +44,5 @@ Notifications.cancelLocalNotification(id);
 Check if the app has permissions to send remote notifications.
 
 ```js
-const hasPermissions: boolean = await Notifications.getInitialNotification();
+const hasPermissions: boolean = await Notifications.isRegisteredForRemoteNotifications();
 ```
