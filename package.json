@@ -38,6 +38,7 @@
     "test-js": "node ./scripts/test-js",
     "xcode": "open example/ios/NotificationsExampleApp.xcodeproj",
     "androidStudio": "open -a /Applications/Android\\ Studio.app ./example/android",
+    "prerelease": "npm run build",
     "release": "node ./scripts/release",
     "generate-changelog": "gren changelog"
   },
