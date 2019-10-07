@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.0-beta.1 (07/10/2019)
+*No changelog for this release.*
+
+---
+
 ## 3.0.0-beta.0 (02/10/2019)
 
 #### Bug Fixes:
