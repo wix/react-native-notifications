@@ -1,4 +1,4 @@
-# React Native Notifications [![Build Status](https://travis-ci.org/wix/react-native-notifications.svg)](https://travis-ci.org/wix/react-native-notifications)
+# React Native Notifications [![CircleCI](https://circleci.com/gh/wix/react-native-notifications/tree/master.svg?style=svg)](https://circleci.com/gh/wix/react-native-notifications/tree/master)
 
 Handle all the aspects of push notifications for your app, including remote and local notifications, interactive notifications, silent notifications, and more.
 

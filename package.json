@@ -1,6 +1,6 @@
 {
   "name": "react-native-notifications",
-  "version": "1.1.19",
+  "version": "2.0.6",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
   "author": "Lidan Hifi <lidan.hifi@gmail.com>",
   "license": "MIT",
@@ -19,6 +19,20 @@
     "actionable-notifications",
     "interactive-notifications"
   ],
+  "main": "lib/src/index",
+  "scripts": {
+    "build": ":",
+    "pretest": "./node_modules/.bin/eslint *.js test",
+    "test": "node scripts/test",
+    "start": "node ./scripts/start",
+    "clean": "node ./scripts/clean",
+    "test-e2e-ios": "node ./scripts/test-e2e --ios",
+    "test-e2e-ios-release": "node ./scripts/test-e2e --ios --release",
+    "test-unit-ios": "node ./scripts/test-unit --ios",
+    "test-unit-android": "node ./scripts/test-unit --android",
+    "test-js": "node ./scripts/test-js",
+    "release": "node ./scripts/release"
+  },
   "nativePackage": true,
   "dependencies": {
     "core-js": "^1.0.0",
@@ -29,21 +43,27 @@
     "react-native": ">=0.25.1"
   },
   "devDependencies": {
-    "babel-eslint": "^6.0.2",
-    "babel-preset-react-native": "^1.9.0",
-    "babel-register": "^6.7.2",
+    "@types/react": "16.x.x",
+    "@types/react-native": "0.57.7",
+    "@types/react-test-renderer": "16.x.x",
+    "@babel/plugin-proposal-export-default-from": "7.2.0",
+    "@babel/plugin-proposal-export-namespace-from": "7.2.0",
+    "typescript": "3.2.2",
+    "babel-eslint": "9.0.0",
     "chai": "^3.5.0",
     "chokidar-cli": "^1.2.0",
-    "eslint": "^2.12.0",
+    "eslint": "6.0.1",
     "mocha": "^2.5.3",
     "proxyquire": "^1.7.4",
     "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0"
-  },
-  "scripts": {
-    "pretest": "./node_modules/.bin/eslint *.js test",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-register --reporter spec \"test/*.spec.js\"",
-    "start": "npm run test --silent; ./node_modules/.bin/chokidar \"test/*.js\" \"*.js\" -c 'npm run test --silent' --silent"
+    "sinon-chai": "^2.8.0",
+    "shell-utils": "1.x.x",
+    "react-native": "0.60.5",
+    "react": "16.8.6",
+    "detox": "13.x.x",
+    "jsc-android": "236355.x.x",
+    "jest": "24.8.0",
+    "metro-react-native-babel-preset": "0.55.x"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -56,9 +76,60 @@
   "bugs": {
     "url": "https://github.com/wix/react-native-notifications/issues"
   },
-  "babel": {
-    "presets": [
-      "react-native"
+  "detox": {
+    "test-runner": "jest",
+    "specs": "",
+    "configurations": {
+      "ios.none": {
+        "binaryPath": "playground/ios/DerivedData/playground/Build/Products/Debug-iphonesimulator/playground.app",
+        "type": "ios.none",
+        "name": "iPhone X",
+        "session": {
+          "server": "ws://localhost:8099",
+          "sessionId": "playground"
+        }
+      },
+      "ios.sim.debug": {
+        "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Debug-iphonesimulator/NotificationsExampleApp.app",
+        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp -project example/ios/NotificationsExampleApp.xcodeproj -sdk iphonesimulator -configuration Debug -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      },
+      "ios.sim.release": {
+        "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Release-iphonesimulator/NotificationsExampleApp.app",
+        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp_release -project example/ios/NotificationsExampleApp.xcodeproj -sdk iphonesimulator -configuration Release -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      }
+    }
+  },
+  "jest": {
+    "preset": "react-native",
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+    },
+    "roots": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/test/"
+    ],
+    "collectCoverageFrom": [
+      "lib/src/**/*.js",
+      "integration/**/*.js",
+      "!lib/dist/index.js",
+      "!lib/dist/Navigation.js",
+      "!lib/dist/adapters/**/*",
+      "!lib/dist/interfaces/**/*",
+      "!lib/dist/**/*.test.*",
+      "!integration/**/*.test.*",
+      "!integration/*.test.*"
+    ],
+    "resetMocks": true,
+    "resetModules": true,
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "html"
     ]
   }
 }
