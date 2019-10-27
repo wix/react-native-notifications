@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.1.4-beta.0 (27/10/2019)
+*No changelog for this release.*
+
+---
+
+## 3.0.0-beta.1 (07/10/2019)
+*No changelog for this release.*
+
+---
+
+## 3.0.0-beta.0 (02/10/2019)
+
+#### Bug Fixes:
+
+- Remove vibrate permissions maxSdkVersion, fix example project on android [#388](https://github.com/wix/react-native-notifications/pull/388)
+
+---
+
 ## 2.1.3 (22/09/2019)
 
 #### Enhancements:
