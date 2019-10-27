@@ -9,4 +9,5 @@ public interface IPushNotificationsDrawer {
 
     void onNotificationOpened();
     void onNotificationClearRequest(int id);
+    void onAllNotificationsClearRequest();
 }
