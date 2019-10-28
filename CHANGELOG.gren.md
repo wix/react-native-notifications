@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.4 (27/10/2019)
+*No changelog for this release.*
+
+---
+
 ## 2.1.4-beta.0 (27/10/2019)
 *No changelog for this release.*
 
