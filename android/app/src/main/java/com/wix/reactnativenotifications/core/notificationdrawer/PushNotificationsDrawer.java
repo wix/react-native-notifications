@@ -61,6 +61,12 @@ public class PushNotificationsDrawer implements IPushNotificationsDrawer {
     }
 
     @Override
+    public void onNotificationClearRequest(String tag, int id) {
+        final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(tag, id);
+    }
+
+    @Override
     public void onAllNotificationsClearRequest() {
         final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
