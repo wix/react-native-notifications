@@ -8,7 +8,6 @@
 - (instancetype)initWithNotificationEventHandler:(RNNotificationEventHandler *)notificationEventHandler {
     self = [super init];
     _notificationEventHandler = notificationEventHandler;
-    [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
     
     return self;
 }
