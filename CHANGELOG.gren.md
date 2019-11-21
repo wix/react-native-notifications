@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.6 (20/11/2019)
+*No changelog for this release.*
+
+---
+
 ## 2.1.5 (28/10/2019)
 *No changelog for this release.*
 
