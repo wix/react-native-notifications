@@ -2,12 +2,12 @@ apply plugin: 'com.android.library'
 apply from: '../prepare-robolectric.gradle'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
@@ -52,7 +52,7 @@ android {
 }
 
 dependencies {
-    implementation "com.google.firebase:firebase-messaging:17.3.0"
+    api "com.google.firebase:firebase-messaging:20.0.1"
     implementation 'com.facebook.react:react-native:+'
 
     // tests
