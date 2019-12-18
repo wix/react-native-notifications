@@ -55,7 +55,7 @@ android {
 }
 
 dependencies {
-    implementation "com.google.firebase:firebase-messaging:17.3.0"
+    implementation "com.google.firebase:firebase-messaging:17.3.3"
     implementation 'com.facebook.react:react-native:+'
 
     // tests
