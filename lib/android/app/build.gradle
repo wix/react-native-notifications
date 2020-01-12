@@ -1,7 +1,6 @@
 import groovy.json.JsonSlurper
 
 apply plugin: 'com.android.library'
-apply from: '../prepare-robolectric.gradle'
 
 String resolveFlavor() {
     def packageSlurper = new JsonSlurper()
@@ -18,7 +17,7 @@ String resolveFlavor() {
 }
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
     defaultConfig {
@@ -56,6 +55,10 @@ android {
                 }
             }
         }
+
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 
     flavorDimensions "RNNotifications.reactNativeVersion"
@@ -83,8 +86,8 @@ dependencies {
 
     // tests
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.robolectric:robolectric:3.5.1'
+    testImplementation 'org.robolectric:robolectric:4.3'
     testImplementation 'org.assertj:assertj-core:3.8.0'
     testImplementation 'com.squareup.assertj:assertj-android:1.1.1'
-    testImplementation 'org.mockito:mockito-core:2.13.0'
+    testImplementation 'org.mockito:mockito-core:2.25.1'
 }

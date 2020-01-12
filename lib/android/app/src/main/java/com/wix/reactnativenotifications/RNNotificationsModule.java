@@ -108,13 +108,23 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
 
     @ReactMethod
     public void setCategories(ReadableArray categories) {
-
+    
+    }
+    
+    public void cancelDeliveredNotification(String tag, int notificationId) {
+        IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
+        notificationsDrawer.onNotificationClearRequest(tag, notificationId);
     }
 
     @ReactMethod
     public void isRegisteredForRemoteNotifications(Promise promise) {
         boolean hasPermission = NotificationManagerCompatFacade.from(getReactApplicationContext()).areNotificationsEnabled();
         promise.resolve(new Boolean(hasPermission));
+    }
+
+    @ReactMethod void removeAllDeliveredNotifications() {
+        IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
+        notificationsDrawer.onAllNotificationsClearRequest();
     }
 
     protected void startFcmIntentService(String extraFlag) {

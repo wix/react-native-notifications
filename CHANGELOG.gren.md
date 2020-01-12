@@ -1,5 +1,30 @@
 # Changelog
 
+## 2.1.7 (14/12/2019)
+*No changelog for this release.*
+
+---
+
+## 2.1.6 (20/11/2019)
+*No changelog for this release.*
+
+---
+
+## 2.1.5 (28/10/2019)
+*No changelog for this release.*
+
+---
+
+## 2.1.4 (27/10/2019)
+*No changelog for this release.*
+
+---
+
+## 2.1.4-beta.0 (27/10/2019)
+*No changelog for this release.*
+
+---
+
 ## 3.0.0-beta.1 (07/10/2019)
 *No changelog for this release.*
 

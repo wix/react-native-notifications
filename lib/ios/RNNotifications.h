@@ -12,4 +12,7 @@
 + (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken;
 + (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
 
++ (void)addNativeDelegate:(id<UNUserNotificationCenterDelegate>)delegate;
++ (void)removeNativeDelegate:(id<UNUserNotificationCenterDelegate>)delegate;
+
 @end
