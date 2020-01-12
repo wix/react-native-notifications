@@ -48,13 +48,6 @@ Provides you with a list of the app’s notifications that are still displayed i
 Notifications.ios.getDeliveredNotifications();
 ```
 
-## removeAllDeliveredNotifications()
-Remove all delivered notifications from Notification Center
-
-```js
-Notifications.ios.removeAllDeliveredNotifications();
-```
-
 ## removeDeliveredNotifications()
 Removes the specified notifications from Notification Center
 

@@ -171,7 +171,7 @@ describe('Commands', () => {
     });
   });
 
-  describe('removeDeliveredNotifications', async () => {
+  describe('removeDeliveredNotifications', () => {
     it('sends to native', () => {
       const identifiers: Array<string> = ["id1", "id2"];
       uut.removeDeliveredNotifications(identifiers);

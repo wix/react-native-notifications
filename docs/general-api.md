@@ -46,3 +46,10 @@ Check if the app has permissions to send remote notifications.
 ```js
 const hasPermissions: boolean = await Notifications.isRegisteredForRemoteNotifications();
 ```
+
+## removeAllDeliveredNotifications()
+Remove all delivered notifications from Notification Center
+
+```js
+Notifications.removeAllDeliveredNotifications();
+```

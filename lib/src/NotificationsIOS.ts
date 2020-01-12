@@ -67,13 +67,6 @@ export class NotificationsIOS {
   }
 
   /**
-   * removeAllDeliveredNotifications
-   */
-  public removeAllDeliveredNotifications() {
-    return this.commands.removeAllDeliveredNotifications();
-  }
-
-  /**
    * removeDeliveredNotifications
    * @param identifiers Array of notification identifiers
    */

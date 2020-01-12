@@ -75,6 +75,13 @@ export class NotificationsRoot {
   }
 
   /**
+   * removeAllDeliveredNotifications
+   */
+  public removeAllDeliveredNotifications() {
+    return this.commands.removeAllDeliveredNotifications();
+  }
+
+  /**
    * isRegisteredForRemoteNotifications
    */
   public isRegisteredForRemoteNotifications(): Promise<boolean> {
