@@ -56,3 +56,9 @@ dependencies {
 
 apply plugin: 'com.google.gms.google-services'
 ```
+
+#### Step #5: Link react-native-notifications in Project/android/settings.gradle
+```gradle
+include ':react-native-notifications'
+project(':react-native-notifications').projectDir = new File(rootProject.projectDir, '../../../node_modules/react-native-notifications/lib/android/app')
+```
