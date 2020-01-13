@@ -25,6 +25,7 @@ export class NotificationsRoot {
   private readonly completionCallbackWrapper: CompletionCallbackWrapper;
 
   constructor() {
+    this.notificationFactory = new NotificationFactory();
     this.nativeEventsReceiver = new NativeEventsReceiver(this.notificationFactory);
     this.nativeCommandsSender = new NativeCommandsSender();
     this.completionCallbackWrapper = new CompletionCallbackWrapper(this.nativeCommandsSender);
