@@ -26,7 +26,7 @@ class NotificationsExampleApp extends Component {
         notifications: [...this.state.notifications, notification]
       });
 
-      completion({alert: notification.data.showAlert, sound: false, badge: false});
+      completion({alert: notification.payload.showAlert, sound: false, badge: false});
     });
 
     Notifications.events().registerRemoteNotificationOpened((notification, completion) => {
@@ -95,7 +95,7 @@ class NotificationsExampleApp extends Component {
       <View style={{backgroundColor: 'lightgray', margin: 10}}>
         <Text>{`Title: ${notification.title}`}</Text>
         <Text>{`Body: ${notification.body}`}</Text>
-        <Text>{`Extra Link Param: ${notification.data.link}`}</Text>
+        <Text>{`Extra Link Param: ${notification.payload.link}`}</Text>
       </View>
     );
   }
@@ -105,7 +105,7 @@ class NotificationsExampleApp extends Component {
       <View style={{backgroundColor: 'lightgray', margin: 10}}>
         <Text>{`Title: ${notification.title}`}</Text>
         <Text>{`Body: ${notification.body}`}</Text>
-        <Text>{`Notification Clicked: ${notification.data.link}`}</Text>
+        <Text>{`Notification Clicked: ${notification.payload.link}`}</Text>
       </View>
     );
   }
