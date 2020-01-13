@@ -4,11 +4,13 @@ import { Notification } from '../DTO/Notification';
 import { NotificationCategory } from '../interfaces/NotificationCategory';
 import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 import { UniqueIdProvider } from '../adapters/UniqueIdProvider';
+import { NotificationFactory } from '../DTO/NotificationFactory';
 
 export class Commands {
   constructor(
     private readonly nativeCommandsSender: NativeCommandsSender,
-    private readonly uniqueIdProvider: UniqueIdProvider
+    private readonly uniqueIdProvider: UniqueIdProvider,
+    private readonly notificationFactory: NotificationFactory
   ) { }
 
   public postLocalNotification(notification: Notification, id?: number) {
@@ -20,7 +22,7 @@ export class Commands {
   public async getInitialNotification(): Promise<Notification | undefined> {
     return this.nativeCommandsSender.getInitialNotification().then((payload) => {
       if (payload) {
-        return new Notification(payload);
+        return this.notificationFactory.fromPayload(payload);
       }
 
       return undefined;

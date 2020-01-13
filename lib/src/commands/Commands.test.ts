@@ -7,19 +7,23 @@ import { Notification } from '../DTO/Notification';
 import { UniqueIdProvider } from '../adapters/UniqueIdProvider';
 import { NotificationCategory } from '../interfaces/NotificationCategory';
 import { NotificationPermissions } from '../interfaces/NotificationPermissions';
+import { NotificationFactory } from '../DTO/NotificationFactory';
 
 describe('Commands', () => {
   let uut: Commands;
   let mockedNativeCommandsSender: NativeCommandsSender;
   let mockedUniqueIdProvider: UniqueIdProvider;
+  let notificationFactory: NotificationFactory
   
   beforeEach(() => {
+    notificationFactory = new NotificationFactory();
     mockedNativeCommandsSender = mock(NativeCommandsSender);
     mockedUniqueIdProvider = mock(UniqueIdProvider);
     when(mockedUniqueIdProvider.generate()).thenCall(() => 12);
     uut = new Commands(
       instance(mockedNativeCommandsSender),
-      instance(mockedUniqueIdProvider)
+      instance(mockedUniqueIdProvider),
+      notificationFactory
     );
   });
 

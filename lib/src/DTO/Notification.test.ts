@@ -3,7 +3,7 @@ describe('Notification', () => {
   it('Should create notification with payload', () => {
     const payload = { p: 'p' };
     const notification = new Notification(payload);
-    expect(notification.data).toEqual(payload);
+    expect(notification.payload).toEqual(payload);
   });
 
   it('Should create notification with identifier', () => {

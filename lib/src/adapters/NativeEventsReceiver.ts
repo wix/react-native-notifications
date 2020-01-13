@@ -4,10 +4,11 @@ import {
 } from '../interfaces/NotificationEvents';
 import { Notification } from '../DTO/Notification';
 import { NotificationActionResponse } from '../interfaces/NotificationActionResponse';
+import { NotificationFactory } from '../DTO/NotificationFactory';
 
 export class NativeEventsReceiver {
   private emitter: EventEmitter;
-  constructor() {
+  constructor(private readonly notificationFactory: NotificationFactory) {
     this.emitter = new NativeEventEmitter(NativeModules.RNEventEmitter);
   }
 
@@ -21,7 +22,7 @@ export class NativeEventsReceiver {
 
   public registerRemoteNotificationReceived(callback: (notification: Notification) => void): EmitterSubscription {
     return this.emitter.addListener('notificationReceived', (payload) => {
-      callback(new Notification(payload));
+      callback(this.notificationFactory.fromPayload(payload));
     });
   }
 
@@ -32,7 +33,7 @@ export class NativeEventsReceiver {
   public registerRemoteNotificationOpened(callback: (notification: Notification, completion: () => void, actionResponse?: NotificationActionResponse) => void): EmitterSubscription {
     return this.emitter.addListener('notificationOpened', (response, completion) => {
       const action = response.action ? new NotificationActionResponse(response.action) : undefined
-      callback(new Notification(response.notification), completion, action);
+      callback(this.notificationFactory.fromPayload(response.notification), completion, action);
     });
   }
 

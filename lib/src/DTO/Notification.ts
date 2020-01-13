@@ -1,37 +1,33 @@
 export class Notification {
   identifier: string;
-  private _data?: any;
+  payload: any;
 
   constructor(payload: object) {
-    this._data = payload;
-    this.identifier = this._data.identifier;
-  }
-
-  get data(): any {
-    return this._data;
+    this.payload = payload;
+    this.identifier = this.payload.identifier;
   }
 
   get title(): string {
-    return this._data.title;
+    return this.payload.title;
   }
 
   get body(): string {
-    return this._data.body;
+    return this.payload.body;
   }
 
   get sound(): string {
-    return this._data.sound;
+    return this.payload.sound;
   }
 
   get badge(): number {
-    return this._data.badge;
+    return this.payload.badge;
   }
 
   get type(): string {
-    return this._data.type;
+    return this.payload.type;
   }
 
   get thread(): string {
-    return this._data.thread;
+    return this.payload.thread;
   }
 }

@@ -9,11 +9,13 @@ import { CompletionCallbackWrapper } from './adapters/CompletionCallbackWrapper'
 import { NotificationCategory } from './interfaces/NotificationCategory';
 import { NotificationsIOS } from './NotificationsIOS';
 import { NotificationsAndroid } from './NotificationsAndroid';
+import { NotificationFactory } from './DTO/NotificationFactory';
 
 export class NotificationsRoot {
   public readonly ios: NotificationsIOS;
   public readonly android: NotificationsAndroid;
 
+  private readonly notificationFactory: NotificationFactory;
   private readonly nativeEventsReceiver: NativeEventsReceiver;
   private readonly nativeCommandsSender: NativeCommandsSender;
   private readonly commands: Commands;
@@ -23,13 +25,14 @@ export class NotificationsRoot {
   private readonly completionCallbackWrapper: CompletionCallbackWrapper;
 
   constructor() {
-    this.nativeEventsReceiver = new NativeEventsReceiver();
+    this.nativeEventsReceiver = new NativeEventsReceiver(this.notificationFactory);
     this.nativeCommandsSender = new NativeCommandsSender();
     this.completionCallbackWrapper = new CompletionCallbackWrapper(this.nativeCommandsSender);
     this.uniqueIdProvider = new UniqueIdProvider();
     this.commands = new Commands(
       this.nativeCommandsSender,
-      this.uniqueIdProvider
+      this.uniqueIdProvider,
+      this.notificationFactory
     );
     this.eventsRegistry = new EventsRegistry(this.nativeEventsReceiver, this.completionCallbackWrapper);
     this.eventsRegistryIOS = new EventsRegistryIOS(this.nativeEventsReceiver);
