@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.0-beta.2 (13/01/2020)
+*No changelog for this release.*
+
+---
+
 ## 2.1.7 (14/12/2019)
 *No changelog for this release.*
 
