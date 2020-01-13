@@ -19,9 +19,9 @@
 
 - (void)registerPushKit;
 
-- (void)getBadgesCount:(RCTResponseSenderBlock)callback;
+- (void)getBadgeCount:(RCTResponseSenderBlock)callback;
 
-- (void)setBadgesCount:(int)count;
+- (void)setBadgeCount:(int)count;
 
 - (void)postLocalNotification:(NSDictionary *)notification withId:(NSNumber *)notificationId;
 

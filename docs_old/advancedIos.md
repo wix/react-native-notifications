@@ -238,14 +238,14 @@ The [example app](https://github.com/wix/react-native-notifications/tree/master/
 
 Get the current number:
 ```javascript
-NotificationsIOS.getBadgesCount((count) => console.log(count));
+NotificationsIOS.getBadgeCount((count) => console.log(count));
 ```
 
 Set to specific number: 
 ```javascript
-NotificationsIOS.setBadgesCount(2);
+NotificationsIOS.setBadgeCount(2);
 ```
 Clear badges icon:
 ```javascript
-NotificationsIOS.setBadgesCount(0);
+NotificationsIOS.setBadgeCount(0);
 ```

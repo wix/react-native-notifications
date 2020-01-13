@@ -60,12 +60,12 @@ RCT_EXPORT_METHOD(registerPushKit) {
     [_commandsHandler registerPushKit];
 }
 
-RCT_EXPORT_METHOD(getBadgesCount:(RCTResponseSenderBlock)callback) {
-    [_commandsHandler getBadgesCount:callback];
+RCT_EXPORT_METHOD(getBadgeCount:(RCTResponseSenderBlock)callback) {
+    [_commandsHandler getBadgeCount:callback];
 }
 
-RCT_EXPORT_METHOD(setBadgesCount:(int)count) {
-    [_commandsHandler setBadgesCount:count];
+RCT_EXPORT_METHOD(setBadgeCount:(int)count) {
+    [_commandsHandler setBadgeCount:count];
 }
 
 RCT_EXPORT_METHOD(postLocalNotification:(NSDictionary *)notification withId:(nonnull NSNumber *)notificationId) {

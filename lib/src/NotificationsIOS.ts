@@ -38,7 +38,7 @@ export class NotificationsIOS {
   }
 
   /**
-   * getBadgesCount
+   * getBadgeCount
    */
   public getBadgeCount(): Promise<number> {
     return this.commands.getBadgeCount();
