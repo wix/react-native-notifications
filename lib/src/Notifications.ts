@@ -12,8 +12,8 @@ import { NotificationsAndroid } from './NotificationsAndroid';
 import { NotificationFactory } from './DTO/NotificationFactory';
 
 export class NotificationsRoot {
-  public readonly ios: NotificationsIOS;
-  public readonly android: NotificationsAndroid;
+  public readonly _ios: NotificationsIOS;
+  public readonly _android: NotificationsAndroid;
 
   private readonly notificationFactory: NotificationFactory;
   private readonly nativeEventsReceiver: NativeEventsReceiver;
@@ -38,8 +38,8 @@ export class NotificationsRoot {
     this.eventsRegistry = new EventsRegistry(this.nativeEventsReceiver, this.completionCallbackWrapper);
     this.eventsRegistryIOS = new EventsRegistryIOS(this.nativeEventsReceiver);
 
-    this.ios = new NotificationsIOS(this.commands, this.eventsRegistryIOS);
-    this.android = new NotificationsAndroid(this.commands);
+    this._ios = new NotificationsIOS(this.commands, this.eventsRegistryIOS);
+    this._android = new NotificationsAndroid(this.commands);
   }
 
   /**
@@ -97,5 +97,17 @@ export class NotificationsRoot {
    */
   public events(): EventsRegistry {
     return this.eventsRegistry;
+  }
+
+  /**
+   * ios/android getters
+   */
+
+  get ios(): NotificationsIOS {
+    return this._ios;
+  }
+
+  get android(): NotificationsAndroid {
+    return this._android;
   }
 }
