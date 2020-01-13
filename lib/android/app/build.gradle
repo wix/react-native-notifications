@@ -2,9 +2,24 @@ import groovy.json.JsonSlurper
 
 apply plugin: 'com.android.library'
 
+Object findReactNativePackageJson() {
+    def packageJsonFile
+    def searchPath = 'node_modules/react-native/package.json';
+    def projectDir = project.projectDir.toString() + '/'
+
+    while (!packageJsonFile) {
+        try {
+            searchPath = '../' + searchPath
+            def packageSlurper = new JsonSlurper()
+            packageJsonFile = packageSlurper.parse file(projectDir + searchPath);
+        } catch (e) {}
+    }
+
+    return packageJsonFile
+}
+
 String resolveFlavor() {
-    def packageSlurper = new JsonSlurper()
-    def reactNativePackageJson = packageSlurper.parse file("$rootDir/../../../node_modules/react-native/package.json")
+    def reactNativePackageJson = findReactNativePackageJson()
     def reactNativeVersion = reactNativePackageJson.version
 
     List versionComponents = reactNativeVersion.tokenize('.')
