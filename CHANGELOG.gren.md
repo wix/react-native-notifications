@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.0-beta.4 (14/01/2020)
+*No changelog for this release.*
+
+---
+
 ## 3.0.0-beta.3 (13/01/2020)
 *No changelog for this release.*
 
