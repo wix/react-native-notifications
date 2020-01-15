@@ -7,7 +7,7 @@ The 2nd is to do some platform specific setup so as to be able to work with Appl
 Start by running this:
 
 ```
-$ npm install react-native-notifications@^2.0.6 --save
+$ npm install react-native-notifications@^2.1.7 --save
 ```
 
 ## <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/2000px-Apple_logo_black.svg.png" width=30/> iOS
@@ -61,9 +61,9 @@ Declare the library as a dependency in your **app-project's** `build.gradle`:
 
 ```gradle
 dependencies {
-	// ...
-	
-	compile project(':reactnativenotifications')
+    // ... 
+    implementation project(':reactnativenotifications')
+    implementation 'com.google.firebase:firebase-core:16.0.0'
 }
 ```
 
@@ -76,12 +76,27 @@ import com.wix.reactnativenotifications.RNNotificationsPackage;
 
     @Override
     protected List<ReactPackage> getPackages() {
-        return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),
-	        // ...
-	        // Add this line:
-	        new RNNotificationsPackage(MainApplication.this)
+        @SuppressWarnings("UnnecessaryLocalVariable")
+        List<ReactPackage> packages = new PackageList(this).getPackages();
+	// ...
+	// Add this line:
+	packages.add(new RNNotificationsPackage(MainApplication.this));
+	
+	return packages;
         );
+```
+Create a file in the project's main folder (the same folder where package.json is) and call it `react-native.config.js`. Then, type the following in this file:
+
+```javascript
+module.exports = {
+  dependencies: {
+    'react-native-notifications': {
+      platforms: {
+        android: null
+      },
+    },
+  },
+}
 ```
 
 ### Receiving push notifications
@@ -102,6 +117,9 @@ After creating google-services.json, copy it into your project's android/app fol
 #### Step #3: Add google-services package to Project/build.gradle
 ```gradle
 buildscript {
+    ext {
+        minSdkVersion = 19 // <- change 16 to 19 
+    } 
     ...
     dependencies {
         ...
