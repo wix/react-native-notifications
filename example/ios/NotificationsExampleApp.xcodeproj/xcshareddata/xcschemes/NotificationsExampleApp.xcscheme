@@ -70,7 +70,7 @@
             BlueprintIdentifier = "508CE7C722D12B2600357815"
             BuildableName = "RNNotificationsTests.xctest"
             BlueprintName = "RNNotificationsTests"
-            ReferencedContainer = "container:../../RNNotifications/RNNotifications.xcodeproj">
+            ReferencedContainer = "container:../../lib/ios/RNNotifications.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
@@ -81,7 +81,7 @@
                BlueprintIdentifier = "508CE7C722D12B2600357815"
                BuildableName = "RNNotificationsTests.xctest"
                BlueprintName = "RNNotificationsTests"
-               ReferencedContainer = "container:../../RNNotifications/RNNotifications.xcodeproj">
+               ReferencedContainer = "container:../../lib/ios/RNNotifications.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

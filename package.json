@@ -1,6 +1,6 @@
 {
   "name": "react-native-notifications",
-  "version": "2.1.7",
+  "version": "3.0.0-beta.4",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
   "author": "Lidan Hifi <lidan.hifi@gmail.com>",
   "license": "MIT",
@@ -19,26 +19,31 @@
     "actionable-notifications",
     "interactive-notifications"
   ],
-  "main": "lib/src/index",
+  "main": "lib/dist/index.js",
+  "typings": "lib/dist/index.d.ts",
   "scripts": {
-    "build": ":",
-    "pretest": "./node_modules/.bin/eslint *.js test",
+    "build": "rm -rf ./lib/dist && tsc",
+    "prestart": "npm run build",
+    "pretest-js": "npm run build",
+    "pretest-unit-ios": "npm run build",
+    "pretest-unit-android": "npm run build",
     "test": "node scripts/test",
     "start": "node ./scripts/start",
+    "pretest-e2e-ios-release": "npm run build",
     "clean": "node ./scripts/clean",
     "test-e2e-ios": "node ./scripts/test-e2e --ios",
     "test-e2e-ios-release": "node ./scripts/test-e2e --ios --release",
     "test-unit-ios": "node ./scripts/test-unit --ios",
     "test-unit-android": "node ./scripts/test-unit --android",
     "test-js": "node ./scripts/test-js",
+    "xcode": "open example/ios/NotificationsExampleApp.xcodeproj",
+    "androidStudio": "open -a /Applications/Android\\ Studio.app ./example/android",
+    "prerelease": "npm run build",
     "release": "node ./scripts/release",
-    "generate-changelog": "gren changelog"
+    "generate-changelog": "gren changelog",
+    "docusaurus": "npm start --prefix website"
   },
   "nativePackage": true,
-  "dependencies": {
-    "core-js": "^1.0.0",
-    "uuid": "^2.0.3"
-  },
   "peerDependencies": {
     "react": ">=0.14.5",
     "react-native": ">=0.25.1"
@@ -49,15 +54,13 @@
     "@types/react-test-renderer": "16.x.x",
     "@babel/plugin-proposal-export-default-from": "7.2.0",
     "@babel/plugin-proposal-export-namespace-from": "7.2.0",
+    "@types/jest": "23.x.x",
+    "@types/lodash": "4.x.x",
     "typescript": "3.2.2",
     "babel-eslint": "9.0.0",
-    "chai": "^3.5.0",
-    "chokidar-cli": "^1.2.0",
-    "eslint": "6.0.1",
+    "tslint": "5.x.x",
+    "ts-mockito": "^2.3.1",
     "mocha": "^2.5.3",
-    "proxyquire": "^1.7.4",
-    "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0",
     "shell-utils": "1.x.x",
     "react-native": "0.60.5",
     "react": "16.8.6",
@@ -65,6 +68,7 @@
     "jsc-android": "236355.x.x",
     "jest": "24.8.0",
     "metro-react-native-babel-preset": "0.55.x",
+    "react-native-typescript-transformer": "1.2.12",
     "github-release-notes": "0.17.0"
   },
   "publishConfig": {
@@ -112,13 +116,16 @@
     },
     "roots": [
       "<rootDir>/node_modules/",
-      "<rootDir>/test/"
+      "<rootDir>/lib/dist/"
     ],
     "collectCoverageFrom": [
+      "lib/dist/**/*.js",
       "lib/src/**/*.js",
       "integration/**/*.js",
       "!lib/dist/index.js",
-      "!lib/dist/Navigation.js",
+      "!lib/dist/Notifications.js",
+      "!lib/dist/NotificationsIOS.js",
+      "!lib/dist/NotificationsAndroid.js",
       "!lib/dist/adapters/**/*",
       "!lib/dist/interfaces/**/*",
       "!lib/dist/**/*.test.*",

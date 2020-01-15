@@ -1,4 +1,4 @@
-const babelOptions = require('./package.json').babel;
+const babelOptions = require('./babel.config')();
 
 module.exports = function (wallaby) {
   return {
@@ -13,11 +13,20 @@ module.exports = function (wallaby) {
       'package.json',
       'lib/src/**/*.js',
       'lib/src/**/*.ts',
-      'lib/src/**/*.tsx'
+      'lib/src/**/*.tsx',
+      '!lib/src/Notifications.ts',
+      '!lib/src/**/*.test.tsx',
+      '!lib/src/**/*.test.js',
+      '!lib/src/**/*.test.ts',
+      'integration/**/*.js',
+      '!integration/**/*.test.js'
     ],
 
     tests: [
-      'test/**/*.spec.js'
+      'lib/src/**/*.test.js',
+      'lib/src/**/*.test.ts',
+      'lib/src/**/*.test.tsx',
+      'integration/**/*.test.js'
     ],
 
     compilers: {

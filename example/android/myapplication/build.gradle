@@ -2,8 +2,8 @@ apply plugin: "com.android.application"
 
 project.ext.react = [
         root     : "../../../",
-        entryFile: "index.android.js",
-        bundleAssetName: "index.android.bundle",
+        entryFile: "index.js",
+        bundleAssetName: "index.bundle",
         bundleInAlpha: true,
         bundleInBeta: true
 ]
@@ -13,10 +13,9 @@ apply from: "../../../node_modules/react-native/react.gradle"
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
-
     defaultConfig {
         applicationId "com.wix.reactnativenotifications.app"
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -24,7 +23,6 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-        missingDimensionStrategy "RNNotifications.reactNativeVersion", "reactNative60"
     }
     buildTypes {
         release {

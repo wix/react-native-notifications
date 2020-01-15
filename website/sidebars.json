@@ -1,0 +1,12 @@
+{
+  "docs": {
+    "Installation": ["installation-ios", "installation-android"],
+    "Guides": ["subscription", "notifications-events", "localNotifications"],
+    "Advanced": ["advanced-ios"]
+  },
+  "api": {
+    "Commands": ["general-api", "ios-api", "android-api"],
+    "Events": ["general-events", "ios-events"],
+    "Objects": ["notification-object"]
+  }
+}

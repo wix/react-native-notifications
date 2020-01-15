@@ -1,0 +1,105 @@
+import groovy.json.JsonSlurper
+
+apply plugin: 'com.android.library'
+
+Object findReactNativePackageJson() {
+    def searchPath = 'node_modules/react-native/package.json'
+    def projectDir = project.projectDir.toString() + '/'
+    def rnPackageJsonFile = new File(projectDir + searchPath)
+    while (!rnPackageJsonFile.exists()) {
+        searchPath = '../' + searchPath
+        rnPackageJsonFile = new File(projectDir + searchPath)
+    }
+    return rnPackageJsonFile
+}
+
+String resolveFlavor() {
+    def packageSlurper = new JsonSlurper()
+    def rnPackageJsonFile = findReactNativePackageJson()
+    def reactNativePackageJson = packageSlurper.parseText(rnPackageJsonFile.text)
+    def reactNativeVersion = reactNativePackageJson.version
+
+    List versionComponents = reactNativeVersion.tokenize('.')
+
+    if (versionComponents[1].toInteger() < 60) {
+        return "reactNative59"
+    } else {
+        return "reactNative60"
+    }
+}
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+        }
+    }
+
+    testOptions {
+        unitTests.all { t ->
+            reports {
+                html.enabled true
+            }
+            testLogging {
+                events "PASSED", "SKIPPED", "FAILED", "standardOut", "standardError"
+            }
+            afterSuite { desc, result ->
+                if (!desc.parent) { // will match the outermost suite
+                    def output = "      ${result.resultType} (${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)     "
+                    def repeatLength = output.length()
+                    println '\n\n' + ('-' * repeatLength) + '\n' + output + '\n' + ('-' * repeatLength) + '\n'
+
+                    println "see report at file://${t.reports.html.destination}/index.html"
+                }
+            }
+        }
+
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
+    flavorDimensions "RNNotifications.reactNativeVersion"
+    productFlavors {
+        reactNative59 {
+            dimension "RNNotifications.reactNativeVersion"
+        }
+        reactNative60 {
+            dimension "RNNotifications.reactNativeVersion"
+        }
+    }
+
+    def flavor = resolveFlavor()
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        if (!names.contains(flavor)) {
+            setIgnore(true)
+        }
+    }
+}
+
+dependencies {
+    implementation "com.google.firebase:firebase-messaging:17.3.0"
+    implementation 'com.facebook.react:react-native:+'
+
+    // tests
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.robolectric:robolectric:4.3'
+    testImplementation 'org.assertj:assertj-core:3.8.0'
+    testImplementation 'com.squareup.assertj:assertj-android:1.1.1'
+    testImplementation 'org.mockito:mockito-core:2.25.1'
+}

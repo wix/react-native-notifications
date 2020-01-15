@@ -1,4 +1,4 @@
 include ':myapplication'
 
 include ':react-native-notifications'
-project(':react-native-notifications').projectDir = new File(rootProject.projectDir, '../../android/app')
+project(':react-native-notifications').projectDir = new File(rootProject.projectDir, '../../lib/android/app')
