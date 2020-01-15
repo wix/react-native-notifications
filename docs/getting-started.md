@@ -4,7 +4,7 @@ title: React Native Notifications Getting Started Guide
 sidebar_label: Getting Started
 ---
 
-Currently this guide is written for `react-native-notifications@3.0.0-beta.4`.
+Currently this guide is written for `react-native-notifications@3.0.0-beta.4`.  
 We also assume you use `react-native@60.x.x` and above.
 
 For older versions, visit this [installation guide](https://github.com/wix/react-native-notifications/blob/v2/docs/installation.md).
