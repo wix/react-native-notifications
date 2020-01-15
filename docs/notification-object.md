@@ -6,6 +6,7 @@ sidebar_label: Notification
 
 Contains the payload data.
 
+- **`identifier`**- returns the notification's identifier string.
 - **`title`**- returns the notification's title string.
 - **`subtitle`**- returns the notification's title string. (iOS only)
 - **`body`**- returns the notification's main message string.
