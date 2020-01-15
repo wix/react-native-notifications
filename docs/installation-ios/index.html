@@ -54,13 +54,54 @@
                 };
               }
             });
-        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">iOS Installation</h1></header><article><div><span><p>As with any React Native project, the first step is to add the project as an npm dependency.</p>
-<p>The 2nd is to do some platform specific setup so as to be able to work with Apple and Google's services for push notifications.</p>
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">iOS Installation</h1></header><article><div><span><p>As with any React Native project, the first step is to add the project as an npm dependency.</p>
 <p>Start by running this:</p>
 <pre><code class="hljs">$ npm <span class="hljs-keyword">install</span> react-<span class="hljs-keyword">native</span>-notifications <span class="hljs-comment">--save</span>
 </code></pre>
-<p>Then, <a href="https://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking">Manually link</a> the library to your Xcode project.</p>
-<p>To enable notifications support add the following line at the top of your <code>AppDelegate.m</code></p>
+<h3><a class="anchor" aria-hidden="true" id="installation-with-cocoapods"></a><a href="#installation-with-cocoapods" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation with CocoaPods</h3>
+<p>Projects generated using newer versions of react-native use CocoaPods by default. In that case it's easier to install react-native-navigation using CocoaPods.</p>
+<ol>
+<li>Add the following to <code>Podfile</code>:</li>
+</ol>
+<pre><code class="hljs css language-diff">platform :ios, '9.0'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+target 'YourApp' do
+  # Pods for YourApp
+  pod 'React', :path =&gt; '../node_modules/react-native/'
+  pod 'React-Core', :path =&gt; '../node_modules/react-native/React'
+  pod 'React-DevSupport', :path =&gt; '../node_modules/react-native/React'
+  pod 'React-fishhook', :path =&gt; '../node_modules/react-native/Libraries/fishhook'
+  pod 'React-RCTActionSheet', :path =&gt; '../node_modules/react-native/Libraries/ActionSheetIOS'
+  pod 'React-RCTAnimation', :path =&gt; '../node_modules/react-native/Libraries/NativeAnimation'
+  pod 'React-RCTBlob', :path =&gt; '../node_modules/react-native/Libraries/Blob'
+  pod 'React-RCTImage', :path =&gt; '../node_modules/react-native/Libraries/Image'
+  pod 'React-RCTLinking', :path =&gt; '../node_modules/react-native/Libraries/LinkingIOS'
+  pod 'React-RCTNetwork', :path =&gt; '../node_modules/react-native/Libraries/Network'
+  pod 'React-RCTSettings', :path =&gt; '../node_modules/react-native/Libraries/Settings'
+  pod 'React-RCTText', :path =&gt; '../node_modules/react-native/Libraries/Text'
+  pod 'React-RCTVibration', :path =&gt; '../node_modules/react-native/Libraries/Vibration'
+  pod 'React-RCTWebSocket', :path =&gt; '../node_modules/react-native/Libraries/WebSocket'
+
+  pod 'React-cxxreact', :path =&gt; '../node_modules/react-native/ReactCommon/cxxreact'
+  pod 'React-jsi', :path =&gt; '../node_modules/react-native/ReactCommon/jsi'
+  pod 'React-jsiexecutor', :path =&gt; '../node_modules/react-native/ReactCommon/jsiexecutor'
+  pod 'React-jsinspector', :path =&gt; '../node_modules/react-native/ReactCommon/jsinspector'
+  pod 'yoga', :path =&gt; '../node_modules/react-native/ReactCommon/yoga'
+
+  pod 'DoubleConversion', :podspec =&gt; '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+  pod 'glog', :podspec =&gt; '../node_modules/react-native/third-party-podspecs/glog.podspec'
+  pod 'Folly', :podspec =&gt; '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+
+<span class="hljs-addition">+ pod 'ReactNativeNotifications', :podspec =&gt; '../node_modules/react-native-notifications/ReactNativeNotifications.podspec'</span>
+
+  use_native_modules!
+end
+</code></pre>
+<ol start="2">
+<li><p><code>cd ios &amp;&amp; pod install</code></p></li>
+<li><p>Add the following line at the top of your <code>AppDelegate.m</code></p></li>
+</ol>
 <pre><code class="hljs css language-objective-c">#<span class="hljs-keyword">import</span> <span class="hljs-string">"RNNotifications.h"</span>
 </code></pre>
 <p>Start monitor notifications in: <code>application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</code></p>
@@ -81,4 +122,4 @@
 - (<span class="hljs-keyword">void</span>)<span class="hljs-string">application:</span>(UIApplication *)application <span class="hljs-string">didFailToRegisterForRemoteNotificationsWithError:</span>(NSError *)error {
   [RNNotifications <span class="hljs-string">didFailToRegisterForRemoteNotificationsWithError:</span>error];
 }</code></pre>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/react-native-notifications/docs/installation-android"><span>Android Installation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/react-native-notifications/" class="nav-home"></a><div><h5>Docs</h5><a href="/react-native-notifications/docs/getting-started">Getting Started (or other categories)</a><a href="/react-native-notifications/docs/installation-ios">Guides</a><a href="/react-native-notifications/docs/general-api">API Reference</a></div><div></div><div><h5>More</h5><a href="/react-native-notifications/blog">Blog</a><a href="https://github.com/wix/react-native-notifications">GitHub</a><a class="github-button" href="https://github.com/wix/react-native-notifications" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 Wix</section></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/react-native-notifications/docs/installation-android"><span>Android Installation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/react-native-notifications/" class="nav-home"></a><div><h5>Docs</h5><a href="/react-native-notifications/docs/getting-started">Getting Started (or other categories)</a><a href="/react-native-notifications/docs/installation-ios">Guides</a><a href="/react-native-notifications/docs/general-api">API Reference</a></div><div></div><div><h5>More</h5><a href="/react-native-notifications/blog">Blog</a><a href="https://github.com/wix/react-native-notifications">GitHub</a><a class="github-button" href="https://github.com/wix/react-native-notifications" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 Wix</section></footer></div></body></html>
