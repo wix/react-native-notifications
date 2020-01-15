@@ -1,38 +1,35 @@
 ---
 id: getting-started
-title: Getting Started
+title: React Native Notifications Getting Started Guide
 sidebar_label: Getting Started
 ---
 
-# React Native Notifications Getting Started Guide
+Currently this guide is written for `react-native-notifications@3.0.0-beta.4`.
+We also assume you use `react-native@60.x.x` and above.
 
-Currently this guide is written for `react-native-notifications@3.0.0-beta.4` and above.
+For older versions, visit this [installation guide](https://github.com/wix/react-native-notifications/blob/v2/docs/installation.md).
 
-For versions `2.x.x`, visit this [installation guide][https://github.com/wix/react-native-notifications/blob/v2/docs/installation.md].
+## Add react-native-notifications to your dependencies
 
-#### 1. Add react-native-notifications to your dependencies
-
+#### With npm
 ```
 $ npm install --save react-native-notifications@3.0.0-beta.4
 ```
- (or)
  
- For npm use
+#### Or with yarn
 ```
 $ yarn add react-native-notifications
 ```
 
-#### 2. Link native dependencies
+## Link native dependencies
 
-From react-native 0.60 autolinking will take care of the link step but we still need to run `pod install`
-
-iOS:
+### iOS
 
 ```
 $ pod install --project-directory=ios/
 ```
 
-Start monitor notifications in: `application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions`
+Start monitor notifications in `AppDelegate.m`:
 
 ```objective-c
 
@@ -43,7 +40,7 @@ Start monitor notifications in: `application:(UIApplication *)application didFin
 }
 
 ```
-And add the following methods to support registration:
+And add the following methods to support registration to `AppDelegate.m`:
 
 ```objective-c
 
@@ -54,13 +51,13 @@ And add the following methods to support registration:
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
   [RNNotifications didFailToRegisterForRemoteNotificationsWithError:error];
 }
+```
 
-Android:
+### Android
 
 For Android installation, please refer to the [Android installation doc](installation-android.md) where you can find detailed step on how to start using Google's FCM service.
 
-
-#### 3. Register for notification events
+## Register for notification events
 
 ```js
 import React, { Component } from 'react';

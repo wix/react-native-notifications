@@ -21,6 +21,10 @@
         "title": "General",
         "sidebar_label": "General"
       },
+      "getting-started": {
+        "title": "React Native Notifications Getting Started Guide",
+        "sidebar_label": "Getting Started"
+      },
       "installation-android": {
         "title": "Android Installation",
         "sidebar_label": "Android Installation"
@@ -59,8 +63,8 @@
       "API": "API"
     },
     "categories": {
-      "Installation": "Installation",
       "Guides": "Guides",
+      "Installation": "Installation",
       "Advanced": "Advanced",
       "Commands": "Commands",
       "Events": "Events",
