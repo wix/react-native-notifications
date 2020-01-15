@@ -31,6 +31,7 @@ _Upcoming: local notifications, background-state Rx queue (iOS equivalent)_
 
 
 # Quick Links
+- [Getting Started](https://wix.github.io/react-native-notifications/docs/getting-started)
 - [Documentation](https://wix.github.io/react-native-notifications/)
 
 # License
