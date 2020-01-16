@@ -12,7 +12,7 @@ Finally, when a notification is _opened_ by the device user (i.e. tapped-on), a 
 
 Example:
 
-```javascript
+```jsx
 constructor() {
     Notifications.events().registerNotificationReceived((notification: Notification, completion: (response: NotificationCompletion) => void) => {
 			console.log("Notification Received - Foreground", notification.data);
@@ -37,7 +37,7 @@ When you receive a push notification, you'll get an instance of [Notification](n
 
 React-Native's [`PushNotificationsIOS.getInitialNotification()`](https://facebook.github.io/react-native/docs/pushnotificationios.html#getinitialnotification) allows for the async retrieval of the original notification used to open the App on iOS, but it has no equivalent implementation for Android.
 
-```javascript
+```jsx
 import {Notifications} from 'react-native-notifications';
 
 Notifications.getInitialNotification()

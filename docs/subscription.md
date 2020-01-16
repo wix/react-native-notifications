@@ -13,7 +13,7 @@ In order to handle notifications, you must register the `remoteNotificationsRegi
 
 In your React Native app:
 
-```javascript
+```jsx
 import {Notifications} from 'react-native-notifications';
 
 class App extends Component {
@@ -36,7 +36,7 @@ When you have the device token, POST it to your server and register the device i
 
 You can check if the user granted permissions on iOS by calling `checkPermissions()`:
 
-```javascript
+```jsx
 Notifications.ios.checkPermissions().then((currentPermissions) => {
     console.log('Badges enabled: ' + !!currentPermissions.badge);
     console.log('Sounds enabled: ' + !!currentPermissions.sound);

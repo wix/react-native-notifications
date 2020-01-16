@@ -11,15 +11,17 @@ For older versions, visit this [installation guide](https://github.com/wix/react
 
 ## Add react-native-notifications to your dependencies
 
-#### With npm
+
+<!--DOCUSAURUS_CODE_TABS-->
+<!--Npm-->
 ```
 $ npm install --save react-native-notifications
 ```
- 
-#### Or with yarn
+<!--Yarn-->
 ```
 $ yarn add react-native-notifications
 ```
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 ## Link native dependencies
 
@@ -31,23 +33,23 @@ $ pod install --project-directory=ios/
 
 Start monitor notifications in `AppDelegate.m`:
 
-```objective-c
-
+```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	[RNNotifications startMonitorNotifications]; // -> Add this line
 
 	return YES;
 }
-
 ```
+
 And add the following methods to support registration to `AppDelegate.m`:
 
-```objective-c
-
+```objc
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
   [RNNotifications didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
+```
 
+```objc
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
   [RNNotifications didFailToRegisterForRemoteNotificationsWithError:error];
 }
@@ -59,7 +61,7 @@ For Android installation, please refer to the [Android installation doc](install
 
 ## Register for notification events
 
-```js
+```jsx
 import React, { Component } from 'react';
 import {Notifications} from 'react-native-notifications';
 

@@ -22,7 +22,7 @@ Notifications.ios.events().registerPushKitNotificationReceived((payload: object)
 
 In your ReactNative code, add event handler for `pushKitRegistered` event and call to `registerPushKit()`:
 
-```javascript
+```jsx
 constructor() {
   Notifications.ios.events().registerPushKitRegistered((event: RegisteredPushKit) => {
     console.log("PushKit Token Received: " + event.pushKitToken);
@@ -73,7 +73,7 @@ Follow the basic workflow of adding interactive notifications to your app:
 #### Config the Actions
 We will config two actions: upvote and reply.
 
-```javascript
+```jsx
 import { Notifications, NotificationAction, NotificationCategory } from 'react-native-notifications';
 
 let upvoteAction = new NotificationAction({
@@ -98,7 +98,7 @@ let replyAction = new NotificationAction({
 #### Config the Category
 We will group `upvote` action and `reply` action into a single category: `EXAMPLE_CATEGORY `. If the notification contains `EXAMPLE_CATEGORY ` under `category` field, those actions will appear.
 
-```javascript
+```jsx
 let exampleCategory = new NotificationCategory({
   identifier: "EXAMPLE_CATEGORY",
   actions: [upvoteAction, replyAction]
@@ -108,14 +108,14 @@ let exampleCategory = new NotificationCategory({
 #### Register to Push Notifications
 Instead of basic registration like we've done before, we will register the device to push notifications with the category we've just created.
 
-```javascript
+```jsx
 Notifications.setCategories([exampleCategory]);
 ```
 
 #### Push an Interactive Notification
 Notification payload should look like this:
 
-```javascript
+```jsx
 {
   aps: {
 	  // ... (alert, sound, badge, etc)
@@ -151,15 +151,15 @@ The [example app](https://github.com/wix/react-native-notifications/tree/master/
 #### Get and set application icon badges count (iOS only) 
 
 Get the current number:
-```javascript
+```jsx
 Notifications.ios.getBadgeCount((count) => console.log(count));
 ```
 
 Set to specific number: 
-```javascript
+```jsx
 Notifications.ios.setBadgeCount(2);
 ```
 Clear badges icon:
-```javascript
+```jsx
 Notifications.ios.setBadgeCount(0);
 ```

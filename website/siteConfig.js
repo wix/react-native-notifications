@@ -30,6 +30,7 @@ const siteConfig = {
   //   baseUrl: '/test-site/',
 
   // Used for publishing and more
+  usePrism: ['jsx'],
   projectName: 'react-native-notifications',
   organizationName: 'wix',
   // For top-level user or org sites, the organization is still the same.
@@ -43,7 +44,12 @@ const siteConfig = {
     // {page: 'help', label: 'Help'},
     // {blog: true, label: 'Blog'},
   ],
-
+  scripts: [
+    '/react-native-notifications/js/code-blocks-buttons.js',
+    'https://buttons.github.io/buttons.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js'
+  ],
+  stylesheets: ['/react-native-notifications/css/code-blocks-buttons.css'],
   // If you have users set above, you add it here:
   users,
 
@@ -80,9 +86,12 @@ const siteConfig = {
     theme: 'default',
   },
 
-  // Add custom scripts here that would be placed in <script> tags.
-  scripts: ['https://buttons.github.io/buttons.js'],
-
+  themeConfig: {
+    prism: {
+      // theme: require('prism-react-renderer/themes/github'),
+      // darkTheme: require('prism-react-renderer/themes/dracula'),
+    }
+  },
   // On page navigation for the current documentation page.
   onPageNav: 'separate',
   // No .html extensions for paths.
