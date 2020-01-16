@@ -1,7 +1,8 @@
 import { NativeCommandsSender } from './NativeCommandsSender';
-import { Notification } from '../DTO/Notification';
 import { NotificationCompletion } from '../interfaces/NotificationCompletion';
 import { Platform } from 'react-native';
+import {NotificationIOS} from "../DTO/NotificationIOS";
+import {Notification} from "..";
 
 export class CompletionCallbackWrapper {
   constructor(
@@ -12,7 +13,7 @@ export class CompletionCallbackWrapper {
     return (notification) => {
       const completion = (response: NotificationCompletion) => {
         if (Platform.OS === 'ios') {
-          this.nativeCommandsSender.finishPresentingNotification(notification.identifier, response);
+          this.nativeCommandsSender.finishPresentingNotification((notification as unknown as NotificationIOS).identifier, response);
         }
       };
 
@@ -24,7 +25,7 @@ export class CompletionCallbackWrapper {
     return (notification) => {
       const completion = () => {
         if (Platform.OS === 'ios') {
-          this.nativeCommandsSender.finishHandlingAction(notification.identifier);
+          this.nativeCommandsSender.finishHandlingAction((notification as unknown as NotificationIOS).identifier);
         }
       };
 

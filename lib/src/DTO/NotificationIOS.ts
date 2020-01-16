@@ -2,6 +2,12 @@ import {Notification} from './Notification';
 import * as _ from 'lodash';
 
 export class NotificationIOS extends Notification {
+  identifier: string;
+  constructor(payload: object) {
+    super(payload);
+    this.identifier = this.payload.identifier;
+  }
+
   get aps(): any {
     return this.payload.aps || {};
   }

@@ -1,10 +1,9 @@
 export class Notification {
-  identifier: string;
+  identifier?: string;
   payload: any;
 
   constructor(payload: object) {
     this.payload = payload;
-    this.identifier = this.payload.identifier;
   }
 
   get title(): string {

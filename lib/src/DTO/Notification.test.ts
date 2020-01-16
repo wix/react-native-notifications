@@ -1,4 +1,6 @@
 import { Notification } from './Notification';
+import {NotificationIOS} from "./NotificationIOS";
+import {NotificationAndroid} from "./NotificationAndroid";
 describe('Notification', () => {
   it('Should create notification with payload', () => {
     const payload = { p: 'p' };
@@ -6,12 +8,18 @@ describe('Notification', () => {
     expect(notification.payload).toEqual(payload);
   });
 
-  it('Should create notification with identifier', () => {
+  it('Should create iOS notification with identifier', () => {
     const payload = { identifier: 'identifier' };
-    const notification = new Notification(payload);
+    const notification = new NotificationIOS(payload);
     expect(notification.identifier).toEqual(payload.identifier);
   });
-  
+
+  it('Should create Android notification with identifier', () => {
+    const payload = { 'google.message_id': 'identifier' };
+    const notification = new NotificationAndroid(payload);
+    expect(notification.identifier).toEqual('identifier');
+  });
+
   it('Should return title from payload', () => {
     const payload = { title: 'title' };
     const notification = new Notification(payload);

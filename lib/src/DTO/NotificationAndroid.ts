@@ -1,7 +1,11 @@
 import {Notification} from './Notification';
-import * as _ from 'lodash';
 
 export class NotificationAndroid extends Notification {
+  constructor(payload: object) {
+    super(payload);
+    this.identifier = this.payload["google.message_id"];
+  }
+
   get title(): string {
     return this.payload.title;
   }
