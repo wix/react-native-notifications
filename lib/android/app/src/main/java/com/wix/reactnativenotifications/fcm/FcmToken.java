@@ -88,10 +88,10 @@ public class FcmToken implements IFcmToken {
 
         // Note: Cannot assume react-context exists cause this is an async dispatched service.
         if (reactContext != null && reactContext.hasActiveCatalystInstance()) {
-            HashMap<String, String> h = new HashMap<String, String>() {{
+            HashMap<String, String> tokenMap = new HashMap<String, String>() {{
                 put("deviceToken",sToken);
             }};
-            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(TOKEN_RECEIVED_EVENT_NAME, sToken);
+            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(TOKEN_RECEIVED_EVENT_NAME, tokenMap);
         }
     }
 }
