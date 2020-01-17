@@ -48,6 +48,6 @@ export class CompletionCallbackWrapper {
   }
 
   private applicationIsVisible(): Boolean {
-    return AppState.currentState === 'active';
+    return AppState.currentState !== 'background';
   }
 }
