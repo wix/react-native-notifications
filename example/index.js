@@ -21,7 +21,7 @@ class NotificationsExampleApp extends Component {
   }
 
   registerNotificationEvents() {
-    Notifications.events().registerNotificationReceived((notification, completion) => {
+    Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
       this.setState({
         notifications: [...this.state.notifications, notification]
       });

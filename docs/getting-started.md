@@ -69,7 +69,7 @@ class MyComponent extends Component {
   constructor() {
     Notifications.registerRemoteNotifications();
 
-    Notifications.events().registerNotificationReceived((notification: Notification, completion) => {
+    Notifications.events().registerNotificationReceivedForeground((notification: Notification, completion) => {
       console.log(`Notification received in foreground: ${notification.title} : ${notification.body}`);
       completion({alert: false, sound: false, badge: false});
     });

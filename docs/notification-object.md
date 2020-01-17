@@ -17,7 +17,7 @@ Contains the payload data.
 
 Example:
 ```js
-Notifications.events().registerNotificationReceived((notification: Notification, completion: (response: NotificationCompletion) => void) => {
+Notifications.events().registerNotificationReceivedForeground((notification: Notification, completion: (response: NotificationCompletion) => void) => {
   // Prints the notification payload
   console.log(JSON.stringify(notification.payload));
 
