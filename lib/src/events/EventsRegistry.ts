@@ -1,4 +1,4 @@
-import { EmitterSubscription, AppState } from 'react-native';
+import { EmitterSubscription } from 'react-native';
 import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver';
 import {
   Registered,

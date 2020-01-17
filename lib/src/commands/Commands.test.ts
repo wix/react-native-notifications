@@ -36,7 +36,7 @@ describe('Commands', () => {
       verify(mockedNativeCommandsSender.getInitialNotification()).called();
     });
 
-    it('android - returns a promise with the initial notification', async () => {
+    it('Android - returns a promise with the initial notification', async () => {
       Platform.OS = 'android';
       const expectedNotification: Notification = new NotificationAndroid({'google.message_id': 'id'});
       when(mockedNativeCommandsSender.getInitialNotification()).thenResolve(
@@ -44,6 +44,13 @@ describe('Commands', () => {
       );
       const result = await uut.getInitialNotification();
       expect(result).toEqual(expectedNotification);
+    });
+
+    it('Should return undefined initial notification', async () => {
+      Platform.OS = 'android';
+      when(mockedNativeCommandsSender.getInitialNotification()).thenResolve();
+      const result = await uut.getInitialNotification();
+      expect(result).toEqual(undefined);
     });
 
     it('iOS - returns a promise with the initial notification', async () => {
