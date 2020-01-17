@@ -19,7 +19,7 @@ Should call completion function on iOS, will be ignored on Android.
 
 ```js
 Notifications.events().registerNotificationReceivedForeground((notification: Notification, completion: (response: NotificationCompletion) => void) => {
-  console.log(JSON.stringify(notification.data));
+  console.log(JSON.stringify(notification.payload));
 
   // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
   completion({alert: true, sound: true, badge: false});
@@ -31,8 +31,8 @@ Fired when a remote notification is received in background state. The handler wi
 Should call completion function on iOS, will be ignored on Android.
 
 ```js
-Notifications.events().registerNotificationReceivedForeground((notification: Notification, completion: (response: NotificationCompletion) => void) => {
-  console.log(JSON.stringify(notification.data));
+Notifications.events().registerNotificationReceivedBackground((notification: Notification, completion: (response: NotificationCompletion) => void) => {
+  console.log(JSON.stringify(notification.payload));
 
   // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
   completion({alert: true, sound: true, badge: false});
@@ -47,7 +47,7 @@ Should call completion function on iOS, will be ignored on Android.
 
 ```js
 Notifications.events().registerNotificationOpened((notification: Notification, completion: () => void) => {
-  console.log(JSON.stringify(notification.data));
+  console.log(JSON.stringify(notification.payload));
   completion();
 });
 ```
