@@ -20,7 +20,7 @@ export class NativeEventsReceiver {
     return this.emitter.addListener('pushKitRegistered', callback);
   }
 
-  public registerRemoteNotificationReceived(callback: (notification: Notification) => void): EmitterSubscription {
+  public registerNotificationReceived(callback: (notification: Notification) => void): EmitterSubscription {
     return this.emitter.addListener('notificationReceived', (payload) => {
       callback(this.notificationFactory.fromPayload(payload));
     });
