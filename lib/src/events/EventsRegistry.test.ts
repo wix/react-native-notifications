@@ -149,10 +149,10 @@ describe('EventsRegistry', () => {
     it('delegates to nativeEventsReceiver', () => {
       const cb = jest.fn();
   
-      uut.registerRemoteNotificationOpened(cb);
+      uut.registerNotificationOpened(cb);
   
-      expect(mockNativeEventsReceiver.registerRemoteNotificationOpened).toHaveBeenCalledTimes(1);
-      expect(mockNativeEventsReceiver.registerRemoteNotificationOpened).toHaveBeenCalledWith(expect.any(Function));
+      expect(mockNativeEventsReceiver.registerNotificationOpened).toHaveBeenCalledTimes(1);
+      expect(mockNativeEventsReceiver.registerNotificationOpened).toHaveBeenCalledWith(expect.any(Function));
     });
   
     it('should wrap callback with completion block', () => {
@@ -160,8 +160,8 @@ describe('EventsRegistry', () => {
       const notification: Notification  = new Notification({identifier: 'identifier'});
       const response: NotificationResponse = {notification, identifier: 'responseId'};
 
-      uut.registerRemoteNotificationOpened(wrappedCallback);
-      const call = mockNativeEventsReceiver.registerRemoteNotificationOpened.mock.calls[0][0];
+      uut.registerNotificationOpened(wrappedCallback);
+      const call = mockNativeEventsReceiver.registerNotificationOpened.mock.calls[0][0];
       call(response);
       
       expect(wrappedCallback).toBeCalledWith(response, expect.any(Function));
@@ -172,23 +172,23 @@ describe('EventsRegistry', () => {
       const notification: Notification  = new Notification({identifier: 'identifier'});
       const expectedResponse: NotificationResponse = {notification, identifier: 'responseId'}
       
-      uut.registerRemoteNotificationOpened((response) => {
+      uut.registerNotificationOpened((response) => {
         expect(response).toEqual(expectedResponse);
       });
-      const call = mockNativeEventsReceiver.registerRemoteNotificationOpened.mock.calls[0][0];
+      const call = mockNativeEventsReceiver.registerNotificationOpened.mock.calls[0][0];
       call(expectedResponse);
     });
 
     it('calling completion should invoke finishHandlingAction', () => {
       const expectedNotification: Notification  = new Notification({identifier: 'notificationId'});
       
-      uut.registerRemoteNotificationOpened((notification, completion) => {
+      uut.registerNotificationOpened((notification, completion) => {
         completion();
         
         expect(expectedNotification).toEqual(notification);
         expect(mockNativeCommandsSender.finishHandlingAction).toBeCalledWith(notification.identifier);
       });
-      const call = mockNativeEventsReceiver.registerRemoteNotificationOpened.mock.calls[0][0];
+      const call = mockNativeEventsReceiver.registerNotificationOpened.mock.calls[0][0];
       call(expectedNotification);
     });
 
@@ -196,13 +196,13 @@ describe('EventsRegistry', () => {
       Platform.OS = 'android';
       const expectedNotification: Notification  = new Notification({identifier: 'notificationId'});
       
-      uut.registerRemoteNotificationOpened((notification, completion) => {
+      uut.registerNotificationOpened((notification, completion) => {
         completion();
         
         expect(expectedNotification).toEqual(notification);
         expect(mockNativeCommandsSender.finishHandlingAction).toBeCalledTimes(0);
       });
-      const call = mockNativeEventsReceiver.registerRemoteNotificationOpened.mock.calls[0][0];
+      const call = mockNativeEventsReceiver.registerNotificationOpened.mock.calls[0][0];
       call(expectedNotification);
     });
   });

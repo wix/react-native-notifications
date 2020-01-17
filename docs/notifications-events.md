@@ -21,7 +21,7 @@ constructor() {
 			completion({alert: true, sound: true, badge: false});
 		});
 
-    Notifications.events().registerRemoteNotificationOpened((notification: Notification, completion: () => void, action: NotificationActionResponse) => {
+    Notifications.events().registerNotificationOpened((notification: Notification, completion: () => void, action: NotificationActionResponse) => {
 			console.log("Notification opened by device user", notification.data);
 			console.log(`Notification opened with an action identifier: ${action.identifier} and response text: ${action.text}`);
 			completion();

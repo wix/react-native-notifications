@@ -26,12 +26,12 @@ Notifications.events().registerNotificationReceived((notification: Notification,
 });
 ```
 
-## registerRemoteNotificationOpened()
+## registerNotificationOpened()
 Fired when a remote notification is opened from dead or background state. The handler will be invoked with an instance of [Notification](notification-object).
 Should call completion function on iOS, will be ignored on Android.
 
 ```js
-Notifications.events().registerRemoteNotificationOpened((notification: Notification, completion: () => void) => {
+Notifications.events().registerNotificationOpened((notification: Notification, completion: () => void) => {
   console.log(JSON.stringify(notification.data));
   completion();
 });

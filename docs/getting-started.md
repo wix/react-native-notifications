@@ -74,7 +74,7 @@ class MyComponent extends Component {
       completion({alert: false, sound: false, badge: false});
     });
 
-    Notifications.events().registerRemoteNotificationOpened((notification: Notification, completion) => {
+    Notifications.events().registerNotificationOpened((notification: Notification, completion) => {
       console.log(`Notification opened: ${notification.payload}`);
       completion();
     });
