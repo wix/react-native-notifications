@@ -66,7 +66,7 @@
 <li><strong><code>payload</code></strong>- returns the full payload sent from server.</li>
 </ul>
 <p>Example:</p>
-<pre><code class="hljs css language-js">Notifications.events().registerNotificationReceived(<span class="hljs-function">(<span class="hljs-params">notification: Notification, completion: (response: NotificationCompletion</span>) =&gt;</span> <span class="hljs-keyword">void</span>) =&gt; {
+<pre><code class="hljs css language-js">Notifications.events().registerNotificationReceivedForeground(<span class="hljs-function">(<span class="hljs-params">notification: Notification, completion: (response: NotificationCompletion</span>) =&gt;</span> <span class="hljs-keyword">void</span>) =&gt; {
   <span class="hljs-comment">// Prints the notification payload</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(notification.payload));
 
