@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.0 (17/01/2020)
+*No changelog for this release.*
+
+---
+
 ## 3.0.0 (15/01/2020)
 *No changelog for this release.*
 
