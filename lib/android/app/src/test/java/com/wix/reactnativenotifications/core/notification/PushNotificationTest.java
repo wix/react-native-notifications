@@ -9,8 +9,12 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Message;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.JavaOnlyMap;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableMap;
 import com.wix.reactnativenotifications.core.AppLaunchHelper;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade.AppVisibilityListener;
@@ -21,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatcher;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
@@ -37,6 +42,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.argThat;
 
 @RunWith(RobolectricTestRunner.class)
 public class PushNotificationTest {
@@ -51,7 +57,8 @@ public class PushNotificationTest {
     @Mock private Context mContext;
     @Mock private NotificationManager mNotificationManager;
 
-    @Mock private Bundle mDefaultBundle;
+    private Bundle mResponseBundle;
+    private Bundle mNotificationBundle;
     @Mock private Intent mLaunchIntent;
     @Mock private AppLifecycleFacade mAppLifecycleFacade;
     @Mock private AppLaunchHelper mAppLaunchHelper;
@@ -64,9 +71,12 @@ public class PushNotificationTest {
         MockitoAnnotations.initMocks(this);
         InitialNotificationHolder.setInstance(mock(InitialNotificationHolder.class));
 
-        when(mDefaultBundle.getString(eq("title"))).thenReturn(DEFAULT_NOTIFICATION_TITLE);
-        when(mDefaultBundle.getString(eq("body"))).thenReturn(DEFAULT_NOTIFICATION_BODY);
-        when(mDefaultBundle.clone()).thenReturn(mDefaultBundle);
+        mNotificationBundle = new Bundle();
+        mNotificationBundle.putString("title", DEFAULT_NOTIFICATION_TITLE);
+        mNotificationBundle.putString("body", DEFAULT_NOTIFICATION_BODY);
+
+        mResponseBundle = new Bundle();
+        mResponseBundle.putBundle("notification", mNotificationBundle);
 
         when(mAppLaunchHelper.getLaunchIntent(eq(mContext))).thenReturn(mLaunchIntent);
 
@@ -147,7 +157,7 @@ public class PushNotificationTest {
 
         // Assert
 
-        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_OPENED_EVENT_NAME), eq(mDefaultBundle), eq(mReactContext));
+        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_OPENED_EVENT_NAME), argThat(new isValidResponse(mResponseBundle)), eq(mReactContext));
     }
 
     @Test
@@ -158,7 +168,7 @@ public class PushNotificationTest {
         uut.onOpened();
 
         verify(mContext, never()).startActivity(any(Intent.class));
-        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_OPENED_EVENT_NAME), eq(mDefaultBundle), eq(mReactContext));
+        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_OPENED_EVENT_NAME), argThat(new isValidResponse(mResponseBundle)), eq(mReactContext));
     }
 
     @Test
@@ -212,7 +222,7 @@ public class PushNotificationTest {
         verify(mNotificationManager).notify(anyInt(), notificationCaptor.capture());
         verifyNotification(notificationCaptor.getValue());
 
-        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), eq(mDefaultBundle), eq(mReactContext));
+        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), argThat(new isValidNotification(mNotificationBundle)), eq(mReactContext));
     }
 
     @Test
@@ -232,7 +242,7 @@ public class PushNotificationTest {
         verify(mNotificationManager).notify(anyInt(), notificationCaptor.capture());
         verifyNotification(notificationCaptor.getValue());
 
-        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), eq(mDefaultBundle), eq(mReactContext));
+        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), argThat(new isValidNotification(mNotificationBundle)), eq(mReactContext));
     }
 
     @Test
@@ -298,7 +308,7 @@ public class PushNotificationTest {
     }
 
     protected PushNotification createUUT() {
-        return createUUT(mDefaultBundle);
+        return createUUT(mNotificationBundle);
     }
 
     protected PushNotification createUUT(Bundle bundle) {
@@ -321,5 +331,31 @@ public class PushNotificationTest {
         ShadowNotification shadowNotification = Shadows.shadowOf(notification);
         assertEquals(shadowNotification.getContentText(), DEFAULT_NOTIFICATION_BODY);
         assertEquals(shadowNotification.getContentTitle(), DEFAULT_NOTIFICATION_TITLE);
+    }
+
+    private class isValidNotification implements ArgumentMatcher<Bundle> {
+        private Bundle left;
+
+        protected isValidNotification(Bundle left) {
+            this.left = left;
+        }
+
+        @Override
+        public boolean matches(Bundle right) {
+            return right.getString("body").equals(left.getString("body"));
+        }
+    }
+
+    private class isValidResponse implements ArgumentMatcher<Bundle> {
+        private Bundle left;
+
+        protected isValidResponse(Bundle left) {
+            this.left = left;
+        }
+
+        @Override
+        public boolean matches(Bundle right) {
+            return right.getBundle("notification").getString("body").equals(left.getBundle("notification").getString("body"));
+        }
     }
 }

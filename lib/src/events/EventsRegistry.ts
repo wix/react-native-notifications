@@ -1,4 +1,4 @@
-import { EmitterSubscription } from 'react-native';
+import { EmitterSubscription, AppState } from 'react-native';
 import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver';
 import {
   Registered,
@@ -19,8 +19,12 @@ export class EventsRegistry {
     return this.nativeEventsReceiver.registerRemoteNotificationsRegistered(callback);
   }
   
-  public registerNotificationReceived(callback: (notification: Notification, completion: (response: NotificationCompletion) => void) => void): EmitterSubscription {
-    return this.nativeEventsReceiver.registerRemoteNotificationReceived(this.completionCallbackWrapper.wrapReceivedCallback(callback));
+  public registerRemoteNotificationReceivedForeground(callback: (notification: Notification, completion: (response: NotificationCompletion) => void) => void): EmitterSubscription {
+    return this.nativeEventsReceiver.registerRemoteNotificationReceived(this.completionCallbackWrapper.wrapReceivedForegroundCallback(callback));
+  }
+
+  public registerRemoteNotificationReceivedBackground(callback: (notification: Notification, completion: (response: NotificationCompletion) => void) => void): EmitterSubscription {
+    return this.nativeEventsReceiver.registerRemoteNotificationReceived(this.completionCallbackWrapper.wrapReceivedBackgroundCallback(callback));
   }
   
   public registerRemoteNotificationOpened(callback: (response: NotificationResponse, completion: () => void) => void): EmitterSubscription {

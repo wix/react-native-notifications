@@ -4,7 +4,7 @@ import { Notification } from '../DTO/Notification';
 import { CompletionCallbackWrapper } from '../adapters/CompletionCallbackWrapper';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender.mock';
 import { NotificationResponse } from '../interfaces/NotificationEvents';
-import { Platform } from 'react-native';
+import { Platform, AppState } from 'react-native';
 import { NotificationCompletion } from '../interfaces/NotificationCompletion';
 
 describe('EventsRegistry', () => {
@@ -17,11 +17,15 @@ describe('EventsRegistry', () => {
     uut = new EventsRegistry(mockNativeEventsReceiver, completionCallbackWrapper);
   });
 
-  describe('registerRemoteNotificationsReceived', () => {
+  describe('registerRemoteNotificationsReceivedForeground', () => {
+    beforeEach(() => {
+      AppState.currentState = 'active';
+    });
+
     it('delegates to nativeEventsReceiver', () => {
       const cb = jest.fn();
   
-      uut.registerNotificationReceived(cb);
+      uut.registerRemoteNotificationReceivedForeground(cb);
   
       expect(mockNativeEventsReceiver.registerRemoteNotificationReceived).toHaveBeenCalledTimes(1);
       expect(mockNativeEventsReceiver.registerRemoteNotificationReceived).toHaveBeenCalledWith(expect.any(Function));
@@ -31,7 +35,7 @@ describe('EventsRegistry', () => {
       const wrappedCallback = jest.fn();
       const notification: Notification  = new Notification({identifier: 'identifier'});
       
-      uut.registerNotificationReceived(wrappedCallback);
+      uut.registerRemoteNotificationReceivedForeground(wrappedCallback);
       const call = mockNativeEventsReceiver.registerRemoteNotificationReceived.mock.calls[0][0];
       call(notification);
       
@@ -42,7 +46,7 @@ describe('EventsRegistry', () => {
     it('should wrap callback with completion block', () => {
       const expectedNotification: Notification  = new Notification({identifier: 'identifier'});
       
-      uut.registerNotificationReceived((notification) => {
+      uut.registerRemoteNotificationReceivedForeground((notification) => {
         expect(notification).toEqual(expectedNotification);
       });
       const call = mockNativeEventsReceiver.registerRemoteNotificationReceived.mock.calls[0][0];
@@ -53,7 +57,7 @@ describe('EventsRegistry', () => {
       const notification: Notification  = new Notification({identifier: 'notificationId'});
       const response: NotificationCompletion  = {alert: true}
       
-      uut.registerNotificationReceived((notification, completion) => {
+      uut.registerRemoteNotificationReceivedForeground((notification, completion) => {
         completion(response);
         
         expect(mockNativeCommandsSender.finishPresentingNotification).toBeCalledWith(notification.identifier, response);
@@ -67,7 +71,71 @@ describe('EventsRegistry', () => {
       const expectedNotification: Notification  = new Notification({identifier: 'notificationId'});
       const response: NotificationCompletion  = {alert: true}
       
-      uut.registerNotificationReceived((notification, completion) => {
+      uut.registerRemoteNotificationReceivedForeground((notification, completion) => {
+        completion(response);
+        expect(expectedNotification).toEqual(notification);
+        expect(mockNativeCommandsSender.finishPresentingNotification).toBeCalledTimes(0);
+      });
+      const call = mockNativeEventsReceiver.registerRemoteNotificationReceived.mock.calls[0][0];
+      call(expectedNotification);
+    });
+  });
+
+  describe('registerRemoteNotificationsReceivedBackground', () => {
+    beforeEach(() => {
+      AppState.currentState = 'background';
+    });
+
+    it('delegates to nativeEventsReceiver', () => {
+      const cb = jest.fn();
+  
+      uut.registerRemoteNotificationReceivedBackground(cb);
+  
+      expect(mockNativeEventsReceiver.registerRemoteNotificationReceived).toHaveBeenCalledTimes(1);
+      expect(mockNativeEventsReceiver.registerRemoteNotificationReceived).toHaveBeenCalledWith(expect.any(Function));
+    });
+  
+    it('should wrap callback with completion block', () => {
+      const wrappedCallback = jest.fn();
+      const notification: Notification  = new Notification({identifier: 'identifier'});
+      
+      uut.registerRemoteNotificationReceivedBackground(wrappedCallback);
+      const call = mockNativeEventsReceiver.registerRemoteNotificationReceived.mock.calls[0][0];
+      call(notification);
+      
+      expect(wrappedCallback).toBeCalledWith(notification, expect.any(Function));
+      expect(wrappedCallback).toBeCalledTimes(1);
+    });
+
+    it('should wrap callback with completion block', () => {
+      const expectedNotification: Notification  = new Notification({identifier: 'identifier'});
+      
+      uut.registerRemoteNotificationReceivedBackground((notification) => {
+        expect(notification).toEqual(expectedNotification);
+      });
+      const call = mockNativeEventsReceiver.registerRemoteNotificationReceived.mock.calls[0][0];
+      call(expectedNotification);
+    });
+
+    it('should invoke finishPresentingNotification', () => {
+      const notification: Notification  = new Notification({identifier: 'notificationId'});
+      const response: NotificationCompletion  = {alert: true}
+      
+      uut.registerRemoteNotificationReceivedBackground((notification, completion) => {
+        completion(response);
+        
+        expect(mockNativeCommandsSender.finishPresentingNotification).toBeCalledWith(notification.identifier, response);
+      });
+      const call = mockNativeEventsReceiver.registerRemoteNotificationReceived.mock.calls[0][0];
+      call(notification);
+    });
+
+    it('should not invoke finishPresentingNotification on Android', () => {
+      Platform.OS = 'android';
+      const expectedNotification: Notification  = new Notification({identifier: 'notificationId'});
+      const response: NotificationCompletion  = {alert: true}
+      
+      uut.registerRemoteNotificationReceivedBackground((notification, completion) => {
         completion(response);
         expect(expectedNotification).toEqual(notification);
         expect(mockNativeCommandsSender.finishPresentingNotification).toBeCalledTimes(0);
