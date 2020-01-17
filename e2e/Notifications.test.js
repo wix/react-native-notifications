@@ -12,7 +12,7 @@ describe('Notifications', () => {
       await linkShouldBeVisible('foreground/notification');
     });
 
-    it('Should open notification', async () => {
+    it.only('Should open notification', async () => {
       await device.sendUserNotification(createNotification({link: 'foreground/notification/click', showAlert: true}));
       await expect(elementByLabel('Notification Clicked: foreground/notification/click')).toBeVisible();
     });

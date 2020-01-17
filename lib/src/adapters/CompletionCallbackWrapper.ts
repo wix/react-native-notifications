@@ -19,9 +19,9 @@ export class CompletionCallbackWrapper {
 
   public wrapReceivedForegroundCallback(callback: Function): (notification: Notification) => void {
     return (notification) => {
-      if (this.applicationIsVisible()) {
+      // if (this.applicationIsVisible()) {
         this.wrapReceivedAndInvoke(callback, notification);
-      }
+      // }
     }
   }
 
