@@ -31,12 +31,12 @@ Push notifications on Android are managed and dispatched using [Google's FCM ser
 
 To set FCM in your app, you must first create a google-services.json file. If you have no existing API project yet, the easiest way to go about in creating one is using [this step-by-step installation process](https://firebase.google.com/docs/android/setup);
 
-
 #### Step #2: Copy google-services.json
 
 After creating google-services.json, copy it into your project's android/app folder.
 
 #### Step #3: Add google-services package to Project/build.gradle
+
 ```gradle
 buildscript {
     ...
@@ -48,6 +48,7 @@ buildscript {
 ```
 
 #### Step #4: Add firebase-core package and apply google-services plugin in Project/app/build.gradle
+
 ```gradle
 dependencies {
     ...
@@ -58,7 +59,8 @@ apply plugin: 'com.google.gms.google-services'
 ```
 
 #### Step #5: Link react-native-notifications in Project/android/settings.gradle
+
 ```gradle
 include ':react-native-notifications'
-project(':react-native-notifications').projectDir = new File(rootProject.projectDir, '../../../node_modules/react-native-notifications/lib/android/app')
+project(':react-native-notifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/lib/android/app')
 ```
