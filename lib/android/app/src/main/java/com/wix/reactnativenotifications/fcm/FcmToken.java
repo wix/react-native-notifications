@@ -1,6 +1,7 @@
 package com.wix.reactnativenotifications.fcm;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
@@ -10,8 +11,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-
-import java.util.HashMap;
+import com.wix.reactnativenotifications.core.JsIOHelper;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
 import static com.wix.reactnativenotifications.Defs.TOKEN_RECEIVED_EVENT_NAME;
@@ -19,6 +19,7 @@ import static com.wix.reactnativenotifications.Defs.TOKEN_RECEIVED_EVENT_NAME;
 public class FcmToken implements IFcmToken {
 
     final protected Context mAppContext;
+    final protected JsIOHelper mJsIOHelper;
 
     protected static String sToken;
 
@@ -26,6 +27,7 @@ public class FcmToken implements IFcmToken {
         if (!(appContext instanceof ReactApplication)) {
             throw new IllegalStateException("Application instance isn't a react-application");
         }
+        mJsIOHelper = new JsIOHelper();
         mAppContext = appContext;
     }
 
@@ -88,10 +90,9 @@ public class FcmToken implements IFcmToken {
 
         // Note: Cannot assume react-context exists cause this is an async dispatched service.
         if (reactContext != null && reactContext.hasActiveCatalystInstance()) {
-            HashMap<String, String> tokenMap = new HashMap<String, String>() {{
-                put("deviceToken",sToken);
-            }};
-            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(TOKEN_RECEIVED_EVENT_NAME, tokenMap);
+            Bundle tokenMap = new Bundle();
+            tokenMap.putString("deviceToken", sToken);
+            mJsIOHelper.sendEventToJS(TOKEN_RECEIVED_EVENT_NAME, tokenMap, reactContext);
         }
     }
 }
