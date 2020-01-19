@@ -6,11 +6,12 @@ import android.util.Log;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.facebook.react.bridge.WritableMap;
 import com.google.firebase.iid.InstanceIdResult;
-
 import java.util.HashMap;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
@@ -88,10 +89,13 @@ public class FcmToken implements IFcmToken {
 
         // Note: Cannot assume react-context exists cause this is an async dispatched service.
         if (reactContext != null && reactContext.hasActiveCatalystInstance()) {
-            HashMap<String, String> tokenMap = new HashMap<String, String>() {{
-                put("deviceToken",sToken);
-            }};
-            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(TOKEN_RECEIVED_EVENT_NAME, tokenMap);
+            HashMap<String, String> tokenMap = new HashMap<>();
+            tokenMap.put("deviceToken",sToken);
+            WritableMap tokenWritableMap = new WritableNativeMap();
+            for (HashMap.Entry<String, String> entry : tokenMap.entrySet()) {
+                tokenWritableMap.putString(entry.getKey(), entry.getValue());
+            }
+            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(TOKEN_RECEIVED_EVENT_NAME, tokenWritableMap);
         }
     }
 }
