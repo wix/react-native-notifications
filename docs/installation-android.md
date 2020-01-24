@@ -13,12 +13,13 @@ import com.wix.reactnativenotifications.RNNotificationsPackage;
 
     @Override
     protected List<ReactPackage> getPackages() {
-        return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),
-	        // ...
-	        // Add this line:
-	        new RNNotificationsPackage(MainApplication.this)
-        );
+       @SuppressWarnings("UnnecessaryLocalVariable")
+       List<ReactPackage> packages = new PackageList(this).getPackages();
+       // ... 
+       // Add the following line: 
+       packages.add(new RNNotificationsPackage(MainApplication.this)); 
+       return packages;
+    }
 ```
 
 ### Receiving push notifications
@@ -52,6 +53,7 @@ buildscript {
 ```gradle
 dependencies {
     ...
+    implementation project(':react-native-notifications')
     implementation 'com.google.firebase:firebase-core:16.0.0'
 }
 
