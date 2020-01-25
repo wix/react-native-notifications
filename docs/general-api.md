@@ -6,7 +6,7 @@ sidebar_label: General
 
 ## registerRemoteNotifications()
 Requests remote notification permissions, prompting the user's dialog box on iOS and request a token on Android.
-If the user accept the remote notifications permissions, `RemoteNotificationsRegistered` event will get called with the device token.
+If the user accept the remote notifications permissions, `registerRemoteNotificationsRegistered` event will get called with the device token.
 
 ```js
 Notifications.registerRemoteNotifications();
