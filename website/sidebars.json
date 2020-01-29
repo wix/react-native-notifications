@@ -5,7 +5,7 @@
     "Advanced": ["advanced-ios"]
   },
   "api": {
-    "Commands": ["general-api", "ios-api", "android-api"],
+    "Commands": ["general-api", "ios-api"],
     "Events": ["general-events", "ios-events"],
     "Objects": ["notification-object"]
   }

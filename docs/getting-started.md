@@ -31,6 +31,12 @@ $ yarn add react-native-notifications
 $ pod install --project-directory=ios/
 ```
 
+Add the following line at the top of your `AppDelegate.m`
+
+```objective-c
+#import "RNNotifications.h"
+```
+
 Start monitor notifications in `AppDelegate.m`:
 
 ```objc
@@ -66,7 +72,8 @@ import React, { Component } from 'react';
 import {Notifications} from 'react-native-notifications';
 
 class MyComponent extends Component {
-  constructor() {
+  constructor(props) {
+    super(props);
     Notifications.registerRemoteNotifications();
 
     Notifications.events().registerNotificationReceivedForeground((notification: Notification, completion) => {

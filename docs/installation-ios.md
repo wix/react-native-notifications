@@ -1,10 +1,10 @@
 ---
 id: installation-ios
-title: iOS Installation
-sidebar_label: iOS Installation
+title: iOS Manual Installation
+sidebar_label: iOS Manual Installation
 ---
 
-As with any React Native project, the first step is to add the project as an npm dependency.
+In case the installation step in our [Getting Started](getting-started.md) doc did not work, follow these steps.
 
 Start by running this:
 
