@@ -79,7 +79,7 @@ export class Commands {
     return this.nativeCommandsSender.removeDeliveredNotifications(identifiers);
   }
 
-  public getDeliveredNotifications(): Array<Notification> {
+  public getDeliveredNotifications(): Promise<Notification[]> {
     return this.nativeCommandsSender.getDeliveredNotifications();
   }
 

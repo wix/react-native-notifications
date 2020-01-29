@@ -77,7 +77,7 @@ export class NotificationsIOS {
   /**
    * getDeliveredNotifications
    */
-  public getDeliveredNotifications(): Array<Notification> {
+  public getDeliveredNotifications(): Promise<Notification[]> {
     return this.commands.getDeliveredNotifications();
   }
 
