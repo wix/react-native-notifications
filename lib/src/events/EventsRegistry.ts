@@ -2,8 +2,7 @@ import { EmitterSubscription } from 'react-native';
 import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver';
 import {
   Registered,
-  RegistrationError,
-  NotificationResponse
+  RegistrationError
 } from '../interfaces/NotificationEvents';
 import { CompletionCallbackWrapper } from '../adapters/CompletionCallbackWrapper';
 import { Notification } from '../DTO/Notification';
@@ -27,7 +26,7 @@ export class EventsRegistry {
     return this.nativeEventsReceiver.registerNotificationReceived(this.completionCallbackWrapper.wrapReceivedBackgroundCallback(callback));
   }
   
-  public registerNotificationOpened(callback: (response: NotificationResponse, completion: () => void) => void): EmitterSubscription {
+  public registerNotificationOpened(callback: (notification: Notification, completion: () => void) => void): EmitterSubscription {
     return this.nativeEventsReceiver.registerNotificationOpened(this.completionCallbackWrapper.wrapOpenedCallback(callback));
   }
   
