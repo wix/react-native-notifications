@@ -41,9 +41,9 @@
     [RNNotifications startMonitorPushKitNotifications];
 }
 
-- (void)getBadgeCount:(RCTResponseSenderBlock)callback {
+- (void)getBadgeCount:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
     NSInteger count = [UIApplication sharedApplication].applicationIconBadgeNumber;
-    callback(@[ [NSNumber numberWithInteger:count] ]);
+    resolve([NSNumber numberWithInteger:count]);
 }
 
 - (void)setBadgeCount:(int)count {

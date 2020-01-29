@@ -60,8 +60,8 @@ RCT_EXPORT_METHOD(registerPushKit) {
     [_commandsHandler registerPushKit];
 }
 
-RCT_EXPORT_METHOD(getBadgeCount:(RCTResponseSenderBlock)callback) {
-    [_commandsHandler getBadgeCount:callback];
+RCT_EXPORT_METHOD(getBadgeCount:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
+    [_commandsHandler getBadgeCount:resolve reject:reject];
 }
 
 RCT_EXPORT_METHOD(setBadgeCount:(int)count) {
