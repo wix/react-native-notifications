@@ -13,7 +13,7 @@ Example:
 
 ```jsx
 let localNotification = Notifications.postLocalNotification({
-	body: "Local notificiation!",
+	body: "Local notification!",
 	title: "Local Notification Title",
 	sound: "chime.aiff",
     silent: false,
@@ -24,7 +24,7 @@ let localNotification = Notifications.postLocalNotification({
 
 Notification object contains:
 
-- **`fireDate`**- The date and time when the system should deliver the notification (optinal - default is immidiate dispatch).
+- **`fireDate`**- The date and time when the system should deliver the notification (optional - default is immediate dispatch).
 - `body`- The message displayed in the notification alert.
 - `title`- The title of the notification, displayed in the notifications center.
 - `alertAction`- The "action" displayed beneath an actionable notification on the lockscreen (e.g. "Slide to **open**"). Note that Apple no longer shows this in iOS 10.
@@ -41,7 +41,7 @@ Example:
 
 ```jsx
 let someLocalNotification = Notifications.postLocalNotification({
-	body: "Local notificiation!",
+	body: "Local notification!",
 	title: "Local Notification Title",
 	sound: "chime.aiff",
 	category: "SOME_CATEGORY",
@@ -74,7 +74,7 @@ notifications).
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/APK_format_icon.png/768px-APK_format_icon.png" width=30/> Android
 
-Much like on iOS, notifications can be triggered locally. The API to do so is a simplified version of the iOS equivalent that works more natually with the Android perception of push (remote) notifications:
+Much like on iOS, notifications can be triggered locally. The API to do so is a simplified version of the iOS equivalent that works more naturally with the Android perception of push (remote) notifications:
 
 ```jsx
 Notifications.postLocalNotification({
