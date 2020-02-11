@@ -29,6 +29,7 @@
 
         <service
             android:name=".fcm.FcmInstanceIdRefreshHandlerService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
     </application>
 
