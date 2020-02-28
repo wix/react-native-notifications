@@ -15,14 +15,11 @@ In your React Native app:
 
 ```jsx
 import { Notifications } from 'react-native-notifications';
-import { Platform } from 'react-native';
 
 class App extends Component {
 	constructor() {
-		// Request permissions on iOS
-		if (Platform.OS === 'ios') {
-      		Notifications.ios.registerRemoteNotifications();
-    	}
+		// Request permissions on iOS, refresh token on Android
+		Notifications.registerRemoteNotifications();
 
 		Notifications.events().registerRemoteNotificationsRegistered((event: Registered) => {
 			// TODO: Send the token to my server so it could send back push notifications...
