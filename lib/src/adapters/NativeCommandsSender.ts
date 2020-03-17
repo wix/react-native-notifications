@@ -1,4 +1,5 @@
 import { NativeModules } from 'react-native';
+import {NotificationChannel} from 'react-native-notifications/lib/src/interfaces/NotificationChannel';
 import { Notification } from '../DTO/Notification';
 import { NotificationCompletion } from '../interfaces/NotificationCompletion';
 import { NotificationPermissions } from '../interfaces/NotificationPermissions';
@@ -23,6 +24,7 @@ interface NativeCommandsModule {
   setCategories(categories: [NotificationCategory?]): void;
   finishPresentingNotification(notificationId: string, callback: NotificationCompletion): void;
   finishHandlingAction(notificationId: string): void;
+  setNotificationChannel(notificationChannel: NotificationChannel): void;
 }
 
 export class NativeCommandsSender {
@@ -101,5 +103,9 @@ export class NativeCommandsSender {
 
   finishHandlingAction(notificationId: string): void {
     this.nativeCommandsModule.finishHandlingAction(notificationId);
+  }
+
+  setNotificationChannel(notificationChannel: NotificationChannel) {
+    this.nativeCommandsModule.setNotificationChannel(notificationChannel);
   }
 }

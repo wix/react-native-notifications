@@ -19,7 +19,9 @@ import com.wix.reactnativenotifications.core.AppLifecycleFacadeHolder;
 import com.wix.reactnativenotifications.core.InitialNotificationHolder;
 import com.wix.reactnativenotifications.core.NotificationIntentAdapter;
 import com.wix.reactnativenotifications.core.ReactAppLifecycleFacade;
+import com.wix.reactnativenotifications.core.notification.INotificationChannel;
 import com.wix.reactnativenotifications.core.notification.IPushNotification;
+import com.wix.reactnativenotifications.core.notification.NotificationChannel;
 import com.wix.reactnativenotifications.core.notification.PushNotification;
 import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
 import com.wix.reactnativenotifications.core.notificationdrawer.IPushNotificationsDrawer;
@@ -125,6 +127,16 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     @ReactMethod void removeAllDeliveredNotifications() {
         IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
         notificationsDrawer.onAllNotificationsClearRequest();
+    }
+
+    @ReactMethod
+    void setNotificationChannel(ReadableMap notificationChannelPropsMap) {
+        final Bundle notificationChannelProps = Arguments.toBundle(notificationChannelPropsMap);
+        INotificationChannel notificationsDrawer = NotificationChannel.get(
+                getReactApplicationContext().getApplicationContext(),
+                notificationChannelProps
+        );
+        notificationsDrawer.setNotificationChannel();
     }
 
     protected void startFcmIntentService(String extraFlag) {

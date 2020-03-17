@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import {NotificationChannel} from 'react-native-notifications/lib/src/interfaces/NotificationChannel';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
 import { Notification } from '../DTO/Notification';
 import { NotificationCategory } from '../interfaces/NotificationCategory';
@@ -85,5 +86,9 @@ export class Commands {
 
   public refreshToken() {
     this.nativeCommandsSender.refreshToken();
+  }
+
+  public setNotificationChannel(notificationChannel: NotificationChannel) {
+    this.nativeCommandsSender.setNotificationChannel(notificationChannel);
   }
 }
