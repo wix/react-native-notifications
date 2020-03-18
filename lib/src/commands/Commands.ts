@@ -1,9 +1,9 @@
 import * as _ from 'lodash';
-import {NotificationChannel} from 'react-native-notifications/lib/src/interfaces/NotificationChannel';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
 import { Notification } from '../DTO/Notification';
 import { NotificationCategory } from '../interfaces/NotificationCategory';
 import { NotificationPermissions } from '../interfaces/NotificationPermissions';
+import { NotificationChannel } from '../interfaces/NotificationChannel';
 import { UniqueIdProvider } from '../adapters/UniqueIdProvider';
 import { NotificationFactory } from '../DTO/NotificationFactory';
 
