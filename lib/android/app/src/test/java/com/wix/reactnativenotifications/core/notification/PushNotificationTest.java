@@ -219,9 +219,11 @@ public class PushNotificationTest {
         // Assert
 
         ArgumentCaptor<Notification> notificationCaptor = ArgumentCaptor.forClass(Notification.class);
-        verify(mNotificationManager).notify(anyInt(), notificationCaptor.capture());
-        verifyNotification(notificationCaptor.getValue());
 
+        // Notifications should not be visible while app is in foreground
+        verify(mNotificationManager, never()).notify(anyInt(), notificationCaptor.capture());
+
+        // Notifications should be reported to javascript while app is in background
         verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), argThat(new isValidNotification(mNotificationBundle)), eq(mReactContext));
     }
 
@@ -239,9 +241,11 @@ public class PushNotificationTest {
         // Assert
 
         ArgumentCaptor<Notification> notificationCaptor = ArgumentCaptor.forClass(Notification.class);
-        verify(mNotificationManager).notify(anyInt(), notificationCaptor.capture());
-        verifyNotification(notificationCaptor.getValue());
 
+        // Notifications should not be visible while app is in foreground
+        verify(mNotificationManager, never()).notify(anyInt(), notificationCaptor.capture());
+
+        // Notifications should be reported to javascript while app is in background
         verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), argThat(new isValidNotification(mNotificationBundle)), eq(mReactContext));
     }
 
