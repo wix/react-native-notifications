@@ -76,7 +76,7 @@ public class NotificationChannel implements INotificationChannel {
         return mNotificationChannelProps.copy();
     }
 
-    protected long[] createVibrationPatternFromList(List patternRequest) {
+    private long[] createVibrationPatternFromList(List patternRequest) {
         if (patternRequest == null) {
             return null;
         }
