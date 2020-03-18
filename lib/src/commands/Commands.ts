@@ -2,8 +2,8 @@ import * as _ from 'lodash';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
 import { Notification } from '../DTO/Notification';
 import { NotificationCategory } from '../interfaces/NotificationCategory';
-import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 import { NotificationChannel } from '../interfaces/NotificationChannel';
+import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 import { UniqueIdProvider } from '../adapters/UniqueIdProvider';
 import { NotificationFactory } from '../DTO/NotificationFactory';
 
