@@ -49,27 +49,27 @@
     "react-native": ">=0.25.1"
   },
   "devDependencies": {
-    "@types/react": "16.x.x",
-    "@types/react-native": "0.57.7",
-    "@types/react-test-renderer": "16.x.x",
     "@babel/plugin-proposal-export-default-from": "7.2.0",
     "@babel/plugin-proposal-export-namespace-from": "7.2.0",
     "@types/jest": "23.x.x",
     "@types/lodash": "4.x.x",
-    "typescript": "3.2.2",
+    "@types/react": "16.x.x",
+    "@types/react-native": "0.57.7",
+    "@types/react-test-renderer": "16.x.x",
     "babel-eslint": "9.0.0",
-    "tslint": "5.x.x",
-    "ts-mockito": "^2.3.1",
-    "mocha": "^2.5.3",
-    "shell-utils": "1.x.x",
-    "react-native": "0.60.5",
-    "react": "16.8.6",
     "detox": "14.x.x",
-    "jsc-android": "236355.x.x",
+    "github-release-notes": "0.17.0",
     "jest": "24.8.0",
+    "jsc-android": "236355.x.x",
     "metro-react-native-babel-preset": "0.55.x",
+    "mocha": "^2.5.3",
+    "react": "16.8.6",
+    "react-native": "0.60.5",
     "react-native-typescript-transformer": "1.2.12",
-    "github-release-notes": "0.17.0"
+    "shell-utils": "1.x.x",
+    "ts-mockito": "^2.3.1",
+    "tslint": "5.x.x",
+    "typescript": "3.2.2"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -140,5 +140,8 @@
       "text",
       "html"
     ]
+  },
+  "dependencies": {
+    "proxy-polyfill": "^0.3.1"
   }
 }
