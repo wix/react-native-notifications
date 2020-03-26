@@ -26,6 +26,8 @@ typedef void (^RCTPromiseRejectBlock)(NSString *code, NSString *message, NSError
 
 - (void)getDeliveredNotifications:(RCTPromiseResolveBlock)resolve;
 
+- (void)getPendingNotifications:(RCTPromiseResolveBlock)resolve;
+
 - (void)cancelAllLocalNotifications;
 
 @end

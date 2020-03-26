@@ -103,6 +103,11 @@ RCT_EXPORT_METHOD(getDeliveredNotifications:(RCTPromiseResolveBlock)resolve reje
     [_commandsHandler getDeliveredNotifications:resolve reject:reject];
 }
 
+
+RCT_EXPORT_METHOD(getPendingNotifications:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
+    [_commandsHandler getPendingNotifications:resolve reject:reject];
+}
+
 #endif
 
 @end

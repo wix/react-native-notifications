@@ -1,5 +1,6 @@
 import { NativeModules } from 'react-native';
 import { Notification } from '../DTO/Notification';
+import { NotificationRequest } from '../DTO/NotificationRequest';
 import { NotificationCompletion } from '../interfaces/NotificationCompletion';
 import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 import { NotificationCategory } from '../interfaces/NotificationCategory';
@@ -20,6 +21,7 @@ interface NativeCommandsModule {
   removeDeliveredNotifications(identifiers: Array<string>): void;
   removeAllDeliveredNotifications(): void;
   getDeliveredNotifications(): Promise<Notification[]>;
+  getPendingNotifications(): Promise<NotificationRequest[]>;
   setCategories(categories: [NotificationCategory?]): void;
   finishPresentingNotification(notificationId: string, callback: NotificationCompletion): void;
   finishHandlingAction(notificationId: string): void;
@@ -38,7 +40,7 @@ export class NativeCommandsSender {
   getInitialNotification(): Promise<Object> {
     return this.nativeCommandsModule.getInitialNotification();
   }
-  
+
   requestPermissions() {
     return this.nativeCommandsModule.requestPermissions();
   }
@@ -93,6 +95,10 @@ export class NativeCommandsSender {
 
   public getDeliveredNotifications(): Promise<Notification[]> {
     return this.nativeCommandsModule.getDeliveredNotifications();
+  }
+
+  public getPendingNotifications(): Promise<NotificationRequest[]> {
+    return this.nativeCommandsModule.getPendingNotifications();
   }
 
   finishPresentingNotification(notificationId: string, notificationCompletion: NotificationCompletion): void {

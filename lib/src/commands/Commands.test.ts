@@ -211,6 +211,13 @@ describe('Commands', () => {
     });
   });
 
+  describe('getPendingNotifications', () => {
+    it('sends to native', () => {
+      uut.getPendingNotifications();
+      verify(mockedNativeCommandsSender.getPendingNotifications()).called();
+    });
+  });
+
   describe('refreshToken', () => {
     it('sends to native', () => {
       uut.refreshToken();

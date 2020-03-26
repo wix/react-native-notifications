@@ -70,12 +70,16 @@ class NotificationsExampleApp extends Component {
   }
 
   sendLocalNotification() {
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
     Notifications.postLocalNotification({
       body: 'Local notificiation!',
       title: 'Local Notification Title',
       sound: 'chime.aiff',
       category: 'SOME_CATEGORY',
       link: 'localNotificationLink',
+      fireDate: tomorrow.toISOString(),
     });
   }
 
@@ -110,6 +114,10 @@ class NotificationsExampleApp extends Component {
     );
   }
 
+  getPendingNotifications() {
+    Notifications.ios.getPendingNotifications().then(console.log)
+  }
+
   render() {
     const notifications = this.state.notifications.map((notification, idx) =>
       (
@@ -128,6 +136,7 @@ class NotificationsExampleApp extends Component {
         <Button title={'Request permissions'} onPress={this.requestPermissions} testID={'requestPermissions'} />
         <Button title={'Send local notification'} onPress={this.sendLocalNotification} testID={'sendLocalNotification'} />
         <Button title={'Remove all delivered notifications'} onPress={this.removeAllDeliveredNotifications} />
+        <Button title={'Get pending notifications'} onPress={this.getPendingNotifications} />
         {notifications}
         {openedNotifications}
       </View>

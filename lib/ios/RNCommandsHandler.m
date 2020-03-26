@@ -82,4 +82,8 @@
     [_notificationCenter getDeliveredNotifications:resolve];
 }
 
+- (void)getPendingNotifications:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    [_notificationCenter getPendingNotifications:resolve];
+}
+
 @end

@@ -54,6 +54,21 @@
 @end
 
 @implementation RCTConvert (UNNotificationRequest)
++ (NSDictionary *)UNNotificationRequest:(UNNotificationRequest *)notificationRequest
+{
+    NSMutableDictionary *formattedNotificationRequest = [NSMutableDictionary dictionary];
+    UNNotificationContent *content = notificationRequest.content;
+
+    formattedNotificationRequest[@"identifier"] = notificationRequest.identifier;
+    formattedNotificationRequest[@"title"] = RCTNullIfNil(content.title);
+    formattedNotificationRequest[@"body"] = RCTNullIfNil(content.body);
+    formattedNotificationRequest[@"category"] = RCTNullIfNil(content.categoryIdentifier);
+    formattedNotificationRequest[@"thread"] = RCTNullIfNil(content.threadIdentifier);
+    
+    [formattedNotificationRequest addEntriesFromDictionary:[NSDictionary dictionaryWithDictionary:RCTNullIfNil(RCTJSONClean(content.userInfo))]];
+    
+    return formattedNotificationRequest;
+}
 
 + (UNNotificationRequest *)UNNotificationRequest:(id)json withId:(NSNumber*)notificationId
 {

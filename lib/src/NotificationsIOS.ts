@@ -1,4 +1,5 @@
 import { Notification } from './DTO/Notification';
+import { NotificationRequest } from './DTO/NotificationRequest';
 import { Commands } from './commands/Commands';
 import { Platform } from 'react-native';
 import { EventsRegistryIOS } from './events/EventsRegistryIOS';
@@ -79,6 +80,10 @@ export class NotificationsIOS {
    */
   public getDeliveredNotifications(): Promise<Notification[]> {
     return this.commands.getDeliveredNotifications();
+  }
+
+  public getPendingNotifications(): Promise<NotificationRequest[]> {
+    return this.commands.getPendingNotifications();
   }
 
   /**

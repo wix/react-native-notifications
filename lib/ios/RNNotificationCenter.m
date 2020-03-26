@@ -62,6 +62,19 @@
     }];
 }
 
+- (void)getPendingNotifications:(RCTResponseSenderBlock)callback {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+
+    [center getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
+        NSMutableArray<NSDictionary *> *formattedNotifications = [NSMutableArray new];
+
+        for (UNNotification *request in requests) {
+            [formattedNotifications addObject:[RCTConvert UNNotificationRequest:request]];
+        }
+        callback(@[formattedNotifications]);
+    }];
+}
+
 - (void)cancelAllLocalNotifications {
     [[UNUserNotificationCenter currentNotificationCenter] removeAllPendingNotificationRequests];
 }

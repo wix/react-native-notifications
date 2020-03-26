@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
 import { Notification } from '../DTO/Notification';
+import { NotificationRequest } from '../DTO/NotificationRequest';
 import { NotificationCategory } from '../interfaces/NotificationCategory';
 import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 import { UniqueIdProvider } from '../adapters/UniqueIdProvider';
@@ -81,6 +82,10 @@ export class Commands {
 
   public getDeliveredNotifications(): Promise<Notification[]> {
     return this.nativeCommandsSender.getDeliveredNotifications();
+  }
+
+  public getPendingNotifications(): Promise<NotificationRequest[]> {
+    return this.nativeCommandsSender.getPendingNotifications();
   }
 
   public refreshToken() {
