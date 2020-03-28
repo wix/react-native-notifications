@@ -11,15 +11,25 @@ public class PushNotificationProps {
     }
 
     public String getTitle() {
-        return mBundle.getString("title");
+        return getBundleStringFirstNotNull("gcm.notification.title", "title");
+
+    }
+
+    public boolean isFirebaseBackgroundPayload() {
+        return mBundle.containsKey("google.message_id") && !mBundle.containsKey("title");
     }
 
     public String getBody() {
-        return mBundle.getString("body");
+        return getBundleStringFirstNotNull("gcm.notification.body", "body");
     }
 
     public Bundle asBundle() {
         return (Bundle) mBundle.clone();
+    }
+
+    private String getBundleStringFirstNotNull(String key1, String key2) {
+        String result = mBundle.getString(key1);
+        return result == null ? mBundle.getString(key2) : result;
     }
 
     @Override
