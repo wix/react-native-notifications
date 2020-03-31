@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.3 (31/03/2020)
+- Does not clear all notifications from a notification drawer after a single notification has been opened.
+
+---
+
 ## 3.1.2 (13/02/2020)
 *No changelog for this release.*
 
