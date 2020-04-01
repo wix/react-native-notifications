@@ -34,7 +34,7 @@ $ pod install --project-directory=ios/
 Add the following line at the top of your `AppDelegate.m`
 
 ```objective-c
-#import "RNNotifications.h"
+#import <RNNotifications.h>
 ```
 
 Start monitor notifications in `AppDelegate.m`:
