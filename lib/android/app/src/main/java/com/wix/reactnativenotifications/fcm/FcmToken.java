@@ -11,6 +11,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.wix.reactnativenotifications.BuildConfig;
 import com.wix.reactnativenotifications.core.JsIOHelper;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
@@ -50,10 +51,10 @@ public class FcmToken implements IFcmToken {
     public void onManualRefresh() {
         synchronized (mAppContext) {
             if (sToken == null) {
-                Log.i(LOGTAG, "Manual token refresh => asking for new token");
+                if(BuildConfig.DEBUG) Log.i(LOGTAG, "Manual token refresh => asking for new token");
                 refreshToken();
             } else {
-                Log.i(LOGTAG, "Manual token refresh => publishing existing token ("+sToken+")");
+                if(BuildConfig.DEBUG) Log.i(LOGTAG, "Manual token refresh => publishing existing token ("+sToken+")");
                 sendTokenToJS();
             }
         }
@@ -63,11 +64,11 @@ public class FcmToken implements IFcmToken {
     public void onAppReady() {
         synchronized (mAppContext) {
             if (sToken == null) {
-                Log.i(LOGTAG, "App initialized => asking for new token");
+                if(BuildConfig.DEBUG) Log.i(LOGTAG, "App initialized => asking for new token");
                 refreshToken();
             } else {
                 // Except for first run, this should be the case.
-                Log.i(LOGTAG, "App initialized => publishing existing token ("+sToken+")");
+                if(BuildConfig.DEBUG) Log.i(LOGTAG, "App initialized => publishing existing token ("+sToken+")");
                 sendTokenToJS();
             }
         }
@@ -78,7 +79,7 @@ public class FcmToken implements IFcmToken {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 sToken = instanceIdResult.getToken();
-                Log.i(LOGTAG, "FCM has a new token" + "=" + sToken);
+                if(BuildConfig.DEBUG) Log.i(LOGTAG, "FCM has a new token" + "=" + sToken);
                 sendTokenToJS();
             }
         });
