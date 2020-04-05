@@ -48,6 +48,9 @@
     "react": ">=0.14.5",
     "react-native": ">=0.25.1"
   },
+  "dependencies": {
+    "proxy-polyfill": "^0.3.1"
+  },
   "devDependencies": {
     "@types/react": "16.x.x",
     "@types/react-native": "0.57.7",

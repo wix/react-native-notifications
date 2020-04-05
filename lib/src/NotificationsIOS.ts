@@ -1,3 +1,4 @@
+import 'proxy-polyfill';
 import { Notification } from './DTO/Notification';
 import { Commands } from './commands/Commands';
 import { Platform } from 'react-native';
