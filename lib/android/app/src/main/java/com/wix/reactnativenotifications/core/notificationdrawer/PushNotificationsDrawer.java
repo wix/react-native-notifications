@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 
 import com.wix.reactnativenotifications.core.AppLaunchHelper;
-import com.wix.reactnativenotifications.core.InitialNotificationHolder;
 
 public class PushNotificationsDrawer implements IPushNotificationsDrawer {
 
@@ -42,11 +41,6 @@ public class PushNotificationsDrawer implements IPushNotificationsDrawer {
 
     @Override
     public void onNewActivity(Activity activity) {
-        boolean launchIntentsActivity = mAppLaunchHelper.isLaunchIntentsActivity(activity);
-        boolean launchIntentOfNotification = mAppLaunchHelper.isLaunchIntentOfNotification(activity.getIntent());
-        if (launchIntentsActivity && !launchIntentOfNotification) {
-            InitialNotificationHolder.getInstance().clear();
-        }
     }
 
     @Override

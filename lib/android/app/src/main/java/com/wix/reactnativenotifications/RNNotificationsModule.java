@@ -86,6 +86,7 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
                 return;
             }
 
+            InitialNotificationHolder.getInstance().clear();
             result = Arguments.fromBundle(notification.asBundle());
         } finally {
             promise.resolve(result);
