@@ -59,21 +59,6 @@ public class PushNotificationsDrawerTest {
     }
 
     @Test
-    public void onNewActivity_activityIsTheOneLaunchedByNotifs_clearInitialNotification() throws Exception {
-        verify(InitialNotificationHolder.getInstance(), never()).clear();
-
-        Activity activity = mock(Activity.class);
-        Intent intent = mock(Intent.class);
-        when(activity.getIntent()).thenReturn(intent);
-        when(mAppLaunchHelper.isLaunchIntentsActivity(activity)).thenReturn(true);
-        when(mAppLaunchHelper.isLaunchIntentOfNotification(any(Intent.class))).thenReturn(false);
-
-        createUUT().onNewActivity(activity);
-
-        verify(InitialNotificationHolder.getInstance()).clear();
-    }
-
-    @Test
     public void onNewActivity_activityIsNotTheOneLaunchedByNotifs_dontClearInitialNotification() throws Exception {
         Activity activity = mock(Activity.class);
         Intent intent = mock(Intent.class);
