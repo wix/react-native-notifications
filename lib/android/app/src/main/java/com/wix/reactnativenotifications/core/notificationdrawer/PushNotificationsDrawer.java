@@ -31,12 +31,10 @@ public class PushNotificationsDrawer implements IPushNotificationsDrawer {
 
     @Override
     public void onAppInit() {
-        clearAll();
     }
 
     @Override
     public void onAppVisible() {
-        clearAll();
     }
 
     @Override
@@ -45,7 +43,6 @@ public class PushNotificationsDrawer implements IPushNotificationsDrawer {
 
     @Override
     public void onNotificationOpened() {
-        clearAll();
     }
 
     @Override
@@ -62,11 +59,6 @@ public class PushNotificationsDrawer implements IPushNotificationsDrawer {
 
     @Override
     public void onAllNotificationsClearRequest() {
-        final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancelAll();
-    }
-
-    protected void clearAll() {
         final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
     }

@@ -40,15 +40,21 @@ public class PushNotificationsDrawerTest {
     }
 
     @Test
-    public void onAppInit_clearAllNotifications() throws Exception {
+    public void onAppInit_neverClearAllNotifications() throws Exception {
         createUUT().onAppInit();
-        verify(mNotificationManager).cancelAll();
+        verify(mNotificationManager, never()).cancelAll();
     }
 
     @Test
-    public void onAppVisible_clearAllNotifications() throws Exception {
+    public void onAppVisible_neverClearAllNotifications() throws Exception {
         createUUT().onAppVisible();
-        verify(mNotificationManager).cancelAll();
+        verify(mNotificationManager, never()).cancelAll();
+    }
+
+    @Test
+    public void onNotificationOpened_neverClearAllNotifications() throws Exception {
+        createUUT().onNotificationOpened()
+        verify(mNotificationManager, never()).cancelAll();
     }
 
     @Test

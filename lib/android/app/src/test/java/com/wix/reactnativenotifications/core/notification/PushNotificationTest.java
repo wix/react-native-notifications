@@ -179,7 +179,7 @@ public class PushNotificationTest {
         final PushNotification uut = createUUT();
         uut.onOpened();
 
-        verify(mNotificationManager).cancelAll();
+        verify(mNotificationManager, never()).cancelAll();
     }
 
     @Test
