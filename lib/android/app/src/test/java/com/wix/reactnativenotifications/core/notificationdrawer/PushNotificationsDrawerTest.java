@@ -53,7 +53,7 @@ public class PushNotificationsDrawerTest {
 
     @Test
     public void onNotificationOpened_neverClearAllNotifications() throws Exception {
-        createUUT().onNotificationOpened()
+        createUUT().onNotificationOpened();
         verify(mNotificationManager, never()).cancelAll();
     }
 
