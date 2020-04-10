@@ -3,8 +3,9 @@ import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver';
 import {
   Registered,
   RegistrationError,
-  NotificationResponse
+  // NotificationResponse,
 } from '../interfaces/NotificationEvents';
+import { NotificationActionResponse } from '../interfaces/NotificationActionResponse';
 import { CompletionCallbackWrapper } from '../adapters/CompletionCallbackWrapper';
 import { Notification } from '../DTO/Notification';
 import { NotificationCompletion } from '../interfaces/NotificationCompletion';
