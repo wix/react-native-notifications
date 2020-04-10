@@ -36,7 +36,7 @@ export class CompletionCallbackWrapper {
     callback(notification, completion);
   }
 
-  public wrapOpenedCallback(callback: Function): (notification: Notification, completion: () => void, actionResponse?: NotificationActionResponse | undefined) => void {
+  public wrapOpenedCallback(callback: Function): (notification: Notification, completion: () => void, actionResponse?: NotificationActionResponse) => void {
     return (notification, _completion, actionResponse) => {
       const completion = () => {
         if (Platform.OS === 'ios') {
