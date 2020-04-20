@@ -14,10 +14,13 @@ In order to handle notifications, you must register the `remoteNotificationsRegi
 In your React Native app:
 
 ```jsx
-import {Notifications} from 'react-native-notifications';
+import { Notifications } from 'react-native-notifications';
 
 class App extends Component {
 	constructor() {
+		// Request permissions on iOS, refresh token on Android
+		Notifications.registerRemoteNotifications();
+
 		Notifications.events().registerRemoteNotificationsRegistered((event: Registered) => {
 			// TODO: Send the token to my server so it could send back push notifications...
 			console.log("Device Token Received", event.deviceToken);
@@ -25,8 +28,6 @@ class App extends Component {
 		Notifications.events().registerRemoteNotificationsRegistrationFailed((event: RegistrationError) => {
 			console.error(event);
 		});
-
-		Notifications.requestPermissions();
 	}
 }
 

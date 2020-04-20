@@ -13,7 +13,7 @@ Example:
 
 ```jsx
 let localNotification = Notifications.postLocalNotification({
-	body: "Local notificiation!",
+	body: "Local notification!",
 	title: "Local Notification Title",
 	sound: "chime.aiff",
     silent: false,
@@ -24,7 +24,7 @@ let localNotification = Notifications.postLocalNotification({
 
 Notification object contains:
 
-- **`fireDate`**- The date and time when the system should deliver the notification (optinal - default is immidiate dispatch).
+- **`fireDate`**- The date and time when the system should deliver the notification (optinal - default is immediate dispatch).
 - `body`- The message displayed in the notification alert.
 - `title`- The title of the notification, displayed in the notifications center.
 - `alertAction`- The "action" displayed beneath an actionable notification on the lockscreen (e.g. "Slide to **open**"). Note that Apple no longer shows this in iOS 10.
@@ -41,7 +41,7 @@ Example:
 
 ```jsx
 let someLocalNotification = Notifications.postLocalNotification({
-	body: "Local notificiation!",
+	body: "Local notification!",
 	title: "Local Notification Title",
 	sound: "chime.aiff",
 	category: "SOME_CATEGORY",

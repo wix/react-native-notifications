@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.wix.reactnativenotifications.BuildConfig;
+
 public class AppLaunchHelper {
     private static final String TAG = AppLaunchHelper.class.getSimpleName();
 
@@ -27,7 +29,7 @@ public class AppLaunchHelper {
             return intent;
         } catch (ClassNotFoundException e) {
             // Note: this is an imaginary scenario cause we're asking for a class of our very own package.
-            Log.e(TAG, "Failed to launch/resume app", e);
+            if(BuildConfig.DEBUG) Log.e(TAG, "Failed to launch/resume app", e);
             return null;
         }
     }

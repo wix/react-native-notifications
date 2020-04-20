@@ -6,7 +6,7 @@ sidebar_label: Events
 
 When a push notification is received by the device, the application can be in one of the following states:
 
-1. **Forground:** When the app is running and is used by the user right now; in this case, a `notificationReceivedForeground` event will be fired, do not forget to invoke `completion()` callback.
+1. **Foreground:** When the app is running and is used by the user right now; in this case, a `notificationReceivedForeground` event will be fired, do not forget to invoke `completion()` callback.
 2. **Background:** `notificationReceivedBackground` event will be fired, do not forget to invoke `completion()` callback.
 To receive background notifications on iOS follow [this guide](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/pushing_background_updates_to_your_app)
 

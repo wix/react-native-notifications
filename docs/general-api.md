@@ -24,7 +24,7 @@ Posts local notification to the device notification center.
 
 ```js
 Notifications.postLocalNotification({
-  body: 'Local notificiation!',
+  body: 'Local notification!',
   title: 'Local Notification Title',
   sound: 'chime.aiff',
   category: 'SOME_CATEGORY',
