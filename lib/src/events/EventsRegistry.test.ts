@@ -164,7 +164,7 @@ describe('EventsRegistry', () => {
       const call = mockNativeEventsReceiver.registerNotificationOpened.mock.calls[0][0];
       call(response);
       
-      expect(wrappedCallback).toBeCalledWith(response, expect.any(Function));
+      expect(wrappedCallback).toBeCalledWith(response, expect.any(Function), undefined); //JMC: ActionResponse
       expect(wrappedCallback).toBeCalledTimes(1);
     });
 
