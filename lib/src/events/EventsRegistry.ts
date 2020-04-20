@@ -2,8 +2,7 @@ import { EmitterSubscription } from 'react-native';
 import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver';
 import {
   Registered,
-  RegistrationError,
-  // NotificationResponse,
+  RegistrationError
 } from '../interfaces/NotificationEvents';
 import { NotificationActionResponse } from '../interfaces/NotificationActionResponse';
 import { CompletionCallbackWrapper } from '../adapters/CompletionCallbackWrapper';
