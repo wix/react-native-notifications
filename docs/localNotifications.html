@@ -59,7 +59,7 @@
 Triggering local notifications is fully compatible with React Native <code>PushNotificationsIOS</code> library.</p>
 <p>Example:</p>
 <pre><code class="hljs css language-jsx"><span class="token keyword">let</span> localNotification <span class="token operator">=</span> Notifications<span class="token punctuation">.</span><span class="token function">postLocalNotification</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-    body<span class="token operator">:</span> <span class="token string">"Local notificiation!"</span><span class="token punctuation">,</span>
+    body<span class="token operator">:</span> <span class="token string">"Local notification!"</span><span class="token punctuation">,</span>
     title<span class="token operator">:</span> <span class="token string">"Local Notification Title"</span><span class="token punctuation">,</span>
     sound<span class="token operator">:</span> <span class="token string">"chime.aiff"</span><span class="token punctuation">,</span>
     silent<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
@@ -69,7 +69,7 @@ Triggering local notifications is fully compatible with React Native <code>PushN
 </code></pre>
 <p>Notification object contains:</p>
 <ul>
-<li><strong><code>fireDate</code></strong>- The date and time when the system should deliver the notification (optinal - default is immidiate dispatch).</li>
+<li><strong><code>fireDate</code></strong>- The date and time when the system should deliver the notification (optinal - default is immediate dispatch).</li>
 <li><code>body</code>- The message displayed in the notification alert.</li>
 <li><code>title</code>- The title of the notification, displayed in the notifications center.</li>
 <li><code>alertAction</code>- The &quot;action&quot; displayed beneath an actionable notification on the lockscreen (e.g. &quot;Slide to <strong>open</strong>&quot;). Note that Apple no longer shows this in iOS 10.</li>
@@ -82,7 +82,7 @@ Triggering local notifications is fully compatible with React Native <code>PushN
 <p>The <code>Notifications.postLocalNotification()</code> method return unique <code>notificationId</code> values, which can be used in order to cancel specific local notifications that were scheduled for delivery on <code>fireDate</code> and have not yet been delivered. You can cancel local notification by calling <code>Notifications.cancelLocalNotification(notificationId)</code>.</p>
 <p>Example:</p>
 <pre><code class="hljs css language-jsx"><span class="token keyword">let</span> someLocalNotification <span class="token operator">=</span> Notifications<span class="token punctuation">.</span><span class="token function">postLocalNotification</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-    body<span class="token operator">:</span> <span class="token string">"Local notificiation!"</span><span class="token punctuation">,</span>
+    body<span class="token operator">:</span> <span class="token string">"Local notification!"</span><span class="token punctuation">,</span>
     title<span class="token operator">:</span> <span class="token string">"Local Notification Title"</span><span class="token punctuation">,</span>
     sound<span class="token operator">:</span> <span class="token string">"chime.aiff"</span><span class="token punctuation">,</span>
     category<span class="token operator">:</span> <span class="token string">"SOME_CATEGORY"</span><span class="token punctuation">,</span>

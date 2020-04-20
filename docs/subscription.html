@@ -58,10 +58,13 @@
 <p>This section is about the first part of the flow.</p>
 <p>In order to handle notifications, you must register the <code>remoteNotificationsRegistered</code> event beforehand.</p>
 <p>In your React Native app:</p>
-<pre><code class="hljs css language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span>Notifications<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react-native-notifications'</span><span class="token punctuation">;</span>
+<pre><code class="hljs css language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Notifications <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react-native-notifications'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// Request permissions on iOS, refresh token on Android</span>
+        Notifications<span class="token punctuation">.</span><span class="token function">registerRemoteNotifications</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
         Notifications<span class="token punctuation">.</span><span class="token function">events</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">registerRemoteNotificationsRegistered</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">event<span class="token operator">:</span> Registered</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
             <span class="token comment">// TODO: Send the token to my server so it could send back push notifications...</span>
             console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"Device Token Received"</span><span class="token punctuation">,</span> event<span class="token punctuation">.</span>deviceToken<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -69,8 +72,6 @@
         Notifications<span class="token punctuation">.</span><span class="token function">events</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">registerRemoteNotificationsRegistrationFailed</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">event<span class="token operator">:</span> RegistrationError</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
             console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        Notifications<span class="token punctuation">.</span><span class="token function">requestPermissions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
