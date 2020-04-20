@@ -13,7 +13,7 @@ Example:
 
 ```jsx
 let localNotification = Notifications.postLocalNotification({
-	body: "Local notificiation!",
+	body: "Local notification!",
 	title: "Local Notification Title",
 	sound: "chime.aiff",
     silent: false,
@@ -41,7 +41,7 @@ Example:
 
 ```jsx
 let someLocalNotification = Notifications.postLocalNotification({
-	body: "Local notificiation!",
+	body: "Local notification!",
 	title: "Local Notification Title",
 	sound: "chime.aiff",
 	category: "SOME_CATEGORY",
