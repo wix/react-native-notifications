@@ -39,6 +39,10 @@
     [[self sharedInstance] startMonitorPushKitNotifications];
 }
 
++ (void)didReceiveSilentNotification:(NSDictionary *)userInfo {
+    [[self sharedInstance] didReceiveSilentNotification:userInfo];
+}
+
 + (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken {
     [[self sharedInstance] didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
@@ -67,6 +71,10 @@
 - (void)startMonitorPushKitNotifications {
     _pushKitEventHandler = [RNPushKitEventHandler new];
     _pushKit = [[RNPushKit alloc] initWithEventHandler:_pushKitEventHandler];
+}
+
+- (void)didReceiveSilentNotification:(NSDictionary *)userInfo {
+    [_notificationEventHandler didReceiveSilentNotification:userInfo];
 }
 
 - (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken {

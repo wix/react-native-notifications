@@ -9,6 +9,8 @@
 + (void)startMonitorNotifications;
 + (void)startMonitorPushKitNotifications;
 
++ (void)didReceiveSilentNotification:(NSDictionary *)userInfo;
+
 + (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken;
 + (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
 

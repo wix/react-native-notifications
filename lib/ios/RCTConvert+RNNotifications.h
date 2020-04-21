@@ -20,3 +20,7 @@
 @interface RCTConvert (UNNotificationPresentationOptions)
 + (UNNotificationPresentationOptions)UNNotificationPresentationOptions:(id)json;
 @end
+
+@interface RCTConvert (NSDictionary)
++ (NSDictionary *)NotificationUserInfo:(NSDictionary *)userInfo;
+@end

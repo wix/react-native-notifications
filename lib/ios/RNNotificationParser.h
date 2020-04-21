@@ -5,5 +5,6 @@
 
 + (NSDictionary *)parseNotificationResponse:(UNNotificationResponse *)response;
 + (NSDictionary *)parseNotification:(UNNotification *)notification;
++ (NSDictionary *)parseNotificationUserInfo:(NSDictionary *)userInfo;
 
 @end

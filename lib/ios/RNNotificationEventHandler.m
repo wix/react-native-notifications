@@ -33,4 +33,8 @@
     [RNEventEmitter sendEvent:RNNotificationOpened body:[RNNotificationParser parseNotificationResponse:response]];
 }
 
+- (void)didReceiveSilentNotification:(NSDictionary *)userInfo {
+    [RNEventEmitter sendEvent:RNNotificationReceived body:[RNNotificationParser parseNotificationUserInfo:userInfo]];
+}
+
 @end

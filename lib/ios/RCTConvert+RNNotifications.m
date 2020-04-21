@@ -117,6 +117,14 @@
 
 @end
 
+@implementation RCTConvert (NSDictionary)
++ (NSDictionary *)NotificationUserInfo:(NSDictionary *)userInfo {
+    NSMutableDictionary *formattedNotification = [NSMutableDictionary dictionary];
+    [formattedNotification addEntriesFromDictionary:[NSDictionary dictionaryWithDictionary:RCTNullIfNil(RCTJSONClean(userInfo))]];
+    return formattedNotification;
+}
+@end
+
 @implementation RCTConvert (UNNotificationPresentationOptions)
 
 + (UNNotificationPresentationOptions)UNNotificationPresentationOptions:(id)json {
