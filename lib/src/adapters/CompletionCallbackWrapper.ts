@@ -1,6 +1,6 @@
 import { NativeCommandsSender } from './NativeCommandsSender';
 import { NotificationCompletion, NotificationBackgroundFetchResult } from '../interfaces/NotificationCompletion';
-import { Platform, AppState } from 'react-native';
+import { Platform } from 'react-native';
 import {NotificationIOS} from "../DTO/NotificationIOS";
 import {Notification} from "..";
 import { NotificationActionResponse } from '../interfaces/NotificationActionResponse';
@@ -12,17 +12,13 @@ export class CompletionCallbackWrapper {
 
   public wrapReceivedBackgroundCallback(callback: Function): (notification: Notification) => void {
     return (notification) => {
-      if (!this.applicationIsVisible()) {
-        this.wrapReceivedAndInvoke(callback, notification, true);
-      }
+      this.wrapReceivedAndInvoke(callback, notification, true);
     }
   }
 
   public wrapReceivedForegroundCallback(callback: Function): (notification: Notification) => void {
     return (notification) => {
-      if (this.applicationIsVisible()) {
-        this.wrapReceivedAndInvoke(callback, notification, false);
-      }
+      this.wrapReceivedAndInvoke(callback, notification, false);
     }
   }
 
@@ -51,9 +47,5 @@ export class CompletionCallbackWrapper {
 
       callback(notification, completion, actionResponse);
     }
-  }
-
-  private applicationIsVisible(): Boolean {
-    return AppState.currentState !== 'background';
   }
 }
