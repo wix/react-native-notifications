@@ -33,6 +33,10 @@
     [[RNNotificationsStore sharedInstance] completePresentation:completionKey withPresentationOptions:[RCTConvert UNNotificationPresentationOptions:presentingOptions]];
 }
 
+- (void)finishHandlingBackgroundAction:(NSString *)completionKey backgroundFetchResult:(NSString *)backgroundFetchResult {
+    [[RNNotificationsStore sharedInstance] completeBackgroundAction:completionKey withBackgroundFetchResult:[RCTConvert UIBackgroundFetchResult:backgroundFetchResult]];
+}
+
 - (void)abandonPermissions {
     [[UIApplication sharedApplication] unregisterForRemoteNotifications];
 }

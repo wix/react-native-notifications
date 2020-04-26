@@ -5,7 +5,7 @@ import { CompletionCallbackWrapper } from '../adapters/CompletionCallbackWrapper
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender.mock';
 import { NotificationResponse } from '../interfaces/NotificationEvents';
 import { Platform, AppState } from 'react-native';
-import { NotificationCompletion } from '../interfaces/NotificationCompletion';
+import { NotificationCompletion, NotificationBackgroundFetchResult } from '../interfaces/NotificationCompletion';
 
 describe('EventsRegistry', () => {
   let uut: EventsRegistry;
@@ -119,7 +119,7 @@ describe('EventsRegistry', () => {
 
     it('should invoke finishPresentingNotification', () => {
       const notification: Notification  = new Notification({identifier: 'notificationId'});
-      const response: NotificationCompletion  = {alert: true}
+      const response = NotificationBackgroundFetchResult.NO_DATA;
       
       uut.registerNotificationReceivedBackground((notification, completion) => {
         completion(response);
@@ -133,7 +133,7 @@ describe('EventsRegistry', () => {
     it('should not invoke finishPresentingNotification on Android', () => {
       Platform.OS = 'android';
       const expectedNotification: Notification  = new Notification({identifier: 'notificationId'});
-      const response: NotificationCompletion  = {alert: true}
+      const response = NotificationBackgroundFetchResult.NO_DATA;
       
       uut.registerNotificationReceivedBackground((notification, completion) => {
         completion(response);

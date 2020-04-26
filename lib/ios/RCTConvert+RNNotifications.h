@@ -20,3 +20,11 @@
 @interface RCTConvert (UNNotificationPresentationOptions)
 + (UNNotificationPresentationOptions)UNNotificationPresentationOptions:(id)json;
 @end
+
+@interface RCTConvert (UIBackgroundFetchResult)
++ (UIBackgroundFetchResult)UIBackgroundFetchResult:(NSString *)result;
+@end
+
+@interface RCTConvert (NSDictionary)
++ (NSDictionary *)NotificationUserInfo:(NSDictionary *)userInfo withIdentifier:(NSString *)identifier;
+@end

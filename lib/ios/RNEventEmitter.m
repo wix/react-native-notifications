@@ -9,6 +9,7 @@ RCT_EXPORT_MODULE();
              RNRegistrationFailed,
              RNPushKitRegistered,
              RNNotificationReceived,
+             RNNotificationReceivedBackground,
              RNNotificationOpened,
              RNPushKitNotificationReceived];
 }

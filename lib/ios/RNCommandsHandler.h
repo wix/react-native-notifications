@@ -15,6 +15,8 @@
 
 - (void)finishPresentingNotification:(NSString *)completionKey presentingOptions:(NSDictionary *)presentingOptions;
 
+- (void)finishHandlingBackgroundAction:(NSString *)completionKey backgroundFetchResult:(NSString *)backgroundFetchResult;
+
 - (void)abandonPermissions;
 
 - (void)registerPushKit;

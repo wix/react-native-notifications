@@ -52,6 +52,10 @@ RCT_EXPORT_METHOD(finishPresentingNotification:(NSString *)completionKey present
     [_commandsHandler finishPresentingNotification:completionKey presentingOptions:presentingOptions];
 }
 
+RCT_EXPORT_METHOD(finishHandlingBackgroundAction:(NSString *)completionKey backgroundFetchResult:(NSString *)backgroundFetchResult) {
+    [_commandsHandler finishHandlingBackgroundAction:completionKey backgroundFetchResult:backgroundFetchResult];
+}
+
 RCT_EXPORT_METHOD(abandonPermissions) {
     [_commandsHandler abandonPermissions];
 }
