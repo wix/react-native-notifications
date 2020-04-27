@@ -1,15 +1,16 @@
 {
   "scripts": {
-    "examples": "docusaurus-examples",
-    "start": "docusaurus-start",
-    "build": "docusaurus-build",
-    "publish-gh-pages": "docusaurus-publish",
-    "write-translations": "docusaurus-write-translations",
-    "version": "docusaurus-version",
-    "rename-version": "docusaurus-rename-version",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
     "prestart": "test -f node_modules/.bin/docusaurus-start || npm install"
   },
   "devDependencies": {
-    "docusaurus": "^1.12.0"
+    "@docusaurus/core": "^2.0.0-alpha.50",
+    "@docusaurus/preset-classic": "^2.0.0-alpha.50",
+    "classnames": "^2.2.6",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
   }
 }
