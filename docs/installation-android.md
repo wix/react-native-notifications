@@ -6,7 +6,7 @@ sidebar_label: Android Installation
 
 Add the library to your application class (e.g. `MainApplication.java`):
 
-``` java
+```java
 import com.wix.reactnativenotifications.RNNotificationsPackage;
 
 ...
