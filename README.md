@@ -1,7 +1,8 @@
 # React Native Notifications
 ![npm](https://img.shields.io/npm/dw/react-native-notifications.svg)
 [![Build Status](https://img.shields.io/jenkins/s/http/jenkins-oss.wixpress.com:8080/job/multi-react-native-notifications-master.svg)](https://jenkins-oss.wixpress.com/job/multi-react-native-notifications-master/)
-[![npm (tag)](https://img.shields.io/npm/v/react-native-notifications/snapshot.svg)](https://github.com/wix/react-native-navigation/tree/master)
+[![npm (tag)](https://img.shields.io/npm/v/react-native-notifications/latest.svg)](https://github.com/wix/react-native-notifications/tree/master)
+[![npm (tag)](https://img.shields.io/npm/v/react-native-notifications/snapshot.svg)](https://github.com/wix/react-native-notifications/tree/master)
 
 Handle all the aspects of push notifications for your app, including remote and local notifications, interactive notifications, silent notifications, and more.
 
