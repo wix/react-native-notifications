@@ -16,6 +16,8 @@ const siteConfig = {
   themeConfig: {
     prism: {
       defaultLanguage: 'javascript',
+      additionalLanguages: ['java'],
+      theme: require('prism-react-renderer/themes/dracula'),
     },
     footer: {
       style: 'dark',
@@ -34,7 +36,7 @@ const siteConfig = {
             },
             {
               label: 'API Reference',
-              to: 'api/general-api',
+              to: 'docs/general-api',
             },
           ],
         },
@@ -64,7 +66,7 @@ const siteConfig = {
           activeBasePath: 'docs',
         },
         {
-          to: 'api/general-api',
+          to: 'docs/general-api',
           label: 'API',
           position: 'right',
           activeBasePath: 'api',
@@ -89,7 +91,7 @@ const siteConfig = {
             'https://github.com/wix/react-native-notifications/edit/master/docs',
         },
         theme: {
-          customCss: require.resolve('./static/css/custom.css'),
+          customCss: require.resolve('./src/css/custom.css'),
         },
         blog: {
           path: './blog',
