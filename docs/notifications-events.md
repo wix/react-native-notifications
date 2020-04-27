@@ -57,9 +57,9 @@ Notifications.getInitialNotification()
 
 ```
 
-:::note
-Notifications are considered 'initial' under the following terms:
+> **Note**
+> 
+> Notifications are considered 'initial' under the following terms:
 
-- User tapped on a notification, _AND_ -
-- App was either not running at all ("dead" state), _OR_ it existed in the background with **no running activities** associated with it.
-:::
+> - User tapped on a notification, _AND_ -
+> - App was either not running at all ("dead" state), _OR_ it existed in the background with **no running activities** associated with it.

@@ -4,7 +4,7 @@ title: Local Notifications
 sidebar_label: Local Notifications
 ---
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/2000px-Apple_logo_black.svg.png" width={30} /> iOS
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/2000px-Apple_logo_black.svg.png" width=30/> iOS
 
 You can manually trigger local notifications in your JS code, to be posted immediately or in the future.
 Triggering local notifications is fully compatible with React Native `PushNotificationsIOS` library.
@@ -72,7 +72,7 @@ Call `removeAllDeliveredNotifications()` to dismiss all delivered notifications
 notifications).
 
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/APK_format_icon.png/768px-APK_format_icon.png" width={30}/> Android
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/APK_format_icon.png/768px-APK_format_icon.png" width=30/> Android
 
 Much like on iOS, notifications can be triggered locally. The API to do so is a simplified version of the iOS equivalent that works more natually with the Android perception of push (remote) notifications:
 

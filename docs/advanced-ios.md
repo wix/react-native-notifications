@@ -36,17 +36,15 @@ constructor() {
 }
 ```
 
-:::note
-1. Notice that PushKit device token and regular notifications device token are different, so you must handle two different tokens in the server side in order to support this feature.
-2. PushKit will not request permissions from the user for push notifications.
-:::
+> 1. Notice that PushKit device token and regular notifications device token are different, so you must handle two different tokens in the server side in order to support this feature.
+> 2. PushKit will not request permissions from the user for push notifications.
+
 
 ---
 
 ## Interactive / Actionable Notifications
-:::note
-This section provides description for iOS. For notifications customization on Android, refer to [our wiki](https://github.com/wix/react-native-notifications/wiki/Android-Customizations#customizing-notifications-layout).
-:::
+
+> This section provides description for iOS. For notifications customization on Android, refer to [our wiki](https://github.com/wix/react-native-notifications/wiki/Android-Customizations#customizing-notifications-layout).
 
 Interactive notifications allow you to reply to a message right from the notification banner or take action right from the lock screen. 
 
