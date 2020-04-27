@@ -6,7 +6,7 @@ sidebar_label: Android Installation
 
 Add the library to your application class (e.g. `MainApplication.java`):
 
-```java
+``` java
 import com.wix.reactnativenotifications.RNNotificationsPackage;
 
 ...
@@ -24,7 +24,9 @@ import com.wix.reactnativenotifications.RNNotificationsPackage;
 
 ### Receiving push notifications
 
-> Note: This section is only necessary in case you wish to be able to **receive** push notifications in your React-Native app.
+:::note
+This section is only necessary in case you wish to be able to **receive** push notifications in your React-Native app.
+:::
 
 Push notifications on Android are managed and dispatched using [Google's FCM service](https://firebase.google.com/docs/cloud-messaging). The following installation steps are a TL;DR of [Google's FCM setup guide](https://firebase.google.com/docs/cloud-messaging/android/client). You can follow them to get FCM integrated quickly, but we recommend that you will in the very least have a peek at the guide's overview.
 
@@ -36,9 +38,9 @@ To set FCM in your app, you must first create a google-services.json file. If yo
 
 After creating google-services.json, copy it into your project's android/app folder.
 
-#### Step #3: Add google-services package to Project/build.gradle
+#### Step #3: Add google-services package
 
-```gradle
+```gradle title="./android/build.gradle"
 buildscript {
     ...
     dependencies {
@@ -48,9 +50,9 @@ buildscript {
 }
 ```
 
-#### Step #4: Add firebase-core package and apply google-services plugin in Project/app/build.gradle
+#### Step #4: Add firebase-core package and apply google-services plugin
 
-```gradle
+```gradle title="./android/app/build.gradle"
 dependencies {
     ...
     implementation project(':react-native-notifications')
@@ -60,9 +62,9 @@ dependencies {
 apply plugin: 'com.google.gms.google-services'
 ```
 
-#### Step #5: Link react-native-notifications in Project/android/settings.gradle
+#### Step #5: Link react-native-notifications
 
-```gradle
+```gradle title="./android/settings.gradle"
 include ':react-native-notifications'
 project(':react-native-notifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/lib/android/app')
 ```
