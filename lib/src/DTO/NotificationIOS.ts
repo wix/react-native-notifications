@@ -1,10 +1,18 @@
-import {Notification} from './Notification';
+import {Notification, NotificationPayload} from './Notification';
 import * as _ from 'lodash';
+
+export interface NotificationIOSPayload extends NotificationPayload {
+  aps?: {
+    alert: string;
+  };
+}
 
 export class NotificationIOS extends Notification {
   identifier: string;
-  constructor(payload: object) {
+  payload: NotificationIOSPayload;
+  constructor(payload: NotificationIOSPayload) {
     super(payload);
+    this.payload = payload;
     this.identifier = this.payload.identifier;
   }
 
