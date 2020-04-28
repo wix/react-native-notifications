@@ -1,11 +1,11 @@
 export interface NotificationPayload {
   identifier: any;
-  title: string;
-  body: string;
-  sound: string;
-  badge: number;
-  type: string;
-  thread: string;
+  title?: string;
+  body?: string;
+  sound?: string;
+  badge?: number;
+  type?: string;
+  thread?: string;
   fireDate?: Date;
   userInfo?: any;
   silent?: boolean;
@@ -20,27 +20,27 @@ export class Notification {
     this.identifier = this.payload.identifier;
   }
 
-  get title(): string {
+  get title(): string | undefined {
     return this.payload.title;
   }
 
-  get body(): string {
+  get body(): string | undefined {
     return this.payload.body;
   }
 
-  get sound(): string {
+  get sound(): string | undefined {
     return this.payload.sound;
   }
 
-  get badge(): number {
+  get badge(): number | undefined {
     return this.payload.badge;
   }
 
-  get type(): string {
+  get type(): string | undefined {
     return this.payload.type;
   }
 
-  get thread(): string {
+  get thread(): string | undefined {
     return this.payload.thread;
   }
 
