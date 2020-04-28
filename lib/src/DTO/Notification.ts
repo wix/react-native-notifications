@@ -1,8 +1,21 @@
+export interface NotificationPayload {
+  identifier: any;
+  title: string;
+  body: string;
+  sound: string;
+  badge: number;
+  type: string;
+  thread: string;
+  fireDate?: Date;
+  userInfo?: any;
+  silent?: boolean;
+}
+
 export class Notification {
   identifier: string;
-  payload: any;
+  payload: NotificationPayload;
 
-  constructor(payload: object) {
+  constructor(payload: NotificationPayload) {
     this.payload = payload;
     this.identifier = this.payload.identifier;
   }
@@ -29,5 +42,17 @@ export class Notification {
 
   get thread(): string {
     return this.payload.thread;
+  }
+
+  get fireDate(): Date | undefined {
+    return this.payload.fireDate;
+  }
+
+  get userInfo(): any {
+    return this.payload.userInfo;
+  }
+
+  get silent(): boolean | undefined {
+    return this.payload.silent;
   }
 }
