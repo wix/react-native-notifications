@@ -237,7 +237,7 @@ public class PushNotificationTest {
     public void onReceived_validDataForBackgroundApp_postNotificationAndNotifyJs() throws Exception {
         // Arrange
 
-        setUpForegroundApp();
+        setUpBackgroundApp();
 
         // Act
 
@@ -249,7 +249,7 @@ public class PushNotificationTest {
         ArgumentCaptor<Notification> notificationCaptor = ArgumentCaptor.forClass(Notification.class);
 
         // Notifications should not be visible while app is in foreground
-        verify(mNotificationManager, never()).notify(anyInt(), notificationCaptor.capture());
+        verify(mNotificationManager).notify(anyInt(), notificationCaptor.capture());
 
         // Notifications should be reported to javascript while app is in background
         verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), argThat(new isValidNotification(mNotificationBundle)), eq(mReactContext));
