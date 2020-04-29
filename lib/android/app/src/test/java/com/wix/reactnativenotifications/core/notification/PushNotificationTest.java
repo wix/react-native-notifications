@@ -53,12 +53,15 @@ public class PushNotificationTest {
     private static final String DEFAULT_NOTIFICATION_TITLE = "Notification-title";
     private static final String DEFAULT_NOTIFICATION_BODY = "Notification-body";
 
+    private static final String DEFAULT_FIREBASE_BACKGROUND_PAYLOAD_ID = "0123456";
+
     @Mock private ReactContext mReactContext;
     @Mock private Context mContext;
     @Mock private NotificationManager mNotificationManager;
 
     private Bundle mResponseBundle;
     private Bundle mNotificationBundle;
+    private Bundle mFirebaseBackgroundBundle;
     @Mock private Intent mLaunchIntent;
     @Mock private AppLifecycleFacade mAppLifecycleFacade;
     @Mock private AppLaunchHelper mAppLaunchHelper;
@@ -77,6 +80,9 @@ public class PushNotificationTest {
 
         mResponseBundle = new Bundle();
         mResponseBundle.putBundle("notification", mNotificationBundle);
+
+        mFirebaseBackgroundBundle = new Bundle();
+        mFirebaseBackgroundBundle.putString("google.message_id", DEFAULT_FIREBASE_BACKGROUND_PAYLOAD_ID);
 
         when(mAppLaunchHelper.getLaunchIntent(eq(mContext))).thenReturn(mLaunchIntent);
 
@@ -262,6 +268,32 @@ public class PushNotificationTest {
     }
 
     @Test
+    public void onReceived_firebaseBackgroundPayload_dontPostNotificationAndNotifyJS() throws Exception {
+        setUpForegroundApp();
+
+        final PushNotification uut = createFirebaseBackgroundUUT();
+        uut.onReceived();
+
+        ArgumentCaptor<Notification> notificationCaptor = ArgumentCaptor.forClass(Notification.class);
+
+        verify(mNotificationManager, never()).notify(anyInt(), notificationCaptor.capture());
+        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), argThat(new isValidFirebaseBackgroundNotification(mFirebaseBackgroundBundle)), eq(mReactContext));
+    }
+
+    @Test
+    public void onReceived_firebaseBackgroundPayloadForBackgroundApp_dontPostNotificationAndNotifyJS() throws Exception {
+        setUpBackgroundApp();
+
+        final PushNotification uut = createFirebaseBackgroundUUT();
+        uut.onReceived();
+
+        ArgumentCaptor<Notification> notificationCaptor = ArgumentCaptor.forClass(Notification.class);
+
+        verify(mNotificationManager, never()).notify(anyInt(), notificationCaptor.capture());
+        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), argThat(new isValidFirebaseBackgroundNotification(mFirebaseBackgroundBundle)), eq(mReactContext));
+    }
+
+    @Test
     public void onPostRequest_withValidDataButNoId_postNotifications() throws Exception {
 
         // Arrange
@@ -319,6 +351,10 @@ public class PushNotificationTest {
         return new PushNotification(mContext, bundle, mAppLifecycleFacade, mAppLaunchHelper, mJsIOHelper);
     }
 
+    protected PushNotification createFirebaseBackgroundUUT() {
+        return createUUT(mFirebaseBackgroundBundle);
+    }
+
     protected void setUpBackgroundApp() {
         when(mAppLifecycleFacade.isReactInitialized()).thenReturn(true);
         when(mAppLifecycleFacade.getRunningReactContext()).thenReturn(mReactContext);
@@ -347,6 +383,19 @@ public class PushNotificationTest {
         @Override
         public boolean matches(Bundle right) {
             return right.getString("body").equals(left.getString("body"));
+        }
+    }
+
+    private class isValidFirebaseBackgroundNotification implements ArgumentMatcher<Bundle> {
+        private Bundle left;
+
+        protected isValidFirebaseBackgroundNotification(Bundle left) {
+            this.left = left;
+        }
+
+        @Override
+        public boolean matches(Bundle right) {
+            return right.getString("google.message_id").equals(left.getString("google.message_id"));
         }
     }
 
