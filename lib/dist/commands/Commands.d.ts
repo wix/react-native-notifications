@@ -1,6 +1,7 @@
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
 import { Notification } from '../DTO/Notification';
 import { NotificationCategory } from '../interfaces/NotificationCategory';
+import { NotificationChannel } from '../interfaces/NotificationChannel';
 import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 import { UniqueIdProvider } from '../adapters/UniqueIdProvider';
 import { NotificationFactory } from '../DTO/NotificationFactory';
@@ -25,4 +26,5 @@ export declare class Commands {
     removeDeliveredNotifications(identifiers: Array<string>): void;
     getDeliveredNotifications(): Promise<Notification[]>;
     refreshToken(): void;
+    setNotificationChannel(notificationChannel: NotificationChannel): void;
 }

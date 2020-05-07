@@ -2,6 +2,7 @@ import { Notification } from '../DTO/Notification';
 import { NotificationCompletion } from '../interfaces/NotificationCompletion';
 import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 import { NotificationCategory } from '../interfaces/NotificationCategory';
+import { NotificationChannel } from '../interfaces/NotificationChannel';
 export declare class NativeCommandsSender {
     private readonly nativeCommandsModule;
     constructor();
@@ -23,4 +24,5 @@ export declare class NativeCommandsSender {
     getDeliveredNotifications(): Promise<Notification[]>;
     finishPresentingNotification(notificationId: string, notificationCompletion: NotificationCompletion): void;
     finishHandlingAction(notificationId: string): void;
+    setNotificationChannel(notificationChannel: NotificationChannel): void;
 }

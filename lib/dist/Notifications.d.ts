@@ -1,6 +1,7 @@
 import { EventsRegistry } from './events/EventsRegistry';
 import { Notification } from './DTO/Notification';
 import { NotificationCategory } from './interfaces/NotificationCategory';
+import { NotificationChannel } from './interfaces/NotificationChannel';
 import { NotificationsIOS } from './NotificationsIOS';
 import { NotificationsAndroid } from './NotificationsAndroid';
 export declare class NotificationsRoot {
@@ -43,6 +44,10 @@ export declare class NotificationsRoot {
      * isRegisteredForRemoteNotifications
      */
     isRegisteredForRemoteNotifications(): Promise<boolean>;
+    /**
+     * setNotificationChannel
+     */
+    setNotificationChannel(notificationChannel: NotificationChannel): void;
     /**
      * Obtain the events registry instance
      */
