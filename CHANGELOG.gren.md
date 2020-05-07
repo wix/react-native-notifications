@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.1.4 (06/04/2020)
+*No changelog for this release.*
+
+---
+
+## 3.1.3 (05/04/2020)
+*No changelog for this release.*
+
+---
+
 ## 3.1.2 (13/02/2020)
 *No changelog for this release.*
 
@@ -94,8 +104,8 @@
 
 #### Enhancements:
 
-- React Native 0.60 Support [#375](https://github.com/wix/react-native-notifications/pull/375)
 - New api changes ios [#342](https://github.com/wix/react-native-notifications/pull/342)
+- React Native 0.60 Support [#375](https://github.com/wix/react-native-notifications/pull/375)
 
 ---
 

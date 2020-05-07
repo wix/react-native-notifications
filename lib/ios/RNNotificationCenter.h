@@ -24,7 +24,7 @@ typedef void (^RCTPromiseRejectBlock)(NSString *code, NSString *message, NSError
 
 - (void)removeDeliveredNotifications:(NSArray<NSString *> *)identifiers;
 
-- (void)getDeliveredNotifications:(RCTResponseSenderBlock)callback;
+- (void)getDeliveredNotifications:(RCTPromiseResolveBlock)resolve;
 
 - (void)cancelAllLocalNotifications;
 

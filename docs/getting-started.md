@@ -3,6 +3,8 @@ id: getting-started
 title: React Native Notifications Getting Started Guide
 sidebar_label: Getting Started
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 Currently this guide is written for `react-native-notifications@^3.0.0`.  
 We also assume you use `react-native@60.x.x` and above.
@@ -11,35 +13,45 @@ For older versions, visit this [installation guide](https://github.com/wix/react
 
 ## Add react-native-notifications to your dependencies
 
+<Tabs
+  defaultValue="npm"
+  values={[
+    { label: 'Npm', value: 'npm', },
+    { label: 'Yarn', value: 'yarn', },
+  ]}>
+<TabItem value="npm">
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Npm-->
-```
+```shell
 $ npm install --save react-native-notifications
 ```
-<!--Yarn-->
-```
+
+</TabItem>
+<TabItem value="yarn">
+
+```shell
 $ yarn add react-native-notifications
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
+
+</TabItem>
+</Tabs>
 
 ## Link native dependencies
 
 ### iOS
 
-```
+```shell
 $ pod install --project-directory=ios/
 ```
 
 Add the following line at the top of your `AppDelegate.m`
 
-```objective-c
+```objectivec
 #import "RNNotifications.h"
 ```
 
 Start monitor notifications in `AppDelegate.m`:
 
-```objc
+```objectivec
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	[RNNotifications startMonitorNotifications]; // -> Add this line
 
@@ -49,13 +61,13 @@ Start monitor notifications in `AppDelegate.m`:
 
 And add the following methods to support registration to `AppDelegate.m`:
 
-```objc
+```objectivec
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
   [RNNotifications didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 ```
 
-```objc
+```objectivec
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
   [RNNotifications didFailToRegisterForRemoteNotificationsWithError:error];
 }

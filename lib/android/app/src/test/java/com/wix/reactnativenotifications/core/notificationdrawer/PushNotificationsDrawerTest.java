@@ -40,15 +40,21 @@ public class PushNotificationsDrawerTest {
     }
 
     @Test
-    public void onAppInit_clearAllNotifications() throws Exception {
+    public void onAppInit_neverClearAllNotifications() throws Exception {
         createUUT().onAppInit();
-        verify(mNotificationManager).cancelAll();
+        verify(mNotificationManager, never()).cancelAll();
     }
 
     @Test
-    public void onAppVisible_clearAllNotifications() throws Exception {
+    public void onAppVisible_neverClearAllNotifications() throws Exception {
         createUUT().onAppVisible();
-        verify(mNotificationManager).cancelAll();
+        verify(mNotificationManager, never()).cancelAll();
+    }
+
+    @Test
+    public void onNotificationOpened_neverClearAllNotifications() throws Exception {
+        createUUT().onNotificationOpened();
+        verify(mNotificationManager, never()).cancelAll();
     }
 
     @Test
@@ -56,21 +62,6 @@ public class PushNotificationsDrawerTest {
         createUUT().onNotificationClearRequest(666);
         verify(mNotificationManager).cancel(eq(666));
         verify(mNotificationManager, never()).cancelAll();
-    }
-
-    @Test
-    public void onNewActivity_activityIsTheOneLaunchedByNotifs_clearInitialNotification() throws Exception {
-        verify(InitialNotificationHolder.getInstance(), never()).clear();
-
-        Activity activity = mock(Activity.class);
-        Intent intent = mock(Intent.class);
-        when(activity.getIntent()).thenReturn(intent);
-        when(mAppLaunchHelper.isLaunchIntentsActivity(activity)).thenReturn(true);
-        when(mAppLaunchHelper.isLaunchIntentOfNotification(any(Intent.class))).thenReturn(false);
-
-        createUUT().onNewActivity(activity);
-
-        verify(InitialNotificationHolder.getInstance()).clear();
     }
 
     @Test
