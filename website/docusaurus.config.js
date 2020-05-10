@@ -36,17 +36,13 @@ const siteConfig = {
             },
             {
               label: 'API Reference',
-              to: 'docs/general-api',
+              to: 'api/general-api',
             },
           ],
         },
         {
           title: 'Social',
           items: [
-            {
-              label: 'Blog',
-              to: 'blog',
-            },
             {
               label: 'GitHub',
               href: 'https://github.com/wix/react-native-notifications',
@@ -66,7 +62,7 @@ const siteConfig = {
           activeBasePath: 'docs',
         },
         {
-          to: 'docs/general-api',
+          to: 'api/general-api',
           label: 'API',
           position: 'right',
           activeBasePath: 'api',
@@ -84,21 +80,32 @@ const siteConfig = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          sidebarPath: require.resolve('./sidebars.json'),
+          sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: 'docs',
-          path: '../docs',
+          path: 'docs',
           editUrl:
             'https://github.com/wix/react-native-notifications/edit/master/docs',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
-        },
-        blog: {
-          path: './blog',
-          routeBasePath: 'blog',
         }
-      },
+      }
     ],
+    [
+      '@docusaurus/preset-classic',
+      {
+        docs: {
+          sidebarPath: require.resolve('./sidebarsApi.js'),
+          routeBasePath: 'api',
+          path: 'api',
+          editUrl:
+            'https://github.com/wix/react-native-notifications/edit/master/api',
+        },
+        theme: {
+          customCss: require.resolve('./src/css/custom.css'),
+        }
+      }
+    ]
   ],
 };
 
