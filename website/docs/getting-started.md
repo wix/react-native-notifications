@@ -101,4 +101,4 @@ class MyComponent extends Component {
 }
 ```
 
-Next, check out the [API Reference](general-api.md).
+Next, check out the [API Reference](general-api).
