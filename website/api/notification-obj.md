@@ -1,5 +1,5 @@
 ---
-id: notification-object
+id: notification-obj
 title: Notification object
 sidebar_label: Notification
 ---

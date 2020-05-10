@@ -40,7 +40,7 @@ constructor() {
 
 ### Notification Object
 
-When you receive a push notification, you'll get an instance of [Notification](notification-object) object, contains the following methods:
+When you receive a push notification, you'll get an instance of [Notification](notification-obj) object, contains the following methods:
 
 ## Querying initial notification
 
@@ -57,9 +57,9 @@ Notifications.getInitialNotification()
 
 ```
 
-> **Note**
-> 
-> Notifications are considered 'initial' under the following terms:
+:::note
+Notifications are considered 'initial' under the following terms:
 
-> - User tapped on a notification, _AND_ -
-> - App was either not running at all ("dead" state), _OR_ it existed in the background with **no running activities** associated with it.
+- User tapped on a notification, _AND_ -
+- App was either not running at all ("dead" state), _OR_ it existed in the background with **no running activities** associated with it.
+:::

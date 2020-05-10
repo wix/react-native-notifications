@@ -3,14 +3,34 @@ id: installation-ios
 title: iOS Manual Installation
 sidebar_label: iOS Manual Installation
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 In case the installation step in our [Getting Started](getting-started.md) doc did not work, follow these steps.
 
 Start by running this:
 
+<Tabs
+  defaultValue="npm"
+  values={[
+    { label: 'Npm', value: 'npm', },
+    { label: 'Yarn', value: 'yarn', },
+  ]}>
+<TabItem value="npm">
+
+```shell
+$ npm install --save react-native-notifications
 ```
-$ npm install react-native-notifications --save
+
+</TabItem>
+<TabItem value="yarn">
+
+```shell
+$ yarn add react-native-notifications
 ```
+
+</TabItem>
+</Tabs>
 
 ### Installation with CocoaPods
 
@@ -18,7 +38,7 @@ Projects generated using newer versions of react-native use CocoaPods by default
 
 1. Add the following to `Podfile`:
 
-```diff
+```diff title="./ios/Podfile"
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
@@ -59,26 +79,23 @@ end
 
 3. Add the following line at the top of your `AppDelegate.m`
 
-```objective-c
+```objectivec title="./ios/{project_name}/AppDelegate.m"
 #import "RNNotifications.h"
 ```
 
 Start monitor notifications in: `application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions`
 
-```objective-c
-
+```objectivec title="./ios/{project_name}/AppDelegate.m"
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	[RNNotifications startMonitorNotifications]; // -> Add this line
 
 	return YES;
 }
-
 ```
 
 And add the following methods to support registration:
 
-```objective-c
-
+```objectivec title="./ios/{project_name}/AppDelegate.m"
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
   [RNNotifications didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
