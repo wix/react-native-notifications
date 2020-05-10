@@ -16,8 +16,8 @@ export class Commands {
 
   public postLocalNotification(notification: Notification, id?: number) {
     const notificationId: number = id ? id : this.uniqueIdProvider.generate();
-    const result = this.nativeCommandsSender.postLocalNotification(notification, notificationId);
-    return result;
+    this.nativeCommandsSender.postLocalNotification(notification, notificationId);
+    return notificationId;
   }
 
   public async getInitialNotification(): Promise<Notification | undefined> {
