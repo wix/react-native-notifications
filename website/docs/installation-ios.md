@@ -69,7 +69,7 @@ target 'YourApp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-+ pod 'ReactNativeNotifications', :podspec => '../node_modules/react-native-notifications/ReactNativeNotifications.podspec'
++ pod 'react-native-notifications', :podspec => '../node_modules/react-native-notifications/react-native-notifications.podspec'
 
   use_native_modules!
 end
@@ -103,4 +103,3 @@ And add the following methods to support registration:
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
   [RNNotifications didFailToRegisterForRemoteNotificationsWithError:error];
 }
-```
