@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.2.1 (13/05/2020)
+
+#### Bug Fixes:
+
+- Return notificationId from postLocalNotification [#610](https://github.com/wix/react-native-notifications/pull/610)
+
+---
+
 ## 3.2.0 (10/05/2020)
 *No changelog for this release.*
 
