@@ -121,6 +121,7 @@ function updateGit(version) {
     generateChangelog();
     exec.execSync(`git commit -m "Update package.json version to ${version} and generate CHANGELOG.gren.md [ci skip]"`);
     exec.execSync(`git push deploy ${BRANCH}`);
+    draftGitRelease(version);
 }
 
 function updatePackageJson(version) {
@@ -133,6 +134,10 @@ function updatePackageJson(version) {
 function generateChangelog() {
     exec.execSync('npm run generate-changelog');
     exec.execSync(`git add ${grenrc.changelogFilename}`);
+}
+
+function draftGitRelease(version) {
+    exec.execSync(`npx gren release --tags=${version}`);
 }
 
 run();

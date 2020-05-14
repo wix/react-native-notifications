@@ -119,6 +119,13 @@ describe('Commands', () => {
       uut.postLocalNotification(notification, passedId);
       verify(mockedNativeCommandsSender.postLocalNotification(notification, passedId)).called();
     });
+
+    it('return notification id', () => {
+      const notification: Notification = new Notification({identifier: 'id'});
+      const notificationId: number = 2;
+      const response = uut.postLocalNotification(notification, notificationId);
+      expect(response).toEqual(notificationId);
+    });
   });
 
   describe('getBadgeCount', () => {
