@@ -8,12 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Debug;
-import android.util.Log;
 
-import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
-import com.facebook.react.bridge.WritableMap;
 import com.wix.reactnativenotifications.core.AppLaunchHelper;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade.AppVisibilityListener;
@@ -63,14 +59,15 @@ public class PushNotification implements IPushNotification {
 
     @Override
     public void onReceived() throws InvalidNotificationException {
-        postNotification(null);
+        if (!mAppLifecycleFacade.isAppVisible()) {
+            postNotification(null);
+        }
         notifyReceivedToJS();
     }
 
     @Override
     public void onOpened() {
         digestNotification();
-        clearAllNotifications();
     }
 
     @Override
@@ -153,13 +150,7 @@ public class PushNotification implements IPushNotification {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true);
 
-
-             int resourceID = mContext.getResources().getIdentifier("notification_icon", "drawable", mContext.getPackageName());
-                if (resourceID != 0) {
-                    notification.setSmallIcon(resourceID);
-                } else {
-                    notification.setSmallIcon(mContext.getApplicationInfo().icon);
-                }
+        setUpIcon(notification);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
@@ -173,6 +164,25 @@ public class PushNotification implements IPushNotification {
         return notification;
     }
 
+    private void setUpIcon(Notification.Builder notification) {
+        int iconResId = getAppResourceId("notification_icon", "drawable");
+        if (iconResId != 0) {
+            notification.setSmallIcon(iconResId);
+        } else {
+            notification.setSmallIcon(mContext.getApplicationInfo().icon);
+        }
+
+        setUpIconColor(notification);
+    }
+
+    private void setUpIconColor(Notification.Builder notification) {
+        int colorResID = getAppResourceId("colorAccent", "color");
+        if (colorResID != 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int color = mContext.getResources().getColor(colorResID);
+            notification.setColor(color);
+        }
+    }
+
     protected int postNotification(Notification notification, Integer notificationId) {
         int id = notificationId != null ? notificationId : createNotificationId(notification);
         postNotification(id, notification);
@@ -182,11 +192,6 @@ public class PushNotification implements IPushNotification {
     protected void postNotification(int id, Notification notification) {
         final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(id, notification);
-    }
-
-    protected void clearAllNotifications() {
-        final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancelAll();
     }
 
     protected int createNotificationId(Notification notification) {
@@ -207,5 +212,9 @@ public class PushNotification implements IPushNotification {
     protected void launchOrResumeApp() {
         final Intent intent = mAppLaunchHelper.getLaunchIntent(mContext);
         mContext.startActivity(intent);
+    }
+
+    private int getAppResourceId(String resName, String resType) {
+        return mContext.getResources().getIdentifier(resName, resType, mContext.getPackageName());
     }
 }

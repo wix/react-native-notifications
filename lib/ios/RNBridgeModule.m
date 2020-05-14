@@ -99,8 +99,8 @@ RCT_EXPORT_METHOD(removeDeliveredNotifications:(NSArray<NSString *> *)identifier
     [_commandsHandler removeDeliveredNotifications:identifiers];
 }
 
-RCT_EXPORT_METHOD(getDeliveredNotifications:(RCTResponseSenderBlock)callback) {
-    [_commandsHandler getDeliveredNotifications:callback];
+RCT_EXPORT_METHOD(getDeliveredNotifications:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
+    [_commandsHandler getDeliveredNotifications:resolve reject:reject];
 }
 
 #endif

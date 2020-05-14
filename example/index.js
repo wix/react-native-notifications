@@ -71,7 +71,7 @@ class NotificationsExampleApp extends Component {
 
   sendLocalNotification() {
     Notifications.postLocalNotification({
-      body: 'Local notificiation!',
+      body: 'Local notification!',
       title: 'Local Notification Title',
       sound: 'chime.aiff',
       category: 'SOME_CATEGORY',
