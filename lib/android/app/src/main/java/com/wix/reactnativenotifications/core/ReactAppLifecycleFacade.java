@@ -15,6 +15,7 @@ public class ReactAppLifecycleFacade implements AppLifecycleFacade {
 
     private ReactContext mReactContext;
     private boolean mIsVisible;
+    private boolean mIsDestroyed;
     private Set<AppVisibilityListener> mListeners = new CopyOnWriteArraySet<>();
 
     public void init(ReactContext reactContext) {
@@ -65,6 +66,11 @@ public class ReactAppLifecycleFacade implements AppLifecycleFacade {
     }
 
     @Override
+    public boolean isAppDestroyed() {
+        return mIsDestroyed;
+    }
+
+    @Override
     public void addVisibilityListener(AppVisibilityListener listener) {
         mListeners.add(listener);
     }
@@ -91,6 +97,14 @@ public class ReactAppLifecycleFacade implements AppLifecycleFacade {
             for (AppVisibilityListener listener : mListeners) {
                 listener.onAppNotVisible();
             }
+        }
+    }
+
+    private synchronized void switchToDestroyed() {
+        switchToInvisible();
+        if (!mIsDestroyed) {
+            if(BuildConfig.DEBUG) Log.d(LOGTAG, "App is now destroyed");
+            mIsDestroyed = true;
         }
     }
 }
