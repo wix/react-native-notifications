@@ -100,6 +100,8 @@ public class PushNotification implements IPushNotification {
 
         if (mAppLifecycleFacade.isAppVisible()) {
             dispatchImmediately();
+        } else if (mAppLifecycleFacade.isAppDestroyed()) {
+            launchOrResumeApp();
         } else {
             dispatchUponVisibility();
         }
