@@ -35,9 +35,9 @@
     [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:localNotification withCompletionHandler:nil];
 }
 
-- (void)cancelLocalNotification:(NSString *)notificationId {
+- (void)cancelLocalNotification:(NSNumber *)notificationId {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    [center removePendingNotificationRequestsWithIdentifiers:@[notificationId]];
+    [center removePendingNotificationRequestsWithIdentifiers:@[[notificationId stringValue]]];
 }
 
 - (void)removeAllDeliveredNotifications {

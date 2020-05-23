@@ -72,7 +72,7 @@ RCT_EXPORT_METHOD(postLocalNotification:(NSDictionary *)notification withId:(non
     [_commandsHandler postLocalNotification:notification withId:notificationId];
 }
 
-RCT_EXPORT_METHOD(cancelLocalNotification:(NSString *)notificationId) {
+RCT_EXPORT_METHOD(cancelLocalNotification:(nonnull NSNumber *)notificationId) {
     [_commandsHandler cancelLocalNotification:notificationId];
 }
 
