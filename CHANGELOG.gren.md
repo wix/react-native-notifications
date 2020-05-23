@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.2.2 (23/05/2020)
+*No changelog for this release.*
+
+---
+
 ## 3.2.1 (13/05/2020)
 
 #### Bug Fixes:
