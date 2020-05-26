@@ -34,7 +34,7 @@ public class FcmInstanceIdListenerService extends FirebaseMessagingService {
                 if(BuildConfig.DEBUG) Log.v(LOGTAG, "FCM message handling aborted", e);
             }
         } else {
-            Log.d("fonMessageReceived", "having custom key"); // it's from other service than FCM
+            Log.d("fonMessageReceived", "having a different key than FCM one");
         }
     }
 }
