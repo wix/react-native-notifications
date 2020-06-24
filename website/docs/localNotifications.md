@@ -84,4 +84,4 @@ Notifications.postLocalNotification({
 });
 ```
 
-Upon notification opening (tapping by the device user), all data fields will be delivered as-is).
+Upon notification opening (tapping by the device user), all data fields will be delivered as-is). Note that scheduled notifications are not yet implemented on Android. See [Issue 484](https://github.com/wix/react-native-notifications/issues/484).
