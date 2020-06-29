@@ -37,8 +37,8 @@ export class CompletionCallbackWrapper {
     callback(notification, completion);
   }
 
-  public wrapOpenedCallback(callback: Function): (notification: Notification, completion: () => void, actionResponse?: NotificationActionResponse) => void {
-    return (notification, _completion, actionResponse) => {
+  public wrapOpenedCallback(callback: Function): (notification: Notification, actionResponse?: NotificationActionResponse) => void {
+    return (notification, actionResponse) => {
       const completion = () => {
         if (Platform.OS === 'ios') {
           this.nativeCommandsSender.finishHandlingAction((notification as unknown as NotificationIOS).identifier);

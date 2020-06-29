@@ -158,13 +158,17 @@ describe('EventsRegistry', () => {
     it('should wrap callback with completion block', () => {
       const wrappedCallback = jest.fn();
       const notification: Notification  = new Notification({identifier: 'identifier'});
-      const response: NotificationResponse = {notification, identifier: 'responseId'};
+      const response: NotificationResponse = {
+        notification,
+        identifier: 'responseId',
+        action: { identifier: 'actionIdentifier', text: 'userText' },
+      };
 
       uut.registerNotificationOpened(wrappedCallback);
       const call = mockNativeEventsReceiver.registerNotificationOpened.mock.calls[0][0];
-      call(response);
+      call(response.notification, response.action);
       
-      expect(wrappedCallback).toBeCalledWith(response, expect.any(Function), undefined); //JMC: ActionResponse
+      expect(wrappedCallback).toBeCalledWith(response.notification, expect.any(Function), response.action);
       expect(wrappedCallback).toBeCalledTimes(1);
     });
 
