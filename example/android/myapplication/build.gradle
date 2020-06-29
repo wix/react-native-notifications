@@ -1,9 +1,11 @@
 apply plugin: "com.android.application"
+apply plugin: "de.mannodermaus.android-junit5"
 
 project.ext.react = [
         root     : "../../../",
         entryFile: "index.js",
         bundleAssetName: "index.bundle",
+        enableHermes:true,
         bundleInAlpha: true,
         bundleInBeta: true
 ]
@@ -11,17 +13,17 @@ project.ext.react = [
 apply from: "../../../node_modules/react-native/react.gradle"
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion androidSdkVersion
+
     defaultConfig {
         applicationId "com.wix.reactnativenotifications.app"
-        minSdkVersion 16
-        targetSdkVersion 28
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidSdkVersion
         versionCode 1
         versionName "1.0"
 
         ndk {
-            abiFilters "armeabi-v7a", "x86"
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         }
     }
     buildTypes {
@@ -31,32 +33,42 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
+    def taskName = getGradle().getStartParameter().getTaskRequests().toString()
+
     packagingOptions {
-        pickFirst '**/libjsc.so'
         pickFirst '**/libc++_shared.so'
+        if (taskName.contains("InternalDebug")) {
+            // Release libs take precedence and must be removed
+            // to allow debugging
+            exclude '**/libhermes-executor-release.so'
+        } else {
+            // Reduce size by deleting the debugger/inspector
+            exclude '**/libhermes-inspector.so'
+            exclude '**/libhermes-executor-debug.so'
+        }
     }
+
 }
 
-
-configurations.all {
-    resolutionStrategy {
-        force 'org.webkit:android-jsc:r236355'
-    }
-}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation 'com.google.firebase:firebase-core:16.0.0'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    def hermesPath = "../../../node_modules/hermes-engine/android/";
+    exec{
+        executable 'grep'
+        args "version",'../../../node_modules/hermes-engine/package.json'
+    }
+    debugImplementation files(hermesPath + "hermes-debug.aar")
+    releaseImplementation files(hermesPath + "hermes-release.aar")
+    implementation "androidx.appcompat:appcompat:$androidxVersion"
     implementation 'com.facebook.react:react-native:+'
-    implementation 'org.webkit:android-jsc-intl:+'
     implementation project(':react-native-notifications')
 
-    testImplementation'junit:junit:4.12'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.6.2"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.6.2"
 }
 
 apply plugin: 'com.google.gms.google-services'

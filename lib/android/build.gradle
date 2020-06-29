@@ -51,7 +51,6 @@ subprojects {
         if ((project.plugins.hasPlugin('android') || project.plugins.hasPlugin('android-library'))) {
             android {
                 compileSdkVersion rootProject.ext.androidSdkVersion
-                buildToolsVersion rootProject.ext.androidBuildToolsVersion
             }
         }
         if (project.hasProperty('defaultConfig')) {
