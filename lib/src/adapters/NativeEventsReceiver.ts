@@ -26,6 +26,12 @@ export class NativeEventsReceiver {
     });
   }
 
+  public registerNotificationReceivedBackground(callback: (notification: Notification) => void): EmitterSubscription {
+    return this.emitter.addListener('notificationReceivedBackground', (payload) => {
+      callback(this.notificationFactory.fromPayload(payload));
+    });
+  }
+
   public registerPushKitNotificationReceived(callback: (event: object) => void): EmitterSubscription {
     return this.emitter.addListener('pushKitNotificationReceived', callback);
   }

@@ -5,7 +5,7 @@ import { CompletionCallbackWrapper } from '../adapters/CompletionCallbackWrapper
 import { NativeCommandsSender } from '../adapters/NativeCommandsSender.mock';
 import { NotificationResponse } from '../interfaces/NotificationEvents';
 import { Platform, AppState } from 'react-native';
-import { NotificationCompletion } from '../interfaces/NotificationCompletion';
+import { NotificationCompletion, NotificationBackgroundFetchResult } from '../interfaces/NotificationCompletion';
 
 describe('EventsRegistry', () => {
   let uut: EventsRegistry;
@@ -91,8 +91,8 @@ describe('EventsRegistry', () => {
   
       uut.registerNotificationReceivedBackground(cb);
   
-      expect(mockNativeEventsReceiver.registerNotificationReceived).toHaveBeenCalledTimes(1);
-      expect(mockNativeEventsReceiver.registerNotificationReceived).toHaveBeenCalledWith(expect.any(Function));
+      expect(mockNativeEventsReceiver.registerNotificationReceivedBackground).toHaveBeenCalledTimes(1);
+      expect(mockNativeEventsReceiver.registerNotificationReceivedBackground).toHaveBeenCalledWith(expect.any(Function));
     });
   
     it('should wrap callback with completion block', () => {
@@ -100,7 +100,7 @@ describe('EventsRegistry', () => {
       const notification: Notification  = new Notification({identifier: 'identifier'});
       
       uut.registerNotificationReceivedBackground(wrappedCallback);
-      const call = mockNativeEventsReceiver.registerNotificationReceived.mock.calls[0][0];
+      const call = mockNativeEventsReceiver.registerNotificationReceivedBackground.mock.calls[0][0];
       call(notification);
       
       expect(wrappedCallback).toBeCalledWith(notification, expect.any(Function));
@@ -113,34 +113,34 @@ describe('EventsRegistry', () => {
       uut.registerNotificationReceivedBackground((notification) => {
         expect(notification).toEqual(expectedNotification);
       });
-      const call = mockNativeEventsReceiver.registerNotificationReceived.mock.calls[0][0];
+      const call = mockNativeEventsReceiver.registerNotificationReceivedBackground.mock.calls[0][0];
       call(expectedNotification);
     });
 
-    it('should invoke finishPresentingNotification', () => {
+    it('should invoke finishHandlingBackgroundAction', () => {
       const notification: Notification  = new Notification({identifier: 'notificationId'});
-      const response: NotificationCompletion  = {alert: true}
+      const response = NotificationBackgroundFetchResult.NO_DATA;
       
       uut.registerNotificationReceivedBackground((notification, completion) => {
         completion(response);
         
-        expect(mockNativeCommandsSender.finishPresentingNotification).toBeCalledWith(notification.identifier, response);
+        expect(mockNativeCommandsSender.finishHandlingBackgroundAction).toBeCalledWith(notification.identifier, response);
       });
-      const call = mockNativeEventsReceiver.registerNotificationReceived.mock.calls[0][0];
+      const call = mockNativeEventsReceiver.registerNotificationReceivedBackground.mock.calls[0][0];
       call(notification);
     });
 
-    it('should not invoke finishPresentingNotification on Android', () => {
+    it('should not invoke finishHandlingBackgroundAction on Android', () => {
       Platform.OS = 'android';
       const expectedNotification: Notification  = new Notification({identifier: 'notificationId'});
-      const response: NotificationCompletion  = {alert: true}
+      const response = NotificationBackgroundFetchResult.NO_DATA;
       
       uut.registerNotificationReceivedBackground((notification, completion) => {
         completion(response);
         expect(expectedNotification).toEqual(notification);
-        expect(mockNativeCommandsSender.finishPresentingNotification).toBeCalledTimes(0);
+        expect(mockNativeCommandsSender.finishHandlingBackgroundAction).toBeCalledTimes(0);
       });
-      const call = mockNativeEventsReceiver.registerNotificationReceived.mock.calls[0][0];
+      const call = mockNativeEventsReceiver.registerNotificationReceivedBackground.mock.calls[0][0];
       call(expectedNotification);
     });
   });

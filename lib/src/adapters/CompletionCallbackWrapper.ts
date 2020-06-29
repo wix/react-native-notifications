@@ -1,6 +1,6 @@
 import { NativeCommandsSender } from './NativeCommandsSender';
-import { NotificationCompletion } from '../interfaces/NotificationCompletion';
-import { Platform, AppState } from 'react-native';
+import { NotificationCompletion, NotificationBackgroundFetchResult } from '../interfaces/NotificationCompletion';
+import { Platform } from 'react-native';
 import {NotificationIOS} from "../DTO/NotificationIOS";
 import {Notification} from "..";
 import { NotificationActionResponse } from '../interfaces/NotificationActionResponse';
@@ -12,24 +12,25 @@ export class CompletionCallbackWrapper {
 
   public wrapReceivedBackgroundCallback(callback: Function): (notification: Notification) => void {
     return (notification) => {
-      if (!this.applicationIsVisible()) {
-        this.wrapReceivedAndInvoke(callback, notification);
-      }
+      this.wrapReceivedAndInvoke(callback, notification, true);
     }
   }
 
   public wrapReceivedForegroundCallback(callback: Function): (notification: Notification) => void {
     return (notification) => {
-      if (this.applicationIsVisible()) {
-        this.wrapReceivedAndInvoke(callback, notification);
-      }
+      this.wrapReceivedAndInvoke(callback, notification, false);
     }
   }
 
-  private wrapReceivedAndInvoke(callback: Function, notification: Notification) {
-    const completion = (response: NotificationCompletion) => {
+  private wrapReceivedAndInvoke(callback: Function, notification: Notification, background: boolean) {
+    const completion = (response: NotificationCompletion | NotificationBackgroundFetchResult) => {
       if (Platform.OS === 'ios') {
-        this.nativeCommandsSender.finishPresentingNotification((notification as unknown as NotificationIOS).identifier, response);
+        const identifier = (notification as unknown as NotificationIOS).identifier;
+        if (background) {
+          this.nativeCommandsSender.finishHandlingBackgroundAction(identifier, response as NotificationBackgroundFetchResult);
+        } else {
+          this.nativeCommandsSender.finishPresentingNotification(identifier, response as NotificationCompletion);
+        }
       }
     };
 
@@ -46,9 +47,5 @@ export class CompletionCallbackWrapper {
 
       callback(notification, completion, actionResponse);
     }
-  }
-
-  private applicationIsVisible(): Boolean {
-    return AppState.currentState !== 'background';
   }
 }

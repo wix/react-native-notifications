@@ -7,6 +7,10 @@
     return [RCTConvert UNNotificationPayload:notification];
 }
 
++ (NSDictionary *)parseNotificationUserInfo:(NSDictionary *)userInfo withIdentifier:(NSString *)identifier {
+    return [RCTConvert NotificationUserInfo:userInfo withIdentifier:(NSString *)identifier];
+}
+
 + (NSDictionary *)parseNotificationResponse:(UNNotificationResponse *)response {
     NSDictionary* responseDict = @{@"notification": [RCTConvert UNNotificationPayload:response.notification], @"identifier": response.notification.request.identifier, @"action": [self parseNotificationResponseAction:response]};
     
