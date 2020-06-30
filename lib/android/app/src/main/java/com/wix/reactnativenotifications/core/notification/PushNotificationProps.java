@@ -18,6 +18,12 @@ public class PushNotificationProps {
         return getBundleStringFirstNotNull("gcm.notification.body", "body");
     }
 
+    public int getId () {
+        String idAsString = mBundle.getString("id");
+        return idAsString == null ? null : Integer.parseInt(idAsString);
+    }
+
+
     public Bundle asBundle() {
         return (Bundle) mBundle.clone();
     }
