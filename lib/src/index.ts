@@ -1,5 +1,4 @@
 import { NotificationsRoot } from './Notifications';
-
 const notificationsSingleton = new NotificationsRoot();
 
 export const Notifications = notificationsSingleton;

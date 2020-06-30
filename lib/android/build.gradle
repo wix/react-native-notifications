@@ -1,6 +1,26 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+import groovy.json.JsonSlurper
 
 buildscript {
+    ext{
+        def jsonFile = file('../../package.json')
+        def parsedJson = new JsonSlurper().parseText(jsonFile.text)
+        androidGradlePluginVersion = parsedJson.androidDependencies['androidGradlePluginVersion']
+        androidSdkVersion = parsedJson.androidDependencies['androidSdkVersion']
+        androidMinSdkVersion = parsedJson.androidDependencies['androidMinSdkVersion']
+        kotlin_version = parsedJson.androidDependencies['kotlin_version']
+        kotlin_stdlib = parsedJson.androidDependencies['kotlin_stdlib']
+        room_version = parsedJson.androidDependencies['room_version']
+        gsonVersion = parsedJson.androidDependencies['gson_version']
+        kotlin_coroutines_version = parsedJson.androidDependencies['kotlin_coroutines_version']
+        detoxKotlinVersion = kotlin_version
+        googlePlayServicesVersion = parsedJson.androidDependencies['googlePlayServicesVersion']
+        googleServices = parsedJson.androidDependencies['googleServices']
+        firebaseVersion = parsedJson.androidDependencies['firebaseMessaging']
+        supportLibraryVersion = parsedJson.androidDependencies['supportLibraryVersion']
+        robolectric = parsedJson.androidDependencies['robolectric']
+    }
+
     repositories {
         mavenLocal()
         mavenCentral()
@@ -8,10 +28,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
-        classpath 'com.google.gms:google-services:4.0.0'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath "com.android.tools.build:gradle:$androidGradlePluginVersion"
+        classpath "com.google.gms:google-services:$googleServices"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -24,6 +43,21 @@ allprojects {
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../../node_modules/react-native/android"
+        }
+    }
+}
+subprojects {
+    afterEvaluate { project ->
+        if ((project.plugins.hasPlugin('android') || project.plugins.hasPlugin('android-library'))) {
+            android {
+                compileSdkVersion rootProject.ext.androidSdkVersion
+            }
+        }
+        if (project.hasProperty('defaultConfig')) {
+            defaultConfig {
+                minSdkVersion rootProject.ext.androidMinSdkVersion
+                targetSdkVersion rootProject.ext.androidSdkVersion
+            }
         }
     }
 }
