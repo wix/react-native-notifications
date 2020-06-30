@@ -3,22 +3,9 @@ import groovy.json.JsonSlurper
 
 buildscript {
     ext{
-        def jsonFile = file('../../package.json')
-        def parsedJson = new JsonSlurper().parseText(jsonFile.text)
-        androidGradlePluginVersion = parsedJson.androidDependencies['androidGradlePluginVersion']
-        androidSdkVersion = parsedJson.androidDependencies['androidSdkVersion']
-        androidMinSdkVersion = parsedJson.androidDependencies['androidMinSdkVersion']
-        kotlin_version = parsedJson.androidDependencies['kotlin_version']
-        kotlin_stdlib = parsedJson.androidDependencies['kotlin_stdlib']
-        room_version = parsedJson.androidDependencies['room_version']
-        gsonVersion = parsedJson.androidDependencies['gson_version']
-        kotlin_coroutines_version = parsedJson.androidDependencies['kotlin_coroutines_version']
-        detoxKotlinVersion = kotlin_version
-        googlePlayServicesVersion = parsedJson.androidDependencies['googlePlayServicesVersion']
-        googleServices = parsedJson.androidDependencies['googleServices']
-        firebaseVersion = parsedJson.androidDependencies['firebaseMessaging']
-        supportLibraryVersion = parsedJson.androidDependencies['supportLibraryVersion']
-        robolectric = parsedJson.androidDependencies['robolectric']
+        androidGradlePluginVersion = '4.0.0'
+        kotlinVersion = "1.3.61"
+        googleServices = "4.3.3"
     }
 
     repositories {
