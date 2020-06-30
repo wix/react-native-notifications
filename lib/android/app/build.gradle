@@ -1,6 +1,8 @@
 import groovy.json.JsonSlurper
-
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
 
 Object findReactNativePackageJson() {
     def searchPath = 'node_modules/react-native/package.json'
@@ -106,13 +108,14 @@ android {
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:$kotlinStdlib:$kotlinVersion"
     implementation "com.google.firebase:firebase-messaging:$firebaseVersion"
     implementation 'com.facebook.react:react-native:+'
 
     // tests
     testImplementation 'junit:junit:4.12'
-    testImplementation "org.robolectric:robolectric:$robolectric"
-    testImplementation 'org.assertj:assertj-core:3.8.0'
-    testImplementation 'com.squareup.assertj:assertj-android:1.1.1'
-    testImplementation 'org.mockito:mockito-core:2.25.1'
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "org.assertj:assertj-core:$assertJCoreVersion"
+    testImplementation "com.squareup.assertj:assertj-android:$assertJAndroidVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
 }
