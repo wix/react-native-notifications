@@ -8,7 +8,9 @@ project.ext.react = [
         bundleAssetName: "index.bundle",
         enableHermes   : true,
         bundleInAlpha  : true,
-        bundleInBeta   : true
+        bundleInBeta   : true,
+        hermesFlagsDebug:['-Xes6-proxy'],
+        hermesFlagsRelease:['-Xes6-proxy']
 ]
 
 apply from: "../../../node_modules/react-native/react.gradle"
