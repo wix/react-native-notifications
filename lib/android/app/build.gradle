@@ -18,7 +18,7 @@ def androidSdkVersion = safeExtGet('androidSdkVersion', DEFAULT_COMPILE_SDK_VERS
 def androidMinSdkVersion = safeExtGet('androidMinSdkVersion', DEFAULT_MIN_SDK_VERSION)
 def androidTargetSdkVersion = safeExtGet('targetSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
 def kotlinVersion = safeExtGet('kotlinVersion', DEFAULT_KOTLIN_VERSION)
-def kotlinStdlib = safeExtGet('RNNKotlinStdlib', DEFAULT_KOTLIN_STDLIB_VERSION)
+def kotlinStdlib = safeExtGet('kotlinStdlib', DEFAULT_KOTLIN_STDLIB_VERSION)
 def firebaseVersion = safeExtGet('firebaseVersion', DEFAULT_FIREBASE_MESSAGING_VERSION)
 
 Object findReactNativePackageJson() {
