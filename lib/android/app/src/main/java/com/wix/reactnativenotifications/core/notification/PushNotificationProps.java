@@ -19,7 +19,7 @@ public class PushNotificationProps {
     }
 
     public int getId () {
-        String idAsString = mBundle.getString("id");
+        String idAsString = mBundle.getString("identifier");
         return idAsString == null ? null : Integer.parseInt(idAsString);
     }
 
