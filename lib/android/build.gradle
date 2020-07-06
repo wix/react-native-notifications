@@ -1,6 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+import groovy.json.JsonSlurper
 
 buildscript {
+    ext{
+        androidGradlePluginVersion = '4.0.0'
+        kotlinVersion = "1.3.61"
+        googleServices = "4.3.3"
+        androidSdkVersion = 29
+    }
+
     repositories {
         mavenLocal()
         mavenCentral()
@@ -8,10 +16,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
-        classpath 'com.google.gms:google-services:4.0.0'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath "com.android.tools.build:gradle:$androidGradlePluginVersion"
+        classpath "com.google.gms:google-services:$googleServices"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
 
@@ -24,6 +31,21 @@ allprojects {
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../../node_modules/react-native/android"
+        }
+    }
+}
+subprojects {
+    afterEvaluate { project ->
+        if ((project.plugins.hasPlugin('android') || project.plugins.hasPlugin('android-library'))) {
+            android {
+                compileSdkVersion rootProject.ext.androidSdkVersion
+            }
+        }
+        if (project.hasProperty('defaultConfig')) {
+            defaultConfig {
+                minSdkVersion rootProject.ext.androidMinSdkVersion
+                targetSdkVersion rootProject.ext.androidSdkVersion
+            }
         }
     }
 }

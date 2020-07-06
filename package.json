@@ -41,7 +41,8 @@
     "prerelease": "npm run build",
     "release": "node ./scripts/release",
     "generate-changelog": "gren changelog",
-    "docusaurus": "npm start --prefix website"
+    "docusaurus": "npm start --prefix website",
+    "pod-install": "pod install --project-directory=example/ios"
   },
   "nativePackage": true,
   "peerDependencies": {
@@ -49,27 +50,28 @@
     "react-native": ">=0.25.1"
   },
   "devDependencies": {
-    "@types/react": "16.x.x",
-    "@types/react-native": "0.57.7",
-    "@types/react-test-renderer": "16.x.x",
+    "lodash": "4.17.15",
+    "hermes-engine": "0.4.2-rc1",
+    "react-autobind": "1.0.6",
+    "react": "16.11.0",
+    "react-native": "0.62.2",
+    "detox": "16.2.0",
+    "jest": "24.9.0",
+    "typescript": "^3.7.5",
+    "babel-eslint": "10.0.3",
+    "tslint": "6.1.2",
+    "ts-mockito": "2.5.0",
+    "shell-utils": "1.0.10",
+    "metro-react-native-babel-preset": "0.59.0",
+    "react-native-typescript-transformer": "1.2.13",
+    "github-release-notes": "0.17.0",
+    "@types/react": "16.9.35",
+    "@types/react-native": "0.62.2",
+    "@types/react-test-renderer": "16.9.2",
     "@babel/plugin-proposal-export-default-from": "7.2.0",
     "@babel/plugin-proposal-export-namespace-from": "7.2.0",
-    "@types/jest": "23.x.x",
-    "@types/lodash": "4.x.x",
-    "typescript": "3.2.2",
-    "babel-eslint": "9.0.0",
-    "tslint": "5.x.x",
-    "ts-mockito": "^2.3.1",
-    "mocha": "^2.5.3",
-    "shell-utils": "1.x.x",
-    "react-native": "0.60.5",
-    "react": "16.8.6",
-    "detox": "14.x.x",
-    "jsc-android": "236355.x.x",
-    "jest": "24.8.0",
-    "metro-react-native-babel-preset": "0.55.x",
-    "react-native-typescript-transformer": "1.2.12",
-    "github-release-notes": "0.17.0"
+    "@types/jest": "24.9.0",
+    "@types/lodash": "4.14.153"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -86,24 +88,15 @@
     "test-runner": "jest",
     "specs": "",
     "configurations": {
-      "ios.none": {
-        "binaryPath": "playground/ios/DerivedData/playground/Build/Products/Debug-iphonesimulator/playground.app",
-        "type": "ios.none",
-        "name": "iPhone 11",
-        "session": {
-          "server": "ws://localhost:8099",
-          "sessionId": "playground"
-        }
-      },
       "ios.sim.debug": {
         "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Debug-iphonesimulator/NotificationsExampleApp.app",
-        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp -project example/ios/NotificationsExampleApp.xcodeproj -sdk iphonesimulator -configuration Debug -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
+        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp -workspace example/ios/NotificationsExampleApp.xcworkspace -sdk iphonesimulator -configuration Debug -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
         "type": "ios.simulator",
         "name": "iPhone 11"
       },
       "ios.sim.release": {
         "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Release-iphonesimulator/NotificationsExampleApp.app",
-        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp_release -project example/ios/NotificationsExampleApp.xcodeproj -sdk iphonesimulator -configuration Release -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
+        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp_release -workspace example/ios/NotificationsExampleApp.xcworkspace -sdk iphonesimulator -configuration Release -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
         "type": "ios.simulator",
         "name": "iPhone 11"
       }
