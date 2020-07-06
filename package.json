@@ -41,7 +41,8 @@
     "prerelease": "npm run build",
     "release": "node ./scripts/release",
     "generate-changelog": "gren changelog",
-    "docusaurus": "npm start --prefix website"
+    "docusaurus": "npm start --prefix website",
+    "pod-install": "pod install --project-directory=example/ios"
   },
   "nativePackage": true,
   "peerDependencies": {
@@ -87,24 +88,15 @@
     "test-runner": "jest",
     "specs": "",
     "configurations": {
-      "ios.none": {
-        "binaryPath": "playground/ios/DerivedData/playground/Build/Products/Debug-iphonesimulator/playground.app",
-        "type": "ios.none",
-        "name": "iPhone 11",
-        "session": {
-          "server": "ws://localhost:8099",
-          "sessionId": "playground"
-        }
-      },
       "ios.sim.debug": {
         "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Debug-iphonesimulator/NotificationsExampleApp.app",
-        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp -project example/ios/NotificationsExampleApp.xcodeproj -sdk iphonesimulator -configuration Debug -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
+        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp -workspace example/ios/NotificationsExampleApp.xcworkspace -sdk iphonesimulator -configuration Debug -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
         "type": "ios.simulator",
         "name": "iPhone 11"
       },
       "ios.sim.release": {
         "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Release-iphonesimulator/NotificationsExampleApp.app",
-        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp_release -project example/ios/NotificationsExampleApp.xcodeproj -sdk iphonesimulator -configuration Release -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
+        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp_release -workspace example/ios/NotificationsExampleApp.xcworkspace -sdk iphonesimulator -configuration Release -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
         "type": "ios.simulator",
         "name": "iPhone 11"
       }

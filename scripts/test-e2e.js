@@ -15,8 +15,9 @@ function run() {
     const configuration = `${prefix}.${suffix}`;
     const headless$ = android ? headless ? `--headless` : `` : ``;
     const workers = multi ? 3 : 1;
-
+    
     if (!skipBuild) {
+        exec.execSync('npm run pod-install');
         exec.execSync(`detox build --configuration ${configuration}`);
     }
     exec.execSync(`detox test --loglevel verbose --configuration ${configuration} ${headless$} ${!android ? `-w ${workers}` : ``}`); //-f "ScreenStyle.test.js" --loglevel trace
