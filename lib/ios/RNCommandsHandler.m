@@ -51,7 +51,9 @@
 }
 
 - (void)setBadgeCount:(int)count {
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
+    });
 }
 
 - (void)postLocalNotification:(NSDictionary *)notification withId:(NSNumber *)notificationId {
