@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.facebook.react.BuildConfig;
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -24,6 +25,7 @@ import com.wix.reactnativenotifications.core.notification.IPushNotification;
 import com.wix.reactnativenotifications.core.notification.NotificationChannel;
 import com.wix.reactnativenotifications.core.notification.PushNotification;
 import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
+import com.wix.reactnativenotifications.core.notification.ScheduledNotification;
 import com.wix.reactnativenotifications.core.notificationdrawer.IPushNotificationsDrawer;
 import com.wix.reactnativenotifications.core.notificationdrawer.PushNotificationsDrawer;
 import com.wix.reactnativenotifications.fcm.FcmInstanceIdRefreshHandlerService;
@@ -32,6 +34,8 @@ import static com.wix.reactnativenotifications.Defs.LOGTAG;
 
 public class RNNotificationsModule extends ReactContextBaseJavaModule implements ActivityEventListener {
 
+
+
     public RNNotificationsModule(Application application, ReactApplicationContext reactContext) {
         super(reactContext);
         if (AppLifecycleFacadeHolder.get() instanceof ReactAppLifecycleFacade) {
@@ -39,6 +43,8 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
         }
 
         reactContext.addActivityEventListener(this);
+
+
     }
 
     @Override
@@ -99,16 +105,28 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     public void postLocalNotification(ReadableMap notificationPropsMap, int notificationId) {
         if(BuildConfig.DEBUG) Log.d(LOGTAG, "Native method invocation: postLocalNotification");
         final Bundle notificationProps = Arguments.toBundle(notificationPropsMap);
-        final IPushNotification pushNotification = PushNotification.get(getReactApplicationContext().getApplicationContext(), notificationProps);
-        pushNotification.onPostRequest(notificationId);
+        long firedate= (long) notificationProps.getDouble("fireDate");
+        String  channelID=notificationProps.getString("channelID");
+        if( firedate!=0){
+            ScheduledNotification scheduledNotification=new ScheduledNotification();
+            scheduledNotification.scheduleNotification(getReactApplicationContext().getApplicationContext(),notificationProps,firedate,notificationId);
+        }else {
+            final IPushNotification pushNotification = PushNotification.get(getReactApplicationContext().getApplicationContext(), notificationProps);
+            pushNotification.onPostRequest(notificationId,channelID);
+        }
     }
 
     @ReactMethod
     public void cancelLocalNotification(int notificationId) {
-        IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());
-        notificationsDrawer.onNotificationClearRequest(notificationId);
+        ScheduledNotification scheduledNotification=new ScheduledNotification();
+        scheduledNotification.cancelScheduledNotification(getReactApplicationContext().getApplicationContext(),notificationId);
     }
 
+    @ReactMethod
+    public void cancelAllLocalNotifications() {
+        ScheduledNotification scheduledNotification=new ScheduledNotification();
+        scheduledNotification.cancelAllScheduledNotifications(getReactApplicationContext().getApplicationContext());
+    }
     @ReactMethod
     public void setCategories(ReadableArray categories) {
     

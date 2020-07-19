@@ -23,7 +23,7 @@ public class PushNotificationProps {
     }
 
     public boolean isFirebaseBackgroundPayload() {
-        return mBundle.containsKey("google.message_id");
+        return mBundle.containsKey("google.message_id") && !mBundle.containsKey("title");
     }
 
     @Override

@@ -21,6 +21,12 @@
         <service
             android:name=".fcm.FcmInstanceIdRefreshHandlerService"
             android:exported="false" />
+
+        <receiver android:name=".core.notification.ScheduledNotification" >
+            <intent-filter>
+                <action android:name="PushLocalNotification" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

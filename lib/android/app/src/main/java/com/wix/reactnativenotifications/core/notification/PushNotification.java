@@ -60,7 +60,7 @@ public class PushNotification implements IPushNotification {
     @Override
     public void onReceived() throws InvalidNotificationException {
         if (!mAppLifecycleFacade.isAppVisible()) {
-            postNotification(null);
+            postNotification((Notification) null,null);
         }
         notifyReceivedToJS();
     }
@@ -68,11 +68,12 @@ public class PushNotification implements IPushNotification {
     @Override
     public void onOpened() {
         digestNotification();
+        clearAllNotifications();
     }
 
     @Override
-    public int onPostRequest(Integer notificationId) {
-        return postNotification(notificationId);
+    public int onPostRequest(Integer notificationId,String channelID) {
+        return postNotification(notificationId,channelID);
     }
 
     @Override
@@ -80,9 +81,9 @@ public class PushNotification implements IPushNotification {
         return mNotificationProps.copy();
     }
 
-    protected int postNotification(Integer notificationId) {
+    protected int postNotification(Integer notificationId,String channelID) {
         final PendingIntent pendingIntent = getCTAPendingIntent();
-        final Notification notification = buildNotification(pendingIntent);
+        final Notification notification = buildNotification(pendingIntent,channelID);
         return postNotification(notification, notificationId);
     }
 
@@ -92,7 +93,6 @@ public class PushNotification implements IPushNotification {
             launchOrResumeApp();
             return;
         }
-
         final ReactContext reactContext = mAppLifecycleFacade.getRunningReactContext();
         if (reactContext.getCurrentActivity() == null) {
             setAsInitialNotification();
@@ -100,8 +100,6 @@ public class PushNotification implements IPushNotification {
 
         if (mAppLifecycleFacade.isAppVisible()) {
             dispatchImmediately();
-        } else if (mAppLifecycleFacade.isAppDestroyed()) {
-            launchOrResumeApp();
         } else {
             dispatchUponVisibility();
         }
@@ -136,11 +134,11 @@ public class PushNotification implements IPushNotification {
         return NotificationIntentAdapter.createPendingNotificationIntent(mContext, cta, mNotificationProps);
     }
 
-    protected Notification buildNotification(PendingIntent intent) {
-        return getNotificationBuilder(intent).build();
+    protected Notification buildNotification(PendingIntent intent,String channelID) {
+        return getNotificationBuilder(intent,channelID).build();
     }
 
-    protected Notification.Builder getNotificationBuilder(PendingIntent intent) {
+    protected Notification.Builder getNotificationBuilder(PendingIntent intent,String channelID) {
 
         String CHANNEL_ID = "channel_01";
         String CHANNEL_NAME = "Channel Name";
@@ -155,16 +153,22 @@ public class PushNotification implements IPushNotification {
         setUpIcon(notification);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
-                    CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(channel);
-            notification.setChannelId(CHANNEL_ID);
-        }
+            if(channelID==null){
+                NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                        CHANNEL_NAME,
+                        NotificationManager.IMPORTANCE_DEFAULT);
+                final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.createNotificationChannel(channel);
+                notification.setChannelId(CHANNEL_ID);
+            }else{
+                notification.setChannelId(channelID);
+            }
+
+          }
 
         return notification;
     }
+
 
     private void setUpIcon(Notification.Builder notification) {
         int iconResId = getAppResourceId("notification_icon", "drawable");
@@ -194,6 +198,11 @@ public class PushNotification implements IPushNotification {
     protected void postNotification(int id, Notification notification) {
         final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(id, notification);
+    }
+
+    protected void clearAllNotifications() {
+        final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
     }
 
     protected int createNotificationId(Notification notification) {
