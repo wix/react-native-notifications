@@ -4,14 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.bridge.ReactContext;
-import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.wix.reactnativenotifications.BuildConfig;
 import com.wix.reactnativenotifications.core.JsIOHelper;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;

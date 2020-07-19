@@ -68,6 +68,7 @@ public class NotificationChannel implements INotificationChannel {
 
         final NotificationManager notificationManager = (NotificationManager) mContext
                 .getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.deleteNotificationChannel(mNotificationChannelProps.getChannelId());
         notificationManager.createNotificationChannel(channel);
     }
 
