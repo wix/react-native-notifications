@@ -50,7 +50,7 @@
     "react-native": ">=0.25.1"
   },
   "devDependencies": {
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "hermes-engine": "0.4.2-rc1",
     "react-autobind": "1.0.6",
     "react": "16.11.0",
