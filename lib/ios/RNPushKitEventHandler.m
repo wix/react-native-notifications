@@ -5,7 +5,7 @@
   RNNotificationsStore* _store;
 }
 
-- (instancetype)initWithStore:(RnNotificationsStore *)store {
+- (instancetype)initWithStore:(RNNotificationsStore *)store {
   self = [super init];
   _store = store;
   return self;
