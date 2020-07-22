@@ -15,7 +15,7 @@
     [RNEventEmitter sendEvent:RNPushKitRegistered body:@{@"pushKitToken": token}];
 }
 
-- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type withCompletionHandler:(void (^)(void))completion {
+- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type withCompletionHandler:(void (^)(void))completionHandler {
     [_store setActionCompletionHandler:completionHandler withCompletionKey:payload.uuid];
 
     [RNEventEmitter sendEvent:RNPushKitNotificationReceived body:payload];
