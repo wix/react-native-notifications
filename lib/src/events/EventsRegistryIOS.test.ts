@@ -1,12 +1,16 @@
 import { EventsRegistryIOS } from './EventsRegistryIOS';
+import { CompletionCallbackWrapper } from '../adapters/CompletionCallbackWrapper';
+import { NativeCommandsSender } from '../adapters/NativeCommandsSender.mock';
 import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver.mock';
 
 describe('EventsRegistryIOS', () => {
   let uut: EventsRegistryIOS;
   const mockNativeEventsReceiver = new NativeEventsReceiver();
+  const mockNativeCommandsSender = new NativeCommandsSender();
+  const completionCallbackWrapper = new CompletionCallbackWrapper(mockNativeCommandsSender);
 
   beforeEach(() => {
-    uut = new EventsRegistryIOS(mockNativeEventsReceiver);
+    uut = new EventsRegistryIOS(mockNativeEventsReceiver, completionCallbackWrapper);
   });
 
   it('delegates registerPushKitRegistered to nativeEventsReceiver', () => {
@@ -16,7 +20,7 @@ describe('EventsRegistryIOS', () => {
     expect(mockNativeEventsReceiver.registerPushKitRegistered).toHaveBeenCalledWith(cb);
   });
 
-  it('delegates registerPushKitNotificationReceived to nativeEventsReceiver', () => {
+  fit('delegates registerPushKitNotificationReceived to nativeEventsReceiver', () => {
     const cb = jest.fn();
     uut.registerPushKitNotificationReceived(cb);
     expect(mockNativeEventsReceiver.registerPushKitNotificationReceived).toHaveBeenCalledTimes(1);
