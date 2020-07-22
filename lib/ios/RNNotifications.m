@@ -71,7 +71,7 @@
 }
 
 - (void)startMonitorPushKitNotifications {
-    _pushKitEventHandler = [RNPushKitEventHandler initWithStore:_store];
+    _pushKitEventHandler = [[RNPushKitEventHandler alloc] initWithStore:_store];
     _pushKit = [[RNPushKit alloc] initWithEventHandler:_pushKitEventHandler];
 }
 

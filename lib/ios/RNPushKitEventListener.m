@@ -19,8 +19,10 @@
     [_pushKitEventHandler registeredWithToken:[RNNotificationUtils deviceTokenToString:credentials.token]];
 }
 
-- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(NSString *)type {
-    [_pushKitEventHandler didReceiveIncomingPushWithPayload:payload.dictionaryPayload];
+- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload
+             forType:(PKPushType)type
+             withCompletionHandler:(void (^)(void))completionHandler {
+  [_pushKitEventHandler didReceiveIncomingPushWithPayload:payload.dictionaryPayload withCompletionHandler:completionHandler];
 }
 
 @end

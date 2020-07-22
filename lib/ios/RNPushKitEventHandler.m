@@ -15,10 +15,11 @@
     [RNEventEmitter sendEvent:RNPushKitRegistered body:@{@"pushKitToken": token}];
 }
 
-- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type withCompletionHandler:(void (^)(void))completionHandler {
-    [_store setActionCompletionHandler:completionHandler withCompletionKey:payload.uuid];
+- (void)didReceiveIncomingPushWithPayload:(NSDictionary *)payload withCompletionHandler:(void (^)(void))completionHandler {
+  NSString *completionKey = [payload objectForKey:@"uuid"];
 
-    [RNEventEmitter sendEvent:RNPushKitNotificationReceived body:payload];
+  [_store setActionCompletionHandler:completionHandler withCompletionKey:completionKey];
+  [RNEventEmitter sendEvent:RNPushKitNotificationReceived body:payload];
 }
 
 @end
