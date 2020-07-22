@@ -10,6 +10,7 @@
     RNPushKit* _pushKit;
     RNNotificationCenterListener* _notificationCenterListener;
     RNNotificationEventHandler* _notificationEventHandler;
+    RNNotificationsStore* _store;
     RNPushKitEventHandler* _pushKitEventHandler;
     RNEventEmitter* _eventEmitter;
     RNNotificationCenterMulticast* _notificationCenterMulticast;
@@ -17,7 +18,8 @@
 
 - (instancetype)init {
     self = [super init];
-    _notificationEventHandler = [[RNNotificationEventHandler alloc] initWithStore:[RNNotificationsStore new]];
+    _store = [RNNotificationsStore new];
+    _notificationEventHandler = [[RNNotificationEventHandler alloc] initWithStore:_store];
     return self;
 }
 
@@ -69,7 +71,7 @@
 }
 
 - (void)startMonitorPushKitNotifications {
-    _pushKitEventHandler = [RNPushKitEventHandler new];
+    _pushKitEventHandler = [RNPushKitEventHandler initWithStore:_store];
     _pushKit = [[RNPushKit alloc] initWithEventHandler:_pushKitEventHandler];
 }
 

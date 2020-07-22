@@ -1,13 +1,23 @@
 #import "RNPushKitEventHandler.h"
 #import "RNEventEmitter.h"
 
-@implementation RNPushKitEventHandler
+@implementation RNPushKitEventHandler {
+  RNNotificationsStore* _store;
+}
+
+- (instancetype)initWithStore:(RnNotificationsStore *)store {
+  self = [super init];
+  _store = store;
+  return self;
+}
 
 - (void)registeredWithToken:(NSString *)token {
     [RNEventEmitter sendEvent:RNPushKitRegistered body:@{@"pushKitToken": token}];
 }
 
-- (void)didReceiveIncomingPushWithPayload:(NSDictionary *)payload {
+- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type withCompletionHandler:(void (^)(void))completion {
+    [_store setActionCompletionHandler:completionHandler withCompletionKey:payload.uuid];
+
     [RNEventEmitter sendEvent:RNPushKitNotificationReceived body:payload];
 }
 
