@@ -24,6 +24,7 @@ describe('EventsRegistryIOS', () => {
     const cb = jest.fn();
     uut.registerPushKitNotificationReceived(cb);
     expect(mockNativeEventsReceiver.registerPushKitNotificationReceived).toHaveBeenCalledTimes(1);
-    expect(mockNativeEventsReceiver.registerPushKitNotificationReceived).toHaveBeenCalledWith(cb);
+    //expect(mockNativeEventsReceiver.registerPushKitNotificationReceived).toHaveBeenCalledWith(cb);
+    expect(mockNativeEventsReceiver.registerPushKitNotificationReceived).toHaveBeenCalledWith(expect.any(Function));
   });
 });
