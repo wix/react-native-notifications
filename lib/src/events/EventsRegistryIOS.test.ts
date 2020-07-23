@@ -29,7 +29,7 @@ describe('EventsRegistryIOS', () => {
 
   });
 
-  fit('should wrap callback with completion block', () => {
+  it('should wrap callback with completion block', () => {
     const expectedNotification = { identifier: 'notificationId' }
 
     uut.registerPushKitNotificationReceived((notification) => {
