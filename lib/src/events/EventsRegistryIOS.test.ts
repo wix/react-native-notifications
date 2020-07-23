@@ -52,7 +52,7 @@ describe('EventsRegistryIOS', () => {
       expect(mockNativeCommandsSender.finishHandlingAction).toBeCalledWith('notificationId');
     });
 
-    const call = mockNativeEventsReceiver.registerNotificationReceived.mock.calls[0][0];
+    const call = mockNativeEventsReceiver.registerPushKitNotificationReceived.mock.calls[0][0];
 
     call(expectedNotification);
   });
