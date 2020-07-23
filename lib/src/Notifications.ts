@@ -37,7 +37,7 @@ export class NotificationsRoot {
       this.notificationFactory
     );
     this.eventsRegistry = new EventsRegistry(this.nativeEventsReceiver, this.completionCallbackWrapper);
-    this.eventsRegistryIOS = new EventsRegistryIOS(this.nativeEventsReceiver);
+    this.eventsRegistryIOS = new EventsRegistryIOS(this.nativeEventsReceiver, this.completionCallbackWrapper);
 
     this._ios = new NotificationsIOS(this.commands, this.eventsRegistryIOS);
     this._android = new NotificationsAndroid(this.commands);

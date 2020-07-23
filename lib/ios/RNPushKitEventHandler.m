@@ -16,9 +16,12 @@
 }
 
 - (void)didReceiveIncomingPushWithPayload:(NSDictionary *)payload withCompletionHandler:(void (^)(void))completionHandler {
-  NSString *completionKey = [payload objectForKey:@"uuid"];
+  NSString *identifier = [[NSUUID UUID] UUIDString];
 
-  [_store setActionCompletionHandler:completionHandler withCompletionKey:completionKey];
+  NSMutableDictionary *notification = [payload mutableCopy];
+  notification[@"identifier"] = identifier;
+
+  [_store setActionCompletionHandler:completionHandler withCompletionKey:identifier];
   [RNEventEmitter sendEvent:RNPushKitNotificationReceived body:payload];
 }
 
