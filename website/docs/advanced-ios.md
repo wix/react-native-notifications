@@ -15,8 +15,13 @@ The PushKit framework provides the classes for your iOS apps to receive backgrou
 On receiving PushKit notification, a `pushKitNotificationReceived` event will be fired with the notification payload.
 
 ```js
-Notifications.ios.events().registerPushKitNotificationReceived((payload: object) => {
+Notifications.ios.events().registerPushKitNotificationReceived((payload: object, complete: Function) => {
+
   console.log(JSON.stringify(payload));
+
+  // Important: This tells PushKit we are done and have shown the Incoming Call. So make sure to
+  // show the call screen before calling complete
+  complete();
 });
 ``` 
 
@@ -28,10 +33,14 @@ constructor() {
     console.log("PushKit Token Received: " + event.pushKitToken);
   });
   
-  Notifications.ios.events().registerPushKitNotificationReceived((payload: object) => {
+  Notifications.ios.events().registerPushKitNotificationReceived((payload: object, complete: Function) => {
     console.log('PushKit notification Received: ' + JSON.stringify(payload));
+
+    complete();
   });
 
+  // Important: This tells PushKit we are done and have shown the Incoming Call. So make sure to
+  // show the call screen before calling complete
   Notifications.ios.registerPushKit();
 }
 ```

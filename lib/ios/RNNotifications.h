@@ -1,6 +1,6 @@
-@import UIKit;
+#import <UIKit/UIKit.h>
 #import <PushKit/PushKit.h>
-@import UserNotifications;
+#import <UserNotifications/UserNotifications.h>
 
 @interface RNNotifications : NSObject
 

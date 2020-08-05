@@ -37,11 +37,11 @@ export class CompletionCallbackWrapper {
     callback(notification, completion);
   }
 
-  public wrapOpenedCallback(callback: Function): (notification: Notification, actionResponse?: NotificationActionResponse) => void {
+  public wrapOpenedCallback(callback: Function): (notification: object, actionResponse?: NotificationActionResponse) => void {
     return (notification, actionResponse) => {
       const completion = () => {
         if (Platform.OS === 'ios') {
-          this.nativeCommandsSender.finishHandlingAction((notification as unknown as NotificationIOS).identifier);
+          this.nativeCommandsSender.finishHandlingAction((notification as NotificationIOS).identifier);
         }
       };
 
