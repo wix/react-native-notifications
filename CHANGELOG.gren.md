@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.3.1 (05/08/2020)
+*No changelog for this release.*
+
+---
+
 ## 3.3.0 (23/07/2020)
 *No changelog for this release.*
 
