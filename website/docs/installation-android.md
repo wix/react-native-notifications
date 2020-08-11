@@ -9,17 +9,6 @@ Add the library to your application class (e.g. `MainApplication.java`):
 ```java
 import com.wix.reactnativenotifications.RNNotificationsPackage;
 
-...
-
-    @Override
-    protected List<ReactPackage> getPackages() {
-       @SuppressWarnings("UnnecessaryLocalVariable")
-       List<ReactPackage> packages = new PackageList(this).getPackages();
-       // ... 
-       // Add the following line: 
-       packages.add(new RNNotificationsPackage(MainApplication.this)); 
-       return packages;
-    }
 ```
 
 ### Receiving push notifications
