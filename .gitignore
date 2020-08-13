@@ -189,6 +189,7 @@ jspm_packages
 coverage/
 
 package-lock.json
+.npmrc
 
 .history
 
