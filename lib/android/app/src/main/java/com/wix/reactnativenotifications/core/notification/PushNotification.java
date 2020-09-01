@@ -6,6 +6,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -18,6 +20,10 @@ import com.wix.reactnativenotifications.core.InitialNotificationHolder;
 import com.wix.reactnativenotifications.core.JsIOHelper;
 import com.wix.reactnativenotifications.core.NotificationIntentAdapter;
 import com.wix.reactnativenotifications.core.ProxyService;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_OPENED_EVENT_NAME;
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_EVENT_NAME;
@@ -144,6 +150,14 @@ public class PushNotification implements IPushNotification {
 
         String CHANNEL_ID = "channel_01";
         String CHANNEL_NAME = "Channel Name";
+        String url = mNotificationProps.getImageUrl();
+        Bitmap bmp = null;
+        try {
+            InputStream in = new URL(url).openStream();
+            bmp = BitmapFactory.decodeStream(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         final Notification.Builder notification = new Notification.Builder(mContext)
                 .setContentTitle(mNotificationProps.getTitle())
@@ -151,6 +165,13 @@ public class PushNotification implements IPushNotification {
                 .setContentIntent(intent)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true);
+
+        if (url != null) {
+            notification.setStyle(
+                    new Notification.BigPictureStyle()
+                            .bigPicture(bmp))
+                    .setLargeIcon(bmp);
+        }
 
         setUpIcon(notification);
 
