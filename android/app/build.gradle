@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply from: '../prepare-robolectric.gradle'
 
 android {
     compileSdkVersion 27
