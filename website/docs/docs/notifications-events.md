@@ -40,7 +40,7 @@ constructor() {
 
 ### Notification Object
 
-When you receive a push notification, you'll get an instance of [Notification](notification-obj) object, contains the following methods:
+When you receive a push notification, you'll get an instance of [Notification object](../api/notification-obj), contains the following methods:
 
 ## Querying initial notification
 

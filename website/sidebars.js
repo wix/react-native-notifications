@@ -1,7 +1,12 @@
 module.exports = {
   docs: {
-    'Guides': ['getting-started', 'subscription', 'notifications-events', 'localNotifications'],
-    'Installation': ['installation-ios', 'installation-android'],
-    'Advanced': ['advanced-ios']
+    'Guides': ['docs/getting-started', 'docs/subscription', 'docs/notifications-events', 'docs/localNotifications'],
+    'Installation': ['docs/installation-ios', 'docs/installation-android'],
+    'Advanced': ['docs/advanced-ios']
+  },
+  api: {
+    'Commands': ['api/general-api', 'api/ios-api'],
+    'Events': ['api/general-events', 'api/ios-events'],
+    'Objects': ['api/notification-obj']
   }
 };
