@@ -55,7 +55,7 @@
     "react-autobind": "1.0.6",
     "react": "16.11.0",
     "react-native": "0.62.2",
-    "detox": "16.2.0",
+    "detox": "^17.5.7",
     "jest": "24.9.0",
     "typescript": "^3.7.5",
     "babel-eslint": "10.0.3",
