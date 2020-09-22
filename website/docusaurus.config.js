@@ -12,7 +12,7 @@ const siteConfig = {
   baseUrl: '/react-native-notifications/',
   projectName: 'react-native-notifications',
   organizationName: 'wix',
-  favicon: undefined,
+  favicon: 'img/favicon.ico',
   themeConfig: {
     prism: {
       defaultLanguage: 'javascript',
@@ -54,17 +54,17 @@ const siteConfig = {
     sidebarCollapsible: false,
     navbar: {
       title: 'React Native Notifications',
-      links: [
+      items: [
         {
           to: 'docs/installation-ios',
           label: 'Docs',
-          position: 'right',
+          position: 'left',
           activeBasePath: 'docs',
         },
         {
           to: 'api/general-api',
           label: 'API',
-          position: 'right',
+          position: 'left',
           activeBasePath: 'api',
         },
         {
@@ -81,25 +81,10 @@ const siteConfig = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          routeBasePath: 'docs',
+          routeBasePath: '/',
           path: 'docs',
           editUrl:
             'https://github.com/wix/react-native-notifications/edit/master/docs',
-        },
-        theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        }
-      }
-    ],
-    [
-      '@docusaurus/preset-classic',
-      {
-        docs: {
-          sidebarPath: require.resolve('./sidebarsApi.js'),
-          routeBasePath: 'api',
-          path: 'api',
-          editUrl:
-            'https://github.com/wix/react-native-notifications/edit/master/api',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
