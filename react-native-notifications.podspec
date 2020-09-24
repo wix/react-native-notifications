@@ -20,5 +20,5 @@ Pod::Spec.new do |s|
   s.source_files   = 'lib/ios/*.{h,m}'
   s.exclude_files  = "lib/ios/RNNotificationsTests/**/*.*", "lib/ios/OCMock/**/*.*"
 
-  s.dependency 'React'
+  s.dependency 'React-Core'
 end
