@@ -78,11 +78,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wix/react-native-notifications.git"
+    "url": "https://github.com/livelyhearing/react-native-notifications.git"
   },
-  "homepage": "https://github.com/wix/react-native-notifications",
+  "homepage": "https://github.com/livelyhearing/react-native-notifications",
   "bugs": {
-    "url": "https://github.com/wix/react-native-notifications/issues"
+    "url": "https://github.com/livelyhearing/react-native-notifications/issues"
   },
   "detox": {
     "test-runner": "jest",
