@@ -9,6 +9,7 @@ import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.wix.reactnativenotifications.BuildConfig;
@@ -75,7 +76,14 @@ public class FcmToken implements IFcmToken {
     }
 
     protected void refreshToken() {
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+        FirebaseInstanceId firebaseInstance;
+        try {
+            firebaseInstance = FirebaseInstanceId.getInstance(FirebaseApp.getInstance("messaging"));
+        } catch (Exception err) {
+            firebaseInstance = FirebaseInstanceId.getInstance();
+         }
+
+        firebaseInstance.getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 sToken = instanceIdResult.getToken();

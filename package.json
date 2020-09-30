@@ -1,5 +1,5 @@
 {
-  "name": "react-native-notifications",
+  "name": "@livelyhearing/react-native-notifications",
   "version": "3.3.4",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
   "author": "Lidan Hifi <lidan.hifi@gmail.com>",
