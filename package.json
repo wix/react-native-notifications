@@ -22,7 +22,7 @@
   "main": "lib/dist/index.js",
   "typings": "lib/dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf ./lib/dist && npx tsc --project ./tsconfig.json",
+    "build": "rm -rf ./lib/dist && tsc",
     "prestart": "npm run build",
     "pretest-js": "npm run build",
     "pretest-unit-ios": "npm run build",
@@ -42,8 +42,7 @@
     "release": "node ./scripts/release",
     "generate-changelog": "gren changelog",
     "docusaurus": "npm start --prefix website",
-    "pod-install": "pod install --project-directory=example/ios",
-    "postinstall": "npm run build"
+    "pod-install": "pod install --project-directory=example/ios"
   },
   "nativePackage": true,
   "peerDependencies": {
