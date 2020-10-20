@@ -13,6 +13,7 @@ Example:
 
 ```jsx
 let localNotification = Notifications.postLocalNotification({
+	channelId: "customChannel",
 	body: "Local notification!",
 	title: "Local Notification Title",
 	sound: "chime.aiff",
@@ -25,6 +26,7 @@ let localNotification = Notifications.postLocalNotification({
 Notification object contains:
 
 - **`fireDate`**- The date and time when the system should deliver the notification (optinal - default is immediate dispatch).
+- `channelId` – An optional Android only property to spectify notification channel. See [Android API](api/android-api/#setnotificationchannel) for information about creating channels. If not provided, default channel will be created automatically.
 - `body`- The message displayed in the notification alert.
 - `title`- The title of the notification, displayed in the notifications center.
 - `alertAction`- The "action" displayed beneath an actionable notification on the lockscreen (e.g. "Slide to **open**"). Note that Apple no longer shows this in iOS 10.
