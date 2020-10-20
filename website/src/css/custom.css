@@ -17,6 +17,11 @@ html[data-theme="dark"] {
   --ifm-navbar-background-color: #1e2125;
 }
 
+.navbar__logo {
+  width: 0;
+  height: 0;
+}
+
 .navbar__title {
   color: var(--ifm-navbar-link-hover-color);
 }

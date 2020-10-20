@@ -6,46 +6,46 @@
  */
 
 const siteConfig = {
-  title: 'React Native Notifications',
-  tagline: 'Documentation',
-  url: 'https://wix.github.io',
-  baseUrl: '/react-native-notifications/',
-  projectName: 'react-native-notifications',
-  organizationName: 'wix',
-  favicon: 'img/favicon.ico',
+  title: "React Native Notifications",
+  tagline: "Documentation",
+  url: "https://wix.github.io",
+  baseUrl: "/react-native-notifications/",
+  projectName: "react-native-notifications",
+  organizationName: "wix",
+  favicon: "img/favicon.ico",
   themeConfig: {
     prism: {
-      defaultLanguage: 'javascript',
-      additionalLanguages: ['java'],
-      theme: require('prism-react-renderer/themes/dracula'),
+      defaultLanguage: "javascript",
+      additionalLanguages: ["java"],
+      theme: require("prism-react-renderer/themes/dracula"),
     },
     footer: {
-      style: 'dark',
+      style: "dark",
       copyright: `Copyright © ${new Date().getFullYear()} Wix`,
       links: [
         {
-          title: 'Docs',
+          title: "Docs",
           items: [
             {
-              label: 'Getting Started (or other categories)',
-              to: 'docs/getting-started',
+              label: "Getting Started (or other categories)",
+              to: "docs/getting-started",
             },
             {
-              label: 'Guides',
-              to: 'docs/installation-ios',
+              label: "Guides",
+              to: "docs/installation-ios",
             },
             {
-              label: 'API Reference',
-              to: 'api/general-api',
+              label: "API Reference",
+              to: "api/general-api",
             },
           ],
         },
         {
-          title: 'Social',
+          title: "Social",
           items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/wix/react-native-notifications',
+              label: "GitHub",
+              href: "https://github.com/wix/react-native-notifications",
             },
           ],
         },
@@ -53,44 +53,47 @@ const siteConfig = {
     },
     sidebarCollapsible: false,
     navbar: {
-      title: 'React Native Notifications',
+      title: "React Native Notifications",
+      logo: {
+        src: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D",
+      },
       items: [
         {
-          to: 'docs/installation-ios',
-          label: 'Docs',
-          position: 'left',
-          activeBasePath: 'docs',
+          to: "docs/installation-ios",
+          label: "Docs",
+          position: "left",
+          activeBasePath: "docs",
         },
         {
-          to: 'api/general-api',
-          label: 'API',
-          position: 'left',
-          activeBasePath: 'api',
+          to: "api/general-api",
+          label: "API",
+          position: "left",
+          activeBasePath: "api",
         },
         {
-          href: 'https://github.com/wix/react-native-notifications',
-          position: 'right',
-          className: 'header-github-link navbar_item navbar_link',
+          href: "https://github.com/wix/react-native-notifications",
+          position: "right",
+          className: "header-github-link navbar_item navbar_link",
         },
       ],
     },
   },
   presets: [
     [
-      '@docusaurus/preset-classic',
+      "@docusaurus/preset-classic",
       {
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-          routeBasePath: '/',
-          path: 'docs',
+          sidebarPath: require.resolve("./sidebars.js"),
+          routeBasePath: "/",
+          path: "docs",
           editUrl:
-            'https://github.com/wix/react-native-notifications/edit/master/docs',
+            "https://github.com/wix/react-native-notifications/edit/master/docs",
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        }
-      }
-    ]
+          customCss: require.resolve("./src/css/custom.css"),
+        },
+      },
+    ],
   ],
 };
 
