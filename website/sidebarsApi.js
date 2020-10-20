@@ -3,7 +3,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Commands',
-      items: ['general-api', 'ios-api']
+      items: ['general-api', 'ios-api', 'android-api']
     },
     {
       type: 'category',
