@@ -141,10 +141,6 @@ public class PushNotification implements IPushNotification {
     }
 
     protected Notification.Builder getNotificationBuilder(PendingIntent intent) {
-
-        String CHANNEL_ID = "channel_01";
-        String CHANNEL_NAME = "Channel Name";
-
         final Notification.Builder notification = new Notification.Builder(mContext)
                 .setContentTitle(mNotificationProps.getTitle())
                 .setContentText(mNotificationProps.getBody())
@@ -155,11 +151,19 @@ public class PushNotification implements IPushNotification {
         setUpIcon(notification);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
-                    CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(channel);
+            String CHANNEL_ID = mNotificationProps.getChannelId();
+
+            if(CHANNEL_ID == null) {
+                CHANNEL_ID = "channel_1";
+                String CHANNEL_NAME = "Notifications";
+
+                NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                        CHANNEL_NAME,
+                        NotificationManager.IMPORTANCE_DEFAULT);
+                final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.createNotificationChannel(channel);
+            }
+
             notification.setChannelId(CHANNEL_ID);
         }
 
