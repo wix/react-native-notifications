@@ -29,7 +29,8 @@ Notifications.postLocalNotification({
   sound: 'chime.aiff',
   category: 'SOME_CATEGORY',
   link: 'localNotificationLink',
-  fireDate: new Date()
+  fireDate: new Date(),
+  channelId: 'customChannel'
 }, id);
 ```
 
