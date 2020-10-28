@@ -18,7 +18,7 @@
 
 - (instancetype)init {
     self = [super init];
-    _store = [RNNotificationsStore new];
+    _store = [RNNotificationsStore sharedInstance];
     _notificationEventHandler = [[RNNotificationEventHandler alloc] initWithStore:_store];
     return self;
 }
