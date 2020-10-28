@@ -19,13 +19,13 @@
 }
 
 - (void)testCompleteAction_ShouldInvokeBlock {
-    __block BOOL blockInvoked = NO;
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Testing Async Method"];
     void (^testBlock)(void) = ^void() {
-        blockInvoked = YES;
+      [expectation fulfill];
     };
     [_store setActionCompletionHandler:testBlock withCompletionKey:@"actionTestBlock"];
     [_store completeAction:@"actionTestBlock"];
-    XCTAssertTrue(blockInvoked);
+    [self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
 - (void)testCompleteAction_ShouldRemoveBlock {
