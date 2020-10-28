@@ -61,7 +61,8 @@ public class PushNotification implements IPushNotification {
     public void onReceived() throws InvalidNotificationException {
         if (!mAppLifecycleFacade.isAppVisible()) {
             postNotification(null);
-        }else{   
+            notifyReceivedBackgroundToJS();
+        } else {
             notifyReceivedToJS();
         }
     }
@@ -203,6 +204,10 @@ public class PushNotification implements IPushNotification {
 
     private void notifyReceivedToJS() {
         mJsIOHelper.sendEventToJS(NOTIFICATION_RECEIVED_EVENT_NAME, mNotificationProps.asBundle(), mAppLifecycleFacade.getRunningReactContext());
+    }
+
+    private void notifyReceivedBackgroundToJS() {
+        mJsIOHelper.sendEventToJS(NOTIFICATION_RECEIVED_BACKGROUND_EVENT_NAME, mNotificationProps.asBundle(), mAppLifecycleFacade.getRunningReactContext());
     }
 
     private void notifyOpenedToJS() {
