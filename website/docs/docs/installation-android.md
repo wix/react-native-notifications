@@ -57,3 +57,33 @@ apply plugin: 'com.google.gms.google-services'
 include ':react-native-notifications'
 project(':react-native-notifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/lib/android/app')
 ```
+
+#### Step #6: Customize the appearance
+
+It is important to name the icon that you would like to display `notification_icon`.
+Android studio allows to [generate](https://developer.android.com/studio/write/image-asset-studio) the appropriate drawables according to the [documentation](https://developer.android.com/studio/write/image-asset-studio#notification).
+
+```xml title="AndroidManifest.xml"
+<!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+			See README(https://goo.gl/l4GJaQ) for more. -->
+<meta-data
+		android:name="com.google.firebase.messaging.default_notification_icon"
+		android:resource="@drawable/notification_icon" />
+<!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+			notification message. See README(https://goo.gl/6BKBk7) for more. -->
+<meta-data
+		android:name="com.google.firebase.messaging.default_notification_color"
+		android:resource="@color/colorAccent" />
+```
+
+If you want to use a color like in the example above, you also need to define the color value
+
+
+```xml title="res/values/colors.xml"
+<resources>
+    <color name="colorAccent">#C60C30</color>
+</resources>
+```
+
+
+
