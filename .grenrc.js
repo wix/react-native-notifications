@@ -1,7 +1,7 @@
 module.exports = {
   template: {
     commit: ({message, url, author, name}) => `- [${message}](${url}) - ${author ? `@${author}` : name}`,
-    issue: "- {{name}} [{{text}}]({{url}})",
+    issue: "- {{name}} [{{text}}]({{url}}) by [{{user_login}}](https://github.com/{{user_login}})",
     label: "[**{{label}}**]",
     noLabel: "closed",
     group: "\n#### {{heading}}\n",
