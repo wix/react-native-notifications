@@ -79,9 +79,9 @@
 - (void)checkPermissions:(RCTPromiseResolveBlock)resolve {
     [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
         resolve(@{
-                  @"badge": @(settings.badgeSetting == UNNotificationSettingEnabled),
-                  @"sound": @(settings.soundSetting == UNNotificationSettingEnabled),
-                  @"alert": @(settings.alertSetting == UNNotificationSettingEnabled),
+                  @"badge": [NSNumber numberWithBool:settings.badgeSetting == UNNotificationSettingEnabled],
+                  @"sound": [NSNumber numberWithBool:settings.soundSetting == UNNotificationSettingEnabled],
+                  @"alert": [NSNumber numberWithBool:settings.alertSetting == UNNotificationSettingEnabled],
                   });
     }];
 }
