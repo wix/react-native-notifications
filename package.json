@@ -64,7 +64,7 @@
     "shell-utils": "1.0.10",
     "metro-react-native-babel-preset": "0.59.0",
     "react-native-typescript-transformer": "1.2.13",
-    "github-release-notes": "0.17.0",
+    "github-release-notes": "0.17.3",
     "@types/react": "16.9.35",
     "@types/react-native": "0.62.2",
     "@types/react-test-renderer": "16.9.2",
