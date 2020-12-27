@@ -54,7 +54,7 @@ export class NotificationsRoot {
   /**
    * postLocalNotification
    */
-  public postLocalNotification(notification: Notification, id: number) {
+  public postLocalNotification(notification: Notification, id?: number) {
     return this.commands.postLocalNotification(notification, id);
   }
 
