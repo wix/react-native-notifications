@@ -1,4 +1,8 @@
-# React Native Notifications
+<h1 align="center">
+  <img src=".logo.png"/><br/>
+  React Native Notifications
+</h1>
+
 ![npm](https://img.shields.io/npm/dw/react-native-notifications.svg)
 [![Build Status](https://img.shields.io/jenkins/s/http/jenkins-oss.wixpress.com:8080/job/multi-react-native-notifications-master.svg)](https://jenkins-oss.wixpress.com/job/multi-react-native-notifications-master/)
 [![npm (tag)](https://img.shields.io/npm/v/react-native-notifications/latest.svg)](https://github.com/wix/react-native-notifications/tree/master)
@@ -6,7 +10,7 @@
 
 Handle all the aspects of push notifications for your app, including remote and local notifications, interactive notifications, silent notifications, and more.
 
-**All the native iOS notifications features are supported!** 
+**All the native iOS notifications features are supported!**
 
 _For information regarding proper integration with [react-native-navigation](https://github.com/wix/react-native-navigation), follow [this wiki](https://github.com/wix/react-native-notifications/wiki/Android:-working-with-RNN)._
 
@@ -33,13 +37,14 @@ Apps using React Native Notifications may target iOS 10 and Android 5.0 (API 21)
 
 _Upcoming: local notifications, background-state Rx queue (iOS equivalent)_
 
-
 # Quick Links
+
 - [Getting Started](https://wix.github.io/react-native-notifications/docs/getting-started)
 - [API](https://wix.github.io/react-native-notifications/api/general-api)
 - [Documentation](https://wix.github.io/react-native-notifications/)
 
 # License
+
 The MIT License.
 
 See [LICENSE](LICENSE)
