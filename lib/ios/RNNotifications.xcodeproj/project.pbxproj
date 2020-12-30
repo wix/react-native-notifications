@@ -15,6 +15,7 @@
 		50351F9222CD7DF4000713B3 /* RNBridgeModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F9122CD7DF4000713B3 /* RNBridgeModule.m */; };
 		50351F9522CD7FF1000713B3 /* RCTConvert+RNNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F9422CD7FF1000713B3 /* RCTConvert+RNNotifications.m */; };
 		50351F9822CD8604000713B3 /* RNCommandsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 50351F9722CD8604000713B3 /* RNCommandsHandler.m */; };
+		5045EC81259C8F3500E90A62 /* SwiftExampleClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5045EC80259C8F3500E90A62 /* SwiftExampleClass.swift */; };
 		504D54BE22E4B8660088F2E4 /* RNBridgeModuleIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 504D54BD22E4B8660088F2E4 /* RNBridgeModuleIntegrationTest.m */; };
 		507DCCF522CE3EBD005D4E0B /* RNNotifications.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8A2F7561CB57F28002CC8F5 /* RNNotifications.h */; };
 		507DCCF722CE3EF7005D4E0B /* RNBridgeModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 50351F9022CD7DF4000713B3 /* RNBridgeModule.h */; };
@@ -96,6 +97,7 @@
 		50351F9422CD7FF1000713B3 /* RCTConvert+RNNotifications.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+RNNotifications.m"; sourceTree = "<group>"; };
 		50351F9622CD8604000713B3 /* RNCommandsHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNCommandsHandler.h; sourceTree = "<group>"; };
 		50351F9722CD8604000713B3 /* RNCommandsHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNCommandsHandler.m; sourceTree = "<group>"; };
+		5045EC80259C8F3500E90A62 /* SwiftExampleClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExampleClass.swift; sourceTree = "<group>"; };
 		504D54BD22E4B8660088F2E4 /* RNBridgeModuleIntegrationTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNBridgeModuleIntegrationTest.m; sourceTree = "<group>"; };
 		504D54CC22E4BCB80088F2E4 /* libcxxreact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcxxreact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		504D54CE22E4BCB80088F2E4 /* libdouble-conversion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libdouble-conversion.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -322,6 +324,7 @@
 				D8A2F7541CB57F1A002CC8F5 /* RNNotifications.m */,
 				50351F9622CD8604000713B3 /* RNCommandsHandler.h */,
 				50351F9722CD8604000713B3 /* RNCommandsHandler.m */,
+				5045EC80259C8F3500E90A62 /* SwiftExampleClass.swift */,
 				508CE7C922D12B2600357815 /* RNNotificationsTests */,
 				134814211AA4EA7D00B7C361 /* Products */,
 				504D54CB22E4BCB80088F2E4 /* Frameworks */,
@@ -408,6 +411,7 @@
 					};
 					58B511DA1A9E6C8500147676 = {
 						CreatedOnToolsVersion = 6.1.1;
+						LastSwiftMigration = 1170;
 					};
 				};
 			};
@@ -458,6 +462,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50351F9822CD8604000713B3 /* RNCommandsHandler.m in Sources */,
+				5045EC81259C8F3500E90A62 /* SwiftExampleClass.swift in Sources */,
 				D8A2F7551CB57F1A002CC8F5 /* RNNotifications.m in Sources */,
 				50351F8F22CD782F000713B3 /* RNEventEmitter.m in Sources */,
 				508CE81A22D130B900357815 /* RNPushKitEventListener.m in Sources */,
@@ -489,6 +494,7 @@
 		508CE7D122D12B2600357815 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -542,6 +548,7 @@
 		508CE7D222D12B2600357815 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -669,15 +676,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../example/node_modules/react-native/React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 					"$(SRCROOT)/../../../React/**",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNNotifications;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "RNNotifications-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -685,15 +697,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../example/node_modules/react-native/React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 					"$(SRCROOT)/../../../React/**",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNNotifications;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "RNNotifications-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
