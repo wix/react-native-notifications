@@ -17,4 +17,6 @@
 + (void)addNativeDelegate:(id<UNUserNotificationCenterDelegate>)delegate;
 + (void)removeNativeDelegate:(id<UNUserNotificationCenterDelegate>)delegate;
 
+- (RNNotificationCenterMulticast*)multicast;
+
 @end
