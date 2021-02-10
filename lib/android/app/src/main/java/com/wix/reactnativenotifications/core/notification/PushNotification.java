@@ -4,10 +4,13 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioAttributes;
 import android.os.Build;
 import android.os.Bundle;
+import android.net.Uri;
 
 import com.facebook.react.bridge.ReactContext;
 import com.wix.reactnativenotifications.core.AppLaunchHelper;
@@ -148,6 +151,15 @@ public class PushNotification implements IPushNotification {
         String CHANNEL_ID = "channel_01";
         String CHANNEL_NAME = "Channel Name";
 
+        String userChannelID = getAppResourceString("notification_channel_id", "string");
+        String userChannelName = getAppResourceString("notification_channel_name", "string");
+        if (userChannelID != null) {
+            CHANNEL_ID = userChannelID;
+        }
+        if (userChannelName != null) {
+            CHANNEL_NAME = userChannelName;
+        }
+
         final Notification.Builder notification = new Notification.Builder(mContext)
                 .setContentTitle(mNotificationProps.getTitle())
                 .setContentText(mNotificationProps.getBody())
@@ -157,10 +169,22 @@ public class PushNotification implements IPushNotification {
 
         setUpIcon(notification);
 
+        String soundUriString = getAppResourceString("notification_sound", "string");
+        Uri soundUri = null;
+        if (soundUriString != null) {
+            soundUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + mContext.getPackageName() + soundUriString);
+            notification.setSound(soundUri);
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
                     CHANNEL_NAME,
                     NotificationManager.IMPORTANCE_DEFAULT);
+
+            if (soundUri != null) {
+                channel.setSound(soundUri, makeAudioAttributes());
+            }
+
             final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(channel);
             notification.setChannelId(CHANNEL_ID);
@@ -178,6 +202,13 @@ public class PushNotification implements IPushNotification {
         }
 
         setUpIconColor(notification);
+    }
+
+    private AudioAttributes makeAudioAttributes() {
+        return new AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build();
     }
 
     private void setUpIconColor(Notification.Builder notification) {
@@ -225,5 +256,13 @@ public class PushNotification implements IPushNotification {
 
     private int getAppResourceId(String resName, String resType) {
         return mContext.getResources().getIdentifier(resName, resType, mContext.getPackageName());
+    }
+
+    private String getAppResourceString(String resName, String resType) {
+        int id = getAppResourceId(resName, resType);
+        if (id == 0) {
+            return null;
+        }
+        return mContext.getResources().getString(id);
     }
 }
