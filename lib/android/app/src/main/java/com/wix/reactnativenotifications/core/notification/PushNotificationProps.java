@@ -1,6 +1,10 @@
 package com.wix.reactnativenotifications.core.notification;
 
 import android.os.Bundle;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public class PushNotificationProps {
 
@@ -12,6 +16,21 @@ public class PushNotificationProps {
 
     public String getTitle() {
         return getBundleStringFirstNotNull("gcm.notification.title", "title");
+    }
+
+    public String getImageUrl() {
+        return bundleToMap((Bundle) mBundle.get("data")).get("image");
+    }
+
+    public static Map<String, String> bundleToMap(Bundle extras) {
+        Map<String, String> map = new HashMap<>();
+        Set<String> ks = extras.keySet();
+        Iterator<String> iterator = ks.iterator();
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            map.put(key, extras.getString(key));
+        }
+        return map;
     }
 
     public String getBody() {
