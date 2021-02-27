@@ -1,6 +1,6 @@
 {
   "name": "@livelyhearing/react-native-notifications",
-  "version": "3.3.4",
+  "version": "3.4.2",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
   "author": "Lidan Hifi <lidan.hifi@gmail.com>",
   "license": "MIT",
@@ -64,7 +64,7 @@
     "shell-utils": "1.0.10",
     "metro-react-native-babel-preset": "0.59.0",
     "react-native-typescript-transformer": "1.2.13",
-    "github-release-notes": "0.17.0",
+    "github-release-notes": "https://github.com/yogevbd/github-release-notes/tarball/e601b3dba72dcd6cba323c1286ea6dd0c0110b58",
     "@types/react": "16.9.35",
     "@types/react-native": "0.62.2",
     "@types/react-test-renderer": "16.9.2",

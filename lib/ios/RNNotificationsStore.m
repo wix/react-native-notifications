@@ -46,8 +46,10 @@ NSMutableDictionary* _backgroundActionCompletionHandlers;
 - (void)completeAction:(NSString *)completionKey {
     void (^completionHandler)() = (void (^)())[_actionCompletionHandlers valueForKey:completionKey];
     if (completionHandler) {
-        completionHandler();
-        [_actionCompletionHandlers removeObjectForKey:completionKey];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionHandler();
+            [_actionCompletionHandlers removeObjectForKey:completionKey];
+        });
     }
 }
 
