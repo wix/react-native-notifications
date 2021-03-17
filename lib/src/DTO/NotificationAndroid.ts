@@ -6,12 +6,17 @@ export class NotificationAndroid extends Notification {
     this.identifier = this.payload["google.message_id"];
   }
 
+  private getGCMProperty(property: string){
+    // For some reason this isn't getting translated to the correct property in the java code.
+    return this.payload[`gcm.notification.${property}`] ?? this.payload[property];
+  }
+
   get title(): string {
-    return this.payload.title;
+    return this.getGCMProperty("title");
   }
 
   get body(): string {
-    return this.payload.body;
+    return this.getGCMProperty("body");
   }
 
   get sound(): string {
