@@ -43,9 +43,13 @@ $ yarn add react-native-notifications
 $ pod install --project-directory=ios/
 ```
 
-Add the following line at the top of your `AppDelegate.m`
+Add the following line to your `AppDelegate.m`, below the `FB_SONARKIT_ENABLED` definition:
 
 ```objectivec
+#ifdef FB_SONARKIT_ENABLED
+...
+#endif
+
 #import "RNNotifications.h"
 ```
 
