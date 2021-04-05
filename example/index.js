@@ -46,8 +46,8 @@ class NotificationsExampleApp extends Component {
     });
   }
 
-  requestPermissions() {
-    Notifications.registerRemoteNotifications();
+  requestPermissions(options) {
+    Notifications.registerRemoteNotifications(options);
   }
 
   setCategories() {
