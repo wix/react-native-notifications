@@ -3,8 +3,29 @@
 
 @implementation RNNotificationCenter
 
-- (void)requestPermissions {
+- (void)requestPermissions:(NSDictionary *)options {
+    BOOL carPlay = [options[@"carPlay"] boolValue];
+    BOOL criticalAlert = [options[@"criticalAlert"] boolValue];
+    BOOL providesAppNotificationSettings = [options[@"providesAppNotificationSettings"] boolValue];
+    BOOL announcement = [options[@"announcement"] boolValue];
     UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert);
+    if (carPlay) {
+        authOptions = authOptions | UNAuthorizationOptionCarPlay;
+    }
+    if (@available(iOS 12.0, *)) {
+        if (criticalAlert) {
+            authOptions = authOptions | UNAuthorizationOptionCriticalAlert;
+        }
+        if (providesAppNotificationSettings) {
+            authOptions = authOptions | UNAuthorizationOptionProvidesAppNotificationSettings;
+        }
+    }
+    if (@available(iOS 13.0, *)) {
+        if (announcement) {
+            authOptions = authOptions | UNAuthorizationOptionAnnouncement;
+        }
+    }
+    
     [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:authOptions completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (!error && granted) {
             [UNUserNotificationCenter.currentNotificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
@@ -78,11 +99,21 @@
 
 - (void)checkPermissions:(RCTPromiseResolveBlock)resolve {
     [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-        resolve(@{
-                  @"badge": [NSNumber numberWithBool:settings.badgeSetting == UNNotificationSettingEnabled],
-                  @"sound": [NSNumber numberWithBool:settings.soundSetting == UNNotificationSettingEnabled],
-                  @"alert": [NSNumber numberWithBool:settings.alertSetting == UNNotificationSettingEnabled],
-                  });
+        NSMutableDictionary* allSettings = [NSMutableDictionary new];
+        [allSettings addEntriesFromDictionary:@{
+            @"badge": [NSNumber numberWithBool:settings.badgeSetting == UNNotificationSettingEnabled],
+            @"sound": [NSNumber numberWithBool:settings.soundSetting == UNNotificationSettingEnabled],
+            @"alert": [NSNumber numberWithBool:settings.alertSetting == UNNotificationSettingEnabled],
+            @"carPlay": [NSNumber numberWithBool:settings.carPlaySetting == UNNotificationSettingEnabled],
+        }];
+        if (@available(iOS 12.0, *)) {
+            allSettings[@"criticalAlert"] = [NSNumber numberWithBool:settings.criticalAlertSetting == UNNotificationSettingEnabled];
+            allSettings[@"providesAppNotificationSettings"] = [NSNumber numberWithBool:settings.providesAppNotificationSettings];
+        }
+        if (@available(iOS 13.0, *)) {
+            allSettings[@"announcement"] = [NSNumber numberWithBool:settings.announcementSetting == UNNotificationSettingEnabled];
+        }
+        resolve(allSettings);
     }];
 }
 

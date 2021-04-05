@@ -4,11 +4,12 @@ import { NotificationCompletion } from '../interfaces/NotificationCompletion';
 import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 import { NotificationCategory } from '../interfaces/NotificationCategory';
 import { NotificationChannel } from '../interfaces/NotificationChannel';
+import { NotificationPermissionOptions } from '../interfaces/NotificationPermissionOptions';
 
 interface NativeCommandsModule {
   getInitialNotification(): Promise<Object>;
   postLocalNotification(notification: Notification, id: number): void;
-  requestPermissions(): void;
+  requestPermissions(options: NotificationPermissionOptions): void;
   abandonPermissions(): void;
   refreshToken(): void;
   registerPushKit(): void;
@@ -42,8 +43,8 @@ export class NativeCommandsSender {
     return this.nativeCommandsModule.getInitialNotification();
   }
   
-  requestPermissions() {
-    return this.nativeCommandsModule.requestPermissions();
+  requestPermissions(options?: NotificationPermissionOptions) {
+    return this.nativeCommandsModule.requestPermissions(options || {});
   }
 
   abandonPermissions() {

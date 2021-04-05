@@ -4,8 +4,9 @@ title: iOS Specific Commands
 sidebar_label: iOS specific
 ---
 
-## requestPermissions()
-Requests notification permissions from iOS, prompting the user's dialog box.
+## requestPermissions(options?: NotificationPermissionOptions)
+Requests notification permissions from iOS, prompting the user's dialog box. Options may request
+`criticalAlert` but you must first [Request a Critical Alert Notifications Entitlement](https://developer.apple.com/contact/request/notifications-critical-alerts-entitlement/).
 
 ```js
 Notifications.ios.requestPermissions();

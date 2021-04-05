@@ -6,6 +6,7 @@ import { NotificationChannel } from '../interfaces/NotificationChannel';
 import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 import { UniqueIdProvider } from '../adapters/UniqueIdProvider';
 import { NotificationFactory } from '../DTO/NotificationFactory';
+import { NotificationPermissionOptions } from '../interfaces/NotificationPermissionOptions';
 
 export class Commands {
   constructor(
@@ -30,8 +31,8 @@ export class Commands {
     });
   }
 
-  public requestPermissions() {
-    const result = this.nativeCommandsSender.requestPermissions();
+  public requestPermissions(options?: NotificationPermissionOptions) {
+    const result = this.nativeCommandsSender.requestPermissions(options);
     return result;
   }
 

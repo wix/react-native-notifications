@@ -34,7 +34,32 @@
     [[_notificationCenter expect] getNotificationSettingsWithCompletionHandler:[OCMArg invokeBlockWithArgs:settings, nil]];
     [[(id)[UIApplication sharedApplication] expect] registerForRemoteNotifications];
     
-    [_uut requestPermissions];
+    [_uut requestPermissions:@{}];
+    [_notificationCenter verify];
+}
+
+- (void)testRequestPermissions_userAuthorizedPermissionsExtraOptions {
+    UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge |
+                                          UNAuthorizationOptionSound |
+                                          UNAuthorizationOptionAlert |
+                                          UNAuthorizationOptionAnnouncement |
+                                          UNAuthorizationOptionProvidesAppNotificationSettings |
+                                          UNAuthorizationOptionCriticalAlert |
+                                          UNAuthorizationOptionCarPlay);
+    
+    
+    UNNotificationSettings* settings = [UNNotificationSettings new];
+    [settings setValue:@(UNAuthorizationStatusAuthorized) forKey:@"authorizationStatus"];
+
+    [[_notificationCenter expect] requestAuthorizationWithOptions:authOptions completionHandler:[OCMArg invokeBlockWithArgs:@(YES), [NSNull null], nil]];
+    [[_notificationCenter expect] getNotificationSettingsWithCompletionHandler:[OCMArg invokeBlockWithArgs:settings, nil]];
+    [[(id)[UIApplication sharedApplication] expect] registerForRemoteNotifications];
+    
+    [_uut requestPermissions:@{@"carPlay": @YES,
+                               @"criticalAlert": @YES,
+                               @"providesAppNotificationSettings": @YES,
+                               @"provisional": @YES,
+                               @"announcement": @YES}];
     [_notificationCenter verify];
 }
 
@@ -47,7 +72,7 @@
     [[_notificationCenter expect] getNotificationSettingsWithCompletionHandler:[OCMArg invokeBlockWithArgs:settings, nil]];
     [[(id)[UIApplication sharedApplication] reject] registerForRemoteNotifications];
     
-    [_uut requestPermissions];
+    [_uut requestPermissions:@{}];
     [_notificationCenter verify];
 }
 
