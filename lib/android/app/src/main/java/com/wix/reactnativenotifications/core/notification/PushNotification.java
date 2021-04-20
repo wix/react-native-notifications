@@ -64,6 +64,7 @@ public class PushNotification implements IPushNotification {
             postNotification(null);
             notifyReceivedBackgroundToJS();
         } else {
+            postNotification(null);
             notifyReceivedToJS();
         }
     }
