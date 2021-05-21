@@ -271,7 +271,7 @@ public class PushNotificationTest {
         // Act
 
         final PushNotification uut = createUUT();
-        uut.onPostRequest(null);
+        uut.onPostRequest(null, null);
 
         // Assert
 
@@ -285,8 +285,8 @@ public class PushNotificationTest {
 
     @Test
     public void onPostRequest_withValidDataButNoId_idsShouldBeUnique() throws Exception {
-        createUUT().onPostRequest(null);
-        createUUT().onPostRequest(null);
+        createUUT().onPostRequest(null, null);
+        createUUT().onPostRequest(null, null);
 
         ArgumentCaptor<Integer> idsCaptor = ArgumentCaptor.forClass(Integer.class);
         verify(mNotificationManager, times(2)).notify(idsCaptor.capture(), any(Notification.class));
@@ -298,7 +298,7 @@ public class PushNotificationTest {
         final int id = 666;
 
         final PushNotification uut = createUUT();
-        uut.onPostRequest(id);
+        uut.onPostRequest(id, null);
 
         verify(mNotificationManager).notify(eq(id), any(Notification.class));
     }
@@ -306,7 +306,7 @@ public class PushNotificationTest {
     @Test
     public void onPostRequest_emptyData_postNotification() throws Exception {
         PushNotification uut = createUUT(new Bundle());
-        uut.onPostRequest(null);
+        uut.onPostRequest(null, null);
 
         verify(mNotificationManager).notify(anyInt(), any(Notification.class));
     }
