@@ -7,6 +7,7 @@ static NSString* const RNNotificationReceived        = @"notificationReceived";
 static NSString* const RNNotificationReceivedBackground = @"notificationReceivedBackground";
 static NSString* const RNNotificationOpened          = @"notificationOpened";
 static NSString* const RNPushKitNotificationReceived = @"pushKitNotificationReceived";
+static NSString* const RNAppNotificationSettingsLinked = @"appNotificationSettingsLinked";
 
 
 @interface RNEventEmitter : RCTEventEmitter <RCTBridgeModule>

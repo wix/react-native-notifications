@@ -1,10 +1,11 @@
 #import "RNNotificationCenter.h"
 #import "RCTConvert+RNNotifications.h"
+#import "RNEventEmitter.h"
 
 @implementation RNNotificationCenter
 
 - (void)requestPermissions {
-    UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert);
+    UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert| UNAuthorizationOptionProvidesAppNotificationSettings);
     [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:authOptions completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (!error && granted) {
             [UNUserNotificationCenter.currentNotificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
@@ -84,6 +85,11 @@
                   @"alert": [NSNumber numberWithBool:settings.alertSetting == UNNotificationSettingEnabled],
                   });
     }];
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(UNNotification *)notification
+{
+    [RNEventEmitter sendEvent:RNAppNotificationSettingsLinked body:@{}];
 }
 
 @end
