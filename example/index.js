@@ -29,6 +29,10 @@ class NotificationsExampleApp extends Component {
       completion({alert: notification.payload.showAlert, sound: false, badge: false});
     });
 
+    Notifications.events().appNotificationSettingsLinked(() => {
+      console.warn('App Notification Settings Linked')
+    });
+
     Notifications.events().registerNotificationOpened((notification, completion) => {
       this.setState({
         openedNotifications: [...this.state.openedNotifications, notification]
@@ -46,8 +50,8 @@ class NotificationsExampleApp extends Component {
     });
   }
 
-  requestPermissions() {
-    Notifications.registerRemoteNotifications();
+  requestPermissions(options) {
+    Notifications.registerRemoteNotifications(options);
   }
 
   setCategories() {
@@ -133,7 +137,8 @@ class NotificationsExampleApp extends Component {
       ));
     return (
       <View style={styles.container}>
-        <Button title={'Request permissions'} onPress={this.requestPermissions} testID={'requestPermissions'} />
+        <Button title={'Request permissions'} onPress={() => this.requestPermissions()} testID={'requestPermissions'} />
+        <Button title={'Request permissions with app notification settings'} onPress={() => this.requestPermissions(['ProvidesAppNotificationSettings'])} testID={'requestPermissionsWithAppSettings'} />
         <Button title={'Send local notification'} onPress={this.sendLocalNotification} testID={'sendLocalNotification'} />
         <Button title={'Remove all delivered notifications'} onPress={this.removeAllDeliveredNotifications} />
         {notifications}

@@ -16,6 +16,10 @@ export class NativeEventsReceiver {
     return this.emitter.addListener('remoteNotificationsRegistered', callback);
   }
 
+  public appNotificationSettingsLinked(callback: () => void): EmitterSubscription {
+    return this.emitter.addListener('appNotificationSettingsLinked', callback);
+  }
+
   public registerPushKitRegistered(callback: (event: RegisteredPushKit) => void): EmitterSubscription {
     return this.emitter.addListener('pushKitRegistered', callback);
   }

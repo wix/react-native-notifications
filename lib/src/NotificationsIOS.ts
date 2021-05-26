@@ -2,6 +2,7 @@ import { Notification } from './DTO/Notification';
 import { Commands } from './commands/Commands';
 import { Platform } from 'react-native';
 import { EventsRegistryIOS } from './events/EventsRegistryIOS';
+import { RequestPermissionsOptions } from './adapters/NativeCommandsSender';
 
 export class NotificationsIOS {
   constructor(private readonly commands: Commands, private readonly eventsRegistry: EventsRegistryIOS) {
@@ -19,8 +20,8 @@ export class NotificationsIOS {
   /**
   * Request permissions to send remote notifications
   */
-  public registerRemoteNotifications() {
-    return this.commands.requestPermissions();
+  public registerRemoteNotifications(options?: RequestPermissionsOptions[]) {
+    return this.commands.requestPermissions(options);
   }
 
   /**

@@ -18,6 +18,10 @@ export class EventsRegistry {
   public registerRemoteNotificationsRegistered(callback: (event: Registered) => void): EmitterSubscription {
     return this.nativeEventsReceiver.registerRemoteNotificationsRegistered(callback);
   }
+
+  public appNotificationSettingsLinked(callback: () => void): EmitterSubscription {
+    return this.nativeEventsReceiver.appNotificationSettingsLinked(callback);
+  }
   
   public registerNotificationReceivedForeground(callback: (notification: Notification, completion: (response: NotificationCompletion) => void) => void): EmitterSubscription {
     return this.nativeEventsReceiver.registerNotificationReceived(this.completionCallbackWrapper.wrapReceivedForegroundCallback(callback));
