@@ -4,7 +4,7 @@ title: iOS Specific Commands
 sidebar_label: iOS specific
 ---
 
-## requestPermissions(options?)
+## requestPermissions(options?: string[])
 Requests notification permissions from iOS, prompting the user's dialog box.
 
 ```js

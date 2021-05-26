@@ -224,11 +224,4 @@ describe('EventsRegistry', () => {
     expect(mockNativeEventsReceiver.registerRemoteNotificationsRegistrationFailed).toHaveBeenCalledTimes(1);
     expect(mockNativeEventsReceiver.registerRemoteNotificationsRegistrationFailed).toHaveBeenCalledWith(cb);
   });
-
-  it('delegates appNotificationSettingsLinked to nativeEventsReceiver', () => {
-    const cb = jest.fn();
-    uut.appNotificationSettingsLinked(cb);
-    expect(mockNativeEventsReceiver.appNotificationSettingsLinked).toHaveBeenCalledTimes(1);
-    expect(mockNativeEventsReceiver.appNotificationSettingsLinked).toHaveBeenCalledWith(cb);
-  });
 });

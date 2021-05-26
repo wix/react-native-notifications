@@ -47,7 +47,7 @@ export class NotificationsRoot {
    * registerRemoteNotifications
    */
   public registerRemoteNotifications(options?: RequestPermissionsOptions[]) {
-    this.ios.registerRemoteNotifications(options);
+    this.ios.requestPermissions(options);
     this.android.registerRemoteNotifications();
   }
 

@@ -3,7 +3,8 @@ import {
   StyleSheet,
   View,
   Text,
-  Button
+  Button,
+  Platform
 } from 'react-native';
 import React, {Component} from 'react';
 import {Notifications, NotificationAction, NotificationCategory} from 'react-native-notifications';
@@ -29,10 +30,6 @@ class NotificationsExampleApp extends Component {
       completion({alert: notification.payload.showAlert, sound: false, badge: false});
     });
 
-    Notifications.events().appNotificationSettingsLinked(() => {
-      console.warn('App Notification Settings Linked')
-    });
-
     Notifications.events().registerNotificationOpened((notification, completion) => {
       this.setState({
         openedNotifications: [...this.state.openedNotifications, notification]
@@ -48,10 +45,18 @@ class NotificationsExampleApp extends Component {
 
       completion();
     });
+
+    Notifications.ios.events().appNotificationSettingsLinked(() => {
+      console.warn('App Notification Settings Linked')
+    });
   }
 
-  requestPermissions(options) {
-    Notifications.registerRemoteNotifications(options);
+  requestPermissionsIos(options) {
+    Notifications.ios.requestPermissions(options);
+  }
+
+  requestPermissions() {
+    Notifications.registerRemoteNotifications();
   }
 
   setCategories() {
@@ -137,8 +142,8 @@ class NotificationsExampleApp extends Component {
       ));
     return (
       <View style={styles.container}>
-        <Button title={'Request permissions'} onPress={() => this.requestPermissions()} testID={'requestPermissions'} />
-        <Button title={'Request permissions with app notification settings'} onPress={() => this.requestPermissions(['ProvidesAppNotificationSettings'])} testID={'requestPermissionsWithAppSettings'} />
+        <Button title={'Request permissions'} onPress={this.requestPermissions} testID={'requestPermissions'} />
+        {Platform.OS === 'ios' && <Button title={'Request permissions with app notification settings'} onPress={() => this.requestPermissionsIos(['ProvidesAppNotificationSettings'])} testID={'requestPermissionsWithAppSettings'} />}
         <Button title={'Send local notification'} onPress={this.sendLocalNotification} testID={'sendLocalNotification'} />
         <Button title={'Remove all delivered notifications'} onPress={this.removeAllDeliveredNotifications} />
         {notifications}
