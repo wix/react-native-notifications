@@ -11,12 +11,12 @@ public class PushNotificationProps {
         mBundle = new Bundle();
     }
 
-    public PushNotificationProps(String title, String body, String sound, String group, int badge) {
+    public PushNotificationProps(String title, String body, String sound, String tag, int badge) {
         mBundle = new Bundle();
         mBundle.putString("title", title);
         mBundle.putString("body", body );
         mBundle.putString("sound", sound);
-        mBundle.putString("group", group);
+        mBundle.putString("tag", tag);
         mBundle.putInt("badge", badge);
     }
 
@@ -31,7 +31,7 @@ public class PushNotificationProps {
         return -1;
     }
 
-    public String getGroup() { return mBundle.getString("group"); }
+    public String getTag() { return mBundle.getString("tag"); }
 
     public String getSound() { return mBundle.getString("sound"); }
 
