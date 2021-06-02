@@ -1,4 +1,4 @@
-import { NativeCommandsSender } from './adapters/NativeCommandsSender';
+import { NativeCommandsSender, RequestPermissionsOptions } from './adapters/NativeCommandsSender';
 import { NativeEventsReceiver } from './adapters/NativeEventsReceiver';
 import { Commands } from './commands/Commands';
 import { EventsRegistry } from './events/EventsRegistry';
@@ -46,8 +46,8 @@ export class NotificationsRoot {
   /**
    * registerRemoteNotifications
    */
-  public registerRemoteNotifications() {
-    this.ios.registerRemoteNotifications();
+  public registerRemoteNotifications(options?: RequestPermissionsOptions[]) {
+    this.ios.requestPermissions(options);
     this.android.registerRemoteNotifications();
   }
 

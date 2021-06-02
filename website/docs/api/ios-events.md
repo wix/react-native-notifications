@@ -22,3 +22,13 @@ Notifications.ios.events().registerPushKitNotificationReceived((payload: object)
 });
 ```
 
+## appNotificationSettingsLinked()
+Fired when the link to app notification settings was clicked.
+
+```js
+Notifications.ios.events().appNotificationSettingsLinked(() => {
+  console.log('App Notification Settings Linked');
+  // navigate to settings
+});
+```
+

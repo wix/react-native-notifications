@@ -3,8 +3,16 @@
 
 @implementation RNNotificationCenter
 
-- (void)requestPermissions {
+- (void)requestPermissions:(NSArray *)options {
     UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert);
+    if ([options count] > 0) {
+        for (NSString* option in options) {
+            if ([option isEqualToString:@"ProvidesAppNotificationSettings"]) {
+                authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionProvidesAppNotificationSettings);
+            }
+        }
+    }
+    
     [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:authOptions completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (!error && granted) {
             [UNUserNotificationCenter.currentNotificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
@@ -85,5 +93,4 @@
                   });
     }];
 }
-
 @end

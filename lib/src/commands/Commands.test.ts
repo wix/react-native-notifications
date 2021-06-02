@@ -67,7 +67,7 @@ describe('Commands', () => {
   describe('requestPermissions', () => {
     it('sends to native', () => {
       uut.requestPermissions();
-      verify(mockedNativeCommandsSender.requestPermissions()).called();
+      verify(mockedNativeCommandsSender.requestPermissions(undefined)).called();
     });
   });
 

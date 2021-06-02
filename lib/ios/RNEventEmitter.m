@@ -11,7 +11,8 @@ RCT_EXPORT_MODULE();
              RNNotificationReceived,
              RNNotificationReceivedBackground,
              RNNotificationOpened,
-             RNPushKitNotificationReceived];
+             RNPushKitNotificationReceived,
+             RNAppNotificationSettingsLinked];
 }
 
 - (instancetype)init {
