@@ -52,7 +52,7 @@ class NotificationsExampleApp extends Component {
   }
 
   requestPermissionsIos(options) {
-    Notifications.ios.requestPermissions(options);
+    Notifications.ios.registerRemoteNotifications(options);
   }
 
   requestPermissions() {
