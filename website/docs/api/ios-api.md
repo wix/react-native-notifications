@@ -4,11 +4,11 @@ title: iOS Specific Commands
 sidebar_label: iOS specific
 ---
 
-## requestPermissions(options?: string[])
+## registerRemoteNotifications(options?: string[])
 Requests notification permissions from iOS, prompting the user's dialog box.
 
 ```js
-Notifications.ios.requestPermissions(['ProvidesAppNotificationSettings']);
+Notifications.ios.registerRemoteNotifications(['ProvidesAppNotificationSettings']);
 ```
 
 ## checkPermissions()

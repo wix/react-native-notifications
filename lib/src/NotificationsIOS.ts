@@ -20,7 +20,7 @@ export class NotificationsIOS {
   /**
   * Request permissions to send remote notifications
   */
-  public requestPermissions(options?: RequestPermissionsOptions[]) {
+  public registerRemoteNotifications(options?: RequestPermissionsOptions[]) {
     return this.commands.requestPermissions(options);
   }
 
