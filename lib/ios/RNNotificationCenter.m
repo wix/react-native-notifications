@@ -8,7 +8,14 @@
     if ([options count] > 0) {
         for (NSString* option in options) {
             if ([option isEqualToString:@"ProvidesAppNotificationSettings"]) {
-                authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionProvidesAppNotificationSettings);
+                if (@available(iOS 12.0, *)) {
+                    authOptions = authOptions | UNAuthorizationOptionProvidesAppNotificationSettings;
+                }
+            }
+            if ([option isEqualToString:@"Provisional"]) {
+                if (@available(iOS 12.0, *)) {
+                    authOptions = authOptions | UNAuthorizationOptionProvisional;
+                }
             }
         }
     }

@@ -51,6 +51,19 @@
     [_notificationCenter verify];
 }
 
+- (void)testRequestPermissions_withProvisional {
+    UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionProvisional);
+    UNNotificationSettings* settings = [UNNotificationSettings new];
+    [settings setValue:@(UNAuthorizationStatusAuthorized) forKey:@"authorizationStatus"];
+
+    [[_notificationCenter expect] requestAuthorizationWithOptions:authOptions completionHandler:[OCMArg invokeBlockWithArgs:@(YES), [NSNull null], nil]];
+    [[_notificationCenter expect] getNotificationSettingsWithCompletionHandler:[OCMArg invokeBlockWithArgs:settings, nil]];
+    [[(id)[UIApplication sharedApplication] expect] registerForRemoteNotifications];
+    
+    [_uut requestPermissions:@[@"Provisional"]];
+    [_notificationCenter verify];
+}
+
 - (void)testRequestPermissions_userDeniedPermissions {
     UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert);
     UNNotificationSettings* settings = [UNNotificationSettings new];
