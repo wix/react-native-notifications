@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import { NativeCommandsSender, RequestPermissionsOptions } from '../adapters/NativeCommandsSender';
 import { Notification } from '../DTO/Notification';
 import { NotificationCategory } from '../interfaces/NotificationCategory';

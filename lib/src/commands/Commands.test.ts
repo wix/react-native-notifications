@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import { mock, verify, instance, when, anyNumber } from 'ts-mockito';
 
 import { Commands } from './Commands';
