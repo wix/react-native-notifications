@@ -50,7 +50,7 @@
     "react-native": ">=0.25.1"
   },
   "devDependencies": {
-    "lodash": "4.17.19",
+    "lodash": "4.17.21",
     "hermes-engine": "0.4.2-rc1",
     "react-autobind": "1.0.6",
     "react": "16.11.0",
@@ -71,7 +71,7 @@
     "@babel/plugin-proposal-export-default-from": "7.2.0",
     "@babel/plugin-proposal-export-namespace-from": "7.2.0",
     "@types/jest": "24.9.0",
-    "@types/lodash": "4.14.153"
+    "@types/lodash": "4.14.170"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
