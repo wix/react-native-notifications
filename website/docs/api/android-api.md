@@ -30,7 +30,8 @@ Notifications.setNotificationChannel({
     description: 'My Description',
     enableLights: true,
     enableVibration: true,
-    groupId: 'your-group', // optional
+    groupId: 'my-group', // optional
+    groupName: 'My Group', // optional, will be presented in Android OS notification permission
     showBadge: true,
     soundFile: 'custom_sound.mp3',  // place this in <project_root>/android/app/src/main/res/raw/custom_sound.mp3
     vibrationPattern: [200, 1000, 500, 1000, 500],
