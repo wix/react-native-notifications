@@ -11,13 +11,13 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		4157E5C21F31C553C32A8F8D /* Pods_NotificationsExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC71E4864F66FA6AEFC89ABB /* Pods_NotificationsExampleApp.framework */; };
 		5004AC02233BE75A00490132 /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5004ABE1233BE75A00490132 /* CallKit.framework */; };
 		50ABBFF224B329CA00077ED8 /* RNNotificationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABBFD824B3294200077ED8 /* RNNotificationsTests.m */; };
 		50ABC01424B32ABE00077ED8 /* RNNotificationsStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABBFD924B3294200077ED8 /* RNNotificationsStoreTests.m */; };
 		50ABC01524B32ABE00077ED8 /* RNNotificationEventHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABBFDA24B3294200077ED8 /* RNNotificationEventHandlerTests.m */; };
 		50ABC02D24B32C6A00077ED8 /* RNCommandsHandlerIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ABC02C24B32C6A00077ED8 /* RNCommandsHandlerIntegrationTest.m */; };
-		602C9B6D7A7464A56EA7D254 /* Pods_NotificationsExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E483B24D5DF160738B47BC1 /* Pods_NotificationsExampleApp.framework */; };
-		78DB4E3C1502C3C42A35F4E2 /* Pods_NotificationsExampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A11892D61B55D4AC2C50 /* Pods_NotificationsExampleAppTests.framework */; };
+		53F7577745212ED764A510AB /* Pods_NotificationsExampleApp_NotificationsExampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BC5156A1F7256125CA26CE /* Pods_NotificationsExampleApp_NotificationsExampleAppTests.framework */; };
 		D84861182267695100E9103D /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84861172267695100E9103D /* JavaScriptCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -270,7 +270,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = NotificationsExampleApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = NotificationsExampleApp/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		1E483B24D5DF160738B47BC1 /* Pods_NotificationsExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationsExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		14BC5156A1F7256125CA26CE /* Pods_NotificationsExampleApp_NotificationsExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationsExampleApp_NotificationsExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		33D24DE18AC038B943B8CBC8 /* Pods-NotificationsExampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationsExampleApp.debug.xcconfig"; path = "Target Support Files/Pods-NotificationsExampleApp/Pods-NotificationsExampleApp.debug.xcconfig"; sourceTree = "<group>"; };
 		5004ABE1233BE75A00490132 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		50ABBFD824B3294200077ED8 /* RNNotificationsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNotificationsTests.m; sourceTree = "<group>"; };
@@ -283,11 +283,13 @@
 		50F1F0A022CE3B0600FD5829 /* RCTNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTNetwork.xcodeproj; path = "../../node_modules/react-native/Libraries/Network/RCTNetwork.xcodeproj"; sourceTree = "<group>"; };
 		716C1316CDE92F3D079D7F77 /* Pods-NotificationsExampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationsExampleApp.release.xcconfig"; path = "Target Support Files/Pods-NotificationsExampleApp/Pods-NotificationsExampleApp.release.xcconfig"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		7F066D6D2159F868CA0E68D1 /* Pods-NotificationsExampleApp-NotificationsExampleAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationsExampleApp-NotificationsExampleAppTests.debug.xcconfig"; path = "Target Support Files/Pods-NotificationsExampleApp-NotificationsExampleAppTests/Pods-NotificationsExampleApp-NotificationsExampleAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		C63BE97E85C8E8A543E447B0 /* Pods-NotificationsExampleAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationsExampleAppTests.debug.xcconfig"; path = "Target Support Files/Pods-NotificationsExampleAppTests/Pods-NotificationsExampleAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D84861172267695100E9103D /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		D85498C21D97B31100DEEE06 /* RNNotifications.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNNotifications.xcodeproj; path = ../../lib/ios/RNNotifications.xcodeproj; sourceTree = "<group>"; };
-		F734A11892D61B55D4AC2C50 /* Pods_NotificationsExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationsExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC71E4864F66FA6AEFC89ABB /* Pods_NotificationsExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationsExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFBD98EA991B953B48DB36A2 /* Pods-NotificationsExampleApp-NotificationsExampleAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationsExampleApp-NotificationsExampleAppTests.release.xcconfig"; path = "Target Support Files/Pods-NotificationsExampleApp-NotificationsExampleAppTests/Pods-NotificationsExampleApp-NotificationsExampleAppTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,7 +299,7 @@
 			files = (
 				5004AC02233BE75A00490132 /* CallKit.framework in Frameworks */,
 				D84861182267695100E9103D /* JavaScriptCore.framework in Frameworks */,
-				602C9B6D7A7464A56EA7D254 /* Pods_NotificationsExampleApp.framework in Frameworks */,
+				4157E5C21F31C553C32A8F8D /* Pods_NotificationsExampleApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,7 +307,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78DB4E3C1502C3C42A35F4E2 /* Pods_NotificationsExampleAppTests.framework in Frameworks */,
+				53F7577745212ED764A510AB /* Pods_NotificationsExampleApp_NotificationsExampleAppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +488,8 @@
 				716C1316CDE92F3D079D7F77 /* Pods-NotificationsExampleApp.release.xcconfig */,
 				C63BE97E85C8E8A543E447B0 /* Pods-NotificationsExampleAppTests.debug.xcconfig */,
 				0AE6D49F214694B794F29B8D /* Pods-NotificationsExampleAppTests.release.xcconfig */,
+				7F066D6D2159F868CA0E68D1 /* Pods-NotificationsExampleApp-NotificationsExampleAppTests.debug.xcconfig */,
+				FFBD98EA991B953B48DB36A2 /* Pods-NotificationsExampleApp-NotificationsExampleAppTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -495,8 +499,8 @@
 			children = (
 				5004ABE1233BE75A00490132 /* CallKit.framework */,
 				D84861172267695100E9103D /* JavaScriptCore.framework */,
-				1E483B24D5DF160738B47BC1 /* Pods_NotificationsExampleApp.framework */,
-				F734A11892D61B55D4AC2C50 /* Pods_NotificationsExampleAppTests.framework */,
+				DC71E4864F66FA6AEFC89ABB /* Pods_NotificationsExampleApp.framework */,
+				14BC5156A1F7256125CA26CE /* Pods_NotificationsExampleApp_NotificationsExampleAppTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -522,7 +526,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				2CC03211CD177D505E659502 /* [CP] Embed Pods Frameworks */,
+				92DAC38727AB217BCE1075AF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -541,7 +545,7 @@
 				50ABBFE424B3299900077ED8 /* Sources */,
 				50ABBFE524B3299900077ED8 /* Frameworks */,
 				50ABBFE624B3299900077ED8 /* Resources */,
-				B6EBE43A21F2C5BEB9441822 /* [CP] Embed Pods Frameworks */,
+				9CFBFA54FC71FC300ABF4AA6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -929,14 +933,14 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NotificationsExampleAppTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NotificationsExampleApp-NotificationsExampleAppTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2CC03211CD177D505E659502 /* [CP] Embed Pods Frameworks */ = {
+		92DAC38727AB217BCE1075AF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -945,7 +949,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-NotificationsExampleApp/Pods-NotificationsExampleApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/DoubleConversion/DoubleConversion.framework",
 				"${BUILT_PRODUCTS_DIR}/FBReactNativeSpec/FBReactNativeSpec.framework",
-				"${BUILT_PRODUCTS_DIR}/Folly/folly.framework",
+				"${BUILT_PRODUCTS_DIR}/RCT-Folly/folly.framework",
 				"${BUILT_PRODUCTS_DIR}/RCTTypeSafety/RCTTypeSafety.framework",
 				"${BUILT_PRODUCTS_DIR}/React-Core/React.framework",
 				"${BUILT_PRODUCTS_DIR}/React-CoreModules/CoreModules.framework",
@@ -961,6 +965,7 @@
 				"${BUILT_PRODUCTS_DIR}/React-jsi/jsi.framework",
 				"${BUILT_PRODUCTS_DIR}/React-jsiexecutor/jsireact.framework",
 				"${BUILT_PRODUCTS_DIR}/React-jsinspector/jsinspector.framework",
+				"${BUILT_PRODUCTS_DIR}/React-perflogger/reactperflogger.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactCommon/ReactCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
 				"${BUILT_PRODUCTS_DIR}/glog/glog.framework",
@@ -986,6 +991,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jsi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jsireact.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jsinspector.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/reactperflogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/glog.framework",
@@ -996,16 +1002,16 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NotificationsExampleApp/Pods-NotificationsExampleApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B6EBE43A21F2C5BEB9441822 /* [CP] Embed Pods Frameworks */ = {
+		9CFBFA54FC71FC300ABF4AA6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NotificationsExampleAppTests/Pods-NotificationsExampleAppTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-NotificationsExampleApp-NotificationsExampleAppTests/Pods-NotificationsExampleApp-NotificationsExampleAppTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/DoubleConversion/DoubleConversion.framework",
 				"${BUILT_PRODUCTS_DIR}/FBReactNativeSpec/FBReactNativeSpec.framework",
-				"${BUILT_PRODUCTS_DIR}/Folly/folly.framework",
+				"${BUILT_PRODUCTS_DIR}/RCT-Folly/folly.framework",
 				"${BUILT_PRODUCTS_DIR}/RCTTypeSafety/RCTTypeSafety.framework",
 				"${BUILT_PRODUCTS_DIR}/React-Core/React.framework",
 				"${BUILT_PRODUCTS_DIR}/React-CoreModules/CoreModules.framework",
@@ -1021,6 +1027,7 @@
 				"${BUILT_PRODUCTS_DIR}/React-jsi/jsi.framework",
 				"${BUILT_PRODUCTS_DIR}/React-jsiexecutor/jsireact.framework",
 				"${BUILT_PRODUCTS_DIR}/React-jsinspector/jsinspector.framework",
+				"${BUILT_PRODUCTS_DIR}/React-perflogger/reactperflogger.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactCommon/ReactCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
 				"${BUILT_PRODUCTS_DIR}/glog/glog.framework",
@@ -1047,6 +1054,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jsi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jsireact.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jsinspector.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/reactperflogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/glog.framework",
@@ -1055,7 +1063,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NotificationsExampleAppTests/Pods-NotificationsExampleAppTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NotificationsExampleApp-NotificationsExampleAppTests/Pods-NotificationsExampleApp-NotificationsExampleAppTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1159,7 +1167,7 @@
 		};
 		50ABBFF024B3299900077ED8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C63BE97E85C8E8A543E447B0 /* Pods-NotificationsExampleAppTests.debug.xcconfig */;
+			baseConfigurationReference = 7F066D6D2159F868CA0E68D1 /* Pods-NotificationsExampleApp-NotificationsExampleAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1193,7 +1201,7 @@
 		};
 		50ABBFF124B3299900077ED8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AE6D49F214694B794F29B8D /* Pods-NotificationsExampleAppTests.release.xcconfig */;
+			baseConfigurationReference = FFBD98EA991B953B48DB36A2 /* Pods-NotificationsExampleApp-NotificationsExampleAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1248,6 +1256,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1298,6 +1307,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
