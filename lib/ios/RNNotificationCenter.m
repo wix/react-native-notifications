@@ -8,6 +8,7 @@
     BOOL criticalAlert = [options[@"criticalAlert"] boolValue];
     BOOL providesAppNotificationSettings = [options[@"providesAppNotificationSettings"] boolValue];
     BOOL provisional = [options[@"provisional"] boolValue];
+    BOOL announcement = [options[@"announcement"] boolValue];
     UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert);
     if (carPlay) {
         authOptions = authOptions | UNAuthorizationOptionCarPlay;
@@ -21,6 +22,11 @@
         }
         if (provisional) {
             authOptions = authOptions | UNAuthorizationOptionProvisional;
+        }
+    }
+    if (@available(iOS 13.0, *)) {
+        if (announcement) {
+            authOptions = authOptions | UNAuthorizationOptionAnnouncement;
         }
     }
     
@@ -107,6 +113,9 @@
         if (@available(iOS 12.0, *)) {
             allSettings[@"criticalAlert"] = [NSNumber numberWithBool:settings.criticalAlertSetting == UNNotificationSettingEnabled];
             allSettings[@"providesAppNotificationSettings"] = [NSNumber numberWithBool:settings.providesAppNotificationSettings];
+        }
+        if (@available(iOS 13.0, *)) {
+            allSettings[@"announcement"] = [NSNumber numberWithBool:settings.announcementSetting == UNNotificationSettingEnabled];
         }
         resolve(allSettings);
     }];

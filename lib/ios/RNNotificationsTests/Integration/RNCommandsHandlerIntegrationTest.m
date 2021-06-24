@@ -42,6 +42,7 @@
     UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge |
                                           UNAuthorizationOptionSound |
                                           UNAuthorizationOptionAlert |
+                                          UNAuthorizationOptionAnnouncement |
                                           UNAuthorizationOptionProvidesAppNotificationSettings |
                                           UNAuthorizationOptionCriticalAlert |
                                           UNAuthorizationOptionProvisional |
@@ -57,6 +58,7 @@
     [_uut requestPermissions:@{@"carPlay": @YES,
                                @"criticalAlert": @YES,
                                @"providesAppNotificationSettings": @YES,
+                               @"announcement": @YES,
                                @"provisional": @YES}];
     [_notificationCenter verify];
 }

@@ -200,6 +200,8 @@ describe('Commands', () => {
         carPlay: false,
         criticalAlert: false,
         providesAppNotificationSettings: false,
+        provisional: false,
+        announcement: false,
       };
       when(mockedNativeCommandsSender.checkPermissions()).thenResolve(
         expectedPermissions
