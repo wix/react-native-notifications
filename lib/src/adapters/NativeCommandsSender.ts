@@ -14,7 +14,7 @@ interface NativeCommandsModule {
   registerPushKit(): void;
   getBadgeCount(): Promise<number>;
   setBadgeCount(count: number): void;
-  cancelLocalNotification(notificationId: string): void;
+  cancelLocalNotification(notificationId: number): void;
   cancelAllLocalNotifications(): void;
   isRegisteredForRemoteNotifications(): Promise<boolean>;
   checkPermissions(): Promise<NotificationPermissions>;
@@ -72,7 +72,7 @@ export class NativeCommandsSender {
     this.nativeCommandsModule.setBadgeCount(count);
   }
 
-  cancelLocalNotification(notificationId: string) {
+  cancelLocalNotification(notificationId: number) {
     this.nativeCommandsModule.cancelLocalNotification(notificationId);
   }
 

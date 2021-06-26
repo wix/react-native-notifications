@@ -55,7 +55,7 @@ export class Commands {
     this.nativeCommandsSender.setBadgeCount(count);
   }
 
-  public cancelLocalNotification(notificationId: string) {
+  public cancelLocalNotification(notificationId: number) {
     this.nativeCommandsSender.cancelLocalNotification(notificationId);
   }
 
