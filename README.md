@@ -20,7 +20,7 @@ Apps using React Native Notifications may target iOS 10 and Android 5.0 (API 21)
 
 ### iOS
 
-<img src="https://s3.amazonaws.com/nrjio/interactive.gif" alt="Interactive notifications example" width=350/>
+<!-- <img src="https://s3.amazonaws.com/nrjio/interactive.gif" alt="Interactive notifications example" width=350/> -->
 
 - Remote (push) notifications
 - Local notifications
