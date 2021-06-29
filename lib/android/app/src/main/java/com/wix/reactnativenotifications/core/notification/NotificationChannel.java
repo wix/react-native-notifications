@@ -1,5 +1,6 @@
 package com.wix.reactnativenotifications.core.notification;
 
+import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.Color;
@@ -33,6 +34,9 @@ public class NotificationChannel implements INotificationChannel {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             return;
         }
+        final NotificationManager notificationManager = (NotificationManager) mContext
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+
         android.app.NotificationChannel channel = new android.app.NotificationChannel(
                 mNotificationChannelProps.getChannelId(),
                 mNotificationChannelProps.getName(),
@@ -48,8 +52,13 @@ public class NotificationChannel implements INotificationChannel {
         if (mNotificationChannelProps.hasEnableVibration()) {
             channel.enableVibration(mNotificationChannelProps.getEnableVibration());
         }
-        if (mNotificationChannelProps.hasGroupId()) {
-            channel.setGroup(mNotificationChannelProps.getGroupId());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && mNotificationChannelProps.hasGroupId()) {
+            final String groupId = mNotificationChannelProps.getGroupId();
+            if(notificationManager.getNotificationChannelGroup(groupId) == null) {
+                notificationManager.createNotificationChannelGroup(
+                        new NotificationChannelGroup(groupId, mNotificationChannelProps.getGroupName()));
+            }
+            channel.setGroup(groupId);
         }
         if (mNotificationChannelProps.hasLightColor()) {
             channel.setLightColor(Color.parseColor(mNotificationChannelProps.getLightColor()));
@@ -65,9 +74,6 @@ public class NotificationChannel implements INotificationChannel {
                     createVibrationPatternFromList(mNotificationChannelProps.getVibrationPattern())
             );
         }
-
-        final NotificationManager notificationManager = (NotificationManager) mContext
-                .getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(channel);
     }
 
