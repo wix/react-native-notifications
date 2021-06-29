@@ -46,9 +46,11 @@ class NotificationsExampleApp extends Component {
       completion();
     });
 
-    Notifications.ios.events().appNotificationSettingsLinked(() => {
-      console.warn('App Notification Settings Linked')
-    });
+    if (Platform.OS === 'ios') {
+      Notifications.ios.events().appNotificationSettingsLinked(() => {
+        console.warn('App Notification Settings Linked')
+      });
+    }
   }
 
   requestPermissionsIos(options) {
@@ -93,11 +95,28 @@ class NotificationsExampleApp extends Component {
       sound: 'chime.aiff',
       category: 'SOME_CATEGORY',
       link: 'localNotificationLink',
+      android_channel_id: 'my-channel',
     });
   }
 
   removeAllDeliveredNotifications() {
     Notifications.removeAllDeliveredNotifications();
+  }
+
+  setNotificationChannel() {
+    Notifications.setNotificationChannel({
+      channelId: 'my-channel',
+      name: 'My Channel',
+      groupId: 'my-group-id',
+      groupName: 'my group name',
+      importance: 5,
+      description: 'My Description',
+      enableLights: true,
+      enableVibration: true,
+      showBadge: true,
+      soundFile: 'doorbell.mp3',
+      vibrationPattern: [200, 1000, 500, 1000, 500],
+    })
   }
 
   async componentDidMount() {
@@ -134,7 +153,7 @@ class NotificationsExampleApp extends Component {
           {this.renderNotification(notification)}
         </View>
       ));
-      const openedNotifications = this.state.openedNotifications.map((notification, idx) =>
+    const openedNotifications = this.state.openedNotifications.map((notification, idx) =>
       (
         <View key={`notification_${idx}`}>
           {this.renderOpenedNotification(notification)}
@@ -148,6 +167,9 @@ class NotificationsExampleApp extends Component {
           <Button title={'Request permissions with provisional'} onPress={() => this.requestPermissionsIos(['Provisional'])} testID={'requestPermissionsWithAppSettings'} />
           <Button title={'Request permissions with app notification settings and provisional'} onPress={() => this.requestPermissionsIos(['ProvidesAppNotificationSettings', 'Provisional'])} testID={'requestPermissionsWithAppSettings'} />
         </>)}
+        {Platform.OS === 'android' &&
+          <Button title={'Set channel'} onPress={this.setNotificationChannel} testID={'setNotificationChannel'} />
+        }
         <Button title={'Send local notification'} onPress={this.sendLocalNotification} testID={'sendLocalNotification'} />
         <Button title={'Remove all delivered notifications'} onPress={this.removeAllDeliveredNotifications} />
         {notifications}

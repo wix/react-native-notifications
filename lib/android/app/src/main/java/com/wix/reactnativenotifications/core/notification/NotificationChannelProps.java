@@ -52,6 +52,18 @@ public class NotificationChannelProps {
         return mBundle.containsKey("groupId");
     }
 
+    public String getGroupName() {
+        String name = mBundle.getString("groupName");
+        if (name == null) {
+            name = getGroupId();
+        }
+        return name;
+    }
+
+    public boolean hasGroupName() {
+        return mBundle.containsKey("groupName");
+    }
+
     public int getImportance() {
         return (int) mBundle.getDouble("importance");
     }
