@@ -4,8 +4,8 @@ title: General Commands
 sidebar_label: General
 ---
 
-## registerRemoteNotifications()
-Requests remote notification permissions, prompting the user's dialog box on iOS and request a token on Android.
+## registerRemoteNotifications(options?)
+Requests remote notification permissions, prompting the user's dialog box on iOS and request a token on Android. See iOS specific [`registerRemoteNotifications`](ios-api.md) for definition of `options`.
 If the user accept the remote notifications permissions, `registerRemoteNotificationsRegistered` event will get called with the device token.
 
 ```js
