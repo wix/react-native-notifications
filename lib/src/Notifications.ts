@@ -76,7 +76,7 @@ export class NotificationsRoot {
   /**
    * cancelLocalNotification
   */
-  public cancelLocalNotification(notificationId: string) {
+  public cancelLocalNotification(notificationId: number) {
     return this.commands.cancelLocalNotification(notificationId);
   }
 

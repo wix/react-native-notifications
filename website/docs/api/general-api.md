@@ -29,12 +29,12 @@ Notifications.postLocalNotification({
   sound: 'chime.aiff',
   category: 'SOME_CATEGORY',
   link: 'localNotificationLink',
-  fireDate: new Date()
+  fireDate: new Date() // only iOS
 }, id);
 ```
 
 ## cancelLocalNotification(id)
-Relevant for notifications sent with `fireDate`.
+Only iOS. Relevant for notifications sent with `fireDate`.
 
 ```js
 Notifications.cancelLocalNotification(id);

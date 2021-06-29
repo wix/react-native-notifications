@@ -150,8 +150,9 @@ describe('Commands', () => {
 
   describe('cancelLocalNotification', () => {
     it('sends to native', () => {
-      uut.cancelLocalNotification("notificationId");
-      verify(mockedNativeCommandsSender.cancelLocalNotification("notificationId")).called();
+      const notificationId = 1;
+      uut.cancelLocalNotification(notificationId);
+      verify(mockedNativeCommandsSender.cancelLocalNotification(notificationId)).called();
     });
   });
 
