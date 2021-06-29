@@ -65,8 +65,15 @@ describe('Commands', () => {
 
   describe('requestPermissions', () => {
     it('sends to native', () => {
-      uut.requestPermissions();
-      verify(mockedNativeCommandsSender.requestPermissions(undefined)).called();
+      const opts = {};
+      uut.requestPermissions(opts);
+      verify(mockedNativeCommandsSender.requestPermissions(opts)).called();
+    });
+
+    it('sends to native with options', () => {
+      const opts = { criticalAlert: true };
+      uut.requestPermissions(opts);
+      verify(mockedNativeCommandsSender.requestPermissions(opts)).called();
     });
   });
 
@@ -186,7 +193,16 @@ describe('Commands', () => {
     });
 
     it('return negative response from native', async () => {
-      const expectedPermissions: NotificationPermissions = {badge: false, alert: true, sound: false};
+      const expectedPermissions: NotificationPermissions = {
+        badge: false,
+        alert: true,
+        sound: false,
+        carPlay: false,
+        criticalAlert: false,
+        providesAppNotificationSettings: false,
+        provisional: false,
+        announcement: false,
+      };
       when(mockedNativeCommandsSender.checkPermissions()).thenResolve(
         expectedPermissions
       );

@@ -13,7 +13,7 @@
     return self;
 }
 
-- (void)requestPermissions:(NSArray *)options {
+- (void)requestPermissions:(NSDictionary *)options {
     [_notificationCenter requestPermissions:options];
 }
 

@@ -54,7 +54,9 @@ class NotificationsExampleApp extends Component {
   }
 
   requestPermissionsIos(options) {
-    Notifications.ios.registerRemoteNotifications(options);
+    Notifications.ios.registerRemoteNotifications(
+      Object.fromEntries(options.map(opt => [opt, true]))
+    );
   }
 
   requestPermissions() {
@@ -146,6 +148,12 @@ class NotificationsExampleApp extends Component {
     );
   }
 
+  checkPermissions() {
+    Notifications.ios.checkPermissions().then((currentPermissions) => {
+      console.warn(currentPermissions);
+    });
+  }
+
   render() {
     const notifications = this.state.notifications.map((notification, idx) =>
       (
@@ -163,9 +171,10 @@ class NotificationsExampleApp extends Component {
       <View style={styles.container}>
         <Button title={'Request permissions'} onPress={this.requestPermissions} testID={'requestPermissions'} />
         {Platform.OS === 'ios' && Platform.Version > '12.0' && (<>
-          <Button title={'Request permissions with app notification settings'} onPress={() => this.requestPermissionsIos(['ProvidesAppNotificationSettings'])} testID={'requestPermissionsWithAppSettings'} />
-          <Button title={'Request permissions with provisional'} onPress={() => this.requestPermissionsIos(['Provisional'])} testID={'requestPermissionsWithAppSettings'} />
-          <Button title={'Request permissions with app notification settings and provisional'} onPress={() => this.requestPermissionsIos(['ProvidesAppNotificationSettings', 'Provisional'])} testID={'requestPermissionsWithAppSettings'} />
+          <Button title={'Request permissions with app notification settings'} onPress={() => this.requestPermissionsIos(['providesAppNotificationSettings'])} testID={'requestPermissionsWithAppSettings'} />
+          <Button title={'Request permissions with provisional'} onPress={() => this.requestPermissionsIos(['provisional'])} testID={'requestPermissionsWithAppSettings'} />
+          <Button title={'Request permissions with app notification settings and provisional'} onPress={() => this.requestPermissionsIos(['providesAppNotificationSettings', 'provisional'])} testID={'requestPermissionsWithAppSettings'} />
+          <Button title={'Check permissions'} onPress={this.checkPermissions} />
         </>)}
         {Platform.OS === 'android' &&
           <Button title={'Set channel'} onPress={this.setNotificationChannel} testID={'setNotificationChannel'} />

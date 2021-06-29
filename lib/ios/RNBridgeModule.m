@@ -36,7 +36,7 @@ RCT_EXPORT_MODULE();
 
 #pragma mark - JS interface
 
-RCT_EXPORT_METHOD(requestPermissions:(NSArray *)options) {
+RCT_EXPORT_METHOD(requestPermissions:(NSDictionary *)options) {
     [_commandsHandler requestPermissions:options];
 }
 
