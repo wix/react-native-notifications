@@ -1,10 +1,11 @@
-import { NativeCommandsSender, RequestPermissionsOptions } from '../adapters/NativeCommandsSender';
+import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
 import { Notification } from '../DTO/Notification';
 import { NotificationCategory } from '../interfaces/NotificationCategory';
 import { NotificationChannel } from '../interfaces/NotificationChannel';
 import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 import { UniqueIdProvider } from '../adapters/UniqueIdProvider';
 import { NotificationFactory } from '../DTO/NotificationFactory';
+import { NotificationPermissionOptions } from '../interfaces/NotificationPermissions';
 
 export class Commands {
   constructor(
@@ -29,7 +30,7 @@ export class Commands {
     });
   }
 
-  public requestPermissions(options?: RequestPermissionsOptions[]) {
+  public requestPermissions(options?: NotificationPermissionOptions) {
     const result = this.nativeCommandsSender.requestPermissions(options);
     return result;
   }
@@ -55,7 +56,7 @@ export class Commands {
     this.nativeCommandsSender.setBadgeCount(count);
   }
 
-  public cancelLocalNotification(notificationId: string) {
+  public cancelLocalNotification(notificationId: number) {
     this.nativeCommandsSender.cancelLocalNotification(notificationId);
   }
 

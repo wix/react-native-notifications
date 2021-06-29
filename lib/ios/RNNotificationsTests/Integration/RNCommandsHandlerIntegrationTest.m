@@ -34,12 +34,20 @@
     [[_notificationCenter expect] getNotificationSettingsWithCompletionHandler:[OCMArg invokeBlockWithArgs:settings, nil]];
     [[(id)[UIApplication sharedApplication] expect] registerForRemoteNotifications];
     
-    [_uut requestPermissions:nil];
+    [_uut requestPermissions:@{}];
     [_notificationCenter verify];
 }
 
-- (void)testRequestPermissions_withProvidesAppNotificationSettings {
-    UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionProvidesAppNotificationSettings);
+- (void)testRequestPermissions_userAuthorizedPermissionsExtraOptions {
+    UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge |
+                                          UNAuthorizationOptionSound |
+                                          UNAuthorizationOptionAlert |
+                                          UNAuthorizationOptionAnnouncement |
+                                          UNAuthorizationOptionProvidesAppNotificationSettings |
+                                          UNAuthorizationOptionCriticalAlert |
+                                          UNAuthorizationOptionProvisional |
+                                          UNAuthorizationOptionCarPlay);
+    
     UNNotificationSettings* settings = [UNNotificationSettings new];
     [settings setValue:@(UNAuthorizationStatusAuthorized) forKey:@"authorizationStatus"];
 
@@ -47,20 +55,11 @@
     [[_notificationCenter expect] getNotificationSettingsWithCompletionHandler:[OCMArg invokeBlockWithArgs:settings, nil]];
     [[(id)[UIApplication sharedApplication] expect] registerForRemoteNotifications];
     
-    [_uut requestPermissions:@[@"ProvidesAppNotificationSettings"]];
-    [_notificationCenter verify];
-}
-
-- (void)testRequestPermissions_withProvisional {
-    UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionProvisional);
-    UNNotificationSettings* settings = [UNNotificationSettings new];
-    [settings setValue:@(UNAuthorizationStatusAuthorized) forKey:@"authorizationStatus"];
-
-    [[_notificationCenter expect] requestAuthorizationWithOptions:authOptions completionHandler:[OCMArg invokeBlockWithArgs:@(YES), [NSNull null], nil]];
-    [[_notificationCenter expect] getNotificationSettingsWithCompletionHandler:[OCMArg invokeBlockWithArgs:settings, nil]];
-    [[(id)[UIApplication sharedApplication] expect] registerForRemoteNotifications];
-    
-    [_uut requestPermissions:@[@"Provisional"]];
+    [_uut requestPermissions:@{@"carPlay": @YES,
+                               @"criticalAlert": @YES,
+                               @"providesAppNotificationSettings": @YES,
+                               @"announcement": @YES,
+                               @"provisional": @YES}];
     [_notificationCenter verify];
 }
 
@@ -73,7 +72,7 @@
     [[_notificationCenter expect] getNotificationSettingsWithCompletionHandler:[OCMArg invokeBlockWithArgs:settings, nil]];
     [[(id)[UIApplication sharedApplication] reject] registerForRemoteNotifications];
     
-    [_uut requestPermissions:nil];
+    [_uut requestPermissions:@{}];
     [_notificationCenter verify];
 }
 

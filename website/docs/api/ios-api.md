@@ -4,19 +4,24 @@ title: iOS Specific Commands
 sidebar_label: iOS specific
 ---
 
-## registerRemoteNotifications(options?: string[])
+## registerRemoteNotifications(options?: NotificationPermissionOptions)
 Requests notification permissions from iOS, prompting the user's dialog box if needed.
 
-Available options:
-- **`ProvidesAppNotificationSettings`** - An option indicating the iOS notification settings to display a button for in-app notification settings and to be [informed in the app on this event](ios-events.md#appNotificationSettingsLinked).
-- **`Provisional`** - Use provisional authorization to send notifications on a trial basis. Users can then evaluate the notifications and decide whether to authorize them.
+Notification permission options:
+- **`providesAppNotificationSettings`** - An option indicating the iOS notification settings to display a button for in-app notification settings and to be [informed in the app on this event](ios-events.md#appNotificationSettingsLinked).
+- **`provisional`** - Use provisional authorization to send notifications on a trial basis. Users can then evaluate the notifications and decide whether to authorize them.
+- **`carPlay`** - The ability to display notifications in a CarPlay environment.
+- **`criticalAlert`** - Requests notification permissions from iOS, prompting the user's dialog box. Options may request
+`criticalAlert` but you must first [Request a Critical Alert Notifications Entitlement](https://developer.apple.com/contact/request/notifications-critical-alerts-entitlement/).
 
 
 ```js
-Notifications.ios.registerRemoteNotifications([
-  'ProvidesAppNotificationSettings',
-  'Provisional',
-]);
+Notifications.ios.registerRemoteNotifications({
+  providesAppNotificationSettings: true,
+  provisional: true,
+  carPlay: true,
+  criticalAlert: true,
+});
 ```
 
 ## checkPermissions()
