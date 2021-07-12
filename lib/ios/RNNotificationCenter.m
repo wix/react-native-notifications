@@ -113,6 +113,7 @@
         if (@available(iOS 12.0, *)) {
             allSettings[@"criticalAlert"] = [NSNumber numberWithBool:settings.criticalAlertSetting == UNNotificationSettingEnabled];
             allSettings[@"providesAppNotificationSettings"] = [NSNumber numberWithBool:settings.providesAppNotificationSettings];
+            allSettings[@"provisional"] = [NSNumber numberWithBool:settings.authorizationStatus == UNAuthorizationStatusProvisional];
         }
         if (@available(iOS 13.0, *)) {
             allSettings[@"announcement"] = [NSNumber numberWithBool:settings.announcementSetting == UNNotificationSettingEnabled];
