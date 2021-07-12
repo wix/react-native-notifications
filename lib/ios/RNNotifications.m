@@ -61,6 +61,10 @@
     [[self sharedInstance] removeNativeDelegate:delegate];
 }
 
+- (RNNotificationCenterMulticast*)multicast {
+    return _notificationCenterMulticast;
+}
+
 - (void)startMonitorNotifications {
     _notificationCenterListener = [[RNNotificationCenterListener alloc] initWithNotificationEventHandler:_notificationEventHandler];
     
