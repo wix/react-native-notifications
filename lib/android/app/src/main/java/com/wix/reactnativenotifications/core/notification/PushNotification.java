@@ -63,12 +63,18 @@ public class PushNotification implements IPushNotification {
 
     @Override
     public void onReceived() throws InvalidNotificationException {
-        if (!mAppLifecycleFacade.isAppVisible()) {
-            postNotification(null);
-            notifyReceivedBackgroundToJS();
-        } else {
-            notifyReceivedToJS();
-        }
+        // To fix issue #525 (https://github.com/wix/react-native-notifications/issues/525), I did 2 changes below
+        // 1. removed the following if/else statement
+        // if (!mAppLifecycleFacade.isAppVisible()) {
+        //     postNotification(null);
+        //     notifyReceivedBackgroundToJS();
+        // } else {
+        //     notifyReceivedToJS();
+        // }
+        
+        // 2. added the following 2 statements, instead of the if/else statement above 
+        postNotification(null);
+        notifyReceivedToJS();        
     }
 
     @Override
