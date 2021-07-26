@@ -203,6 +203,8 @@ describe('Commands', () => {
         providesAppNotificationSettings: false,
         provisional: false,
         announcement: false,
+        notificationCenter: true,
+        lockScreen: false,
       };
       when(mockedNativeCommandsSender.checkPermissions()).thenResolve(
         expectedPermissions

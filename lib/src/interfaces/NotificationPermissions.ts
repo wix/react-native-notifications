@@ -9,4 +9,6 @@ export interface NotificationPermissions extends NotificationPermissionOptions  
   badge: boolean;
   alert: boolean;
   sound: boolean;
+  notificationCenter: boolean;
+  lockScreen: boolean;
 }
