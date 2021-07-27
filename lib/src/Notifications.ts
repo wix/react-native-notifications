@@ -74,6 +74,13 @@ export class NotificationsRoot {
   }
 
   /**
+   * getLastAction
+   */
+   public getLastAction(): Promise<Object | undefined> {
+    return this.commands.getLastAction();
+  }
+  
+  /**
    * cancelLocalNotification
   */
   public cancelLocalNotification(notificationId: number) {

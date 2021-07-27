@@ -14,6 +14,8 @@
 - (void)setActionCompletionHandler:(void (^)(void))completionHandler withCompletionKey:(NSString *)completionKey;
 - (void)setPresentationCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler withCompletionKey:(NSString *)completionKey;
 - (void)setBackgroundActionCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler withCompletionKey:(NSString *)completionKey;
+- (void)setLastAction:(NSDictionary*)lastAction;
+- (NSDictionary *)getLastAction;
 
 - (void (^)(void))getActionCompletionHandler:(NSString *)key;
 - (void (^)(UNNotificationPresentationOptions))getPresentationCompletionHandler:(NSString *)key;

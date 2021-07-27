@@ -48,6 +48,16 @@ export class Commands {
     this.nativeCommandsSender.setCategories(categories);
   }
 
+  public async getLastAction(): Promise<Notification | undefined> {
+    return this.nativeCommandsSender.getLastAction().then((payload) => {
+      if (payload) {
+        return this.notificationFactory.fromPayload(payload);
+      }
+
+      return undefined;
+    })
+  }
+
   public getBadgeCount(): Promise<number> {
     return this.nativeCommandsSender.getBadgeCount();
   }

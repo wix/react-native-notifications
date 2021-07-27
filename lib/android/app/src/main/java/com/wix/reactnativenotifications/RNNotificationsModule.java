@@ -113,6 +113,11 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     public void setCategories(ReadableArray categories) {
     
     }
+
+    @ReactMethod
+    public void getLastAction(Promise promise) {
+        promise.resolve();
+    }
     
     public void cancelDeliveredNotification(String tag, int notificationId) {
         IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(getReactApplicationContext().getApplicationContext());

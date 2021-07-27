@@ -8,6 +8,7 @@ import { NotificationPermissionOptions } from '../interfaces/NotificationPermiss
 
 interface NativeCommandsModule {
   getInitialNotification(): Promise<Object>;
+  getLastAction(): Promise<Notification>;
   postLocalNotification(notification: Notification, id: number): void;
   requestPermissions(options: NotificationPermissionOptions): void;
   abandonPermissions(): void;
@@ -61,6 +62,10 @@ export class NativeCommandsSender {
 
   setCategories(categories: [NotificationCategory?]) {
     this.nativeCommandsModule.setCategories(categories);
+  }
+
+  getLastAction(): Promise<Notification> {
+    return this.nativeCommandsModule.getLastAction();
   }
 
   getBadgeCount(): Promise<number> {
