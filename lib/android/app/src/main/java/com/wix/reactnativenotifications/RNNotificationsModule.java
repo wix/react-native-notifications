@@ -116,7 +116,7 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
 
     @ReactMethod
     public void getLastAction(Promise promise) {
-        promise.resolve();
+        promise.resolve(null);
     }
     
     public void cancelDeliveredNotification(String tag, int notificationId) {
