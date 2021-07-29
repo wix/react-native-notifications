@@ -30,7 +30,7 @@
 
 - (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(void))completionHandler {
     [_store setActionCompletionHandler:completionHandler withCompletionKey:response.notification.request.identifier];
-    [_store setLastAction:[RNNotificationParser parseNotificationResponse:response]];
+    [_store setInitialAction:[RNNotificationParser parseNotificationResponse:response]];
     [RNEventEmitter sendEvent:RNNotificationOpened body:[RNNotificationParser parseNotificationResponse:response]];
 }
 

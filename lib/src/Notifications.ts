@@ -67,17 +67,17 @@ export class NotificationsRoot {
   }
 
   /**
+   * getInitialAction
+   */
+     public getInitialAction(): Promise<Notification | undefined> {
+      return this.commands.getInitialAction();
+    }
+  
+  /**
    * setCategories
    */
   public setCategories(categories: [NotificationCategory?]) {
     this.commands.setCategories(categories);
-  }
-
-  /**
-   * getLastAction
-   */
-   public getLastAction(): Promise<Object | undefined> {
-    return this.commands.getLastAction();
   }
   
   /**

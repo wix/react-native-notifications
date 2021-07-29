@@ -48,6 +48,10 @@ RCT_EXPORT_METHOD(getInitialNotification:(RCTPromiseResolveBlock)resolve reject:
     [_commandsHandler getInitialNotification:resolve reject:reject];
 }
 
+RCT_EXPORT_METHOD(getInitialAction: (RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject){
+    [_commandsHandler getInitialAction:resolve reject:reject];
+}
+
 RCT_EXPORT_METHOD(finishHandlingAction:(NSString *)completionKey) {
     [_commandsHandler finishHandlingAction:completionKey];
 }
@@ -95,10 +99,6 @@ RCT_EXPORT_METHOD(isRegisteredForRemoteNotifications:(RCTPromiseResolveBlock)res
 RCT_EXPORT_METHOD(checkPermissions:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject) {
     [_commandsHandler checkPermissions:resolve reject:reject];
-}
-
-RCT_EXPORT_METHOD(getLastAction: (RCTPromiseResolveBlock) resolve reject: (RCTPromiseRejectBlock)reject){
-    resolve([[RNNotificationsStore sharedInstance] getLastAction]);
 }
 
 #if !TARGET_OS_TV

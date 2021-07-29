@@ -5,10 +5,11 @@ import { NotificationPermissions } from '../interfaces/NotificationPermissions';
 import { NotificationCategory } from '../interfaces/NotificationCategory';
 import { NotificationChannel } from '../interfaces/NotificationChannel';
 import { NotificationPermissionOptions } from '../interfaces/NotificationPermissions';
+import { NotificationResponse } from '../interfaces/NotificationEvents';
 
 interface NativeCommandsModule {
   getInitialNotification(): Promise<Object>;
-  getLastAction(): Promise<Notification>;
+  getInitialAction(): Promise<NotificationResponse>;
   postLocalNotification(notification: Notification, id: number): void;
   requestPermissions(options: NotificationPermissionOptions): void;
   abandonPermissions(): void;
@@ -44,6 +45,10 @@ export class NativeCommandsSender {
     return this.nativeCommandsModule.getInitialNotification();
   }
 
+  getInitialAction(): Promise<NotificationResponse> {
+    return this.nativeCommandsModule.getInitialAction();
+  }
+
   requestPermissions(options?: NotificationPermissionOptions) {
     return this.nativeCommandsModule.requestPermissions(options || {});
   }
@@ -62,10 +67,6 @@ export class NativeCommandsSender {
 
   setCategories(categories: [NotificationCategory?]) {
     this.nativeCommandsModule.setCategories(categories);
-  }
-
-  getLastAction(): Promise<Notification> {
-    return this.nativeCommandsModule.getLastAction();
   }
 
   getBadgeCount(): Promise<number> {

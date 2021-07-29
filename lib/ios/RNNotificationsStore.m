@@ -4,7 +4,6 @@
 NSMutableDictionary* _actionCompletionHandlers;
 NSMutableDictionary* _presentationCompletionHandlers;
 NSMutableDictionary* _backgroundActionCompletionHandlers;
-NSDictionary* _lastAction;
 
 + (instancetype)sharedInstance {
     static RNNotificationsStore *sharedInstance = nil;
@@ -72,14 +71,6 @@ NSDictionary* _lastAction;
             [_backgroundActionCompletionHandlers removeObjectForKey:completionKey];
         });
     }
-}
-
-- (void)setLastAction:(NSDictionary*)lastAction{
-    _lastAction = lastAction;
-}
-
-- (NSDictionary *)getLastAction{
-    return _lastAction;
 }
 
 @end

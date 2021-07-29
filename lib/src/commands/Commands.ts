@@ -30,6 +30,16 @@ export class Commands {
     });
   }
 
+  public async getInitialAction(): Promise<Notification | undefined> {
+    return this.nativeCommandsSender.getInitialAction().then((payload) => {
+      if (payload) {
+        return this.notificationFactory.fromPayload(payload);
+      }
+
+      return undefined;
+    });
+  }
+
   public requestPermissions(options?: NotificationPermissionOptions) {
     const result = this.nativeCommandsSender.requestPermissions(options);
     return result;
@@ -46,16 +56,6 @@ export class Commands {
 
   public setCategories(categories: [NotificationCategory?]) {
     this.nativeCommandsSender.setCategories(categories);
-  }
-
-  public async getLastAction(): Promise<Notification | undefined> {
-    return this.nativeCommandsSender.getLastAction().then((payload) => {
-      if (payload) {
-        return this.notificationFactory.fromPayload(payload);
-      }
-
-      return undefined;
-    })
   }
 
   public getBadgeCount(): Promise<number> {

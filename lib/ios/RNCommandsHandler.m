@@ -27,6 +27,14 @@
   resolve(initialNotification);
 }
 
+
+- (void)getInitialAction:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+  NSDictionary* initialAction = [[RNNotificationsStore sharedInstance] initialAction];
+  [[RNNotificationsStore sharedInstance] setInitialAction:nil];
+  resolve(initialAction);
+}
+
+
 - (void)finishHandlingAction:(NSString *)completionKey {
     [[RNNotificationsStore sharedInstance] completeAction:completionKey];
 }

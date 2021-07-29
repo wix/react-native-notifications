@@ -96,6 +96,11 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     }
 
     @ReactMethod
+    public void getInitialAction(final Promise promise) {
+        promise.resolve(null);
+    }
+
+    @ReactMethod
     public void postLocalNotification(ReadableMap notificationPropsMap, int notificationId) {
         if(BuildConfig.DEBUG) Log.d(LOGTAG, "Native method invocation: postLocalNotification");
         final Bundle notificationProps = Arguments.toBundle(notificationPropsMap);
@@ -112,11 +117,6 @@ public class RNNotificationsModule extends ReactContextBaseJavaModule implements
     @ReactMethod
     public void setCategories(ReadableArray categories) {
     
-    }
-
-    @ReactMethod
-    public void getLastAction(Promise promise) {
-        promise.resolve(null);
     }
     
     public void cancelDeliveredNotification(String tag, int notificationId) {
