@@ -154,6 +154,12 @@ class NotificationsExampleApp extends Component {
     });
   }
 
+  isRegistered() {
+    Notifications.isRegisteredForRemoteNotifications().then((registered) => {
+      console.warn(registered);
+    });
+  }
+
   render() {
     const notifications = this.state.notifications.map((notification, idx) =>
       (
@@ -181,6 +187,7 @@ class NotificationsExampleApp extends Component {
         }
         <Button title={'Send local notification'} onPress={this.sendLocalNotification} testID={'sendLocalNotification'} />
         <Button title={'Remove all delivered notifications'} onPress={this.removeAllDeliveredNotifications} />
+        <Button title={'Check registeration'} onPress={this.isRegistered} />
         {notifications}
         {openedNotifications}
       </View>
