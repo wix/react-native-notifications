@@ -87,9 +87,14 @@ public class PushNotification implements IPushNotification {
     }
 
     protected int postNotification(Integer notificationId) {
+        if (mNotificationProps.getTitle() == null && mNotificationProps.getBody() == null) {
+            return -1;
+        }
+
         final PendingIntent pendingIntent = getCTAPendingIntent();
         final Notification notification = buildNotification(pendingIntent);
         return postNotification(notification, notificationId);
+
     }
 
     protected void digestNotification() {
