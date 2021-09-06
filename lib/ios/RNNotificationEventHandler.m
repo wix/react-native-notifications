@@ -38,7 +38,12 @@
         NSString *uuid = [[NSUUID UUID] UUIDString];
         [_store setBackgroundActionCompletionHandler:^(UIBackgroundFetchResult result) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionHandler(result);
+                @try {
+                    completionHandler(result);
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"main: Caught %@: %@", [exception name], [exception reason]);
+                }            
             });
         } withCompletionKey:uuid];
         [RNEventEmitter sendEvent:RNNotificationReceivedBackground body:[RNNotificationParser parseNotificationUserInfo:userInfo withIdentifier:uuid]];
