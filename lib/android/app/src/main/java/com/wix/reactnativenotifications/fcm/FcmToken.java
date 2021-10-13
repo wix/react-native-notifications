@@ -8,6 +8,7 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.bridge.ReactContext;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.FirebaseApp;
 import com.wix.reactnativenotifications.BuildConfig;
 import com.wix.reactnativenotifications.core.JsIOHelper;
 
@@ -72,19 +73,25 @@ public class FcmToken implements IFcmToken {
     }
 
     protected void refreshToken() {
-        FirebaseMessaging.getInstance().getToken()
-            .addOnCompleteListener(task -> {
-                if (!task.isSuccessful()) {
-                    if (BuildConfig.DEBUG) Log.w(LOGTAG, "Fetching FCM registration token failed", task.getException());
-                    return;
-                }
-                sToken = task.getResult();
-                if (mAppContext instanceof IFcmTokenListenerApplication) {
-                    ((IFcmTokenListenerApplication) mAppContext).onNewFCMToken(sToken);
-                }
-                if (BuildConfig.DEBUG) Log.i(LOGTAG, "FCM has a new token" + "=" + sToken);
-                sendTokenToJS();
-            });
+        FirebaseMessaging firebaseMessaging;
+        try {
+            firebaseMessaging =  FirebaseApp.getInstance("messaging").get(FirebaseMessaging.class);
+        } catch (Exception err) {
+            firebaseMessaging = FirebaseMessaging.getInstance();
+        }
+        firebaseMessaging.getToken().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                if (BuildConfig.DEBUG)
+                    Log.w(LOGTAG, "Fetching FCM registration token failed", task.getException());
+                return;
+            }
+            sToken = task.getResult();
+            if (mAppContext instanceof IFcmTokenListenerApplication) {
+                ((IFcmTokenListenerApplication) mAppContext).onNewFCMToken(sToken);
+            }
+            if (BuildConfig.DEBUG) Log.i(LOGTAG, "FCM has a new token" + "=" + sToken);
+            sendTokenToJS();
+        });
     }
 
     protected void sendTokenToJS() {
