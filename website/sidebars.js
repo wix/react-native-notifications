@@ -5,7 +5,7 @@ module.exports = {
     'Advanced': ['docs/advanced-ios']
   },
   api: {
-    'Commands': ['api/general-api', 'api/ios-api'],
+    'Commands': ['api/general-api', 'api/ios-api', 'api/android-api'],
     'Events': ['api/general-events', 'api/ios-events'],
     'Objects': ['api/notification-obj']
   }

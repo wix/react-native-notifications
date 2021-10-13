@@ -41,6 +41,8 @@ public class PushNotification implements IPushNotification {
         public void onAppNotVisible() {
         }
     };
+    final private String DEFAULT_CHANNEL_ID = "channel_01";
+    final private String DEFAULT_CHANNEL_NAME = "Channel Name";
 
     public static IPushNotification get(Context context, Bundle bundle) {
         Context appContext = context.getApplicationContext();
@@ -56,6 +58,7 @@ public class PushNotification implements IPushNotification {
         mAppLaunchHelper = appLaunchHelper;
         mJsIOHelper = JsIOHelper;
         mNotificationProps = createProps(bundle);
+        initDefaultChannel(context);
     }
 
     @Override
@@ -144,10 +147,6 @@ public class PushNotification implements IPushNotification {
     }
 
     protected Notification.Builder getNotificationBuilder(PendingIntent intent) {
-
-        String CHANNEL_ID = "channel_01";
-        String CHANNEL_NAME = "Channel Name";
-
         final Notification.Builder notification = new Notification.Builder(mContext)
                 .setContentTitle(mNotificationProps.getTitle())
                 .setContentText(mNotificationProps.getBody())
@@ -158,12 +157,10 @@ public class PushNotification implements IPushNotification {
         setUpIcon(notification);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
-                    CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_DEFAULT);
             final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(channel);
-            notification.setChannelId(CHANNEL_ID);
+            String channelId = mNotificationProps.getChannelId();
+            NotificationChannel channel = notificationManager.getNotificationChannel(channelId);
+            notification.setChannelId(channel != null ? channelId : DEFAULT_CHANNEL_ID);
         }
 
         return notification;
@@ -225,5 +222,15 @@ public class PushNotification implements IPushNotification {
 
     private int getAppResourceId(String resName, String resType) {
         return mContext.getResources().getIdentifier(resName, resType, mContext.getPackageName());
+    }
+
+    private void initDefaultChannel(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel defaultChannel = new NotificationChannel(DEFAULT_CHANNEL_ID,
+                    DEFAULT_CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            final NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(defaultChannel);
+        }
     }
 }

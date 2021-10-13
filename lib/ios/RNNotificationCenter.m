@@ -3,12 +3,37 @@
 
 @implementation RNNotificationCenter
 
-- (void)requestPermissions {
+- (void)requestPermissions:(NSDictionary *)options {
+    BOOL carPlay = [options[@"carPlay"] boolValue];
+    BOOL criticalAlert = [options[@"criticalAlert"] boolValue];
+    BOOL providesAppNotificationSettings = [options[@"providesAppNotificationSettings"] boolValue];
+    BOOL provisional = [options[@"provisional"] boolValue];
+    BOOL announcement = [options[@"announcement"] boolValue];
     UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert);
+    if (carPlay) {
+        authOptions = authOptions | UNAuthorizationOptionCarPlay;
+    }
+    if (@available(iOS 12.0, *)) {
+        if (criticalAlert) {
+            authOptions = authOptions | UNAuthorizationOptionCriticalAlert;
+        }
+        if (providesAppNotificationSettings) {
+            authOptions = authOptions | UNAuthorizationOptionProvidesAppNotificationSettings;
+        }
+        if (provisional) {
+            authOptions = authOptions | UNAuthorizationOptionProvisional;
+        }
+    }
+    if (@available(iOS 13.0, *)) {
+        if (announcement) {
+            authOptions = authOptions | UNAuthorizationOptionAnnouncement;
+        }
+    }
+    
     [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:authOptions completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (!error && granted) {
             [UNUserNotificationCenter.currentNotificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-                if (settings.authorizationStatus == UNAuthorizationStatusAuthorized) {
+                if (settings.authorizationStatus == UNAuthorizationStatusAuthorized || settings.authorizationStatus == UNAuthorizationStatusProvisional) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [[UIApplication sharedApplication] registerForRemoteNotifications];
                     });
@@ -78,12 +103,24 @@
 
 - (void)checkPermissions:(RCTPromiseResolveBlock)resolve {
     [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-        resolve(@{
-                  @"badge": [NSNumber numberWithBool:settings.badgeSetting == UNNotificationSettingEnabled],
-                  @"sound": [NSNumber numberWithBool:settings.soundSetting == UNNotificationSettingEnabled],
-                  @"alert": [NSNumber numberWithBool:settings.alertSetting == UNNotificationSettingEnabled],
-                  });
+        NSMutableDictionary* allSettings = [NSMutableDictionary new];
+        [allSettings addEntriesFromDictionary:@{
+            @"badge": [NSNumber numberWithBool:settings.badgeSetting == UNNotificationSettingEnabled],
+            @"sound": [NSNumber numberWithBool:settings.soundSetting == UNNotificationSettingEnabled],
+            @"alert": [NSNumber numberWithBool:settings.alertSetting == UNNotificationSettingEnabled],
+            @"carPlay": [NSNumber numberWithBool:settings.carPlaySetting == UNNotificationSettingEnabled],
+            @"notificationCenter": [NSNumber numberWithBool:settings.notificationCenterSetting == UNNotificationSettingEnabled],
+            @"lockScreen": [NSNumber numberWithBool:settings.lockScreenSetting == UNNotificationSettingEnabled],
+        }];
+        if (@available(iOS 12.0, *)) {
+            allSettings[@"criticalAlert"] = [NSNumber numberWithBool:settings.criticalAlertSetting == UNNotificationSettingEnabled];
+            allSettings[@"providesAppNotificationSettings"] = [NSNumber numberWithBool:settings.providesAppNotificationSettings];
+            allSettings[@"provisional"] = [NSNumber numberWithBool:settings.authorizationStatus == UNAuthorizationStatusProvisional];
+        }
+        if (@available(iOS 13.0, *)) {
+            allSettings[@"announcement"] = [NSNumber numberWithBool:settings.announcementSetting == UNNotificationSettingEnabled];
+        }
+        resolve(allSettings);
     }];
 }
-
 @end
