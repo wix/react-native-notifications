@@ -32,6 +32,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowNotification;
 
+import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_BACKGROUND_EVENT_NAME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -49,6 +50,7 @@ public class PushNotificationTest {
 
     private static final String NOTIFICATION_OPENED_EVENT_NAME = "notificationOpened";
     private static final String NOTIFICATION_RECEIVED_EVENT_NAME = "notificationReceived";
+    private static final String NOTIFICATION_RECEIVED_BACKGROUND_EVENT_NAME = "notificationReceivedBackground";
 
     private static final String DEFAULT_NOTIFICATION_TITLE = "Notification-title";
     private static final String DEFAULT_NOTIFICATION_BODY = "Notification-body";
@@ -206,7 +208,7 @@ public class PushNotificationTest {
     }
 
     @Test
-    public void onReceived_validData_postNotificationAndNotifyJS() throws Exception {
+    public void onReceived_validData_dontPostNotificationAndNotifyJS() throws Exception {
         // Arrange
 
         setUpForegroundApp();
@@ -219,11 +221,7 @@ public class PushNotificationTest {
         // Assert
 
         ArgumentCaptor<Notification> notificationCaptor = ArgumentCaptor.forClass(Notification.class);
-
-        // Notifications should not be visible while app is in foreground
         verify(mNotificationManager, never()).notify(anyInt(), notificationCaptor.capture());
-
-        // Notifications should be reported to javascript while app is in background
         verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), argThat(new isValidNotification(mNotificationBundle)), eq(mReactContext));
     }
 
@@ -231,7 +229,7 @@ public class PushNotificationTest {
     public void onReceived_validDataForBackgroundApp_postNotificationAndNotifyJs() throws Exception {
         // Arrange
 
-        setUpForegroundApp();
+        setUpBackgroundApp();
 
         // Act
 
@@ -241,12 +239,8 @@ public class PushNotificationTest {
         // Assert
 
         ArgumentCaptor<Notification> notificationCaptor = ArgumentCaptor.forClass(Notification.class);
-
-        // Notifications should not be visible while app is in foreground
-        verify(mNotificationManager, never()).notify(anyInt(), notificationCaptor.capture());
-
-        // Notifications should be reported to javascript while app is in background
-        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), argThat(new isValidNotification(mNotificationBundle)), eq(mReactContext));
+        verify(mNotificationManager).notify(anyInt(), notificationCaptor.capture());
+        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_BACKGROUND_EVENT_NAME), argThat(new isValidNotification(mNotificationBundle)), eq(mReactContext));
     }
 
     @Test
@@ -257,8 +251,7 @@ public class PushNotificationTest {
         ArgumentCaptor<Notification> notificationCaptor = ArgumentCaptor.forClass(Notification.class);
         verify(mNotificationManager).notify(anyInt(), notificationCaptor.capture());
         verifyNotification(notificationCaptor.getValue());
-
-        verify(mJsIOHelper, never()).sendEventToJS(eq(NOTIFICATION_RECEIVED_EVENT_NAME), any(Bundle.class), any(ReactContext.class));
+        verify(mJsIOHelper).sendEventToJS(eq(NOTIFICATION_RECEIVED_BACKGROUND_EVENT_NAME), argThat(new isValidNotification(mNotificationBundle)), eq(null));
     }
 
     @Test

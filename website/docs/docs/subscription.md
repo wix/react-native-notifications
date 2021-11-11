@@ -42,5 +42,10 @@ Notifications.ios.checkPermissions().then((currentPermissions) => {
     console.log('Badges enabled: ' + !!currentPermissions.badge);
     console.log('Sounds enabled: ' + !!currentPermissions.sound);
     console.log('Alerts enabled: ' + !!currentPermissions.alert);
+    console.log('Car Play enabled: ' + !!currentPermissions.carPlay);
+    console.log('Critical Alerts enabled: ' + !!currentPermissions.criticalAlert);
+    console.log('Provisioanl enabled: ' + !!currentPermissions.provisional);
+    console.log('Provides App Notification Settings enabled: ' + !!currentPermissions.providesAppNotificationSettings);
+	console.log('Announcement enabled: ' + !!currentPermissions.announcement);
 });
 ```

@@ -18,4 +18,8 @@ export class EventsRegistryIOS {
   public registerPushKitNotificationReceived(callback: (event: object, completion: () => void) => void): EmitterSubscription {
     return this.nativeEventsReceiver.registerPushKitNotificationReceived(this.completionCallbackWrapper.wrapOpenedCallback(callback));
   }
+
+  public appNotificationSettingsLinked(callback: () => void): EmitterSubscription {
+    return this.nativeEventsReceiver.appNotificationSettingsLinked(callback);
+  }
 }

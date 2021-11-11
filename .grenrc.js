@@ -10,7 +10,7 @@ module.exports = {
     releaseSeparator: "\n---\n\n"
   },
   groupBy: {
-    "Enhancements:": ["type: enhancement", "Infrastructure"],
+    "Enhancements:": ["type: accepted/enhancement", "Infrastructure"],
     "Bug Fixes:": ["type: accepted/bug"]
   },
   ignoreIssuesWith: [

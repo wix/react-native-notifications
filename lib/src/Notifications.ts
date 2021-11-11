@@ -11,6 +11,7 @@ import { NotificationChannel } from './interfaces/NotificationChannel';
 import { NotificationsIOS } from './NotificationsIOS';
 import { NotificationsAndroid } from './NotificationsAndroid';
 import { NotificationFactory } from './DTO/NotificationFactory';
+import { NotificationPermissionOptions } from './interfaces/NotificationPermissions';
 
 export class NotificationsRoot {
   public readonly _ios: NotificationsIOS;
@@ -46,8 +47,8 @@ export class NotificationsRoot {
   /**
    * registerRemoteNotifications
    */
-  public registerRemoteNotifications() {
-    this.ios.registerRemoteNotifications();
+  public registerRemoteNotifications(options?: NotificationPermissionOptions) {
+    this.ios.registerRemoteNotifications(options);
     this.android.registerRemoteNotifications();
   }
 
@@ -75,7 +76,7 @@ export class NotificationsRoot {
   /**
    * cancelLocalNotification
   */
-  public cancelLocalNotification(notificationId: string) {
+  public cancelLocalNotification(notificationId: number) {
     return this.commands.cancelLocalNotification(notificationId);
   }
 

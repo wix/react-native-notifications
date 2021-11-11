@@ -46,22 +46,28 @@
 }
 
 - (void)testCompletePresentation_ShouldInvokeBlockWithParams {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Testing Async Method"];
     __block UNNotificationPresentationOptions presentationOptions;
     void (^testBlock)(UNNotificationPresentationOptions) = ^void(UNNotificationPresentationOptions options) {
         presentationOptions = options;
+        [expectation fulfill];
     };
     [_store setPresentationCompletionHandler:testBlock withCompletionKey:@"presentationTestBlock"];
     [_store completePresentation:@"presentationTestBlock" withPresentationOptions:UNNotificationPresentationOptionAlert];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
     XCTAssertEqual(presentationOptions, UNNotificationPresentationOptionAlert);
 }
 
 - (void)testCompletePresentation_ShouldRemoveBlock {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Testing Async Method"];
     __block UNNotificationPresentationOptions presentationOptions;
     void (^testBlock)(UNNotificationPresentationOptions) = ^void(UNNotificationPresentationOptions options) {
         presentationOptions = options;
+        [expectation fulfill];
     };
     [_store setPresentationCompletionHandler:testBlock withCompletionKey:@"presentationTestBlock"];
     [_store completePresentation:@"presentationTestBlock" withPresentationOptions:UNNotificationPresentationOptionAlert];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
     XCTAssertNil([_store getPresentationCompletionHandler:@"presentationTestBlock"]);
 }
 
