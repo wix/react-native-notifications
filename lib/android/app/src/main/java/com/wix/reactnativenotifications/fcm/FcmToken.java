@@ -14,6 +14,7 @@ import com.wix.reactnativenotifications.core.JsIOHelper;
 
 import static com.wix.reactnativenotifications.Defs.LOGTAG;
 import static com.wix.reactnativenotifications.Defs.TOKEN_RECEIVED_EVENT_NAME;
+import static com.wix.reactnativenotifications.Defs.TOKEN_REGISTRATION_FAILED_EVENT_NAME;
 
 public class FcmToken implements IFcmToken {
 
@@ -53,7 +54,7 @@ public class FcmToken implements IFcmToken {
                 refreshToken();
             } else {
                 if(BuildConfig.DEBUG) Log.i(LOGTAG, "Manual token refresh => publishing existing token ("+sToken+")");
-                sendTokenToJS();
+                sendTokenToJS(true);
             }
         }
     }
@@ -67,7 +68,7 @@ public class FcmToken implements IFcmToken {
             } else {
                 // Except for first run, this should be the case.
                 if(BuildConfig.DEBUG) Log.i(LOGTAG, "App initialized => publishing existing token ("+sToken+")");
-                sendTokenToJS();
+                sendTokenToJS(true);
             }
         }
     }
@@ -83,6 +84,7 @@ public class FcmToken implements IFcmToken {
             if (!task.isSuccessful()) {
                 if (BuildConfig.DEBUG)
                     Log.w(LOGTAG, "Fetching FCM registration token failed", task.getException());
+                sendTokenToJS(false);
                 return;
             }
             sToken = task.getResult();
@@ -90,19 +92,25 @@ public class FcmToken implements IFcmToken {
                 ((IFcmTokenListenerApplication) mAppContext).onNewFCMToken(sToken);
             }
             if (BuildConfig.DEBUG) Log.i(LOGTAG, "FCM has a new token" + "=" + sToken);
-            sendTokenToJS();
+            sendTokenToJS(true);
         });
     }
 
-    protected void sendTokenToJS() {
+    protected void sendTokenToJS(boolean isSuccessful) {
         final ReactInstanceManager instanceManager = ((ReactApplication) mAppContext).getReactNativeHost().getReactInstanceManager();
         final ReactContext reactContext = instanceManager.getCurrentReactContext();
 
         // Note: Cannot assume react-context exists cause this is an async dispatched service.
         if (reactContext != null && reactContext.hasActiveCatalystInstance()) {
             Bundle tokenMap = new Bundle();
-            tokenMap.putString("deviceToken", sToken);
-            mJsIOHelper.sendEventToJS(TOKEN_RECEIVED_EVENT_NAME, tokenMap, reactContext);
+
+            if (isSuccessful) {
+                tokenMap.putString("deviceToken", sToken);
+                mJsIOHelper.sendEventToJS(TOKEN_RECEIVED_EVENT_NAME, tokenMap, reactContext);
+            }
+            else {
+                mJsIOHelper.sendEventToJS(TOKEN_REGISTRATION_FAILED_EVENT_NAME, tokenMap, reactContext);
+            }
         }
     }
 }
