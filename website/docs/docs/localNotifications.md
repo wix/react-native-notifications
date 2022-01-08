@@ -6,6 +6,8 @@ sidebar_label: Local Notifications
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/2000px-Apple_logo_black.svg.png" width={30} /> iOS
 
+Local notifications are notifications, which are sent by an application to the device, on which it is running. The notification never leaves the device, on which the application is running. 
+
 You can manually trigger local notifications in your JS code, to be posted immediately or in the future.
 Triggering local notifications is fully compatible with React Native `PushNotificationsIOS` library.
 
