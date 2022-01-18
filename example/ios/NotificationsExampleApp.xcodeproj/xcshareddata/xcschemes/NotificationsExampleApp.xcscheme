@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CA400829100F0628EC209FBB08347D42"
-               BuildableName = "RNNotifications.framework"
+               BuildableName = "libreact-native-notifications.a"
                BlueprintName = "react-native-notifications"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
             </BuildableReference>

@@ -2,7 +2,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import <RNNotifications/RNNotifications.h>
+#import <RNNotifications.h>
 
 #import <PushKit/PushKit.h>
 
