@@ -15,8 +15,6 @@ if (isRelease) {
     VERSION = cp.execSync(`buildkite-agent meta-data get version`).toString();
     VERSION_TAG = cp.execSync(`buildkite-agent meta-data get npm-tag`).toString();
 }
-// const VERSION_TAG = process.env.NPM_TAG || isRelease ? 'latest' : 'snapshot';
-// const VERSION_INC = 'patch';
 
 if (VERSION_TAG == 'null') {
     VERSION_TAG = isRelease ? 'latest' : 'snapshot';
