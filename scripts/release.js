@@ -4,6 +4,7 @@ const semver = require('semver');
 const fs = require('fs');
 const _ = require('lodash');
 const grenrc = require('../.grenrc');
+const cp = require('child_process');
 
 // Workaround JS
 const isRelease = process.env.BUILDKITE_MESSAGE.match(/^release$/i);
