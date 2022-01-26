@@ -6,10 +6,20 @@ const _ = require('lodash');
 const grenrc = require('../.grenrc');
 
 // Workaround JS
-const isRelease = process.env.RELEASE_BUILD === 'true';
+const isRelease = process.env.BUILDKITE_MESSAGE.match(/^release$/i);
+const BRANCH = process.env.BUILDKITE_BRANCH;
 
-const BRANCH = process.env.BRANCH;
-const VERSION_TAG = process.env.NPM_TAG || isRelease ? 'latest' : 'snapshot';
+let VERSION, VERSION_TAG;
+if (isRelease) {
+    VERSION = cp.execSync(`buildkite-agent meta-data get version`).toString();
+    VERSION_TAG = cp.execSync(`buildkite-agent meta-data get npm-tag`).toString();
+}
+// const VERSION_TAG = process.env.NPM_TAG || isRelease ? 'latest' : 'snapshot';
+// const VERSION_INC = 'patch';
+
+if (VERSION_TAG == 'null') {
+    VERSION_TAG = isRelease ? 'latest' : 'snapshot';
+  }
 const VERSION_INC = 'patch';
 
 function run() {
@@ -22,15 +32,9 @@ function run() {
 }
 
 function validateEnv() {
-    if (!process.env.JENKINS_CI) {
+    if (!process.env.CI) {
         throw new Error(`releasing is only available from CI`);
     }
-
-    if (!process.env.JENKINS_MASTER) {
-        console.log(`not publishing on a different build`);
-        return false;
-    }
-
     return true;
 }
 
