@@ -79,6 +79,32 @@ And add the following methods to support registration to `AppDelegate.m`:
 }
 ```
 
+To support local notification, add the following code to `AppDelegate.h`:
+
+```objectivec
+#import <UserNotifications/UserNotifications.h> // -> Add this line
+
+//...
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, UNUserNotificationCenterDelegate> // -> Add `UNUserNotificationCenterDelegate`
+```
+
+And add the following code to `AppDelegate.m`:
+
+```objectivec
+#import <UserNotifications/UserNotifications.h> // -> Add this line
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  // ...
+  UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+  center.delegate = self;
+  // ...
+}
+```
+
+
+
 ### Android
 
 For Android installation, please refer to the [Android installation doc](installation-android.md) where you can find detailed step on how to start using Google's FCM service.
