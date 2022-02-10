@@ -25,23 +25,18 @@ function NotificationsExampleApp() {
     getInitialNotifaction();
   }, [])
 
-  const registerNotificationEvents = () => {
+  const registerNotificationEvents = () => {    
     Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
       setNotifications([...notifications, notification]);
       completion({alert: notification.payload.showAlert, sound: false, badge: false});
     });
 
     Notifications.events().registerNotificationOpened((notification, completion) => {
-      console.log('registerNotificationOpened');
-      
-      setOpenedNotifications([...openedNotifications, notification]);
+      console.log({notification});
       completion();
     });
 
     Notifications.events().registerNotificationReceivedBackground((notification, completion) => {
-      console.log('registerNotificationReceivedBackground');
-
-      fetch('http://192.168.1.2:2469')
       completion(NotificationBackgroundFetchResult.NO_DATA);
     });
 
@@ -128,9 +123,7 @@ function NotificationsExampleApp() {
   }
 
   const getInitialNotifaction = async () => {
-    const initialNotification = await Notifications.getInitialNotification();
-    console.log('getInitialNotifaction', {initialNotification});
-    
+    const initialNotification = await Notifications.getInitialNotification();    
     if (initialNotification) {
       setNotifications([initialNotification, ...notifications]);
     }
@@ -167,7 +160,6 @@ function NotificationsExampleApp() {
       console.warn(registered);
     });
   }
-console.log({notifications});
 
   return (
     <View style={styles.container}>
