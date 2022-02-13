@@ -1,0 +1,39 @@
+steps:
+  - block: ":rocket: Release!"
+    prompt: "Fill out the details for release"
+    if: 'build.message =~ /^release\$/i'
+    fields:
+      - text: "VERSION"
+        key: "version"
+      - text: "NPM_TAG"
+        key: "npm-tag"
+        default: 'null'
+        hint: 'Leave NULL if no version is specified'
+        required: false
+
+  - label: "Android"
+    command:
+    - "nvm install"
+    - "npm install"
+    - "npm run test-js"
+    - "npm run clean"
+    - "npm run test-unit-android -- --release"
+    key: android
+
+  - label: "iOS"
+    command:
+    - "nvm install"
+    - "npm install"
+    - "npm run test-unit-ios -- --release"
+    - "npm run test-e2e-ios -- --release --multi"
+    key: ios
+
+  - label: ":package: Publish"
+    if: "build.pull_request.id == null"
+    command:
+    - "nvm install"
+    - "npm install"
+    - "npm run release"
+    depends_on:
+    - "android"
+    - "ios"
