@@ -87,7 +87,7 @@ public class PushNotification implements IPushNotification {
     }
 
     protected int postNotification(Integer notificationId) {
-        final PendingIntent pendingIntent = getCTAPendingIntent();
+        final PendingIntent pendingIntent = NotificationIntentAdapter.createPendingNotificationIntent(mContext, mNotificationProps);;
         final Notification notification = buildNotification(pendingIntent);
         return postNotification(notification, notificationId);
     }
@@ -135,11 +135,6 @@ public class PushNotification implements IPushNotification {
 
     protected AppVisibilityListener getIntermediateAppVisibilityListener() {
         return mAppVisibilityListener;
-    }
-
-    protected PendingIntent getCTAPendingIntent() {
-        final Intent cta = new Intent(mContext, ProxyService.class);
-        return NotificationIntentAdapter.createPendingNotificationIntent(mContext, cta, mNotificationProps);
     }
 
     protected Notification buildNotification(PendingIntent intent) {
@@ -216,8 +211,10 @@ public class PushNotification implements IPushNotification {
     }
 
     protected void launchOrResumeApp() {
-        final Intent intent = mAppLaunchHelper.getLaunchIntent(mContext);
-        mContext.startActivity(intent);
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S) {
+            final Intent intent = mAppLaunchHelper.getLaunchIntent(mContext);
+            mContext.startActivity(intent);
+        }
     }
 
     private int getAppResourceId(String resName, String resType) {
