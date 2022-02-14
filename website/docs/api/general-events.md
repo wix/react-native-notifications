@@ -44,6 +44,7 @@ To receive background notifications on iOS follow [this guide](https://developer
 ## registerNotificationOpened()
 Fired when a remote notification is opened from dead or background state. The handler will be invoked with an instance of [Notification](notification-obj).
 Should call completion function on iOS, will be ignored on Android.
+Being called before component is mounted, if you want to know the initial notification in the component please use [getInitialNotification](general-api#getInitialNotification) on mount.
 
 ```js
 Notifications.events().registerNotificationOpened((notification: Notification, completion: () => void) => {
