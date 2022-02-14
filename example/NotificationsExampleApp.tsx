@@ -124,7 +124,7 @@ export default function NotificationsExampleApp() {
   const getInitialNotifaction = async () => {
     const initialNotification = await Notifications.getInitialNotification();    
     if (initialNotification) {
-      setNotifications([initialNotification, ...notifications]);
+      setOpenedNotifications([initialNotification, ...openedNotifications]);
     }
   }
 
