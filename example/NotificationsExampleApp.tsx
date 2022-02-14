@@ -31,7 +31,7 @@ export default function NotificationsExampleApp() {
     });
 
     Notifications.events().registerNotificationOpened((notification, completion) => {
-      console.log({notification});
+      setOpenedNotifications([notification, ...openedNotifications]);
       completion();
     });
 
@@ -122,7 +122,7 @@ export default function NotificationsExampleApp() {
   }
 
   const getInitialNotifaction = async () => {
-    const initialNotification = await Notifications.getInitialNotification();    
+    const initialNotification = await Notifications.getInitialNotification();
     if (initialNotification) {
       setOpenedNotifications([initialNotification, ...openedNotifications]);
     }
