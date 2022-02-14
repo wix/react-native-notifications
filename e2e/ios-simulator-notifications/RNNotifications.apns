@@ -1,0 +1,8 @@
+{
+  "Simulator Target Bundle": "org.reactjs.native.example.NotificationsExampleApp",
+  "aps": {
+    "content-available": 1,
+    "sound": "",
+  },
+  "link": "link"
+}

@@ -58,6 +58,7 @@
     "@types/react-test-renderer": "16.9.2",
     "babel-eslint": "10.0.3",
     "detox": "^17.5.7",
+    "express": "^4.17.2",
     "github-release-notes": "https://github.com/yogevbd/github-release-notes/tarball/e601b3dba72dcd6cba323c1286ea6dd0c0110b58",
     "jest": "24.9.0",
     "lodash": "4.17.21",
@@ -130,5 +131,8 @@
       "text",
       "html"
     ]
+  },
+  "dependencies": {
+    "body-parser": "^1.19.1"
   }
 }

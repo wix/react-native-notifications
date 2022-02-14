@@ -45,6 +45,10 @@
     [[self sharedInstance] didReceiveBackgroundNotification:userInfo withCompletionHandler:completionHandler];
 }
 
++ (void)didReceiveBackgroundNotification:(NSDictionary *)userInfo {
+    
+}
+
 + (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken {
     [[self sharedInstance] didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
