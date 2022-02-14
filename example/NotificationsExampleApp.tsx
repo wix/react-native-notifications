@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   View,
   Text,
@@ -15,7 +14,7 @@ import {
   Notification,
 } from '../lib/src';
 
-function NotificationsExampleApp() {
+export default function NotificationsExampleApp() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [openedNotifications, setOpenedNotifications] = useState<Notification[]>([]);
 
@@ -208,5 +207,3 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-
-AppRegistry.registerComponent('NotificationsExampleApp', () => NotificationsExampleApp);
