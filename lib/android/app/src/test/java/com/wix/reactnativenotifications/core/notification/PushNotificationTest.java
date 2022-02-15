@@ -301,7 +301,7 @@ public class PushNotificationTest {
         PushNotification uut = createUUT(new Bundle());
         uut.onPostRequest(null);
 
-        verify(mNotificationManager).notify(anyInt(), any(Notification.class));
+        verify(mNotificationManager, never()).notify(anyInt(), any(Notification.class));
     }
 
     protected PushNotification createUUT() {
