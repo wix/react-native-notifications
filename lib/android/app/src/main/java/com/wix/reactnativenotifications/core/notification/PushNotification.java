@@ -87,6 +87,9 @@ public class PushNotification implements IPushNotification {
     }
 
     protected int postNotification(Integer notificationId) {
+        if (mNotificationProps.isDataOnlyPushNotification()) {
+            return -1;
+        }
         final PendingIntent pendingIntent = NotificationIntentAdapter.createPendingNotificationIntent(mContext, mNotificationProps);;
         final Notification notification = buildNotification(pendingIntent);
         return postNotification(notification, notificationId);
