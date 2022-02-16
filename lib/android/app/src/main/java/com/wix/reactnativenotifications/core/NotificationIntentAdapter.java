@@ -14,7 +14,7 @@ public class NotificationIntentAdapter {
 
     @SuppressLint("UnspecifiedImmutableFlag")
     public static PendingIntent createPendingNotificationIntent(Context appContext, PushNotificationProps notification) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             Intent mainActivityIntent = appContext.getPackageManager().getLaunchIntentForPackage(appContext.getPackageName());
             mainActivityIntent.putExtra(PUSH_NOTIFICATION_EXTRA_NAME, notification.asBundle());
             TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(appContext);
