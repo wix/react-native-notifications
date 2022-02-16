@@ -14,8 +14,8 @@ def DEFAULT_KOTLIN_VERSION = "1.3.61"
 def DEFAULT_KOTLIN_STDLIB_VERSION = "kotlin-stdlib-jdk8"
 def DEFAULT_FIREBASE_MESSAGING_VERSION = "21.1.0"
 
-def androidSdkVersion = safeExtGet('androidSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
-def androidMinSdkVersion = safeExtGet('androidMinSdkVersion', DEFAULT_MIN_SDK_VERSION)
+def androidSdkVersion = safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
+def androidMinSdkVersion = safeExtGet('minSdkVersion', DEFAULT_MIN_SDK_VERSION)
 def androidTargetSdkVersion = safeExtGet('targetSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
 def kotlinVersion = safeExtGet('kotlinVersion', DEFAULT_KOTLIN_VERSION)
 def kotlinStdlib = safeExtGet('kotlinStdlib', DEFAULT_KOTLIN_STDLIB_VERSION)
