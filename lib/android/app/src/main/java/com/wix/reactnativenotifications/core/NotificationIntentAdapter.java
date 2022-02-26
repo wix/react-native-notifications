@@ -19,7 +19,7 @@ public class NotificationIntentAdapter {
             mainActivityIntent.putExtra(PUSH_NOTIFICATION_EXTRA_NAME, notification.asBundle());
             TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(appContext);
             taskStackBuilder.addNextIntentWithParentStack(mainActivityIntent);
-            return taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
+            return taskStackBuilder.getPendingIntent((int) System.currentTimeMillis(), PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
         } else {
             Intent intent = new Intent(appContext, ProxyService.class);
             intent.putExtra(PUSH_NOTIFICATION_EXTRA_NAME, notification.asBundle());
