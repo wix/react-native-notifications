@@ -61,25 +61,13 @@ public class RNNotificationsPackage implements ReactPackage, AppLifecycleFacade.
         final IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(mApplication.getApplicationContext());
         notificationsDrawer.onNewActivity(activity);
 
-        Intent intent = activity.getIntent();
-        if (NotificationIntentAdapter.canHandleIntent(intent)) {
-            Bundle notificationData = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R ?
-                    NotificationIntentAdapter.extractPendingNotificationDataFromIntent(intent) : intent.getExtras();
-            final IPushNotification pushNotification = PushNotification.get(mApplication.getApplicationContext(), notificationData);
-            if (pushNotification != null) {
-                pushNotification.onOpened();
-            }
-        }
+        callOnOpenedIfNeed(activity);
     }
 
     @Override
     public void onActivityStarted(Activity activity) {
-        Bundle bundle = activity.getIntent().getExtras();
-        if (bundle != null) {
-            PushNotificationProps props = new PushNotificationProps(bundle);
-            if (props.isFirebaseBackgroundPayload()) {
-                InitialNotificationHolder.getInstance().set(props);
-            }
+        if (InitialNotificationHolder.getInstance().get() == null) {
+            callOnOpenedIfNeed(activity);
         }
     }
 
@@ -101,5 +89,17 @@ public class RNNotificationsPackage implements ReactPackage, AppLifecycleFacade.
 
     @Override
     public void onActivityDestroyed(Activity activity) {
+    }
+
+    private void callOnOpenedIfNeed(Activity activity) {
+        Intent intent = activity.getIntent();
+        if (NotificationIntentAdapter.canHandleIntent(intent)) {
+            Bundle notificationData = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R ?
+                    NotificationIntentAdapter.extractPendingNotificationDataFromIntent(intent) : intent.getExtras();
+            final IPushNotification pushNotification = PushNotification.get(mApplication.getApplicationContext(), notificationData);
+            if (pushNotification != null) {
+                pushNotification.onOpened();
+            }
+        }
     }
 }
