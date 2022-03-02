@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.2.2 (26/02/2022)
+
+#### Bug Fixes:
+
+- latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
+
+---
+
 ## 4.2.1 (16/02/2022)
 
 #### Enhancements:
@@ -149,7 +157,6 @@
 #### Enhancements:
 
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
@@ -187,10 +194,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -234,10 +241,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -281,10 +288,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -328,10 +335,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -375,10 +382,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -422,10 +429,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -469,10 +476,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -516,10 +523,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -563,10 +570,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -610,10 +617,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -657,10 +664,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -704,10 +711,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -751,10 +758,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -798,10 +805,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -845,10 +852,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -892,10 +899,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -914,7 +921,7 @@
 
 ---
 
-## 4.2.2 (31/12/1969)
+## 4.2.3 (31/12/1969)
 
 #### Enhancements:
 
@@ -939,10 +946,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -986,10 +993,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -1033,10 +1040,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -1080,10 +1087,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -1127,10 +1134,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -1174,10 +1181,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -1221,10 +1228,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
@@ -1268,10 +1275,10 @@
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
 - Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-- Add event and handler for iOS background notification [#587](https://github.com/wix/react-native-notifications/pull/587) by [songsterq](https://github.com/songsterq)
 
 #### Bug Fixes:
 
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert android to api 30 [#823](https://github.com/wix/react-native-notifications/pull/823) by [DanielEliraz](https://github.com/DanielEliraz)
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
