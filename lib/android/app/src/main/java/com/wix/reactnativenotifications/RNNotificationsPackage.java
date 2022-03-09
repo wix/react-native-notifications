@@ -2,6 +2,7 @@ package com.wix.reactnativenotifications;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -94,9 +95,10 @@ public class RNNotificationsPackage implements ReactPackage, AppLifecycleFacade.
     private void callOnOpenedIfNeed(Activity activity) {
         Intent intent = activity.getIntent();
         if (NotificationIntentAdapter.canHandleIntent(intent)) {
-            Bundle notificationData = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R ?
+            Context appContext = mApplication.getApplicationContext();
+            Bundle notificationData = NotificationIntentAdapter.cannotHandleTrampolineActivity(appContext) ?
                     NotificationIntentAdapter.extractPendingNotificationDataFromIntent(intent) : intent.getExtras();
-            final IPushNotification pushNotification = PushNotification.get(mApplication.getApplicationContext(), notificationData);
+            final IPushNotification pushNotification = PushNotification.get(appContext, notificationData);
             if (pushNotification != null) {
                 pushNotification.onOpened();
             }
