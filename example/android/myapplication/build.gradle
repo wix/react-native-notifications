@@ -12,7 +12,7 @@ project.ext.react = [
         bundleInBeta   : true,
         hermesFlagsDebug:['-Xes6-proxy','-output-source-map'],
         hermesFlagsRelease:['-output-source-map'],
-        hermesCommand: "../../../node_modules/react-native/node_modules/hermes-engine/%OS-BIN%/hermesc",
+        hermesCommand: "../../../node_modules/hermes-engine/%OS-BIN%/hermesc",
 ]
 
 apply from: "../../../node_modules/react-native/react.gradle"
@@ -51,7 +51,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"
 
-    def hermesPath = "../../../node_modules/react-native/node_modules/hermes-engine/android/";
+    def hermesPath = "../../../node_modules/hermes-engine/android/";
     debugImplementation files(hermesPath + "hermes-debug.aar")
     releaseImplementation files(hermesPath + "hermes-release.aar")
     implementation "org.jetbrains.kotlin:$kotlinStdlib:$kotlinVersion"

@@ -1,3 +1,4 @@
+rootProject.name = 'NotificationsExampleApp'
 include ':myapplication'
 
 include ':react-native-notifications'
