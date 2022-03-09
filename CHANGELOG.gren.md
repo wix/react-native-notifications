@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.2.3 (02/03/2022)
+
+#### Bug Fixes:
+
+- fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
+
+---
+
 ## 4.2.2 (26/02/2022)
 
 #### Bug Fixes:
@@ -154,10 +162,6 @@
 
 ## 3.3.0 (23/07/2020)
 
-#### Enhancements:
-
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
-
 #### Bug Fixes:
 
 - Fix: When app's in background, Android cannot trigger registerNotificationOpened when user press on banner  [#614](https://github.com/wix/react-native-notifications/pull/614) by [ttkien](https://github.com/ttkien)
@@ -173,6 +177,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -193,7 +198,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -220,6 +224,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -240,7 +245,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -267,6 +271,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -287,7 +292,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -314,6 +318,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -334,7 +339,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -361,6 +365,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -381,7 +386,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -408,6 +412,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -428,7 +433,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -455,6 +459,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -475,7 +480,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -502,6 +506,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -522,7 +527,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -549,6 +553,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -569,7 +574,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -596,6 +600,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -616,7 +621,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -643,6 +647,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -663,7 +668,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -690,6 +694,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -710,7 +715,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -737,6 +741,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -757,7 +762,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -784,6 +788,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -804,7 +809,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -831,6 +835,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -851,7 +856,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -878,6 +882,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -898,7 +903,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -921,10 +925,11 @@
 
 ---
 
-## 4.2.3 (31/12/1969)
+## 4.2.4 (31/12/1969)
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -945,7 +950,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -972,6 +976,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -992,7 +997,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -1019,6 +1023,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1039,7 +1044,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -1066,6 +1070,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1086,7 +1091,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -1113,6 +1117,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1133,7 +1138,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -1160,6 +1164,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1180,7 +1185,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -1207,6 +1211,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1227,7 +1232,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
@@ -1254,6 +1258,7 @@
 
 #### Enhancements:
 
+- Fix trampoline on target sdk 31 [#837](https://github.com/wix/react-native-notifications/pull/837) by [DanielEliraz](https://github.com/DanielEliraz)
 - used common ext names exported in root project [#798](https://github.com/wix/react-native-notifications/pull/798) by [SaeedZhiany](https://github.com/SaeedZhiany)
 - android: do not display data-only PN [#822](https://github.com/wix/react-native-notifications/pull/822) by [DanielEliraz](https://github.com/DanielEliraz)
 - back to index js [#814](https://github.com/wix/react-native-notifications/pull/814) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1274,7 +1279,6 @@
 - Bump docusaurus to 2.0.0-alpha.64 [#673](https://github.com/wix/react-native-notifications/pull/673) by [yogevbd](https://github.com/yogevbd)
 - Bump detox to v17.5.7 [#676](https://github.com/wix/react-native-notifications/pull/676) by [yogevbd](https://github.com/yogevbd)
 - FCM Token Listener application [#660](https://github.com/wix/react-native-notifications/pull/660) by [swabbass](https://github.com/swabbass)
-- Pushkit completion handler [#644](https://github.com/wix/react-native-notifications/pull/644) by [henrikbjorn](https://github.com/henrikbjorn)
 
 #### Bug Fixes:
 
