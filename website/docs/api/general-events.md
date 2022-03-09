@@ -27,6 +27,7 @@ Notifications.events().registerNotificationReceivedForeground((notification: Not
 ```
 
 ## registerNotificationReceivedBackground()
+#### To receive background notifications on iOS follow [this guide](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/pushing_background_updates_to_your_app).
 Fired when a remote notification is received in background state. The handler will be invoked with an instance of [Notification](notification-obj).
 Should call completion function on iOS, will be ignored on Android.
 
@@ -38,8 +39,6 @@ Notifications.events().registerNotificationReceivedBackground((notification: Not
   completion({alert: true, sound: true, badge: false});
 });
 ```
-
-To receive background notifications on iOS follow [this guide](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/pushing_background_updates_to_your_app)
 
 ## registerNotificationOpened()
 Fired when a remote notification is opened from dead or background state. The handler will be invoked with an instance of [Notification](notification-obj).
