@@ -9,7 +9,7 @@ describe('Notifications', () => {
   describe('Foreground', () => {
     it('Should receive notification', async () => {
       await device.sendUserNotification(createNotification({link: 'foreground/notification'}));
-      await expect(elementByLabel('foreground/notification')).toBeVisible();
+      await linkShouldBeVisible('foreground/notification');
     });
 
     it('Should open notification', async () => {
@@ -30,9 +30,13 @@ describe('Notifications', () => {
   describe('Dead state', () => {
     it('Should receive notification', async () => {
       await device.launchApp({newInstance: true, userNotification: createNotification({link: 'deadState/notification'})});
-      await expect(elementByLabel('deadState/notification')).toBeVisible();
+      await linkShouldBeVisible('deadState/notification');
     });
   });
+
+  async function linkShouldBeVisible(link) {
+    return await expect(elementByLabel(`Extra Link Param: ${link}`)).toBeVisible();
+  }
 });
 
 function createNotification({link, showAlert}) {

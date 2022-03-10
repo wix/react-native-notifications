@@ -1,8 +1,7 @@
 {
   "name": "react-native-notifications",
-  "version": "2.0.6",
+  "version": "4.2.4",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
-  "author": "Lidan Hifi <lidan.hifi@gmail.com>",
   "license": "MIT",
   "keywords": [
     "react-component",
@@ -19,51 +18,57 @@
     "actionable-notifications",
     "interactive-notifications"
   ],
-  "main": "lib/src/index",
+  "main": "lib/dist/index.js",
+  "typings": "lib/dist/index.d.ts",
   "scripts": {
-    "build": ":",
-    "pretest": "./node_modules/.bin/eslint *.js test",
+    "build": "rm -rf ./lib/dist && tsc",
+    "prestart": "npm run build",
+    "pretest-js": "npm run build",
+    "pretest-unit-ios": "npm run build",
+    "pretest-unit-android": "npm run build",
     "test": "node scripts/test",
     "start": "node ./scripts/start",
+    "pretest-e2e-ios-release": "npm run build",
     "clean": "node ./scripts/clean",
     "test-e2e-ios": "node ./scripts/test-e2e --ios",
     "test-e2e-ios-release": "node ./scripts/test-e2e --ios --release",
     "test-unit-ios": "node ./scripts/test-unit --ios",
     "test-unit-android": "node ./scripts/test-unit --android",
     "test-js": "node ./scripts/test-js",
-    "release": "node ./scripts/release"
+    "xcode": "open example/ios/NotificationsExampleApp.xcworkspace",
+    "studio": "open -a /Applications/Android\\ Studio.app ./example/android",
+    "prerelease": "npm run build",
+    "release": "node ./scripts/release",
+    "generate-changelog": "gren changelog",
+    "docusaurus": "npm start --prefix website",
+    "pod-install": "pod install --project-directory=example/ios"
   },
   "nativePackage": true,
-  "dependencies": {
-    "core-js": "^1.0.0",
-    "uuid": "^2.0.3"
-  },
   "peerDependencies": {
-    "react": ">=0.14.5",
-    "react-native": ">=0.25.1"
+    "react": "*",
+    "react-native": "*"
   },
   "devDependencies": {
-    "@types/react": "16.x.x",
-    "@types/react-native": "0.57.7",
-    "@types/react-test-renderer": "16.x.x",
     "@babel/plugin-proposal-export-default-from": "7.2.0",
     "@babel/plugin-proposal-export-namespace-from": "7.2.0",
-    "typescript": "3.2.2",
-    "babel-eslint": "9.0.0",
-    "chai": "^3.5.0",
-    "chokidar-cli": "^1.2.0",
-    "eslint": "6.0.1",
-    "mocha": "^2.5.3",
-    "proxyquire": "^1.7.4",
-    "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0",
-    "shell-utils": "1.x.x",
-    "react-native": "0.59.5",
-    "react": "16.8.6",
-    "detox": "13.x.x",
-    "jsc-android": "236355.x.x",
-    "jest": "24.8.0",
-    "metro-react-native-babel-preset": "0.55.x"
+    "@types/jest": "24.9.0",
+    "@types/lodash": "4.14.170",
+    "@types/react": "16.9.35",
+    "@types/react-native": "0.67.1",
+    "@types/react-test-renderer": "16.9.2",
+    "babel-eslint": "10.0.3",
+    "detox": "^19.4.2",
+    "github-release-notes": "https://github.com/yogevbd/github-release-notes/tarball/e601b3dba72dcd6cba323c1286ea6dd0c0110b58",
+    "jest": "24.9.0",
+    "lodash": "4.17.21",
+    "metro-react-native-babel-preset": "0.66.2",
+    "react": "17.0.2",
+    "react-autobind": "1.0.6",
+    "react-native": "0.67.3",
+    "shell-utils": "1.0.10",
+    "ts-mockito": "2.5.0",
+    "tslint": "6.1.2",
+    "typescript": "^3.7.5"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -80,26 +85,17 @@
     "test-runner": "jest",
     "specs": "",
     "configurations": {
-      "ios.none": {
-        "binaryPath": "playground/ios/DerivedData/playground/Build/Products/Debug-iphonesimulator/playground.app",
-        "type": "ios.none",
-        "name": "iPhone X",
-        "session": {
-          "server": "ws://localhost:8099",
-          "sessionId": "playground"
-        }
-      },
       "ios.sim.debug": {
         "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Debug-iphonesimulator/NotificationsExampleApp.app",
-        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp -project example/ios/NotificationsExampleApp.xcodeproj -sdk iphonesimulator -configuration Debug -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
+        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp -workspace example/ios/NotificationsExampleApp.xcworkspace -sdk iphonesimulator -configuration Debug -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
         "type": "ios.simulator",
-        "name": "iPhone X"
+        "name": "iPhone 11"
       },
       "ios.sim.release": {
         "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Release-iphonesimulator/NotificationsExampleApp.app",
-        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp_release -project example/ios/NotificationsExampleApp.xcodeproj -sdk iphonesimulator -configuration Release -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
+        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp_release -workspace example/ios/NotificationsExampleApp.xcworkspace -sdk iphonesimulator -configuration Release -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
         "type": "ios.simulator",
-        "name": "iPhone X"
+        "name": "iPhone 11"
       }
     }
   },
@@ -110,13 +106,16 @@
     },
     "roots": [
       "<rootDir>/node_modules/",
-      "<rootDir>/test/"
+      "<rootDir>/lib/dist/"
     ],
     "collectCoverageFrom": [
+      "lib/dist/**/*.js",
       "lib/src/**/*.js",
       "integration/**/*.js",
       "!lib/dist/index.js",
-      "!lib/dist/Navigation.js",
+      "!lib/dist/Notifications.js",
+      "!lib/dist/NotificationsIOS.js",
+      "!lib/dist/NotificationsAndroid.js",
       "!lib/dist/adapters/**/*",
       "!lib/dist/interfaces/**/*",
       "!lib/dist/**/*.test.*",

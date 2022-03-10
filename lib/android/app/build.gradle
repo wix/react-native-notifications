@@ -1,0 +1,133 @@
+import groovy.json.JsonSlurper
+
+apply plugin: 'com.android.library'
+
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
+def DEFAULT_COMPILE_SDK_VERSION = 30
+def DEFAULT_MIN_SDK_VERSION = 21
+def DEFAULT_KOTLIN_VERSION = "1.3.61"
+def DEFAULT_KOTLIN_STDLIB_VERSION = "kotlin-stdlib-jdk8"
+def DEFAULT_FIREBASE_MESSAGING_VERSION = "21.1.0"
+
+def androidSdkVersion = safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
+def androidMinSdkVersion = safeExtGet('minSdkVersion', DEFAULT_MIN_SDK_VERSION)
+def androidTargetSdkVersion = safeExtGet('targetSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
+def kotlinVersion = safeExtGet('kotlinVersion', DEFAULT_KOTLIN_VERSION)
+def kotlinStdlib = safeExtGet('kotlinStdlib', DEFAULT_KOTLIN_STDLIB_VERSION)
+def firebaseVersion = safeExtGet('firebaseVersion', DEFAULT_FIREBASE_MESSAGING_VERSION)
+
+Object findReactNativePackageJson() {
+    def searchPath = 'node_modules/react-native/package.json'
+    def projectDir = project.projectDir.toString() + '/'
+    def rnPackageJsonFile = new File(projectDir + searchPath)
+    while (!rnPackageJsonFile.exists()) {
+        searchPath = '../' + searchPath
+        rnPackageJsonFile = new File(projectDir + searchPath)
+    }
+    return rnPackageJsonFile
+}
+
+String resolveFlavor() {
+    def packageSlurper = new JsonSlurper()
+    def rnPackageJsonFile = findReactNativePackageJson()
+    def reactNativePackageJson = packageSlurper.parseText(rnPackageJsonFile.text)
+    def reactNativeVersion = reactNativePackageJson.version
+
+    List versionComponents = reactNativeVersion.tokenize('.')
+
+    if (versionComponents[1].toInteger() < 60) {
+        return "reactNative59"
+    } else {
+        return "reactNative60"
+    }
+}
+
+
+android {
+    compileSdkVersion androidSdkVersion
+    defaultConfig {
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+        }
+    }
+
+
+    flavorDimensions "RNNotifications.reactNativeVersion"
+    productFlavors {
+        reactNative59 {
+            dimension "RNNotifications.reactNativeVersion"
+        }
+        reactNative60 {
+            dimension "RNNotifications.reactNativeVersion"
+        }
+    }
+
+    def flavor = resolveFlavor()
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        if (!names.contains(flavor)) {
+            setIgnore(true)
+        }
+    }
+
+    testOptions {
+        unitTests.all { t ->
+            reports {
+                html.enabled true
+            }
+            testLogging {
+                events "PASSED", "SKIPPED", "FAILED", "standardOut", "standardError"
+            }
+            afterSuite { desc, result ->
+                if (!desc.parent) { // will match the outermost suite
+                    def output = "      ${result.resultType} (${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)     "
+                    def repeatLength = output.length()
+                    println '\n\n' + ('-' * repeatLength) + '\n' + output + '\n' + ('-' * repeatLength) + '\n'
+
+                    println "see report at file://${t.reports.html.destination}/index.html"
+                }
+            }
+        }
+
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:$kotlinStdlib:$kotlinVersion"
+    implementation "com.google.firebase:firebase-messaging:$firebaseVersion"
+    implementation 'com.facebook.react:react-native:+'
+
+    // tests
+    testImplementation 'junit:junit:4.12'
+    testImplementation "org.robolectric:robolectric:4.3"
+    testImplementation "org.assertj:assertj-core:3.8.0"
+    testImplementation "com.squareup.assertj:assertj-android:1.1.1"
+    testImplementation "org.mockito:mockito-core:2.28.2"
+}

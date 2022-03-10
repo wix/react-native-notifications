@@ -13,23 +13,23 @@ function run() {
 }
 
 function runAndroidUnitTests() {
-  const conf = release ? 'testReleaseUnitTest' : 'testDebugUnitTest';
+  const conf = release ? 'testReactNative60ReleaseUnitTest' : 'testReactNative60DebugUnitTest';
   if (android && process.env.JENKINS_CI) {
     const sdkmanager = '/usr/local/share/android-sdk/tools/bin/sdkmanager';
     exec.execSync(`yes | ${sdkmanager} --licenses`);
     // exec.execSync(`echo y | ${sdkmanager} --update && echo y | ${sdkmanager} --licenses`);
   }
-  exec.execSync(`cd android && ./gradlew ${conf}`);
+  exec.execSync(`cd lib/android && ./gradlew ${conf}`);
 }
 
 function runIosUnitTests() {
   const conf = release ? `Release` : `Debug`;
-
+  exec.execSync('npm run pod-install');
   exec.execSync(`cd ./example/ios &&
             RCT_NO_LAUNCH_PACKAGER=true
             xcodebuild build build-for-testing
             -scheme "NotificationsExampleApp"
-            -project NotificationsExampleApp.xcodeproj
+            -workspace NotificationsExampleApp.xcworkspace
             -sdk iphonesimulator
             -configuration ${conf}
             -derivedDataPath ./example/ios/DerivedData/NotificationsExampleApp
@@ -41,10 +41,10 @@ function runIosUnitTests() {
             RCT_NO_LAUNCH_PACKAGER=true
             xcodebuild test-without-building
             -scheme "NotificationsExampleApp"
-            -project NotificationsExampleApp.xcodeproj
+            -workspace NotificationsExampleApp.xcworkspace
             -sdk iphonesimulator
             -configuration ${conf}
-            -destination 'platform=iOS Simulator,name=iPhone X'
+            -destination 'platform=iOS Simulator,name=iPhone 11'
             -derivedDataPath ./example/ios/DerivedData/NotificationsExampleApp
             ONLY_ACTIVE_ARCH=YES`);
 }

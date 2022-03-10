@@ -1,0 +1,25 @@
+import { EmitterSubscription } from 'react-native';
+import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver';
+import {
+  RegisteredPushKit
+} from '../interfaces/NotificationEvents';
+import { CompletionCallbackWrapper } from '../adapters/CompletionCallbackWrapper';
+
+export class EventsRegistryIOS {
+  constructor(
+    private nativeEventsReceiver: NativeEventsReceiver,
+    private completionCallbackWrapper: CompletionCallbackWrapper) 
+  {}
+
+  public registerPushKitRegistered(callback: (event: RegisteredPushKit) => void): EmitterSubscription {
+    return this.nativeEventsReceiver.registerPushKitRegistered(callback);
+  }
+
+  public registerPushKitNotificationReceived(callback: (event: object, completion: () => void) => void): EmitterSubscription {
+    return this.nativeEventsReceiver.registerPushKitNotificationReceived(this.completionCallbackWrapper.wrapOpenedCallback(callback));
+  }
+
+  public appNotificationSettingsLinked(callback: () => void): EmitterSubscription {
+    return this.nativeEventsReceiver.appNotificationSettingsLinked(callback);
+  }
+}

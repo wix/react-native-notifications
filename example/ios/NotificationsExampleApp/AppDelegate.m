@@ -2,7 +2,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import <RNNotifications/RNNotifications.h>
+#import <RNNotifications.h>
 
 #import <PushKit/PushKit.h>
 
@@ -36,6 +36,10 @@
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
   [RNNotifications didFailToRegisterForRemoteNotificationsWithError:error];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+  [RNNotifications didReceiveBackgroundNotification:userInfo withCompletionHandler:completionHandler];
 }
 
 @end

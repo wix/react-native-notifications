@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wix.reactnativenotifications">
+
+    <application>
+
+        <!--
+         A proxy-service that gives the library an opportunity to do some work before launching/resuming the actual application task.
+         -->
+        <service android:name=".core.ProxyService"/>
+
+        <service
+            android:name=".fcm.FcmInstanceIdListenerService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".fcm.FcmInstanceIdRefreshHandlerService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+    </application>
+
+</manifest>
