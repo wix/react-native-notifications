@@ -111,7 +111,7 @@ public class PushNotification implements IPushNotification {
         }
         final PendingIntent pendingIntent = NotificationIntentAdapter.createPendingNotificationIntent(mContext, mNotificationProps);
         //final Notification notification = buildNotification(pendingIntent);
-        int id = notificationId != null ? notificationId : createNotificationId();
+        int id = notificationId != null ? notificationId : 0;
 
         int badge = mNotificationProps.getBadge();
         if (badge >= 0) {
@@ -125,9 +125,7 @@ public class PushNotification implements IPushNotification {
     protected void postNotification(int id, Notification notification) {
         final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(notification.getGroup(), id, notification);
-
-        stackNotificationIfNeeded(notification);
+        notificationManager.notify(mNotificationProps.getTag(), id, notification);
     }
 
     protected void digestNotification() {
@@ -263,11 +261,6 @@ public class PushNotification implements IPushNotification {
             .setDefaults(Notification.DEFAULT_ALL)
             .setAutoCancel(true);
 
-        // we group if it exists
-        if (mNotificationProps.getGroup() != null){
-            notificationBuilder.setGroup(mNotificationProps.getGroup());
-        }
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
             String channelId = mNotificationProps.getChannelId();
@@ -308,72 +301,6 @@ public class PushNotification implements IPushNotification {
         int id = notificationId != null ? notificationId : createNotificationId(notification);
         postNotification(id, notification);
         return id;
-    }
-
-    private void stackNotificationIfNeeded(Notification notification) {
-        final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        // only run this code if the device is running 23 or better
-        if (Build.VERSION.SDK_INT >= 23) {
-            ArrayList<StatusBarNotification> groupedNotifications = new ArrayList<>();
-
-            // step through all the active StatusBarNotifications and
-            for (StatusBarNotification sbn : notificationManager.getActiveNotifications()) {
-                if (notification.getGroup() != null &&
-                        notification.getGroup().equals(sbn.getNotification().getGroup()) &&
-                        sbn.getId() != mNotificationProps.TYPE_STACK) {
-                    groupedNotifications.add(sbn);
-                }
-            }
-
-            if (groupedNotifications.size() > 1) {
-                Notification.Builder builder = new Notification.Builder(mContext);
-
-                int smallIconResId = getSmallIconResId();
-
-                builder.setContentTitle("Minds")
-                        .setContentText(String.format("%d new notifications", groupedNotifications.size()));
-
-                Notification.InboxStyle inbox = new Notification.InboxStyle();
-                {
-                    for (StatusBarNotification activeSbn : groupedNotifications) {
-                        String stackNotificationLine = (String)activeSbn.getNotification().extras.get(Notification.EXTRA_TEXT);
-                        if (stackNotificationLine != null) {
-                            inbox.addLine(stackNotificationLine);
-                        }
-                    }
-
-                    inbox.setSummaryText(String.format("%d new notifications", groupedNotifications.size()));
-                }
-                builder.setStyle(inbox);
-
-                // make sure that our group is set the same as our most recent RemoteNotification
-                // and choose to make it the group summary.
-                builder.setGroup(notification.getGroup())
-                    .setGroupSummary(true);
-
-                // if the user taps the notification, it should disappear after firing its content intent
-                // and we set the priority to high to avoid Doze from delaying our notifications
-                builder.setAutoCancel(true)
-                    .setPriority(Notification.PRIORITY_HIGH);
-
-                final PendingIntent pendingIntent = NotificationIntentAdapter.createPendingNotificationIntent(mContext, mNotificationProps);
-
-                builder.setContentIntent(pendingIntent);
-
-                builder.setSmallIcon(smallIconResId);
-
-                if (notification.getLargeIcon() != null) builder.setLargeIcon(notification.getLargeIcon());
-
-                Notification stackNotification = builder.build();
-                stackNotification.defaults = Notification.DEFAULT_ALL;
-
-                // finally, deliver the notification using the group identifier as the Tag
-                // and the TYPE_STACK which will cause any previously sent stack notifications
-                // for this group to be updated with the contents of this built summary notification
-                notificationManager.notify(notification.getGroup(), PushNotificationProps.TYPE_STACK, stackNotification);
-            }
-        }
     }
 
     protected void clearAllNotifications() {
