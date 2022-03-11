@@ -93,6 +93,7 @@ public class FcmToken implements IFcmToken {
 
         // Note: Cannot assume react-context exists cause this is an async dispatched service.
         if (reactContext != null && reactContext.hasActiveCatalystInstance()) {
+            if (BuildConfig.DEBUG) Log.i(LOGTAG, "sendTokenToJS sToken" + "=" + TOKEN_RECEIVED_EVENT_NAME);
             Bundle tokenMap = new Bundle();
             tokenMap.putString("deviceToken", sToken);
             mJsIOHelper.sendEventToJS(TOKEN_RECEIVED_EVENT_NAME, tokenMap, reactContext);

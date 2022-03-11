@@ -109,7 +109,7 @@ public class PushNotification implements IPushNotification {
         if (mNotificationProps.isDataOnlyPushNotification()) {
             return -1;
         }
-        final PendingIntent pendingIntent = getCTAPendingIntent();
+        final PendingIntent pendingIntent = NotificationIntentAdapter.createPendingNotificationIntent(mContext, mNotificationProps);
         //final Notification notification = buildNotification(pendingIntent);
         int id = notificationId != null ? notificationId : createNotificationId();
 
@@ -272,7 +272,7 @@ public class PushNotification implements IPushNotification {
             final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
             String channelId = mNotificationProps.getChannelId();
             NotificationChannel channel = notificationManager.getNotificationChannel(channelId);
-            notification.setChannelId(channel != null ? channelId : DEFAULT_CHANNEL_ID);
+            notificationBuilder.setChannelId(channel != null ? channelId : DEFAULT_CHANNEL_ID);
         }
 
         return notificationBuilder;
@@ -357,7 +357,9 @@ public class PushNotification implements IPushNotification {
                 builder.setAutoCancel(true)
                     .setPriority(Notification.PRIORITY_HIGH);
 
-                builder.setContentIntent(getCTAPendingIntent());
+                final PendingIntent pendingIntent = NotificationIntentAdapter.createPendingNotificationIntent(mContext, mNotificationProps);
+
+                builder.setContentIntent(pendingIntent);
 
                 builder.setSmallIcon(smallIconResId);
 

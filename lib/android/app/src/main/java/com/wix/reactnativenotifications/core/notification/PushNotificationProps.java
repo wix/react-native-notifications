@@ -35,8 +35,6 @@ public class PushNotificationProps {
 
     public String getSound() { return mBundle.getString("sound"); }
 
-    public String getTitle() { return mBundle.getString("title"); }
-
     public String getUri() {
         return mBundle.getString("uri");
     }
