@@ -1,3 +1,4 @@
+#import "RNEventEmitter.h"
 #import "RNNotificationCenter.h"
 #import "RCTConvert+RNNotifications.h"
 
