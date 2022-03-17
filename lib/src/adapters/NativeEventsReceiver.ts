@@ -25,13 +25,13 @@ export class NativeEventsReceiver {
   }
 
   public registerNotificationReceived(callback: (notification: Notification) => void): EmitterSubscription {
-    return this.emitter.addListener('notificationReceived', (payload) => {
+    return this.emitter.addListener('notificationReceived', (payload: unknown) => {
       callback(this.notificationFactory.fromPayload(payload));
     });
   }
 
   public registerNotificationReceivedBackground(callback: (notification: Notification) => void): EmitterSubscription {
-    return this.emitter.addListener('notificationReceivedBackground', (payload) => {
+    return this.emitter.addListener('notificationReceivedBackground', (payload: unknown) => {
       callback(this.notificationFactory.fromPayload(payload));
     });
   }
