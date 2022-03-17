@@ -40,6 +40,9 @@
                 }
             }];
         }
+        if (!error && !granted) {
+          [RNEventEmitter sendEvent:RNRegistrationDenied body:nil];
+        }
     }];
 }
 

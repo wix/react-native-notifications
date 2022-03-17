@@ -34,4 +34,8 @@ export class EventsRegistry {
   public registerRemoteNotificationsRegistrationFailed(callback: (event: RegistrationError) => void): EmitterSubscription {
     return this.nativeEventsReceiver.registerRemoteNotificationsRegistrationFailed(callback);
   }
+
+  public registerRemoteNotificationsRegistrationDenied(callback: () => void): EmitterSubscription {
+    return this.nativeEventsReceiver.registerRemoteNotificationsRegistrationDenied(callback);
+}
 }
