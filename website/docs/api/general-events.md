@@ -61,7 +61,7 @@ Notifications.events().registerRemoteNotificationsRegistrationFailed((event: Reg
 });
 ```
 
-## registerRemoteNotificationsDenied()
+## registerRemoteNotificationsRegistrationDenied()
 Fired when the user does not grant permission to receive push notifications. Typically occurs when pressing the "Don't Allow" button in iOS permissions overlay.
 
 ```js
