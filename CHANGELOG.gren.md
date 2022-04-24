@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.3.0 (24/04/2022)
+
+#### Enhancements:
+
+- Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
+- Fix typo in example [#843](https://github.com/wix/react-native-notifications/pull/843) by [oh3vci](https://github.com/oh3vci)
+- emphasize NotificationReceivedBackground ios guide [#838](https://github.com/wix/react-native-notifications/pull/838) by [DanielEliraz](https://github.com/DanielEliraz)
+
+#### Bug Fixes:
+
+- create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
+
+---
+
 ## 4.2.4 (09/03/2022)
 
 #### Enhancements:
@@ -205,6 +219,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -254,6 +269,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -303,6 +319,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -352,6 +369,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -401,6 +419,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -450,6 +469,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -499,6 +519,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -548,6 +569,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -597,6 +619,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -646,6 +669,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -695,6 +719,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -744,6 +769,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -793,6 +819,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -842,6 +869,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -891,6 +919,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -940,6 +969,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -989,6 +1019,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1008,7 +1039,7 @@
 
 ---
 
-## 4.3.0 (31/12/1969)
+## 4.3.1 (31/12/1969)
 
 #### Enhancements:
 
@@ -1038,6 +1069,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1087,6 +1119,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1136,6 +1169,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1185,6 +1219,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1234,6 +1269,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1283,6 +1319,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1332,6 +1369,7 @@
 
 #### Bug Fixes:
 
+- FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
 - create default channel only when no existing channel [#839](https://github.com/wix/react-native-notifications/pull/839) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix initial notification from killed [#831](https://github.com/wix/react-native-notifications/pull/831) by [DanielEliraz](https://github.com/DanielEliraz)
 - latest notification data in getInitialNotification [#830](https://github.com/wix/react-native-notifications/pull/830) by [DanielEliraz](https://github.com/DanielEliraz)
