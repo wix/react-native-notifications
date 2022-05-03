@@ -16,6 +16,7 @@ public class ReactAppLifecycleFacade implements AppLifecycleFacade {
     private ReactContext mReactContext;
     private boolean mIsVisible;
     private boolean mIsDestroyed;
+    private boolean mIsStarted;
     private Set<AppVisibilityListener> mListeners = new CopyOnWriteArraySet<>();
 
     public void init(ReactContext reactContext) {
@@ -68,6 +69,11 @@ public class ReactAppLifecycleFacade implements AppLifecycleFacade {
     @Override
     public boolean isAppDestroyed() {
         return mIsDestroyed;
+    }
+
+    @Override
+    public boolean isAppStarted() {
+        return mIsStarted;
     }
 
     @Override

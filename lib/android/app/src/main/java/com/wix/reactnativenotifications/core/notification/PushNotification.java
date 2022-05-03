@@ -17,6 +17,7 @@ import com.wix.reactnativenotifications.core.AppLifecycleFacadeHolder;
 import com.wix.reactnativenotifications.core.InitialNotificationHolder;
 import com.wix.reactnativenotifications.core.JsIOHelper;
 import com.wix.reactnativenotifications.core.NotificationIntentAdapter;
+import com.wix.reactnativenotifications.JSNotifyWhenKilledTask;
 
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_OPENED_EVENT_NAME;
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_EVENT_NAME;
@@ -64,7 +65,13 @@ public class PushNotification implements IPushNotification {
     public void onReceived() throws InvalidNotificationException {
         if (!mAppLifecycleFacade.isAppVisible()) {
             postNotification(null);
-            notifyReceivedBackgroundToJS();
+            if (!mAppLifecycleFacade.isAppStarted()) {
+              if (mNotificationProps.isDataOnlyPushNotification()) {
+                notifyReceivedKilledToJS();
+              }
+            } else {
+              notifyReceivedBackgroundToJS();
+            }
         } else {
             notifyReceivedToJS();
         }
@@ -203,6 +210,13 @@ public class PushNotification implements IPushNotification {
 
     private void notifyReceivedBackgroundToJS() {
         mJsIOHelper.sendEventToJS(NOTIFICATION_RECEIVED_BACKGROUND_EVENT_NAME, mNotificationProps.asBundle(), mAppLifecycleFacade.getRunningReactContext());
+    }
+
+    private void notifyReceivedKilledToJS() {
+      Bundle bundle = new Bundle(mNotificationProps.asBundle());
+      Intent service = new Intent(mContext.getApplicationContext(), JSNotifyWhenKilledTask.class);
+      service.putExtras(bundle);
+      mContext.getApplicationContext().startService(service);
     }
 
     private void notifyOpenedToJS() {

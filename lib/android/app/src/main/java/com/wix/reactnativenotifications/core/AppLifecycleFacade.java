@@ -13,6 +13,7 @@ public interface AppLifecycleFacade {
     ReactContext getRunningReactContext();
     boolean isAppVisible();
     boolean isAppDestroyed();
+    boolean isAppStarted();
     void addVisibilityListener(AppVisibilityListener listener);
     void removeVisibilityListener(AppVisibilityListener listener);
 }
