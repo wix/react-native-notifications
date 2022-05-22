@@ -213,7 +213,7 @@ public class PushNotification implements IPushNotification {
     }
 
     protected void launchOrResumeApp() {
-        if (!NotificationIntentAdapter.cannotHandleTrampolineActivity(mContext)) {
+        if (NotificationIntentAdapter.canHandleTrampolineActivity(mContext)) {
             final Intent intent = mAppLaunchHelper.getLaunchIntent(mContext);
             mContext.startActivity(intent);
         }
