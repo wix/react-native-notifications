@@ -67,7 +67,7 @@ public class RNNotificationsPackage implements ReactPackage, AppLifecycleFacade.
 
     @Override
     public void onActivityStarted(Activity activity) {
-        if (InitialNotificationHolder.getInstance().get() == null) {
+        if (InitialNotificationHolder.getInstance().get() != null) {
             callOnOpenedIfNeed(activity);
         }
     }
