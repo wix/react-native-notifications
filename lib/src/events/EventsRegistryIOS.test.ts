@@ -1,12 +1,15 @@
 import { EventsRegistryIOS } from './EventsRegistryIOS';
 import { CompletionCallbackWrapper } from '../adapters/CompletionCallbackWrapper';
-import { NativeCommandsSender } from '../adapters/NativeCommandsSender.mock';
-import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver.mock';
+import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
+import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver';
+
+jest.mock('../adapters/NativeCommandsSender')
+jest.mock('../adapters/NativeEventsReceiver')
 
 describe('EventsRegistryIOS', () => {
   let uut: EventsRegistryIOS;
-  const mockNativeEventsReceiver = new NativeEventsReceiver();
-  const mockNativeCommandsSender = new NativeCommandsSender();
+  const mockNativeEventsReceiver = new NativeEventsReceiver() as jest.Mocked<NativeEventsReceiver>;
+  const mockNativeCommandsSender = new NativeCommandsSender() as jest.Mocked<NativeCommandsSender>;
   const completionCallbackWrapper = new CompletionCallbackWrapper(mockNativeCommandsSender);
 
   beforeEach(() => {

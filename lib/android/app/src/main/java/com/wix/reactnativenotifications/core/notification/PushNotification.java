@@ -176,7 +176,7 @@ public class PushNotification implements IPushNotification {
 
     private void setUpIconColor(Notification.Builder notification) {
         int colorResID = getAppResourceId("colorAccent", "color");
-        if (colorResID != 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (colorResID != 0) {
             int color = mContext.getResources().getColor(colorResID);
             notification.setColor(color);
         }
@@ -213,7 +213,7 @@ public class PushNotification implements IPushNotification {
     }
 
     protected void launchOrResumeApp() {
-        if (!NotificationIntentAdapter.cannotHandleTrampolineActivity(mContext)) {
+        if (NotificationIntentAdapter.canHandleTrampolineActivity(mContext)) {
             final Intent intent = mAppLaunchHelper.getLaunchIntent(mContext);
             mContext.startActivity(intent);
         }
