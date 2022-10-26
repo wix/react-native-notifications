@@ -8,7 +8,7 @@ import { NotificationFactory } from '../DTO/NotificationFactory';
 
 export class NativeEventsReceiver {
   private emitter: EventEmitter;
-  constructor(private readonly notificationFactory: NotificationFactory) {
+  constructor(private readonly notificationFactory: NotificationFactory = new NotificationFactory()) {
     this.emitter = new NativeEventEmitter(NativeModules.RNEventEmitter);
   }
 
