@@ -82,24 +82,6 @@
   "bugs": {
     "url": "https://github.com/wix/react-native-notifications/issues"
   },
-  "detox": {
-    "test-runner": "jest",
-    "specs": "",
-    "configurations": {
-      "ios.sim.debug": {
-        "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Debug-iphonesimulator/NotificationsExampleApp.app",
-        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp -workspace example/ios/NotificationsExampleApp.xcworkspace -sdk iphonesimulator -configuration Debug -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
-        "type": "ios.simulator",
-        "name": "iPhone 11"
-      },
-      "ios.sim.release": {
-        "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Release-iphonesimulator/NotificationsExampleApp.app",
-        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp_release -workspace example/ios/NotificationsExampleApp.xcworkspace -sdk iphonesimulator -configuration Release -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
-        "type": "ios.simulator",
-        "name": "iPhone 11"
-      }
-    }
-  },
   "jest": {
     "preset": "react-native",
     "transform": {
