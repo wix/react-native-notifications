@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WindowFocusChangeListener;
 import com.wix.reactnativenotifications.BuildConfig;
 
 import java.util.Set;
@@ -20,11 +21,19 @@ public class ReactAppLifecycleFacade implements AppLifecycleFacade {
 
     public void init(ReactContext reactContext) {
         mReactContext = reactContext;
+        reactContext.addWindowFocusChangeListener(new WindowFocusChangeListener() {
+            @Override
+            public void onWindowFocusChange(boolean hasFocus) {
+                if(BuildConfig.DEBUG) Log.d(LOGTAG, "onWindowFocusChange");
+                if (hasFocus) {
+                    switchToVisible();
+                }
+            }
+        });
         reactContext.addLifecycleEventListener(new LifecycleEventListener() {
             @Override
             public void onHostResume() {
                 if(BuildConfig.DEBUG) Log.d(LOGTAG, "onHostResume");
-                switchToVisible();
             }
 
             @Override
