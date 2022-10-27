@@ -13,34 +13,41 @@ export class NativeEventsReceiver {
   }
 
   public registerRemoteNotificationsRegistered(callback: (event: Registered) => void): EmitterSubscription {
+    this.emitter.removeAllListeners('notificationReceivedBackground');
     return this.emitter.addListener('remoteNotificationsRegistered', callback);
   }
 
   public appNotificationSettingsLinked(callback: () => void): EmitterSubscription {
+    this.emitter.removeAllListeners('notificationReceivedBackground');
     return this.emitter.addListener('appNotificationSettingsLinked', callback);
   }
 
   public registerPushKitRegistered(callback: (event: RegisteredPushKit) => void): EmitterSubscription {
+    this.emitter.removeAllListeners('pushKitRegistered');
     return this.emitter.addListener('pushKitRegistered', callback);
   }
 
   public registerNotificationReceived(callback: (notification: Notification) => void): EmitterSubscription {
+    this.emitter.removeAllListeners('notificationReceived');
     return this.emitter.addListener('notificationReceived', (payload: unknown) => {
       callback(this.notificationFactory.fromPayload(payload));
     });
   }
 
   public registerNotificationReceivedBackground(callback: (notification: Notification) => void): EmitterSubscription {
+    this.emitter.removeAllListeners('notificationReceivedBackground');
     return this.emitter.addListener('notificationReceivedBackground', (payload: unknown) => {
       callback(this.notificationFactory.fromPayload(payload));
     });
   }
 
   public registerPushKitNotificationReceived(callback: (event: object) => void): EmitterSubscription {
+    this.emitter.removeAllListeners('pushKitNotificationReceived');
     return this.emitter.addListener('pushKitNotificationReceived', callback);
   }
 
   public registerNotificationOpened(callback: (notification: Notification, actionResponse?: NotificationActionResponse) => void): EmitterSubscription {
+    this.emitter.removeAllListeners('notificationOpened');
     return this.emitter.addListener('notificationOpened', (response: NotificationResponse) => {
       const action = response.action ? new NotificationActionResponse(response.action) : undefined;
       callback(this.notificationFactory.fromPayload(response.notification), action);
@@ -48,10 +55,12 @@ export class NativeEventsReceiver {
   }
 
   public registerRemoteNotificationsRegistrationFailed(callback: (event: RegistrationError) => void): EmitterSubscription {
+    this.emitter.removeAllListeners('remoteNotificationsRegistrationFailed');
     return this.emitter.addListener('remoteNotificationsRegistrationFailed', callback);
   }
 
   public registerRemoteNotificationsRegistrationDenied(callback: () => void): EmitterSubscription {
+    this.emitter.removeAllListeners('remoteNotificationsRegistrationDenied');
     return this.emitter.addListener('remoteNotificationsRegistrationDenied', callback);
   }
 }
