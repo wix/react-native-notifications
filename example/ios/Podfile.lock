@@ -74,7 +74,6 @@ PODS:
   - fmt (6.2.1)
   - glog (0.3.5)
   - libevent (2.1.12)
-  - OCMock (3.9.1)
   - OpenSSL-Universal (1.1.1100)
   - RCT-Folly (2021.06.28.00-v2):
     - boost
@@ -385,7 +384,6 @@ DEPENDENCIES:
   - FlipperKit/FlipperKitUserDefaultsPlugin (= 0.125.0)
   - FlipperKit/SKIOSNetworkPlugin (= 0.125.0)
   - glog (from `../../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - OCMock
   - OpenSSL-Universal (= 1.1.1100)
   - RCT-Folly (from `../../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../../node_modules/react-native/Libraries/RCTRequired`)
@@ -432,7 +430,6 @@ SPEC REPOS:
     - FlipperKit
     - fmt
     - libevent
-    - OCMock
     - OpenSSL-Universal
     - SocketRocket
     - YogaKit
@@ -523,7 +520,6 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 3d02b25ca00c2d456734d0bcff864cbc62f6ae1a
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  OCMock: 9491e4bec59e0b267d52a9184ff5605995e74be8
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   RCT-Folly: b9d9fe1fc70114b751c076104e52f3b1b5e5a95a
   RCTRequired: c8c080849a3670601d5c7056023a2176067a69d8
@@ -556,6 +552,6 @@ SPEC CHECKSUMS:
   Yoga: 75bf4b0131cfb46a659cd0c13309b79a6fcff66d
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: fe30e6f497a776689c220b9a392fbb1b9fbfd5d9
+PODFILE CHECKSUM: db98acdd11faf19f8692c5b592f01e5f711fed2d
 
 COCOAPODS: 1.11.2

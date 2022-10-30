@@ -6,7 +6,7 @@ install! 'cocoapods', :deterministic_uuids => false
 
 production = ENV["PRODUCTION"] == "1"
 
-def all_pods
+target 'NotificationsExampleApp' do
   config = use_native_modules!
 
   flags = get_default_flags()
@@ -21,13 +21,14 @@ def all_pods
   )
 
   pod 'react-native-notifications', :path => '../../'
-end
 
-target 'NotificationsExampleApp' do
-  all_pods
-end
+  target 'NotificationsExampleAppTests' do
+    inherit! :complete
+    # Pods for testing
+  end
 
-target 'NotificationsExampleAppTests' do
-  all_pods
-  pod 'OCMock'
+  post_install do |installer|
+    react_native_post_install(installer)
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+  end
 end
