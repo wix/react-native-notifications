@@ -11,7 +11,7 @@ module.exports = {
   },
   project: {
     ios: {
-      project: './example/ios/NotificationsExampleApp.xcworkspace',
+      sourceDir: './example/ios',
     },
     android: {
       sourceDir: './example/android/',
