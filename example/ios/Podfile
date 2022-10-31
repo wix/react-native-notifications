@@ -25,6 +25,7 @@ target 'NotificationsExampleApp' do
   target 'NotificationsExampleAppTests' do
     inherit! :complete
     # Pods for testing
+    pod 'OCMock'
   end
 
   post_install do |installer|
