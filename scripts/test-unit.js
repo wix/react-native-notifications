@@ -34,7 +34,7 @@ function runIosUnitTests() {
             -configuration ${conf}
             -derivedDataPath ./example/ios/DerivedData/NotificationsExampleApp
             -quiet
-            -UseModernBuildSystem=NO
+            -UseModernBuildSystem=YES
             ONLY_ACTIVE_ARCH=YES`);
 
   exec.execSync(`cd ./example/ios &&

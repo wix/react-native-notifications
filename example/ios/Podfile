@@ -2,9 +2,6 @@ require_relative '../../node_modules/react-native/scripts/react_native_pods'
 require_relative '../../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 platform :ios, '12.4'
-install! 'cocoapods', :deterministic_uuids => false
-
-production = ENV["PRODUCTION"] == "1"
 
 target 'NotificationsExampleApp' do
   config = use_native_modules!
@@ -13,11 +10,10 @@ target 'NotificationsExampleApp' do
 
   use_react_native!(
     :path => config[:reactNativePath],
-    :production => false,
     :hermes_enabled => flags[:hermes_enabled],
     :fabric_enabled => flags[:fabric_enabled],
     :flipper_configuration => FlipperConfiguration.enabled,
-    :app_path => "#{Pod::Config.instance.installation_root}/../.."
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
   pod 'react-native-notifications', :path => '../../'
