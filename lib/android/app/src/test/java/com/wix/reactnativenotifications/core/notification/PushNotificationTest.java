@@ -2,6 +2,7 @@ package com.wix.reactnativenotifications.core.notification;
 
 import android.app.Activity;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -32,7 +33,6 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowNotification;
 
-import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_BACKGROUND_EVENT_NAME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -44,6 +44,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.argThat;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 @RunWith(RobolectricTestRunner.class)
 public class PushNotificationTest {
@@ -301,7 +306,25 @@ public class PushNotificationTest {
         PushNotification uut = createUUT(new Bundle());
         uut.onPostRequest(null);
 
-        verify(mNotificationManager).notify(anyInt(), any(Notification.class));
+        verify(mNotificationManager, never()).notify(anyInt(), any(Notification.class));
+    }
+
+    @Test
+    public void onCreate_noExistingChannel_createDefaultChannel() throws Exception {
+        createUUT();
+
+        verify(mNotificationManager).createNotificationChannel(any(NotificationChannel.class));
+    }
+
+    @Test
+    public void onCreate_existingChannel_notCreateDefaultChannel() throws Exception {
+        List<NotificationChannel> existingChannel = new ArrayList<>();
+        existingChannel.add(new NotificationChannel("id", "name", 1));
+        when(mNotificationManager.getNotificationChannels()).thenReturn(existingChannel);
+
+        createUUT();
+
+        verify(mNotificationManager, never()).createNotificationChannel(any(NotificationChannel.class));
     }
 
     protected PushNotification createUUT() {

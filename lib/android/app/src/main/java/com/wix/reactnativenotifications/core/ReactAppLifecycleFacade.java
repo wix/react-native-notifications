@@ -47,7 +47,11 @@ public class ReactAppLifecycleFacade implements AppLifecycleFacade {
             return false;
         }
 
-        return mReactContext.hasActiveCatalystInstance();
+        try {
+            return mReactContext.hasActiveCatalystInstance();
+        } catch (Exception e) {
+            return mReactContext.hasActiveReactInstance();
+        }
     }
 
     @Override

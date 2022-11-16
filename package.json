@@ -1,8 +1,7 @@
 {
   "name": "react-native-notifications",
-  "version": "4.1.2",
+  "version": "4.3.3",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
-  "author": "Lidan Hifi <lidan.hifi@gmail.com>",
   "license": "MIT",
   "keywords": [
     "react-component",
@@ -37,7 +36,7 @@
     "test-unit-android": "node ./scripts/test-unit --android",
     "test-js": "node ./scripts/test-js",
     "xcode": "open example/ios/NotificationsExampleApp.xcworkspace",
-    "androidStudio": "open -a /Applications/Android\\ Studio.app ./example/android",
+    "studio": "open -a /Applications/Android\\ Studio.app ./example/android",
     "prerelease": "npm run build",
     "release": "node ./scripts/release",
     "generate-changelog": "gren changelog",
@@ -46,32 +45,31 @@
   },
   "nativePackage": true,
   "peerDependencies": {
-    "react": ">=0.14.5",
-    "react-native": ">=0.25.1"
+    "react": "*",
+    "react-native": "*"
   },
   "devDependencies": {
-    "lodash": "4.17.21",
-    "hermes-engine": "0.4.2-rc1",
-    "react-autobind": "1.0.6",
-    "react": "16.11.0",
-    "react-native": "0.62.2",
-    "detox": "^17.5.7",
-    "jest": "24.9.0",
-    "typescript": "^3.7.5",
-    "babel-eslint": "10.0.3",
-    "tslint": "6.1.2",
-    "ts-mockito": "2.5.0",
-    "shell-utils": "1.0.10",
-    "metro-react-native-babel-preset": "0.59.0",
-    "react-native-typescript-transformer": "1.2.13",
-    "github-release-notes": "https://github.com/yogevbd/github-release-notes/tarball/e601b3dba72dcd6cba323c1286ea6dd0c0110b58",
-    "@types/react": "16.9.35",
-    "@types/react-native": "0.62.2",
-    "@types/react-test-renderer": "16.9.2",
     "@babel/plugin-proposal-export-default-from": "7.2.0",
     "@babel/plugin-proposal-export-namespace-from": "7.2.0",
-    "@types/jest": "24.9.0",
-    "@types/lodash": "4.14.170"
+    "@types/jest": "^27.0.0",
+    "@types/lodash": "4.14.182",
+    "@types/react": "^17.0.0",
+    "@types/react-native": "0.67.6",
+    "@types/react-test-renderer": "16.9.2",
+    "babel-eslint": "10.0.3",
+    "detox": "^19.4.2",
+    "github-release-notes": "https://github.com/yogevbd/github-release-notes/tarball/e601b3dba72dcd6cba323c1286ea6dd0c0110b58",
+    "jest": "^27.0.0",
+    "lodash": "4.17.21",
+    "metro-babel-register": "^0.73.2",
+    "metro-react-native-babel-preset": "^0.67.0",
+    "react": "^17.0.0",
+    "react-autobind": "1.0.6",
+    "react-native": "^0.68.1",
+    "shell-utils": "1.0.10",
+    "ts-mockito": "2.5.0",
+    "tslint": "6.1.3",
+    "typescript": "^4.0.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -83,24 +81,6 @@
   "homepage": "https://github.com/wix/react-native-notifications",
   "bugs": {
     "url": "https://github.com/wix/react-native-notifications/issues"
-  },
-  "detox": {
-    "test-runner": "jest",
-    "specs": "",
-    "configurations": {
-      "ios.sim.debug": {
-        "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Debug-iphonesimulator/NotificationsExampleApp.app",
-        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp -workspace example/ios/NotificationsExampleApp.xcworkspace -sdk iphonesimulator -configuration Debug -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
-        "type": "ios.simulator",
-        "name": "iPhone 11"
-      },
-      "ios.sim.release": {
-        "binaryPath": "example/ios/DerivedData/NotificationsExampleApp/Build/Products/Release-iphonesimulator/NotificationsExampleApp.app",
-        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme NotificationsExampleApp_release -workspace example/ios/NotificationsExampleApp.xcworkspace -sdk iphonesimulator -configuration Release -derivedDataPath example/ios/DerivedData/NotificationsExampleApp ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
-        "type": "ios.simulator",
-        "name": "iPhone 11"
-      }
-    }
   },
   "jest": {
     "preset": "react-native",
