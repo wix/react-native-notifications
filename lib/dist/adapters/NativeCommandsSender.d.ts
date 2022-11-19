@@ -1,0 +1,32 @@
+import { Notification } from '../DTO/Notification';
+import { NotificationCompletion } from '../interfaces/NotificationCompletion';
+import { NotificationPermissions } from '../interfaces/NotificationPermissions';
+import { NotificationCategory } from '../interfaces/NotificationCategory';
+import { NotificationChannel } from '../interfaces/NotificationChannel';
+import { NotificationPermissionOptions } from '../interfaces/NotificationPermissions';
+import { NotificationResponse } from '../interfaces/NotificationEvents';
+export declare class NativeCommandsSender {
+    private readonly nativeCommandsModule;
+    constructor();
+    postLocalNotification(notification: Notification, id: number): void;
+    getInitialNotification(): Promise<Object>;
+    getInitialAction(): Promise<NotificationResponse>;
+    requestPermissions(options?: NotificationPermissionOptions): void;
+    abandonPermissions(): void;
+    refreshToken(): void;
+    registerPushKit(): void;
+    setCategories(categories: [NotificationCategory?]): void;
+    getBadgeCount(): Promise<number>;
+    setBadgeCount(count: number): void;
+    cancelLocalNotification(notificationId: number): void;
+    cancelAllLocalNotifications(): void;
+    isRegisteredForRemoteNotifications(): Promise<any>;
+    checkPermissions(): Promise<NotificationPermissions>;
+    removeAllDeliveredNotifications(): void;
+    removeDeliveredNotifications(identifiers: Array<string>): void;
+    getDeliveredNotifications(): Promise<Notification[]>;
+    finishPresentingNotification(notificationId: string, notificationCompletion: NotificationCompletion): void;
+    finishHandlingAction(notificationId: string): void;
+    setNotificationChannel(notificationChannel: NotificationChannel): void;
+    finishHandlingBackgroundAction(notificationId: string, backgroundFetchResult: string): void;
+}
