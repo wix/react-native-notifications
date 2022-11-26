@@ -7,7 +7,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 Currently this guide is written for `react-native-notifications@^3.0.0`.  
-We also assume you use `react-native@60.x.x` and above.
+We also assume you use `react-native@0.60.x` and above.
 
 For older versions, visit this [installation guide](https://github.com/wix/react-native-notifications/blob/v2/docs/installation.md).
 
