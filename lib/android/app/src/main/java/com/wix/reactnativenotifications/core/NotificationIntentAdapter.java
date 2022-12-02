@@ -17,7 +17,7 @@ public class NotificationIntentAdapter {
         if (canHandleTrampolineActivity(appContext)) {
             Intent intent = new Intent(appContext, ProxyService.class);
             intent.putExtra(PUSH_NOTIFICATION_EXTRA_NAME, notification.asBundle());
-            return PendingIntent.getService(appContext, (int) System.currentTimeMillis(), intent, PendingIntent.FLAG_ONE_SHOT);
+            return PendingIntent.getService(appContext, (int) System.currentTimeMillis(), intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
         } else {
             Intent mainActivityIntent = appContext.getPackageManager().getLaunchIntentForPackage(appContext.getPackageName());
             mainActivityIntent.putExtra(PUSH_NOTIFICATION_EXTRA_NAME, notification.asBundle());
