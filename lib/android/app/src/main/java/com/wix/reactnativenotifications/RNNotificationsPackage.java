@@ -61,7 +61,11 @@ public class RNNotificationsPackage implements ReactPackage, AppLifecycleFacade.
         final IPushNotificationsDrawer notificationsDrawer = PushNotificationsDrawer.get(mApplication.getApplicationContext());
         notificationsDrawer.onNewActivity(activity);
 
-        callOnOpenedIfNeed(activity);
+        Intent intent = activity.getIntent();
+        boolean launchedFromHistory = intent != null ? (intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0 : false;
+        if (!launchedFromHistory) {
+            callOnOpenedIfNeed(activity);
+        }
     }
 
     @Override
