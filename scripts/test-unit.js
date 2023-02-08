@@ -44,7 +44,7 @@ function runIosUnitTests() {
             -workspace NotificationsExampleApp.xcworkspace
             -sdk iphonesimulator
             -configuration ${conf}
-            -destination 'platform=iOS Simulator,OS=14.4, name=iPhone 12'
+            -destination 'platform=iOS Simulator,OS=14.4,name=iPhone 12'
             -derivedDataPath ./example/ios/DerivedData/NotificationsExampleApp
             ONLY_ACTIVE_ARCH=YES`);
 }
