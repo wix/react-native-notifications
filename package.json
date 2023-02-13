@@ -1,5 +1,5 @@
 {
-  "name": "react-native-notifications",
+  "name": "@exodus/react-native-notifications",
   "version": "4.3.3",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
   "license": "MIT",
@@ -76,11 +76,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wix/react-native-notifications.git"
+    "url": "https://github.com/ExodusMovement/react-native-notifications.git"
   },
-  "homepage": "https://github.com/wix/react-native-notifications",
+  "homepage": "https://github.com/ExodusMovement/react-native-notifications",
   "bugs": {
-    "url": "https://github.com/wix/react-native-notifications/issues"
+    "url": "https://github.com/ExodusMovement/react-native-notifications/issues"
   },
   "jest": {
     "preset": "react-native",
