@@ -29,11 +29,12 @@ constructor() {
       completion();
 		});
 		
-		Notifications.events().registerNotificationReceivedBackground((notification: Notification, completion: (response: NotificationCompletion) => void) => {
+		Notifications.events().registerNotificationReceivedBackground((notification: Notification, completion: (response: NotificationBackgroundFetchResult) => void) => {
       console.log("Notification Received - Background", notification.payload);
-
-      // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
-      completion({alert: true, sound: true, badge: false});
+      
+      // completion(NotificationBackgroundFetchResult.NO_DATA);
+      // completion(NotificationBackgroundFetchResult.NEW_DATA);
+      // completion(NotificationBackgroundFetchResult.FAILED);
 		});
 }
 ```
