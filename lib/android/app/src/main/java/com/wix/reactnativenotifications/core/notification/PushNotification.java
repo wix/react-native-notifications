@@ -207,9 +207,13 @@ public class PushNotification implements IPushNotification {
 
     private void notifyOpenedToJS() {
         Bundle response = new Bundle();
+        try{
         response.putBundle("notification", mNotificationProps.asBundle());
 
         mJsIOHelper.sendEventToJS(NOTIFICATION_OPENED_EVENT_NAME, response, mAppLifecycleFacade.getRunningReactContext());
+        } catch (NullPointerException e) {
+            Log.e(LOGTAG, "notifyOpenedToJS: Null pointer exception");
+        }
     }
 
     protected void launchOrResumeApp() {
