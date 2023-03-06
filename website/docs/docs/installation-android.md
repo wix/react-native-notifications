@@ -34,7 +34,7 @@ buildscript {
     ...
     dependencies {
         ...
-        classpath 'com.google.gms:google-services:4.0.0'
+        classpath 'com.google.gms:google-services:x.x.x'
     }
 }
 ```
@@ -45,11 +45,13 @@ buildscript {
 dependencies {
     ...
     implementation project(':react-native-notifications')
-    implementation 'com.google.firebase:firebase-core:16.0.0'
+    implementation 'com.google.firebase:firebase-core:x.x.x'
 }
 
 apply plugin: 'com.google.gms.google-services'
 ```
+
+You can grab version numbers from [Google's Release Notes](https://developers.google.com/android/guides/releases)
 
 #### Step #5: Link react-native-notifications
 
