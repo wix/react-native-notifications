@@ -95,11 +95,13 @@ public class RNNotificationsPackage implements ReactPackage, AppLifecycleFacade.
         Intent intent = activity.getIntent();
         if (NotificationIntentAdapter.canHandleIntent(intent)) {
             Context appContext = mApplication.getApplicationContext();
-            Bundle notificationData = NotificationIntentAdapter.canHandleTrampolineActivity(appContext) ?
-                    intent.getExtras() : NotificationIntentAdapter.extractPendingNotificationDataFromIntent(intent);
+            /// https://github.com/wix/react-native-notifications/issues/906#issuecomment-1315455583
+            Bundle notificationData = intent.getExtras();
             final IPushNotification pushNotification = PushNotification.get(appContext, notificationData);
             if (pushNotification != null) {
                 pushNotification.onOpened();
+                /// https://github.com/wix/react-native-notifications/issues/906#issuecomment-1470239832
+                intent.replaceExtras(new Bundle());
             }
         }
     }
