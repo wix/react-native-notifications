@@ -198,18 +198,32 @@ public class PushNotification implements IPushNotification {
     }
 
     private void notifyReceivedToJS() {
-        mJsIOHelper.sendEventToJS(NOTIFICATION_RECEIVED_EVENT_NAME, mNotificationProps.asBundle(), mAppLifecycleFacade.getRunningReactContext());
+        try {
+            Bundle bundle = mNotificationProps.asBundle();
+            mJsIOHelper.sendEventToJS(NOTIFICATION_RECEIVED_EVENT_NAME, bundle, mAppLifecycleFacade.getRunningReactContext());
+        } catch (NullPointerException ex) {
+            Log.e(LOGTAG, "notifyReceivedToJS: Null pointer exception");
+        }
     }
 
     private void notifyReceivedBackgroundToJS() {
-        mJsIOHelper.sendEventToJS(NOTIFICATION_RECEIVED_BACKGROUND_EVENT_NAME, mNotificationProps.asBundle(), mAppLifecycleFacade.getRunningReactContext());
+        try {
+            Bundle bundle = mNotificationProps.asBundle();
+            mJsIOHelper.sendEventToJS(NOTIFICATION_RECEIVED_BACKGROUND_EVENT_NAME, bundle, mAppLifecycleFacade.getRunningReactContext());
+        } catch (NullPointerException ex) {
+            Log.e(LOGTAG, "notifyReceivedBackgroundToJS: Null pointer exception");
+        }
     }
 
     private void notifyOpenedToJS() {
         Bundle response = new Bundle();
-        response.putBundle("notification", mNotificationProps.asBundle());
 
-        mJsIOHelper.sendEventToJS(NOTIFICATION_OPENED_EVENT_NAME, response, mAppLifecycleFacade.getRunningReactContext());
+        try {
+            response.putBundle("notification", mNotificationProps.asBundle());
+            mJsIOHelper.sendEventToJS(NOTIFICATION_OPENED_EVENT_NAME, response, mAppLifecycleFacade.getRunningReactContext());
+        } catch (NullPointerException ex) {
+            Log.e(LOGTAG, "notifyOpenedToJS: Null pointer exception");
+        }
     }
 
     protected void launchOrResumeApp() {
