@@ -97,16 +97,22 @@ public class PushNotification implements IPushNotification {
     protected void digestNotification() {
         if (!mAppLifecycleFacade.isReactInitialized()) {
             setAsInitialNotification();
+            launchOrResumeApp();
             return;
         }
 
         final ReactContext reactContext = mAppLifecycleFacade.getRunningReactContext();
         if (reactContext.getCurrentActivity() == null) {
             setAsInitialNotification();
-            return;
         }
 
-        dispatchImmediately();
+        if (mAppLifecycleFacade.isAppVisible()) {
+            dispatchImmediately();
+        } else if (mAppLifecycleFacade.isAppDestroyed()) {
+            launchOrResumeApp();
+        } else {
+            dispatchUponVisibility();
+        }
     }
 
     protected PushNotificationProps createProps(Bundle bundle) {
@@ -121,6 +127,17 @@ public class PushNotification implements IPushNotification {
         notifyOpenedToJS();
     }
 
+    protected void dispatchUponVisibility() {
+        mAppLifecycleFacade.addVisibilityListener(getIntermediateAppVisibilityListener());
+
+        // Make the app visible so that we'll dispatch the notification opening when visibility changes to 'true' (see
+        // above listener registration).
+        launchOrResumeApp();
+    }
+
+    protected AppVisibilityListener getIntermediateAppVisibilityListener() {
+        return mAppVisibilityListener;
+    }
 
     protected Notification buildNotification(PendingIntent intent) {
         return getNotificationBuilder(intent).build();
@@ -193,6 +210,13 @@ public class PushNotification implements IPushNotification {
         response.putBundle("notification", mNotificationProps.asBundle());
 
         mJsIOHelper.sendEventToJS(NOTIFICATION_OPENED_EVENT_NAME, response, mAppLifecycleFacade.getRunningReactContext());
+    }
+
+    protected void launchOrResumeApp() {
+        if (NotificationIntentAdapter.canHandleTrampolineActivity(mContext)) {
+            final Intent intent = mAppLaunchHelper.getLaunchIntent(mContext);
+            mContext.startActivity(intent);
+        }
     }
 
     private int getAppResourceId(String resName, String resType) {
