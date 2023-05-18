@@ -20,8 +20,7 @@ function runAndroidUnitTests() {
 function runIosUnitTests() {
   exec.execSync('npm run build');
   exec.execSync('npm run pod-install');
-  testTarget('NotificationsExampleApp', 'iPhone 11', '13.7');
-  // testTarget('NotificationsExampleAppIOS12', 'iPhone X', '12.4');
+  testTarget('NotificationsExampleApp', 'iPhone 12', '14.4');
 }
 
 function testTarget(scheme, device, OS = 'latest') {
