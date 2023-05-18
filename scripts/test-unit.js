@@ -23,29 +23,35 @@ function runAndroidUnitTests() {
 }
 
 function runIosUnitTests() {
-  const conf = release ? `Release` : `Debug`;
+  exec.execSync('npm run build');
   exec.execSync('npm run pod-install');
+  testTarget('NotificationsExampleApp', 'iPhone 11', '13.7');
+  // testTarget('NotificationsExampleAppIOS12', 'iPhone X', '12.4');
+}
+
+function testTarget(scheme, device, OS = 'latest') {
+  const conf = release ? `Release` : `Debug`;
   exec.execSync(`cd ./example/ios &&
             RCT_NO_LAUNCH_PACKAGER=true
             xcodebuild build build-for-testing
-            -scheme "NotificationsExampleApp"
+            -scheme "${scheme}"
             -workspace NotificationsExampleApp.xcworkspace
             -sdk iphonesimulator
             -configuration ${conf}
-            -derivedDataPath ./example/ios/DerivedData/NotificationsExampleApp
+            -derivedDataPath ./DerivedData/NotificationsExampleApp
             -quiet
-            -UseModernBuildSystem=NO
+            -UseModernBuildSystem=YES
             ONLY_ACTIVE_ARCH=YES`);
 
   exec.execSync(`cd ./example/ios &&
             RCT_NO_LAUNCH_PACKAGER=true
             xcodebuild test-without-building
-            -scheme "NotificationsExampleApp"
+            -scheme "${scheme}"
             -workspace NotificationsExampleApp.xcworkspace
             -sdk iphonesimulator
             -configuration ${conf}
-            -destination 'platform=iOS Simulator,name=iPhone 11'
-            -derivedDataPath ./example/ios/DerivedData/NotificationsExampleApp
+            -destination 'platform=iOS Simulator,name=${device},OS=${OS}'
+            -derivedDataPath ./DerivedData/NotificationsExampleApp
             ONLY_ACTIVE_ARCH=YES`);
 }
 
