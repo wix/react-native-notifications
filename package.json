@@ -1,6 +1,6 @@
 {
   "name": "react-native-notifications",
-  "version": "4.3.3",
+  "version": "4.3.4",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
   "license": "MIT",
   "keywords": [

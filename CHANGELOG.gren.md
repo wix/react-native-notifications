@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.3.3 (07/11/2022)
+
+#### Enhancements:
+
+- revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
+- Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
+
+---
+
 ## 4.3.2 (26/10/2022)
 
 #### Bug Fixes:
@@ -139,45 +148,25 @@
 ---
 
 ## 3.4.2 (27/12/2020)
-
-#### Bug Fixes:
-
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
+*No changelog for this release.*
 
 ---
 
 ## 3.4.1 (23/11/2020)
-
-#### Enhancements:
-
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-
-#### Bug Fixes:
-
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
+*No changelog for this release.*
 
 ---
 
 ## 3.4.0 (28/10/2020)
 
-#### Enhancements:
-
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
-
 #### Bug Fixes:
 
 - notifyReceivedToJS only when app is visible [#694](https://github.com/wix/react-native-notifications/pull/694) by [swabbass](https://github.com/swabbass)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
 
 ---
 
 ## 3.3.4 (23/09/2020)
-
-#### Bug Fixes:
-
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
+*No changelog for this release.*
 
 ---
 
@@ -205,6 +194,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -226,11 +217,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -244,12 +234,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -257,6 +241,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -278,11 +264,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -296,12 +281,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -309,6 +288,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -330,11 +311,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -348,12 +328,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -361,6 +335,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -382,11 +358,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -400,12 +375,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -413,6 +382,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -434,11 +405,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -452,12 +422,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -465,6 +429,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -486,11 +452,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -504,12 +469,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -517,6 +476,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -538,11 +499,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -556,12 +516,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -569,6 +523,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -590,11 +546,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -608,12 +563,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -621,6 +570,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -642,11 +593,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -660,12 +610,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -673,6 +617,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -694,11 +640,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -712,12 +657,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -725,6 +664,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -746,11 +687,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -764,12 +704,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -777,6 +711,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -798,11 +734,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -816,12 +751,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -829,6 +758,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -850,11 +781,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -868,12 +798,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -881,6 +805,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -902,11 +828,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -920,12 +845,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -933,6 +852,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -954,11 +875,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -972,12 +892,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -985,6 +899,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -1006,11 +922,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1024,12 +939,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -1037,6 +946,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -1058,11 +969,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1076,12 +986,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -1089,6 +993,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -1110,11 +1016,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1128,12 +1033,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -1141,6 +1040,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -1162,11 +1063,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1180,19 +1080,15 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
-## 4.3.3 (31/12/1969)
+## 4.3.4 (31/12/1969)
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -1214,11 +1110,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1232,12 +1127,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -1245,6 +1134,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -1266,11 +1157,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1284,12 +1174,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -1297,6 +1181,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -1318,11 +1204,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1336,12 +1221,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -1349,6 +1228,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -1370,11 +1251,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1388,12 +1268,6 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
 
 ---
 
@@ -1401,6 +1275,8 @@
 
 #### Enhancements:
 
+- fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
+- Revert "Fix for Android trampoline restriction" [#969](https://github.com/wix/react-native-notifications/pull/969) by [DanielEliraz](https://github.com/DanielEliraz)
 - revert-to-open-only-when-no-initial-notification [#914](https://github.com/wix/react-native-notifications/pull/914) by [DanielEliraz](https://github.com/DanielEliraz)
 - Upgrade to rn 68 [#907](https://github.com/wix/react-native-notifications/pull/907) by [DanielEliraz](https://github.com/DanielEliraz)
 - Exposes new event: remoteNotificationsRegistrationDenied [#845](https://github.com/wix/react-native-notifications/pull/845) by [artdevgame](https://github.com/artdevgame)
@@ -1422,11 +1298,10 @@
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
 - return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 - App notification settings link [#740](https://github.com/wix/react-native-notifications/pull/740) by [DanielEliraz](https://github.com/DanielEliraz)
-- Add enforce label action [#696](https://github.com/wix/react-native-notifications/pull/696) by [yogevbd](https://github.com/yogevbd)
-- Lock docusaurus version [#695](https://github.com/wix/react-native-notifications/pull/695) by [yogevbd](https://github.com/yogevbd)
 
 #### Bug Fixes:
 
+- Fix: Android crash when opening notifications [#967](https://github.com/wix/react-native-notifications/pull/967) by [C-Flatla](https://github.com/C-Flatla)
 - trigger notificationOpened from killed state [#908](https://github.com/wix/react-native-notifications/pull/908) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX 867: add deprecated hasActiveCatalystInstance for old RN [#868](https://github.com/wix/react-native-notifications/pull/868) by [DanielEliraz](https://github.com/DanielEliraz)
 - FIX #835: null mNotification [#862](https://github.com/wix/react-native-notifications/pull/862) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1440,9 +1315,3 @@
 - fix ts cancelLocalNotification prop [#754](https://github.com/wix/react-native-notifications/pull/754) by [DanielEliraz](https://github.com/DanielEliraz)
 - Fix channel and channel group implementation [#750](https://github.com/wix/react-native-notifications/pull/750) by [DanielEliraz](https://github.com/DanielEliraz)
 - finish run completion handler in main thread [#748](https://github.com/wix/react-native-notifications/pull/748) by [DanielEliraz](https://github.com/DanielEliraz)
-- Make notification id optional fixes #703 [#709](https://github.com/wix/react-native-notifications/pull/709) by [antontanderup](https://github.com/antontanderup)
-- Fix boolean type when converting to js [#702](https://github.com/wix/react-native-notifications/pull/702) by [xilin](https://github.com/xilin)
-- [BugFix][iOS] Cleaning up initial notification after resolve [#697](https://github.com/wix/react-native-notifications/pull/697) by [muryj](https://github.com/muryj)
-- Fixes #627 - First foreground notification is not visible [#685](https://github.com/wix/react-native-notifications/pull/685) by [erkie](https://github.com/erkie)
-- Fix Xcode 12 Compatibility [#672](https://github.com/wix/react-native-notifications/pull/672) by [jaykhandelwal](https://github.com/jaykhandelwal)
-- [Bugfix][Android] Use JobServiceIntent to fetch the FCM token in the background [#678](https://github.com/wix/react-native-notifications/pull/678) by [Robfz](https://github.com/Robfz)
