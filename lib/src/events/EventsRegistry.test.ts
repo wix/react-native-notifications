@@ -1,16 +1,19 @@
-import { EventsRegistry } from './EventsRegistry';
-import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver.mock';
+import { Platform, AppState } from 'react-native';
 import { Notification } from '../DTO/Notification';
 import { CompletionCallbackWrapper } from '../adapters/CompletionCallbackWrapper';
-import { NativeCommandsSender } from '../adapters/NativeCommandsSender.mock';
+import { NativeCommandsSender } from '../adapters/NativeCommandsSender';
+import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver';
 import { NotificationResponse } from '../interfaces/NotificationEvents';
-import { Platform, AppState } from 'react-native';
 import { NotificationCompletion, NotificationBackgroundFetchResult } from '../interfaces/NotificationCompletion';
+import { EventsRegistry } from './EventsRegistry';
+
+jest.mock('../adapters/NativeCommandsSender')
+jest.mock('../adapters/NativeEventsReceiver')
 
 describe('EventsRegistry', () => {
   let uut: EventsRegistry;
-  const mockNativeEventsReceiver = new NativeEventsReceiver();
-  const mockNativeCommandsSender = new NativeCommandsSender();
+  const mockNativeEventsReceiver = new NativeEventsReceiver() as jest.Mocked<NativeEventsReceiver>;
+  const mockNativeCommandsSender = new NativeCommandsSender() as jest.Mocked<NativeCommandsSender>;
   const completionCallbackWrapper = new CompletionCallbackWrapper(mockNativeCommandsSender);
 
   beforeEach(() => {
@@ -174,13 +177,12 @@ describe('EventsRegistry', () => {
 
     it('should wrap callback with completion block', () => {
       const notification: Notification  = new Notification({identifier: 'identifier'});
-      const expectedResponse: NotificationResponse = {notification, identifier: 'responseId'}
       
       uut.registerNotificationOpened((response) => {
-        expect(response).toEqual(expectedResponse);
+        expect(response).toEqual(notification);
       });
       const call = mockNativeEventsReceiver.registerNotificationOpened.mock.calls[0][0];
-      call(expectedResponse);
+      call(notification);
     });
 
     it('calling completion should invoke finishHandlingAction', () => {

@@ -17,7 +17,6 @@ import com.wix.reactnativenotifications.core.InitialNotificationHolder;
 import com.wix.reactnativenotifications.core.NotificationIntentAdapter;
 import com.wix.reactnativenotifications.core.notification.IPushNotification;
 import com.wix.reactnativenotifications.core.notification.PushNotification;
-import com.wix.reactnativenotifications.core.notification.PushNotificationProps;
 import com.wix.reactnativenotifications.core.notificationdrawer.IPushNotificationsDrawer;
 import com.wix.reactnativenotifications.core.notificationdrawer.PushNotificationsDrawer;
 
@@ -96,8 +95,8 @@ public class RNNotificationsPackage implements ReactPackage, AppLifecycleFacade.
         Intent intent = activity.getIntent();
         if (NotificationIntentAdapter.canHandleIntent(intent)) {
             Context appContext = mApplication.getApplicationContext();
-            Bundle notificationData = NotificationIntentAdapter.cannotHandleTrampolineActivity(appContext) ?
-                    NotificationIntentAdapter.extractPendingNotificationDataFromIntent(intent) : intent.getExtras();
+            Bundle notificationData = NotificationIntentAdapter.canHandleTrampolineActivity(appContext) ?
+                    intent.getExtras() : NotificationIntentAdapter.extractPendingNotificationDataFromIntent(intent);
             final IPushNotification pushNotification = PushNotification.get(appContext, notificationData);
             if (pushNotification != null) {
                 pushNotification.onOpened();
