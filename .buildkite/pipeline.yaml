@@ -17,7 +17,7 @@ steps:
     - "npm install"
     - "npm run test-js"
     - "npm run clean"
-    - "npm run test-unit-android -- --release"
+    - "JAVA_HOME=/usr/local/opt/openjdk@11 npm run test-unit-android -- --release"
     key: android
 
   - label: "iOS"

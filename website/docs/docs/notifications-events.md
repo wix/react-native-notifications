@@ -41,25 +41,3 @@ constructor() {
 ### Notification Object
 
 When you receive a push notification, you'll get an instance of [Notification object](../api/notification-obj), contains the following methods:
-
-## Querying initial notification
-
-React-Native's [`PushNotificationsIOS.getInitialNotification()`](https://facebook.github.io/react-native/docs/pushnotificationios.html#getinitialnotification) allows for the async retrieval of the original notification used to open the App on iOS, but it has no equivalent implementation for Android.
-
-```jsx
-import {Notifications} from 'react-native-notifications';
-
-Notifications.getInitialNotification()
-  .then((notification) => {
-    console.log("Initial notification was:", (notification ? notification.payload : 'N/A'));
-	})  	
-  .catch((err) => console.error("getInitialNotifiation() failed", err));
-
-```
-
-:::note
-Notifications are considered 'initial' under the following terms:
-
-- User tapped on a notification, _AND_ -
-- App was either not running at all ("dead" state), _OR_ it existed in the background with **no running activities** associated with it.
-:::

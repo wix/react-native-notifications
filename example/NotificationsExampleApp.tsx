@@ -123,6 +123,8 @@ export default function NotificationsExampleApp() {
 
   const getInitialNotification = async () => {
     const initialNotification = await Notifications.getInitialNotification();
+    console.log({initialNotification});
+    
     if (initialNotification) {
       setNotifications([initialNotification, ...notifications]);
     }
