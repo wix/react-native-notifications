@@ -97,7 +97,7 @@ android {
     testOptions {
         unitTests.all { t ->
             reports {
-                html.enabled true
+                html.required.set true
             }
             testLogging {
                 events "PASSED", "SKIPPED", "FAILED", "standardOut", "standardError"
