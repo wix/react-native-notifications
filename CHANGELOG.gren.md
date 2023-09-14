@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.0.0 (20/07/2023)
+
+#### Enhancements:
+
+- android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
+
+---
+
 ## 4.3.5 (28/05/2023)
 
 #### Enhancements:
@@ -163,7 +171,6 @@
 #### Enhancements:
 
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 ---
 
@@ -214,6 +221,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -237,7 +246,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -262,6 +270,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -285,7 +295,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -310,6 +319,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -333,7 +344,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -358,6 +368,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -381,7 +393,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -406,6 +417,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -429,7 +442,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -454,6 +466,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -477,7 +491,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -502,6 +515,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -525,7 +540,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -550,6 +564,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -573,7 +589,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -598,6 +613,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -621,7 +638,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -646,6 +662,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -669,7 +687,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -694,6 +711,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -717,7 +736,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -742,6 +760,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -765,7 +785,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -790,6 +809,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -813,7 +834,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -838,6 +858,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -861,7 +883,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -886,6 +907,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -909,7 +932,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -934,6 +956,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -957,7 +981,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -982,6 +1005,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1005,7 +1030,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -1030,6 +1054,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1053,7 +1079,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -1078,6 +1103,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1101,7 +1128,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -1126,6 +1152,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1149,7 +1177,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -1174,6 +1201,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1197,7 +1226,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -1218,10 +1246,12 @@
 
 ---
 
-## 5.0.0 (31/12/1969)
+## 5.1.0 (31/12/1969)
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1245,7 +1275,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -1270,6 +1299,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1293,7 +1324,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
@@ -1318,6 +1348,8 @@
 
 #### Enhancements:
 
+- Fix android build for RN 0.72 [#990](https://github.com/wix/react-native-notifications/pull/990) by [jshiherlis](https://github.com/jshiherlis)
+- upgrade-android-33 [#995](https://github.com/wix/react-native-notifications/pull/995) by [DanielEliraz](https://github.com/DanielEliraz)
 - android-get-initial-notification [#983](https://github.com/wix/react-native-notifications/pull/983) by [DanielEliraz](https://github.com/DanielEliraz)
 - fix: remove deprecated config [#882](https://github.com/wix/react-native-notifications/pull/882) by [Naturalclar](https://github.com/Naturalclar)
 - fix-tests-from-#967 [#971](https://github.com/wix/react-native-notifications/pull/971) by [DanielEliraz](https://github.com/DanielEliraz)
@@ -1341,7 +1373,6 @@
 - stop using deprecated firebase iid [#751](https://github.com/wix/react-native-notifications/pull/751) by [DanielEliraz](https://github.com/DanielEliraz)
 - upgrade lodash to 4.17.21 [#747](https://github.com/wix/react-native-notifications/pull/747) by [DanielEliraz](https://github.com/DanielEliraz)
 - Provisional option in iOS registeration [#744](https://github.com/wix/react-native-notifications/pull/744) by [DanielEliraz](https://github.com/DanielEliraz)
-- return to ios.registerRemoteNotifications name [#742](https://github.com/wix/react-native-notifications/pull/742) by [DanielEliraz](https://github.com/DanielEliraz)
 
 #### Bug Fixes:
 
