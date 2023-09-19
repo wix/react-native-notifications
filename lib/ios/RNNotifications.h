@@ -10,6 +10,8 @@
 + (void)startMonitorNotifications;
 + (void)startMonitorPushKitNotifications;
 
++ (void)didReceiveForegroundNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler;
++ (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(void))completionHandler;
 + (void)didReceiveBackgroundNotification:(NSDictionary *)userInfo withCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
 
 + (void)didRegisterForRemoteNotificationsWithDeviceToken:(id)deviceToken;

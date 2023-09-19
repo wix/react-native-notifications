@@ -41,6 +41,14 @@
     [[self sharedInstance] startMonitorPushKitNotifications];
 }
 
++ (void) didReceiveForegroundNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    [[self sharedInstance] didReceiveForegroundNotification:notification withCompletionHandler:completionHandler];
+}
+
++ (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(void))completionHandler {
+    [[self sharedInstance] didReceiveNotificationResponse:response completionHandler:completionHandler];
+}
+
 + (void)didReceiveBackgroundNotification:(NSDictionary *)userInfo withCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [[self sharedInstance] didReceiveBackgroundNotification:userInfo withCompletionHandler:completionHandler];
 }
@@ -77,6 +85,14 @@
 - (void)startMonitorPushKitNotifications {
     _pushKitEventHandler = [[RNPushKitEventHandler alloc] initWithStore:_store];
     _pushKit = [[RNPushKit alloc] initWithEventHandler:_pushKitEventHandler];
+}
+
+- (void)didReceiveForegroundNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    [_notificationEventHandler didReceiveForegroundNotification:notification withCompletionHandler:completionHandler];
+}
+
+- (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(void))completionHandler {
+    [_notificationEventHandler didReceiveNotificationResponse:response completionHandler:completionHandler];
 }
 
 - (void)didReceiveBackgroundNotification:(NSDictionary *)userInfo withCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
