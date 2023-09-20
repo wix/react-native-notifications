@@ -191,3 +191,6 @@ coverage/
 package-lock.json
 
 .history
+
+# Typescript build
+lib/dist/
