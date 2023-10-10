@@ -72,7 +72,21 @@ public class FcmToken implements IFcmToken {
     }
 
     protected void refreshToken() {
-        FirebaseMessaging.getInstance().getToken()
+        FirebaseMessaging instance;
+
+        try {
+            instance = FirebaseMessaging.getInstance();
+        } catch (IllegalStateException e) {
+            // This would be expected when only local notifications are used and Firebase is not configured
+            if (BuildConfig.DEBUG) Log.w(
+                LOGTAG,
+                "FirebaseApp is not initialized. See https://wix.github.io/react-native-notifications/docs/installation-android#receiving-push-notifications",
+                e
+            );
+            return;
+        }
+
+        instance.getToken()
             .addOnCompleteListener(task -> {
                 if (!task.isSuccessful()) {
                     if (BuildConfig.DEBUG) Log.w(LOGTAG, "Fetching FCM registration token failed", task.getException());
