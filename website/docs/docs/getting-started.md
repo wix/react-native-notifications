@@ -3,6 +3,7 @@ id: getting-started
 title: React Native Notifications Getting Started Guide
 sidebar_label: Getting Started
 ---
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -14,11 +15,11 @@ For older versions, visit this [installation guide](https://github.com/wix/react
 ## Add react-native-notifications to your dependencies
 
 <Tabs
-  defaultValue="npm"
-  values={[
-    { label: 'Npm', value: 'npm', },
-    { label: 'Yarn', value: 'yarn', },
-  ]}>
+defaultValue="npm"
+values={[
+{ label: 'Npm', value: 'npm', },
+{ label: 'Yarn', value: 'yarn', },
+]}>
 <TabItem value="npm">
 
 ```shell
@@ -83,26 +84,38 @@ And add the following methods to support registration to `AppDelegate.m`:
 
 For Android installation, please refer to the [Android installation doc](installation-android.md) where you can find detailed step on how to start using Google's FCM service.
 
+Remember to request `POST_NOTIFICATION` permission with `PermissionsAndroid` if you're targetting Android >= 33!
+
 ## Register for notification events
 
 ```jsx
-import React, { Component } from 'react';
-import {Notifications} from 'react-native-notifications';
+import React, { Component } from "react";
+import { Notifications } from "react-native-notifications";
 
 class MyComponent extends Component {
   constructor(props) {
     super(props);
     Notifications.registerRemoteNotifications();
 
-    Notifications.events().registerNotificationReceivedForeground((notification: Notification, completion) => {
-      console.log(`Notification received in foreground: ${notification.title} : ${notification.body}`);
-      completion({alert: false, sound: false, badge: false});
-    });
+    Notifications.events().registerNotificationReceivedForeground(
+      (notification: Notification, completion) => {
+        console.log(
+          `Notification received in foreground: ${notification.title} : ${notification.body}`
+        );
+        completion({ alert: false, sound: false, badge: false });
+      }
+    );
 
-    Notifications.events().registerNotificationOpened((notification: Notification, completion) => {
-      console.log(`Notification opened: ${notification.payload}`);
-      completion();
-    });
+    Notifications.events().registerNotificationOpened(
+      (notification: Notification, completion) => {
+        console.log(`Notification opened: ${notification.payload}`);
+        completion();
+      }
+    );
+
+    // Remember to ask user for notification permission if targetting Android >= 33
+    import { PermissionsAndroid } from "react-native";
+    PermissionsAndroid.request("android.permission.POST_NOTIFICATIONS");
   }
 }
 ```
