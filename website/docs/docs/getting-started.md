@@ -43,13 +43,13 @@ $ yarn add react-native-notifications
 $ pod install --project-directory=ios/
 ```
 
-Add the following line at the top of your `AppDelegate.m`
+Add the following line at the top of your `AppDelegate.m`/`AppDelegate.mm`
 
 ```objectivec
 #import "RNNotifications.h"
 ```
 
-Start monitor notifications in `AppDelegate.m`:
+Start monitor notifications in `AppDelegate.m`/`AppDelegate.mm`:
 
 ```objectivec
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -59,7 +59,7 @@ Start monitor notifications in `AppDelegate.m`:
 }
 ```
 
-And add the following methods to support registration to `AppDelegate.m`:
+And add the following methods to support registration to `AppDelegate.m`/`AppDelegate.mm`:
 
 ```objectivec
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
