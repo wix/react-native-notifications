@@ -48,20 +48,16 @@
 }
 
 - (void)setCategories:(NSArray *)json {
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-
-    [center getNotificationCategoriesWithCompletionHandler:^(NSSet<UNNotificationCategory *> * _Nonnull existingCategories) {
-        NSMutableSet<UNNotificationCategory *> *updatedCategories = [existingCategories mutableCopy];
-
-        for (NSDictionary* categoryJson in json) {
-            UNNotificationCategory *newCategory = [RCTConvert UNMutableUserNotificationCategory:categoryJson];
-            if (newCategory) {
-                [updatedCategories addObject:newCategory];
-            }
+    NSMutableSet<UNNotificationCategory *>* categories = [NSMutableSet new];
+    
+    for (NSDictionary* categoryJson in json) {
+        UNNotificationCategory *category = [RCTConvert UNMutableUserNotificationCategory:categoryJson];
+        if (category) {
+            [categories addObject:category];
         }
+    }
 
-        [center setNotificationCategories:updatedCategories];
-    }];
+    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
 }
 
 - (void)postLocalNotification:(NSDictionary *)notification withId:(NSNumber *)notificationId {
