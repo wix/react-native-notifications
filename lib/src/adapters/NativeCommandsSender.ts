@@ -22,7 +22,7 @@ interface NativeCommandsModule {
   removeDeliveredNotifications(identifiers: Array<string>): void;
   removeAllDeliveredNotifications(): void;
   getDeliveredNotifications(): Promise<Notification[]>;
-  setCategories(categories: [NotificationCategory?]): void;
+  setCategories(categories: NotificationCategory[]): void;
   finishPresentingNotification(notificationId: string, callback: NotificationCompletion): void;
   finishHandlingAction(notificationId: string): void;
   setNotificationChannel(notificationChannel: NotificationChannel): void;
@@ -59,7 +59,7 @@ export class NativeCommandsSender {
     return this.nativeCommandsModule.registerPushKit();
   }
 
-  setCategories(categories: [NotificationCategory?]) {
+  setCategories(categories: NotificationCategory[]) {
     this.nativeCommandsModule.setCategories(categories);
   }
 

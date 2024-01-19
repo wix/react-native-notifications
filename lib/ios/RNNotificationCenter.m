@@ -48,14 +48,15 @@
 }
 
 - (void)setCategories:(NSArray *)json {
-    NSMutableSet<UNNotificationCategory *>* categories = nil;
+    NSMutableSet<UNNotificationCategory *>* categories = [NSMutableSet new];
     
-    if ([json count] > 0) {
-        categories = [NSMutableSet new];
-        for (NSDictionary* categoryJson in json) {
-            [categories addObject:[RCTConvert UNMutableUserNotificationCategory:categoryJson]];
+    for (NSDictionary* categoryJson in json) {
+        UNNotificationCategory *category = [RCTConvert UNMutableUserNotificationCategory:categoryJson];
+        if (category) {
+            [categories addObject:category];
         }
     }
+
     [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
 }
 
