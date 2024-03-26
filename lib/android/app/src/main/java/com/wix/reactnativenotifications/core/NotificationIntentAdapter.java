@@ -32,7 +32,12 @@ public class NotificationIntentAdapter {
     }
 
     public static Bundle extractPendingNotificationDataFromIntent(Intent intent) {
-        return intent.getBundleExtra(PUSH_NOTIFICATION_EXTRA_NAME);
+        Bundle notificationBundle = intent.getBundleExtra(PUSH_NOTIFICATION_EXTRA_NAME);
+        if (notificationBundle != null) {
+            return notificationBundle;
+        } else {
+            return intent.getExtras();
+        }
     }
 
     public static boolean canHandleIntent(Intent intent) {

@@ -7,7 +7,6 @@ module.exports = {
         packageInstance: 'new RNNotificationsPackage(reactNativeHost.getApplication())',
       }
     },
-    assets: []
   },
   project: {
     ios: {
