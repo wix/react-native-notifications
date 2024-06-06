@@ -1,6 +1,8 @@
 import groovy.json.JsonSlurper
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
@@ -19,34 +21,8 @@ def kotlinVersion = safeExtGet('kotlinVersion', DEFAULT_KOTLIN_VERSION)
 def kotlinStdlib = safeExtGet('kotlinStdlib', DEFAULT_KOTLIN_STDLIB_VERSION)
 def firebaseVersion = safeExtGet('firebaseVersion', DEFAULT_FIREBASE_MESSAGING_VERSION)
 
-Object findReactNativePackageJson() {
-    def searchPath = 'node_modules/react-native/package.json'
-    def projectDir = project.projectDir.toString() + '/'
-    def rnPackageJsonFile = new File(projectDir + searchPath)
-    while (!rnPackageJsonFile.exists()) {
-        searchPath = '../' + searchPath
-        rnPackageJsonFile = new File(projectDir + searchPath)
-    }
-    return rnPackageJsonFile
-}
-
-String resolveFlavor() {
-    def packageSlurper = new JsonSlurper()
-    def rnPackageJsonFile = findReactNativePackageJson()
-    def reactNativePackageJson = packageSlurper.parseText(rnPackageJsonFile.text)
-    def reactNativeVersion = reactNativePackageJson.version
-
-    List versionComponents = reactNativeVersion.tokenize('.')
-
-    if (versionComponents[1].toInteger() < 60) {
-        return "reactNative59"
-    } else {
-        return "reactNative60"
-    }
-}
-
-
 android {
+    buildToolsVersion = "34.0.0"
     namespace 'com.wix.reactnativenotifications'
     compileSdkVersion androidSdkVersion
     defaultConfig {
@@ -59,17 +35,27 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        if (reactNativeMinorVersion() >= 73) {
+            sourceCompatibility JavaVersion.VERSION_17
+            targetCompatibility JavaVersion.VERSION_17
+        } else {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
     }
-
+    kotlinOptions {
+        if (reactNativeMinorVersion() >= 73) {
+            jvmTarget = JavaVersion.VERSION_17
+        } else {
+            jvmTarget = JavaVersion.VERSION_11
+        }
+    }
     dexOptions {
         javaMaxHeapSize "4g"
     }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             debuggable true
@@ -96,12 +82,15 @@ android {
     }
 
     testOptions {
+        unitTests.includeAndroidResources = true
         unitTests.all { t ->
-            reports {
-                html.required.set true
-            }
+            maxHeapSize = "4g"
             testLogging {
-                events "PASSED", "SKIPPED", "FAILED", "standardOut", "standardError"
+                events "PASSED", "SKIPPED", "FAILED"
+                exceptionFormat TestExceptionFormat.FULL
+                showExceptions true
+                showCauses true
+                showStackTraces true
             }
             afterSuite { desc, result ->
                 if (!desc.parent) { // will match the outermost suite
@@ -109,26 +98,64 @@ android {
                     def repeatLength = output.length()
                     println '\n\n' + ('-' * repeatLength) + '\n' + output + '\n' + ('-' * repeatLength) + '\n'
 
-                    println "see report at file://${t.reports.html.destination}/index.html"
+                    println "see report at file://${t.reports.html.outputLocation}/index.html"
                 }
             }
         }
-
-        unitTests {
-            includeAndroidResources = true
-        }
     }
+}
+
+int reactNativeMinorVersion() {
+    List reactNativeVersionComponents = reactNativeVersionComponents(findReactNativePackageJson())
+    reactNativeVersionComponents[1].toInteger()
+}
+
+
+
+String resolveFlavor() {
+    def packageSlurper = new JsonSlurper()
+    def rnPackageJsonFile = findReactNativePackageJson()
+    def reactNativePackageJson = packageSlurper.parseText(rnPackageJsonFile.text)
+    def reactNativeVersion = reactNativePackageJson.version
+
+    List versionComponents = reactNativeVersion.tokenize('.')
+
+    if (versionComponents[1].toInteger() < 60) {
+        return "reactNative59"
+    } else {
+        return "reactNative60"
+    }
+}
+
+List reactNativeVersionComponents(rnPackageJsonFile) {
+    def packageSlurper = new JsonSlurper()
+    def reactNativePackageJson = packageSlurper.parseText(rnPackageJsonFile.text)
+    def reactNativeVersion = reactNativePackageJson.version
+
+    return reactNativeVersion.tokenize('-')[0].tokenize('.')
+}
+
+Object findReactNativePackageJson() {
+    def searchPath = 'node_modules/react-native/package.json'
+    def projectDir = project.projectDir.toString() + '/'
+    def rnPackageJsonFile = new File(projectDir + searchPath)
+    while (!rnPackageJsonFile.exists()) {
+        searchPath = '../' + searchPath
+        rnPackageJsonFile = new File(projectDir + searchPath)
+    }
+    return rnPackageJsonFile
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:$kotlinStdlib:$kotlinVersion"
     implementation "com.google.firebase:firebase-messaging:$firebaseVersion"
+    //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'
 
     // tests
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.robolectric:robolectric:4.3"
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation "org.robolectric:robolectric:4.7.2"
     testImplementation "org.assertj:assertj-core:3.8.0"
     testImplementation "com.squareup.assertj:assertj-android:1.1.1"
-    testImplementation "org.mockito:mockito-core:2.28.2"
+    testImplementation "org.mockito:mockito-core:4.0.0"
 }

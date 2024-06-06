@@ -1,4 +1,4 @@
-import { NativeModules, NativeEventEmitter, EventEmitter, EmitterSubscription } from 'react-native';
+import { NativeModules, NativeEventEmitter, EmitterSubscription } from 'react-native';
 import {
   Registered, RegistrationError, RegisteredPushKit, NotificationResponse
 } from '../interfaces/NotificationEvents';
@@ -7,7 +7,7 @@ import { NotificationActionResponse } from '../interfaces/NotificationActionResp
 import { NotificationFactory } from '../DTO/NotificationFactory';
 
 export class NativeEventsReceiver {
-  private emitter: EventEmitter;
+  private emitter;
   constructor(private readonly notificationFactory: NotificationFactory = new NotificationFactory()) {
     this.emitter = new NativeEventEmitter(NativeModules.RNEventEmitter);
   }

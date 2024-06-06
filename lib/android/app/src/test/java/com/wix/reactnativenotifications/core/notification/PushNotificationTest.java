@@ -48,8 +48,6 @@ import static org.mockito.Mockito.argThat;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
-
 @RunWith(RobolectricTestRunner.class)
 public class PushNotificationTest {
 

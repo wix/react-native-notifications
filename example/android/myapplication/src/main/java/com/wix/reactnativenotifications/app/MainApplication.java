@@ -8,7 +8,6 @@ import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.wix.reactnativenotifications.RNNotificationsPackage;
-import com.wix.reactnativenotifications.app.newarchitecture.MainApplicationReactNativeHost;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,15 +40,9 @@ public class MainApplication extends Application implements ReactApplication {
             return "index";
         }
     };
-    private final ReactNativeHost mNewArchitectureNativeHost =
-            new MainApplicationReactNativeHost(this);
 
     @Override
     public ReactNativeHost getReactNativeHost() {
-        if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
-            return mNewArchitectureNativeHost;
-        } else {
-            return mReactNativeHost;
-        }
+        return mReactNativeHost;
     }
 }
