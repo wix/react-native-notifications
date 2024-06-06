@@ -27,7 +27,7 @@
 
 - (void)testRequestPermissions_userAuthorizedPermissions {
     UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert);
-    UNNotificationSettings* settings = [UNNotificationSettings new];
+    UNNotificationSettings* settings = [UNNotificationSettings alloc];
     [settings setValue:@(UNAuthorizationStatusAuthorized) forKey:@"authorizationStatus"];
 
     [[_notificationCenter expect] requestAuthorizationWithOptions:authOptions completionHandler:[OCMArg invokeBlockWithArgs:@(YES), [NSNull null], nil]];
@@ -48,7 +48,7 @@
                                           UNAuthorizationOptionProvisional |
                                           UNAuthorizationOptionCarPlay);
     
-    UNNotificationSettings* settings = [UNNotificationSettings new];
+    UNNotificationSettings* settings = [UNNotificationSettings alloc];
     [settings setValue:@(UNAuthorizationStatusAuthorized) forKey:@"authorizationStatus"];
 
     [[_notificationCenter expect] requestAuthorizationWithOptions:authOptions completionHandler:[OCMArg invokeBlockWithArgs:@(YES), [NSNull null], nil]];
@@ -65,7 +65,7 @@
 
 - (void)testRequestPermissions_userDeniedPermissions {
     UNAuthorizationOptions authOptions = (UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert);
-    UNNotificationSettings* settings = [UNNotificationSettings new];
+    UNNotificationSettings* settings = [UNNotificationSettings alloc];
     [settings setValue:@(UNAuthorizationStatusDenied) forKey:@"authorizationStatus"];
     
     [[_notificationCenter expect] requestAuthorizationWithOptions:authOptions completionHandler:[OCMArg invokeBlockWithArgs:@(YES), [NSNull null], nil]];
