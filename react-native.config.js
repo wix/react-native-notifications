@@ -13,5 +13,8 @@ module.exports = {
     android: {
       sourceDir: './example/android/',
     },
+    ios: {
+      sourceDir: './example/ios/'
+    }
   },
 };

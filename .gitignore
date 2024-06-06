@@ -147,6 +147,12 @@ xcuserdata
 *.gcno
 
 ####
+# Xcode 15
+#
+# env file
+.xcode.env.local
+
+####
 # Webstrom
 
 .idea

@@ -41,7 +41,7 @@
     "release": "node ./scripts/release",
     "generate-changelog": "gren changelog",
     "docusaurus": "npm start --prefix website",
-    "pod-install": "cd example/ios && pod install"
+    "pod-install": "pod install --project-directory=example/ios"
   },
   "nativePackage": true,
   "peerDependencies": {
