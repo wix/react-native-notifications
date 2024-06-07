@@ -56,15 +56,16 @@
     "@react-native/eslint-config": "0.73.2",
     "@react-native/metro-config": "0.73.5",
     "@react-native/typescript-config": "0.73.1",
-    "@types/react": "^18.2.6",
-    "@types/react-test-renderer": "^18.0.0",
     "@types/jest": "^27.0.0",
     "@types/lodash": "4.14.182",
+    "@types/react": "^18.2.6",
     "@types/react-native": "0.73.0",
+    "@types/react-test-renderer": "^18.0.0",
     "babel-eslint": "10.0.3",
-    "detox": "^19.4.2",
+    "babel-jest": "^29.7.0",
+    "detox": "20.19.5",
     "github-release-notes": "https://github.com/yogevbd/github-release-notes/tarball/e601b3dba72dcd6cba323c1286ea6dd0c0110b58",
-    "jest": "^27.0.0",
+    "jest": "^27.5.1",
     "lodash": "4.17.21",
     "react": "^18.2.0",
     "react-native": "^0.73.3",
@@ -83,37 +84,5 @@
   "homepage": "https://github.com/wix/react-native-notifications",
   "bugs": {
     "url": "https://github.com/wix/react-native-notifications/issues"
-  },
-  "jest": {
-    "preset": "react-native",
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
-    },
-    "roots": [
-      "<rootDir>/node_modules/",
-      "<rootDir>/lib/dist/"
-    ],
-    "collectCoverageFrom": [
-      "lib/dist/**/*.js",
-      "lib/src/**/*.js",
-      "integration/**/*.js",
-      "!lib/dist/index.js",
-      "!lib/dist/Notifications.js",
-      "!lib/dist/NotificationsIOS.js",
-      "!lib/dist/NotificationsAndroid.js",
-      "!lib/dist/adapters/**/*",
-      "!lib/dist/interfaces/**/*",
-      "!lib/dist/**/*.test.*",
-      "!integration/**/*.test.*",
-      "!integration/*.test.*"
-    ],
-    "resetMocks": true,
-    "resetModules": true,
-    "coverageReporters": [
-      "json",
-      "lcov",
-      "text",
-      "html"
-    ]
   }
 }

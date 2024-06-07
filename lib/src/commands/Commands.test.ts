@@ -31,16 +31,16 @@ describe('Commands', () => {
 
   describe('getInitialNotification', () => {
     it('sends to native', () => {
+      when(mockedNativeCommandsSender.getInitialNotification()).thenResolve();
       uut.getInitialNotification();
       verify(mockedNativeCommandsSender.getInitialNotification()).called();
     });
 
     it('Android - returns a promise with the initial notification', async () => {
       Platform.OS = 'android';
-      const expectedNotification: Notification = new NotificationAndroid({'google.message_id': 'id'});
-      when(mockedNativeCommandsSender.getInitialNotification()).thenResolve(
-          {'google.message_id': 'id'}
-      );
+      const payload = {'google.message_id': 'id'};
+      const expectedNotification: Notification = new NotificationAndroid(payload);
+      when(mockedNativeCommandsSender.getInitialNotification()).thenResolve(payload);
       const result = await uut.getInitialNotification();
       expect(result).toEqual(expectedNotification);
     });
@@ -54,10 +54,9 @@ describe('Commands', () => {
 
     it('iOS - returns a promise with the initial notification', async () => {
       Platform.OS = 'ios';
-      const expectedNotification: Notification = new NotificationIOS({identifier: 'id'});
-      when(mockedNativeCommandsSender.getInitialNotification()).thenResolve(
-          {identifier: 'id'}
-      );
+      const payload = {identifier: 'id'};
+      const expectedNotification: Notification = new NotificationIOS(payload);
+      when(mockedNativeCommandsSender.getInitialNotification()).thenResolve(payload);
       const result = await uut.getInitialNotification();
       expect(result).toEqual(expectedNotification);
     });
