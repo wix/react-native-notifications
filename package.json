@@ -78,7 +78,7 @@
     "type": "git",
     "url": "https://github.com/wix/react-native-notifications.git"
   },
-  "homepage": "https://github.com/wix/react-native-notifications",
+  "homepage": "https://wix.github.io/react-native-notifications/docs/getting-started",
   "bugs": {
     "url": "https://github.com/wix/react-native-notifications/issues"
   },
