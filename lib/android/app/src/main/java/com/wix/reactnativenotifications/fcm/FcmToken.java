@@ -90,12 +90,10 @@ public class FcmToken implements IFcmToken {
     protected void sendTokenToJS() {
         final ReactInstanceManager instanceManager = ((ReactApplication) mAppContext).getReactNativeHost().getReactInstanceManager();
         final ReactContext reactContext = instanceManager.getCurrentReactContext();
+        Bundle tokenMap = new Bundle();
+        tokenMap.putString("deviceToken", sToken);
+        // mJsIOHelper is safe now when context is null or react instance is not active
+        mJsIOHelper.sendEventToJS(TOKEN_RECEIVED_EVENT_NAME, tokenMap, reactContext);
 
-        // Note: Cannot assume react-context exists cause this is an async dispatched service.
-        if (reactContext != null && reactContext.hasActiveCatalystInstance()) {
-            Bundle tokenMap = new Bundle();
-            tokenMap.putString("deviceToken", sToken);
-            mJsIOHelper.sendEventToJS(TOKEN_RECEIVED_EVENT_NAME, tokenMap, reactContext);
-        }
     }
 }
