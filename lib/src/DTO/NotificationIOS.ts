@@ -5,11 +5,6 @@ function isObject(value: any) {
 	return value != null && (type == "object" || type == "function");
 }
 
-function isObject(value: any) {
-	var type = typeof value;
-	return value != null && (type == "object" || type == "function");
-}
-
 export class NotificationIOS extends Notification {
   identifier: string;
   constructor(payload: object) {
