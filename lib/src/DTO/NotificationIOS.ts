@@ -1,5 +1,9 @@
 import {Notification} from './Notification';
-import * as _ from 'lodash';
+
+function isObject(value: any) {
+	var type = typeof value;
+	return value != null && (type == "object" || type == "function");
+}
 
 function isObject(value: any) {
 	var type = typeof value;
