@@ -1,6 +1,11 @@
 import {Notification} from './Notification';
 import * as _ from 'lodash';
 
+function isObject(value: any) {
+	var type = typeof value;
+	return value != null && (type == "object" || type == "function");
+}
+
 export class NotificationIOS extends Notification {
   identifier: string;
   constructor(payload: object) {
@@ -13,12 +18,12 @@ export class NotificationIOS extends Notification {
   }
 
   get alert(): any {
-    if (_.isObject(this.aps.alert)) {
+    if (isObject(this.aps.alert)) {
       return this.aps.alert;
-    } else if (_.isString(this.aps.alert)) {
+    } else if (typeof this.aps.alert == "string") {
       return {
-        body: this.aps.alert
-      }
+        body: this.aps.alert,
+      };
     }
   }
 

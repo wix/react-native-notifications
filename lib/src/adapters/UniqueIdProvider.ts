@@ -1,7 +1,7 @@
-import * as _ from 'lodash';
+var id = 0;
 
 export class UniqueIdProvider {
-  generate(): number {
-    return parseInt(_.uniqueId());
-  }
+	generate(): number {
+		return id++;
+	}
 }
