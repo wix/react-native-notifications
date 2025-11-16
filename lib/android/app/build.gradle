@@ -45,8 +45,26 @@ String resolveFlavor() {
     }
 }
 
+def supportsNamespace() {
+  def parsed = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')
+  def major = parsed[0].toInteger()
+  def minor = parsed[1].toInteger()
+
+  // Namespace support was added in 7.3.0
+  return (major == 7 && minor >= 3) || major >= 8
+}
 
 android {
+    if (supportsNamespace()) {
+        namespace "com.wix.reactnativenotifications"
+
+        sourceSets {
+            main {
+                manifest.srcFile "src/main/AndroidManifestNew.xml"
+            }
+        }
+    }
+
     compileSdkVersion androidSdkVersion
     defaultConfig {
         minSdkVersion androidMinSdkVersion
