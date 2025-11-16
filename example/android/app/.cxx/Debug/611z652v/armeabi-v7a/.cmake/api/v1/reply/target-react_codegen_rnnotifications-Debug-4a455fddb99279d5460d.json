@@ -1,0 +1,244 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/./react/renderer/components/rnnotifications/ComponentDescriptors.cpp.o"
+		},
+		{
+			"path" : "codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/./react/renderer/components/rnnotifications/EventEmitters.cpp.o"
+		},
+		{
+			"path" : "codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/./react/renderer/components/rnnotifications/Props.cpp.o"
+		},
+		{
+			"path" : "codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/./react/renderer/components/rnnotifications/ShadowNodes.cpp.o"
+		},
+		{
+			"path" : "codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/./react/renderer/components/rnnotifications/States.cpp.o"
+		},
+		{
+			"path" : "codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/./react/renderer/components/rnnotifications/rnnotificationsJSI-generated.cpp.o"
+		},
+		{
+			"path" : "codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/./rnnotifications-generated.cpp.o"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_compile_options",
+			"target_include_directories",
+			"target_link_libraries"
+		],
+		"files" : 
+		[
+			"/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/generated/source/codegen/jni/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 11,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 28,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 17,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 19,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D__BIONIC_NO_PAGE_SIZE_MACRO -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-DLOG_TAG=\\\"ReactNative\\\""
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-fexceptions"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-frtti"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-std=c++20"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 0,
+					"fragment" : "-DFOLLY_NO_CONFIG=1"
+				},
+				{
+					"backtrace" : 0,
+					"fragment" : "-DFOLLY_HAVE_CLOCK_GETTIME=1"
+				},
+				{
+					"backtrace" : 0,
+					"fragment" : "-DFOLLY_USE_LIBCPP=1"
+				},
+				{
+					"backtrace" : 0,
+					"fragment" : "-DFOLLY_CFG_NO_COROUTINES=1"
+				},
+				{
+					"backtrace" : 0,
+					"fragment" : "-DFOLLY_MOBILE=1"
+				},
+				{
+					"backtrace" : 0,
+					"fragment" : "-DFOLLY_HAVE_RECVMMSG=1"
+				},
+				{
+					"backtrace" : 0,
+					"fragment" : "-DFOLLY_HAVE_PTHREAD=1"
+				},
+				{
+					"backtrace" : 0,
+					"fragment" : "-DFOLLY_HAVE_XSI_STRERROR_R=1"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 3,
+					"path" : "/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/generated/source/codegen/jni/."
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/generated/source/codegen/jni/react/renderer/components/rnnotifications"
+				},
+				{
+					"backtrace" : 4,
+					"isSystem" : true,
+					"path" : "/Users/danielel/.gradle/caches/8.10.2/transforms/555fb5527496f0837aa4cafd976b09e5/transformed/fbjni-0.7.0/prefab/modules/fbjni/include"
+				},
+				{
+					"backtrace" : 4,
+					"isSystem" : true,
+					"path" : "/Users/danielel/.gradle/caches/8.10.2/transforms/74704219f4d9ac2c1941dd8ce14af4d4/transformed/react-android-0.77.3-debug/prefab/modules/jsi/include"
+				},
+				{
+					"backtrace" : 4,
+					"isSystem" : true,
+					"path" : "/Users/danielel/.gradle/caches/8.10.2/transforms/74704219f4d9ac2c1941dd8ce14af4d4/transformed/react-android-0.77.3-debug/prefab/modules/reactnative/include"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6
+			],
+			"sysroot" : 
+			{
+				"path" : "/Users/danielel/Library/Android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+			}
+		}
+	],
+	"id" : "react_codegen_rnnotifications::@d7e081e776fcf37281b1",
+	"name" : "react_codegen_rnnotifications",
+	"paths" : 
+	{
+		"build" : "codegen_app_build",
+		"source" : "/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/generated/source/codegen/jni"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/generated/source/codegen/jni/react/renderer/components/rnnotifications/ComponentDescriptors.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/generated/source/codegen/jni/react/renderer/components/rnnotifications/EventEmitters.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/generated/source/codegen/jni/react/renderer/components/rnnotifications/Props.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/generated/source/codegen/jni/react/renderer/components/rnnotifications/ShadowNodes.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/generated/source/codegen/jni/react/renderer/components/rnnotifications/States.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/generated/source/codegen/jni/react/renderer/components/rnnotifications/rnnotificationsJSI-generated.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/generated/source/codegen/jni/rnnotifications-generated.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "OBJECT_LIBRARY"
+}

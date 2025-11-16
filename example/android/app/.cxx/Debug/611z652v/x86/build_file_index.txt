@@ -1,0 +1,2 @@
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/generated/source/codegen/jni/CMakeLists.txt
+/Users/danielel/Code/react-native-notifications/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -26,17 +26,23 @@ export default function NotificationsExampleApp() {
 
   const registerNotificationEvents = () => {    
     Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
+      console.log('registerNotificationReceivedForeground', notification);
       setNotifications([...notifications, notification]);
       completion({alert: notification.payload.showAlert, sound: false, badge: false});
     });
-
+    
     Notifications.events().registerNotificationOpened((notification, completion) => {
       setOpenedNotifications([notification, ...openedNotifications]);
       completion();
     });
 
     Notifications.events().registerNotificationReceivedBackground((notification, completion) => {
+      console.log('registerNotificationReceivedBackground', notification);
       completion(NotificationBackgroundFetchResult.NO_DATA);
+    });
+
+    Notifications.events().registerRemoteNotificationsRegistered((event) => {
+      console.log('registerRemoteNotificationsRegistered', event);
     });
 
     if (Platform.OS === 'ios') {
@@ -46,9 +52,9 @@ export default function NotificationsExampleApp() {
     }
   }
 
-  const requestPermissionsIos = (options) => {
+  const requestPermissionsIos = (options: string[]) => {
     Notifications.ios.registerRemoteNotifications(
-      Object.fromEntries(options.map(opt => [opt, true]))
+      Object.fromEntries(options.map((opt: string) => [opt, true]))
     );
   }
 
@@ -81,7 +87,7 @@ export default function NotificationsExampleApp() {
       [upvoteAction, replyAction]
     );
 
-    Notifications.setCategories([category]);
+    Notifications.setCategories;
   }
 
   const sendLocalNotification = () => {

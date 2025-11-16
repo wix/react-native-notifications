@@ -1,0 +1,48 @@
+{
+  "buildFiles": [
+    "/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/Users/danielel/Code/react-native-notifications/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/danielel/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/danielel/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "appmodules::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "appmodules",
+      "output": "/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/intermediates/cxx/Debug/611z652v/obj/arm64-v8a/libappmodules.so",
+      "runtimeFiles": [
+        "/Users/danielel/.gradle/caches/8.10.2/transforms/555fb5527496f0837aa4cafd976b09e5/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.arm64-v8a/libfbjni.so",
+        "/Users/danielel/.gradle/caches/8.10.2/transforms/74704219f4d9ac2c1941dd8ce14af4d4/transformed/react-android-0.77.3-debug/prefab/modules/jsi/libs/android.arm64-v8a/libjsi.so",
+        "/Users/danielel/.gradle/caches/8.10.2/transforms/74704219f4d9ac2c1941dd8ce14af4d4/transformed/react-android-0.77.3-debug/prefab/modules/reactnative/libs/android.arm64-v8a/libreactnative.so"
+      ]
+    },
+    "react_codegen_rnnotifications::@d7e081e776fcf37281b1": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "react_codegen_rnnotifications"
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "/Users/danielel/Library/Android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang.lld",
+      "cppCompilerExecutable": "/Users/danielel/Library/Android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++.lld"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

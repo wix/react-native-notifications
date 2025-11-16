@@ -1,0 +1,1 @@
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/intermediates/cxx/Debug/611z652v/obj/x86

@@ -1,0 +1,6 @@
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/armeabi-v7a/CMakeFiles/appmodules.dir
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/armeabi-v7a/codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/armeabi-v7a/codegen_app_build/CMakeFiles/edit_cache.dir
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/armeabi-v7a/codegen_app_build/CMakeFiles/rebuild_cache.dir

@@ -14,9 +14,14 @@
       "react",
       "react-native",
       "react-test-renderer"
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "react-native-notifications": ["lib/src/"],
+      "react-native-notifications/*": ["lib/src/*"]
+    }
   },
   "include": [
-    "./lib/src/**/*"
+    "./lib/src/**/*", "./example/**/*"
   ]
 }
