@@ -27,6 +27,7 @@ describe('Commands', () => {
       instance(mockedUniqueIdProvider),
       notificationFactory
     );
+    when(mockedNativeCommandsSender.getInitialNotification()).thenResolve();
   });
 
   describe('getInitialNotification', () => {
