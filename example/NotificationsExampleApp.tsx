@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import {
   Notifications,
-  NotificationAction,
-  NotificationCategory,
+  // NotificationAction,
+  // NotificationCategory,
   NotificationBackgroundFetchResult,
   Notification,
 } from '../lib/src';
@@ -20,7 +20,7 @@ export default function NotificationsExampleApp() {
 
   useEffect(() => {
     registerNotificationEvents();
-    setCategories();
+    // setCategories();
     getInitialNotification();
   }, [])
 
@@ -62,33 +62,33 @@ export default function NotificationsExampleApp() {
     Notifications.registerRemoteNotifications();
   }
 
-  const setCategories = () => {
-    const upvoteAction = new NotificationAction(
-      'UPVOTE_ACTION',
-      'background',
-      String.fromCodePoint(0x1F44D),
-      false,
-    );
+  // const setCategories = () => {
+  //   const upvoteAction = new NotificationAction(
+  //     'UPVOTE_ACTION',
+  //     'background',
+  //     String.fromCodePoint(0x1F44D),
+  //     false,
+  //   );
 
-    const replyAction = new NotificationAction(
-      'REPLY_ACTION',
-      'background',
-      'Reply',
-      true,
-      {
-        buttonTitle: 'Reply now',
-        placeholder: 'Insert message'
-      },
-    );
+  //   const replyAction = new NotificationAction(
+  //     'REPLY_ACTION',
+  //     'background',
+  //     'Reply',
+  //     true,
+  //     {
+  //       buttonTitle: 'Reply now',
+  //       placeholder: 'Insert message'
+  //     },
+  //   );
 
 
-    const category = new NotificationCategory(
-      'SOME_CATEGORY',
-      [upvoteAction, replyAction]
-    );
+  //   const category = new NotificationCategory(
+  //     'SOME_CATEGORY',
+  //     [upvoteAction, replyAction]
+  //   );
 
-    Notifications.setCategories;
-  }
+  //   Notifications.setCategories;
+  // }
 
   const sendLocalNotification = () => {
     Notifications.postLocalNotification({
@@ -134,7 +134,7 @@ export default function NotificationsExampleApp() {
     }
   }
 
-  const renderNotification = (notification) => {
+  const renderNotification = (notification: Notification) => {
     return (
       <View style={{backgroundColor: 'lightgray', margin: 10}}>
         <Text>{`Title: ${notification.title}`}</Text>
@@ -144,7 +144,7 @@ export default function NotificationsExampleApp() {
     );
   }
 
-  const renderOpenedNotification = (notification) => {
+  const renderOpenedNotification = (notification: Notification) => {
     return (
       <View style={{backgroundColor: 'lightgray', margin: 10}}>
         <Text>{`Title: ${notification.title}`}</Text>
