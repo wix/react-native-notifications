@@ -1,0 +1,7 @@
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/x86_64/codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/ComponentDescriptors.cpp.o
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/x86_64/codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/EventEmitters.cpp.o
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/x86_64/codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/Props.cpp.o
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/x86_64/codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/ShadowNodes.cpp.o
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/x86_64/codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/States.cpp.o
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/x86_64/codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/rnnotificationsJSI-generated.cpp.o
+/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/x86_64/codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/rnnotifications-generated.cpp.o

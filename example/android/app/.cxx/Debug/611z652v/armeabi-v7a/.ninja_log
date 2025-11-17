@@ -1,0 +1,25 @@
+# ninja log v5
+5	1765	1763279717599541558	codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/ShadowNodes.cpp.o	ec1f3f74d398c89f
+6	1395	1763279717229694718	codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/States.cpp.o	20fac9e5cd73fbe9
+0	18	0	clean	51ad7e26b6cbecea
+26	84	1763286659894579987	build.ninja	4d81f6ac393c7c49
+5	1716	1763279717550665927	codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/Props.cpp.o	1c7167e75d88ea2e
+1	16	0	/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/armeabi-v7a/CMakeFiles/cmake.verify_globs	58e8e4f36b6465a4
+7	1727	1763279717561524257	codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/rnnotifications-generated.cpp.o	b21647a481a2c1c
+4	2059	1763279717890268125	CMakeFiles/appmodules.dir/OnLoad.cpp.o	157624a1b834f559
+5	1499	1763279717330131781	codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/EventEmitters.cpp.o	d80f6f8a4f15c131
+4	1768	1763279717600882917	CMakeFiles/appmodules.dir/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/generated/autolinking/src/main/jni/autolinking.cpp.o	e45cf915583e97c3
+4	1833	1763279717667909543	codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/ComponentDescriptors.cpp.o	d1e13fff59c4ce5f
+6	1623	1763279717454459230	codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/rnnotificationsJSI-generated.cpp.o	e885a6f39817c945
+2059	2158	1763279717993768111	/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/intermediates/cxx/Debug/611z652v/obj/armeabi-v7a/libappmodules.so	7d70b27d71c3b633
+0	19	0	/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/armeabi-v7a/CMakeFiles/cmake.verify_globs	58e8e4f36b6465a4
+3	1087	1763286661039338031	codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/States.cpp.o	20fac9e5cd73fbe9
+3	1441	1763286661389787166	codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/EventEmitters.cpp.o	d80f6f8a4f15c131
+3	1559	1763286661485315078	codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/rnnotificationsJSI-generated.cpp.o	e885a6f39817c945
+3	1646	1763286661598019150	codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/rnnotifications-generated.cpp.o	b21647a481a2c1c
+3	1785	1763286661731553804	codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/Props.cpp.o	1c7167e75d88ea2e
+3	1791	1763286661725600698	codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/ShadowNodes.cpp.o	ec1f3f74d398c89f
+3	1828	1763286661781344802	codegen_app_build/CMakeFiles/react_codegen_rnnotifications.dir/react/renderer/components/rnnotifications/ComponentDescriptors.cpp.o	d1e13fff59c4ce5f
+3	2139	1763286662086067897	CMakeFiles/appmodules.dir/OnLoad.cpp.o	157624a1b834f559
+2139	2238	1763286662193022902	/Users/danielel/Code/react-native-notifications/exampleNew/android/app/build/intermediates/cxx/Debug/611z652v/obj/armeabi-v7a/libappmodules.so	7d70b27d71c3b633
+1	45	0	/Users/danielel/Code/react-native-notifications/exampleNew/android/app/.cxx/Debug/611z652v/armeabi-v7a/CMakeFiles/cmake.verify_globs	58e8e4f36b6465a4

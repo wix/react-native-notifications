@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import {
   Notifications,
-  NotificationAction,
-  NotificationCategory,
+  // NotificationAction,
+  // NotificationCategory,
   NotificationBackgroundFetchResult,
   Notification,
 } from '../lib/src';
@@ -20,23 +20,29 @@ export default function NotificationsExampleApp() {
 
   useEffect(() => {
     registerNotificationEvents();
-    setCategories();
+    // setCategories();
     getInitialNotification();
   }, [])
 
   const registerNotificationEvents = () => {    
     Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
+      console.log('registerNotificationReceivedForeground', notification);
       setNotifications([...notifications, notification]);
       completion({alert: notification.payload.showAlert, sound: false, badge: false});
     });
-
+    
     Notifications.events().registerNotificationOpened((notification, completion) => {
       setOpenedNotifications([notification, ...openedNotifications]);
       completion();
     });
 
     Notifications.events().registerNotificationReceivedBackground((notification, completion) => {
+      console.log('registerNotificationReceivedBackground', notification);
       completion(NotificationBackgroundFetchResult.NO_DATA);
+    });
+
+    Notifications.events().registerRemoteNotificationsRegistered((event) => {
+      console.log('registerRemoteNotificationsRegistered', event);
     });
 
     if (Platform.OS === 'ios') {
@@ -46,9 +52,9 @@ export default function NotificationsExampleApp() {
     }
   }
 
-  const requestPermissionsIos = (options) => {
+  const requestPermissionsIos = (options: string[]) => {
     Notifications.ios.registerRemoteNotifications(
-      Object.fromEntries(options.map(opt => [opt, true]))
+      Object.fromEntries(options.map((opt: string) => [opt, true]))
     );
   }
 
@@ -56,33 +62,33 @@ export default function NotificationsExampleApp() {
     Notifications.registerRemoteNotifications();
   }
 
-  const setCategories = () => {
-    const upvoteAction = new NotificationAction(
-      'UPVOTE_ACTION',
-      'background',
-      String.fromCodePoint(0x1F44D),
-      false,
-    );
+  // const setCategories = () => {
+  //   const upvoteAction = new NotificationAction(
+  //     'UPVOTE_ACTION',
+  //     'background',
+  //     String.fromCodePoint(0x1F44D),
+  //     false,
+  //   );
 
-    const replyAction = new NotificationAction(
-      'REPLY_ACTION',
-      'background',
-      'Reply',
-      true,
-      {
-        buttonTitle: 'Reply now',
-        placeholder: 'Insert message'
-      },
-    );
+  //   const replyAction = new NotificationAction(
+  //     'REPLY_ACTION',
+  //     'background',
+  //     'Reply',
+  //     true,
+  //     {
+  //       buttonTitle: 'Reply now',
+  //       placeholder: 'Insert message'
+  //     },
+  //   );
 
 
-    const category = new NotificationCategory(
-      'SOME_CATEGORY',
-      [upvoteAction, replyAction]
-    );
+  //   const category = new NotificationCategory(
+  //     'SOME_CATEGORY',
+  //     [upvoteAction, replyAction]
+  //   );
 
-    Notifications.setCategories([category]);
-  }
+  //   Notifications.setCategories;
+  // }
 
   const sendLocalNotification = () => {
     Notifications.postLocalNotification({
@@ -128,7 +134,7 @@ export default function NotificationsExampleApp() {
     }
   }
 
-  const renderNotification = (notification) => {
+  const renderNotification = (notification: Notification) => {
     return (
       <View style={{backgroundColor: 'lightgray', margin: 10}}>
         <Text>{`Title: ${notification.title}`}</Text>
@@ -138,7 +144,7 @@ export default function NotificationsExampleApp() {
     );
   }
 
-  const renderOpenedNotification = (notification) => {
+  const renderOpenedNotification = (notification: Notification) => {
     return (
       <View style={{backgroundColor: 'lightgray', margin: 10}}>
         <Text>{`Title: ${notification.title}`}</Text>
