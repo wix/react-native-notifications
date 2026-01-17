@@ -139,6 +139,11 @@
     if ([RCTConvert BOOL:json[@"sound"]]) {
         options = options | UNNotificationPresentationOptionSound;
     }
+    if ([RCTConvert BOOL:json[@"list"]]) {
+        if (@available(iOS 14.0, *)) {
+            options = options | UNNotificationPresentationOptionList;
+        }
+    }
     
     return options;
 }

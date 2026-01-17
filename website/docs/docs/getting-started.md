@@ -96,7 +96,7 @@ class MyComponent extends Component {
 
     Notifications.events().registerNotificationReceivedForeground((notification: Notification, completion) => {
       console.log(`Notification received in foreground: ${notification.title} : ${notification.body}`);
-      completion({alert: false, sound: false, badge: false});
+      completion({alert: false, sound: false, badge: false, list: false});
     });
 
     Notifications.events().registerNotificationOpened((notification: Notification, completion) => {
