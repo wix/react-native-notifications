@@ -88,12 +88,24 @@ public class FcmToken implements IFcmToken {
     }
 
     protected void sendTokenToJS() {
-        final ReactInstanceManager instanceManager = ((ReactApplication) mAppContext).getReactNativeHost().getReactInstanceManager();
-        ReactContext reactContext = instanceManager.getCurrentReactContext();
+        ReactContext reactContext = null;
+
+        // Try New Architecture first (ReactHost) - available in RN 0.76+
+        try {
+            reactContext = ((ReactApplication) mAppContext).getReactHost().getCurrentReactContext();
+        } catch (NoSuchMethodError | RuntimeException e) {
+            // getReactHost() doesn't exist in older RN versions or throws in some cases
+            // Fall back to Old Architecture (ReactNativeHost)
+        }
 
         if (reactContext == null) {
-            // If the react context is not available, try to get the current context from the react host (RN0.76).
-            reactContext = ((ReactApplication) mAppContext).getReactHost().getCurrentReactContext();
+          try {
+              final ReactInstanceManager instanceManager = ((ReactApplication) mAppContext).getReactNativeHost().getReactInstanceManager();
+              reactContext = instanceManager.getCurrentReactContext();
+          } catch (RuntimeException e) {
+              // getReactNativeHost() throws RuntimeException in New Architecture
+              // This is expected, we'll just continue with null reactContext
+          }
         }
         // Note: Cannot assume react-context exists cause this is an async dispatched service.
         if (reactContext != null && reactContext.hasActiveReactInstance()) {
