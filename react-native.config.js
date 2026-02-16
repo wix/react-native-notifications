@@ -4,7 +4,7 @@ module.exports = {
       ios: {},
       android: {
         sourceDir: './lib/android/app',
-        packageInstance: 'new RNNotificationsPackage(reactNativeHost.getApplication())',
+        packageInstance: 'new RNNotificationsPackage(getApplication())',
       }
     },
   },
