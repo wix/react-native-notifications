@@ -194,3 +194,4 @@ package-lock.json
 
 # Typescript build
 lib/dist/
+config.bat
